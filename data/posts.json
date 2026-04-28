@@ -1,0 +1,30 @@
+[
+  {
+    "id": "welcome-lab",
+    "title": "よこぼのAIラボ、仮オープン",
+    "summary": "完成していなくても、今日のあそびを置いていくための研究ログを始めました。",
+    "category": "気づき",
+    "status": "public",
+    "tags": ["ラボ", "はじめに", "今日のあそび"],
+    "thumbnail": "/design-reference/lp_reference.png",
+    "images": ["/design-reference/character_reference.png", "/design-reference/logo-reference.png"],
+    "body": "## 完成してなくてOK\n\nAIで作った画像、ゲームのメモ、3Dの試作、失敗ログを気軽に置いていく場所です。\n\n- 画像を置いたら、もう投稿\n- ひとことだけでも保存\n- あとから育てる",
+    "links": [],
+    "createdAt": "2026-04-28T10:00:00.000Z",
+    "updatedAt": "2026-04-28T10:00:00.000Z"
+  },
+  {
+    "id": "image-first-note",
+    "title": "画像だけ先に置く実験",
+    "summary": "文章がまだなくても、生成画像を先に保存して未来の自分に渡す。",
+    "category": "画像生成",
+    "status": "public",
+    "tags": ["画像生成", "メモ"],
+    "thumbnail": "/design-reference/character_design_sheet.png",
+    "images": ["/design-reference/character_design_sheet.png"],
+    "body": "画像を見返すだけで、あとから設定やゲーム案が出てくることがあります。",
+    "links": [],
+    "createdAt": "2026-04-27T10:00:00.000Z",
+    "updatedAt": "2026-04-27T10:00:00.000Z"
+  }
+]
