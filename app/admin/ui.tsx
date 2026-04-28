@@ -1,7 +1,7 @@
 "use client";
 
 /* eslint-disable @next/next/no-img-element */
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { categories, type Post } from "@/lib/schema";
 import "./admin.css";
 
@@ -34,6 +34,8 @@ export default function AdminApp() {
   const [message, setMessage] = useState("");
   const [preview, setPreview] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [publicPath, setPublicPath] = useState("");
+  const bodyRef = useRef<HTMLTextAreaElement | null>(null);
 
   const headers = useMemo(() => ({ "content-type": "application/json", "x-admin-password": password }), [password]);
 
@@ -56,6 +58,11 @@ export default function AdminApp() {
 
   function update<K extends keyof Post>(key: K, value: Post[K]) {
     setCurrent((post) => ({ ...post, [key]: value }));
+  }
+
+  function selectPost(post: Post) {
+    setCurrent(post);
+    setPublicPath(post.status === "public" ? `/posts/${post.id}` : "");
   }
 
   function tagText() {
@@ -100,6 +107,7 @@ export default function AdminApp() {
       return;
     }
     setCurrent(data);
+    setPublicPath(status === "public" ? `/posts/${data.id}` : "");
     await loadPosts();
     setMessage(status === "public" ? "公開しました。" : "下書き保存しました。");
   }
@@ -128,7 +136,26 @@ export default function AdminApp() {
   }
 
   function insertMarkdownImage(image: string) {
-    update("body", `${current.body}${current.body ? "\n\n" : ""}![画像](${image})`);
+    const markdown = `![画像](${image})`;
+    const textarea = bodyRef.current;
+    if (!textarea) {
+      update("body", `${current.body}${current.body ? "\n\n" : ""}${markdown}`);
+      return;
+    }
+
+    const start = textarea.selectionStart ?? current.body.length;
+    const end = textarea.selectionEnd ?? current.body.length;
+    const before = current.body.slice(0, start);
+    const after = current.body.slice(end);
+    const prefix = before && !before.endsWith("\n") ? "\n\n" : "";
+    const suffix = after && !after.startsWith("\n") ? "\n\n" : "";
+    const nextBody = `${before}${prefix}${markdown}${suffix}${after}`;
+    update("body", nextBody);
+    requestAnimationFrame(() => {
+      textarea.focus();
+      const pos = before.length + prefix.length + markdown.length;
+      textarea.setSelectionRange(pos, pos);
+    });
   }
 
   if (!authed) {
@@ -156,9 +183,9 @@ export default function AdminApp() {
 
       <div className="adminLayout">
         <aside className="postList">
-          <button className="newButton" type="button" onClick={() => setCurrent(emptyPost())}>＋ 新しいあそび</button>
+          <button className="newButton" type="button" onClick={() => { setCurrent(emptyPost()); setPublicPath(""); }}>＋ 新しいあそび</button>
           {posts.map((post) => (
-            <button className={post.id === current.id ? "active" : ""} key={post.id} type="button" onClick={() => setCurrent(post)}>
+            <button className={post.id === current.id ? "active" : ""} key={post.id} type="button" onClick={() => selectPost(post)}>
               <span>{post.title || "無題のあそび"}</span>
               <small>{post.status === "public" ? "公開" : "下書き"} / {post.category}</small>
             </button>
@@ -177,31 +204,47 @@ export default function AdminApp() {
           <label>タグ（カンマ区切り）<input value={tagText()} onChange={(event) => setTagText(event.target.value)} placeholder="画像生成, 今日のあそび" /></label>
 
           <div className="uploadBox">
-            <div>
-              <strong>サムネ画像</strong>
-              <p>iPhoneの写真ライブラリから選べます。HEICはJPEG/PNGに変換してからアップロードしてください。</p>
+            <div className="uploadHeader">
+              <div>
+                <strong>サムネ画像</strong>
+                <p>現在のサムネがここに表示されます。iPhoneの写真ライブラリから選べます。</p>
+              </div>
+              <span className={current.thumbnail ? "statusPill ok" : "statusPill"}>{current.thumbnail ? "設定済み" : "未設定"}</span>
             </div>
             <input type="file" accept="image/jpeg,image/png,image/webp" onChange={(event) => upload(event.target.files, "thumbnail")} />
-            {current.thumbnail ? <img src={current.thumbnail} alt="" /> : null}
+            {current.thumbnail ? (
+              <div className="imagePreview currentThumb">
+                <img src={current.thumbnail} alt="現在のサムネ画像" />
+                <div>
+                  <small>サムネ: {current.thumbnail}</small>
+                  <button type="button" onClick={() => insertMarkdownImage(current.thumbnail)}>本文に挿入</button>
+                </div>
+              </div>
+            ) : null}
           </div>
 
           <div className="uploadBox">
-            <div>
-              <strong>ギャラリー画像</strong>
-              <p>複数選択できます。画像を置いたら、もう投稿。</p>
+            <div className="uploadHeader">
+              <div>
+                <strong>ギャラリー画像</strong>
+                <p>複数選択できます。各画像の「本文に挿入」でMarkdown欄へ追加できます。</p>
+              </div>
+              <span className={current.images.length ? "statusPill ok" : "statusPill"}>{current.images.length}枚</span>
             </div>
             <input type="file" accept="image/jpeg,image/png,image/webp" multiple onChange={(event) => upload(event.target.files, "gallery")} />
             <div className="uploadedGrid">
-              {current.images.map((image) => (
-                <div key={image}>
-                  <img src={image} alt="" />
-                  <button type="button" onClick={() => insertMarkdownImage(image)}>Markdownに挿入</button>
+              {current.images.map((image, index) => (
+                <div className="imageTile" key={image}>
+                  <span className="imageBadge">ギャラリー {index + 1}</span>
+                  <img src={image} alt={`ギャラリー画像 ${index + 1}`} />
+                  <small>{image}</small>
+                  <button type="button" onClick={() => insertMarkdownImage(image)}>本文に挿入</button>
                 </div>
               ))}
             </div>
           </div>
 
-          <label>本文 Markdown<textarea className="bodyInput" value={current.body} onChange={(event) => update("body", event.target.value)} rows={12} /></label>
+          <label>本文 Markdown<textarea ref={bodyRef} className="bodyInput" value={current.body} onChange={(event) => update("body", event.target.value)} rows={12} /></label>
           <label>関連リンク（1行に「ラベル,URL」）<textarea value={linkText()} onChange={(event) => setLinkText(event.target.value)} rows={4} /></label>
 
           {preview ? (
@@ -214,6 +257,7 @@ export default function AdminApp() {
           ) : null}
 
           {message ? <p className="adminMessage">{message}</p> : null}
+          {publicPath ? <a className="publicLink" href={publicPath} target="_blank" rel="noreferrer">公開ページを開く</a> : null}
           <div className="actionBar">
             <button type="button" onClick={() => setPreview(!preview)}>プレビュー</button>
             <button type="button" disabled={saving} onClick={() => save("draft")}>Save Draft</button>
