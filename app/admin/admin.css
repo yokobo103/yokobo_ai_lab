@@ -13,7 +13,8 @@
   padding: 20px;
 }
 
-.adminGate > div {
+.adminGate > div,
+.adminGate > form {
   width: min(520px, 100%);
   padding: 28px;
   border: 1px solid #cfe0f5;
@@ -68,7 +69,8 @@
 
 .adminGate button,
 .editorPanel button,
-.postList button {
+.postList button,
+.logoutButton {
   border: 0;
   background: #2f7df6;
   color: white;
@@ -76,6 +78,10 @@
 }
 
 .adminHero {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
   width: min(1180px, calc(100% - 28px));
   margin: 0 auto;
   padding: 34px 0 22px;
@@ -84,6 +90,19 @@
 .adminHero h1 {
   max-width: 840px;
   font-size: clamp(30px, 6vw, 54px);
+}
+
+.adminHint {
+  font-size: 13px;
+}
+
+.logoutButton {
+  width: auto;
+  min-height: 48px;
+  padding: 0 18px;
+  border-radius: 999px;
+  background: #102861;
+  white-space: nowrap;
 }
 
 .adminLayout {
@@ -157,6 +176,22 @@
 
 .bodyInput {
   min-height: 240px;
+}
+
+.markdownToolbar {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.markdownToolbar button {
+  min-height: 46px;
+  padding: 0 8px;
+  border: 1px solid #cfe0f5;
+  background: #ffffff;
+  color: #102861;
+  font-size: 13px;
 }
 
 .uploadBox {
@@ -350,7 +385,16 @@
   }
 
   .adminHero {
+    display: grid;
     padding-top: 24px;
+  }
+
+  .logoutButton {
+    width: 100%;
+  }
+
+  .markdownToolbar {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .editorPanel {

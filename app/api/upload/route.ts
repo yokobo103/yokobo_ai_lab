@@ -4,6 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { isAdminPassword, makeSlug } from "@/lib/posts";
 
 const supportedTypes = ["image/jpeg", "image/png", "image/webp"];
+const authError = { message: "パスワードが違います。再ログインしてください" };
 
 async function optimizeImage(buffer: Buffer, role: string) {
   try {
@@ -16,21 +17,19 @@ async function optimizeImage(buffer: Buffer, role: string) {
         .resize({ width: max, height: max, fit: "inside", withoutEnlargement: true })
         .webp({ quality: 82 })
         .toBuffer(),
-      extension: "webp",
-      contentType: "image/webp"
+      extension: "webp"
     };
   } catch {
     return {
       buffer,
-      extension: "bin",
-      contentType: "application/octet-stream"
+      extension: "bin"
     };
   }
 }
 
 export async function POST(request: NextRequest) {
   if (!isAdminPassword(request.headers.get("x-admin-password"))) {
-    return NextResponse.json({ message: "パスワードが違います。" }, { status: 401 });
+    return NextResponse.json(authError, { status: 401 });
   }
 
   const formData = await request.formData();

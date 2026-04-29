@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { isAdminPassword, normalizePost, readPosts, validatePost, writePosts } from "@/lib/posts";
 
+const authError = { message: "パスワードが違います。再ログインしてください" };
+
 export async function PUT(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   if (!isAdminPassword(request.headers.get("x-admin-password"))) {
-    return NextResponse.json({ message: "パスワードが違います。" }, { status: 401 });
+    return NextResponse.json(authError, { status: 401 });
   }
 
   const { id } = await params;

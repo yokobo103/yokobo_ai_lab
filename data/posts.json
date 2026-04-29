@@ -1,13 +1,36 @@
 [
   {
+    "id": "c39d699e-bbda-4931-8d4b-0bac6c723b97",
+    "title": "",
+    "summary": "",
+    "category": "メモ",
+    "status": "public",
+    "tags": [],
+    "thumbnail": "/uploads/c39d699e-bbda-4931-8d4b-0bac6c723b97/thumbnail-1777419995450-gnzlcr.webp",
+    "images": [
+      "/uploads/c39d699e-bbda-4931-8d4b-0bac6c723b97/gallery-1777420048746-bdyer4.webp"
+    ],
+    "body": "## テストですん\n\n本文中に入れたりできるかな？\n\n![画像](/uploads/c39d699e-bbda-4931-8d4b-0bac6c723b97/gallery-1777420048746-bdyer4.webp)\n\nねずみ！",
+    "links": [],
+    "createdAt": "2026-04-28T23:46:12.818Z",
+    "updatedAt": "2026-04-28T23:47:48.569Z"
+  },
+  {
     "id": "welcome-lab",
     "title": "よこぼのAIラボ、仮オープン",
     "summary": "完成していなくても、今日のあそびを置いていくための研究ログを始めました。",
     "category": "気づき",
     "status": "public",
-    "tags": ["ラボ", "はじめに", "今日のあそび"],
+    "tags": [
+      "ラボ",
+      "はじめに",
+      "今日のあそび"
+    ],
     "thumbnail": "/design-reference/lp_reference.png",
-    "images": ["/design-reference/character_reference.png", "/design-reference/logo-reference.png"],
+    "images": [
+      "/design-reference/character_reference.png",
+      "/design-reference/logo-reference.png"
+    ],
     "body": "## 完成してなくてOK\n\nAIで作った画像、ゲームのメモ、3Dの試作、失敗ログを気軽に置いていく場所です。\n\n- 画像を置いたら、もう投稿\n- ひとことだけでも保存\n- あとから育てる",
     "links": [],
     "createdAt": "2026-04-28T10:00:00.000Z",
@@ -19,9 +42,14 @@
     "summary": "文章がまだなくても、生成画像を先に保存して未来の自分に渡す。",
     "category": "画像生成",
     "status": "public",
-    "tags": ["画像生成", "メモ"],
+    "tags": [
+      "画像生成",
+      "メモ"
+    ],
     "thumbnail": "/design-reference/character_design_sheet.png",
-    "images": ["/design-reference/character_design_sheet.png"],
+    "images": [
+      "/design-reference/character_design_sheet.png"
+    ],
     "body": "画像を見返すだけで、あとから設定やゲーム案が出てくることがあります。",
     "links": [],
     "createdAt": "2026-04-27T10:00:00.000Z",

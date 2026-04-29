@@ -1,15 +1,26 @@
 import { NextRequest, NextResponse } from "next/server";
 import { isAdminPassword, normalizePost, readPosts, validatePost, writePosts } from "@/lib/posts";
 
+const authError = { message: "パスワードが違います。再ログインしてください" };
+
 export async function GET(request: NextRequest) {
-  const admin = isAdminPassword(request.headers.get("x-admin-password"));
+  const headerPassword = request.headers.get("x-admin-password");
   const posts = await readPosts();
-  return NextResponse.json(admin ? posts : posts.filter((post) => post.status === "public"));
+
+  if (!headerPassword) {
+    return NextResponse.json(posts.filter((post) => post.status === "public"));
+  }
+
+  if (!isAdminPassword(headerPassword)) {
+    return NextResponse.json(authError, { status: 401 });
+  }
+
+  return NextResponse.json(posts);
 }
 
 export async function POST(request: NextRequest) {
   if (!isAdminPassword(request.headers.get("x-admin-password"))) {
-    return NextResponse.json({ message: "パスワードが違います。" }, { status: 401 });
+    return NextResponse.json(authError, { status: 401 });
   }
 
   const input = await request.json();

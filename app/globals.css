@@ -44,6 +44,7 @@ img {
   border-inline: 1px solid rgba(16, 40, 97, 0.12);
   border-radius: 0 0 26px 26px;
   background:
+    radial-gradient(circle at 68% 18%, rgba(47, 125, 246, 0.18), transparent 24%),
     radial-gradient(circle at 10% 6%, rgba(207, 236, 255, 0.95), transparent 26%),
     linear-gradient(180deg, #ffffff 0%, #f7fbff 54%, #ffffff 100%);
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.9);
@@ -100,18 +101,33 @@ img {
 }
 
 .hero {
+  position: relative;
   display: grid;
-  grid-template-columns: minmax(390px, 0.88fr) minmax(540px, 1.12fr);
+  grid-template-columns: minmax(360px, 0.72fr) minmax(680px, 1.28fr);
   align-items: center;
-  gap: 34px;
-  min-height: 720px;
-  padding-top: 44px;
-  padding-bottom: 38px;
+  gap: 10px;
+  min-height: calc(100vh - 94px);
+  padding-top: 28px;
+  padding-bottom: 26px;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  right: -9%;
+  top: 4%;
+  width: 58%;
+  height: 76%;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(47, 125, 246, 0.16), transparent 68%);
+  filter: blur(10px);
+  pointer-events: none;
 }
 
 .heroText {
   position: relative;
-  z-index: 2;
+  z-index: 4;
+  max-width: 560px;
 }
 
 .eyebrow {
@@ -130,8 +146,9 @@ img {
 }
 
 .heroText h1 {
-  font-size: clamp(54px, 7.2vw, 88px);
+  font-size: clamp(58px, 7.6vw, 96px);
   font-weight: 950;
+  text-shadow: 0 10px 28px rgba(16, 40, 97, 0.08);
 }
 
 .heroText h1 span {
@@ -147,8 +164,8 @@ img {
 
 .heroLead {
   max-width: 560px;
-  margin: 24px 0 0;
-  font-size: 16px;
+  margin: 22px 0 0;
+  font-size: 17px;
   font-weight: 650;
 }
 
@@ -163,7 +180,7 @@ img {
 }
 
 .heroActions {
-  margin-top: 26px;
+  margin-top: 24px;
 }
 
 .button {
@@ -196,17 +213,32 @@ img {
 
 .heroVisual {
   position: relative;
-  min-height: 610px;
+  z-index: 2;
+  min-height: min(76vh, 760px);
+  margin-right: -74px;
+  margin-left: -28px;
+  transform: translateY(-4px);
   overflow: hidden;
   border: 1px solid var(--line);
-  border-radius: 42px;
+  border-radius: 46px 0 0 46px;
   background: white;
-  box-shadow: var(--shadow);
+  box-shadow: 0 28px 70px rgba(30, 86, 150, 0.22);
+}
+
+.heroVisual::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.72), transparent 34%),
+    radial-gradient(circle at 58% 24%, rgba(255, 255, 255, 0.22), transparent 24%);
+  pointer-events: none;
 }
 
 .heroVisual img {
   object-fit: cover;
-  object-position: 55% center;
+  object-position: 59% center;
+  transform: scale(1.08);
 }
 
 .sectionTitle {
@@ -216,6 +248,10 @@ img {
 
 .compactTitle {
   margin-bottom: 22px;
+}
+
+.thoughts .compactTitle {
+  margin-bottom: 16px;
 }
 
 .sectionTitle h1,
@@ -228,27 +264,27 @@ img {
 }
 
 .thoughts {
-  padding-top: 36px;
-  padding-bottom: 54px;
+  padding-top: 26px;
+  padding-bottom: 38px;
 }
 
 .thoughtGrid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 38px;
+  gap: 26px;
 }
 
 .thoughtCard {
   position: relative;
-  min-height: 172px;
-  padding: 26px 18px 22px;
+  min-height: 142px;
+  padding: 20px 14px 16px;
   border: 1px solid var(--line);
   border-radius: 22px;
   background: rgba(255, 255, 255, 0.9);
   color: var(--navy);
   text-align: center;
   font-weight: 850;
-  line-height: 1.65;
+  line-height: 1.5;
   box-shadow: 0 10px 28px rgba(16, 40, 97, 0.06);
 }
 
@@ -256,9 +292,9 @@ img {
   content: "";
   position: absolute;
   left: 42%;
-  bottom: -18px;
-  width: 44px;
-  height: 28px;
+  bottom: -14px;
+  width: 34px;
+  height: 22px;
   border: solid var(--line);
   border-width: 0 1px 1px 0;
   background: white;
@@ -266,19 +302,32 @@ img {
 }
 
 .thoughtCard img {
-  margin-bottom: 12px;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 10px;
+}
+
+.thoughtCard p {
+  margin: 0;
+  font-size: 13px;
 }
 
 .supportCopy {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 16px;
-  margin: 36px 0 0;
+  gap: 12px;
+  margin: 24px 0 0;
   color: var(--navy);
-  font-size: clamp(21px, 3vw, 30px);
+  font-size: clamp(19px, 2.4vw, 26px);
   font-weight: 950;
   text-align: center;
+  line-height: 1.35;
+}
+
+.supportCopy img {
+  width: 44px;
+  height: 44px;
 }
 
 .playSection,
@@ -288,6 +337,20 @@ img {
   padding-inline: max(36px, calc((100% - 1290px) / 2));
   background: rgba(234, 246, 255, 0.72);
   border-block: 1px solid rgba(207, 224, 245, 0.78);
+}
+
+.playSection {
+  padding-top: 52px;
+  padding-bottom: 48px;
+}
+
+.playSection .sectionTitle {
+  margin-bottom: 22px;
+}
+
+.playSection .sectionTitle p {
+  margin: 8px 0 0;
+  line-height: 1.55;
 }
 
 .logsSection {
@@ -306,6 +369,7 @@ img {
 
 .playGrid {
   grid-template-columns: repeat(6, 1fr);
+  gap: 14px;
 }
 
 .playCard,
@@ -320,7 +384,7 @@ img {
 }
 
 .playCard {
-  padding: 14px 14px 20px;
+  padding: 12px 12px 16px;
   text-align: center;
 }
 
@@ -334,8 +398,8 @@ img {
 }
 
 .playThumb {
-  aspect-ratio: 1.14 / 1;
-  margin-bottom: 14px;
+  aspect-ratio: 1.36 / 1;
+  margin-bottom: 10px;
 }
 
 .playThumb img,
@@ -356,9 +420,16 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 7px;
-  margin: 0 0 8px;
-  font-size: 18px;
+  gap: 6px;
+  margin: 0 0 6px;
+  font-size: 16px;
+  line-height: 1.35;
+}
+
+.playCard h3 img {
+  width: 24px;
+  height: 24px;
+  flex: 0 0 auto;
 }
 
 .playCard p,
@@ -369,10 +440,20 @@ img {
   line-height: 1.75;
 }
 
+.playCard p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
 .centerAction {
   display: flex;
   justify-content: center;
   margin-top: 28px;
+}
+
+.playSection .centerAction {
+  margin-top: 22px;
 }
 
 .postGrid {
@@ -647,10 +728,19 @@ img {
   .hero {
     grid-template-columns: 1fr;
     min-height: auto;
+    gap: 24px;
+    padding-top: 30px;
   }
 
   .heroVisual {
-    min-height: 560px;
+    min-height: min(68vh, 620px);
+    margin: 0;
+    border-radius: 40px;
+  }
+
+  .heroVisual img {
+    object-position: 60% center;
+    transform: scale(1.04);
   }
 
   .thoughtGrid,
@@ -698,8 +788,29 @@ img {
     padding: 46px 0;
   }
 
+  .hero {
+    width: 100%;
+    padding: 24px 14px 30px;
+    gap: 18px;
+  }
+
+  .heroText {
+    width: min(100%, 520px);
+    margin: 0 auto;
+  }
+
   .heroText h1 {
-    font-size: clamp(42px, 14vw, 62px);
+    font-size: clamp(42px, 14vw, 66px);
+  }
+
+  .heroLead {
+    margin-top: 16px;
+    font-size: 15px;
+    line-height: 1.75;
+  }
+
+  .heroActions {
+    margin-top: 18px;
   }
 
   .heroActions .button {
@@ -707,12 +818,20 @@ img {
   }
 
   .heroVisual {
-    min-height: 390px;
-    border-radius: 28px;
+    width: calc(100% + 24px);
+    min-height: min(58vh, 520px);
+    margin-left: -12px;
+    border-radius: 30px;
+    box-shadow: 0 22px 56px rgba(30, 86, 150, 0.24);
   }
 
   .heroVisual img {
-    object-position: 58% center;
+    object-position: 64% center;
+    transform: scale(1.12);
+  }
+
+  .heroVisual::after {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 42%);
   }
 
   .thoughtGrid,
@@ -723,9 +842,28 @@ img {
     grid-template-columns: 1fr;
   }
 
+  .thoughts {
+    padding-top: 34px;
+    padding-bottom: 36px;
+  }
+
+  .thoughtGrid {
+    gap: 16px;
+  }
+
+  .thoughtCard {
+    min-height: 0;
+    padding: 18px 16px;
+  }
+
+  .thoughtCard::after {
+    display: none;
+  }
+
   .supportCopy {
     align-items: flex-start;
     font-size: 21px;
+    margin-top: 22px;
   }
 
   .supportCopy img {
@@ -736,6 +874,23 @@ img {
   .playSection,
   .logsSection {
     padding-inline: 14px;
+  }
+
+  .playSection {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+
+  .playSection .sectionTitle {
+    margin-bottom: 18px;
+  }
+
+  .playGrid {
+    gap: 14px;
+  }
+
+  .playThumb {
+    aspect-ratio: 1.55 / 1;
   }
 
   .researcherPanel {
