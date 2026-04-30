@@ -1,21 +1,46 @@
 import Image from "next/image";
 import Link from "next/link";
 
+const navLinks = [
+  { href: "/", label: "ホーム" },
+  { href: "/posts", label: "発見ログ" },
+  { href: "/#themes", label: "遊びのテーマ" },
+  { href: "/posts", label: "ツール・素材" },
+  { href: "/#newsletter-heading", label: "よこぼについて" }
+];
+
 export function SiteHeader() {
   return (
     <header className="siteHeader">
       <Link className="brand" href="/" aria-label="よこぼのAIラボ ホーム">
-        <span className="brandLogo">
-          <Image src="/design-reference/lp_logo.png" alt="よこぼのAIラボ" width={360} height={118} priority />
-        </span>
+        <Image src="/design-reference/lp_logo.png" alt="よこぼのAIラボ" width={360} height={118} priority />
       </Link>
-      <nav>
-        <Link href="/">ホーム</Link>
-        <Link href="/#play">よこぼのあそび</Link>
-        <Link href="/posts">研究ログ</Link>
-        <Link href="/#researchers">キャラ紹介</Link>
-        <Link href="/admin">Admin</Link>
+      <nav aria-label="メインナビゲーション">
+        {navLinks.map((link) => (
+          <Link href={link.href} key={link.label}>
+            {link.label}
+          </Link>
+        ))}
       </nav>
+      <Link className="contactButton" href="/admin">
+        お問い合わせ
+        <Image src="/assets/decor/paw-blue.svg" alt="" width={22} height={22} />
+      </Link>
+      <details className="mobileMenu">
+        <summary className="mobileMenuButton" aria-label="メニューを開く">
+          <span />
+          <span />
+          <span />
+        </summary>
+        <div className="mobileMenuPanel">
+          {navLinks.map((link) => (
+            <Link href={link.href} key={link.label}>
+              {link.label}
+            </Link>
+          ))}
+          <Link href="/admin">お問い合わせ</Link>
+        </div>
+      </details>
     </header>
   );
 }
@@ -23,16 +48,23 @@ export function SiteHeader() {
 export function SiteFooter() {
   return (
     <footer className="siteFooter">
-      <Image className="footerRobot" src="/assets/cta/nyabbit-banner.png" alt="" width={260} height={245} />
-      <div className="footerContent">
-        <p className="footerTitle">一緒に、未来を研究しよう！</p>
-        <p>完成してなくてOK。今日のあそびを、まず置いておく。</p>
-        <div className="footerSignup">
-          <span>ラボ通信を受け取る</span>
-          <Image src="/assets/decor/paw-navy.svg" alt="" width={22} height={22} />
-        </div>
+      <div className="footerBrand">
+        <Image src="/design-reference/lp_logo.png" alt="よこぼのAIラボ" width={260} height={86} />
       </div>
-      <Image className="footerCat" src="/assets/cta/dr-yokobo-waving.png" alt="" width={300} height={300} />
+      <nav aria-label="フッターナビゲーション">
+        {navLinks.map((link) => (
+          <Link href={link.href} key={link.label}>
+            {link.label}
+          </Link>
+        ))}
+        <Link href="/admin">お問い合わせ</Link>
+      </nav>
+      <Link className="footerContact" href="/admin">
+        お問い合わせ
+        <Image src="/assets/decor/paw-blue.svg" alt="" width={22} height={22} />
+      </Link>
+      <p>© YOKOBO AI LAB All Rights Reserved.</p>
+      <Image className="footerPaw" src="/assets/decor/paw-blue.svg" alt="" width={28} height={28} />
     </footer>
   );
 }
