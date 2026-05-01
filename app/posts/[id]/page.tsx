@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { getPostCategories } from "@/lib/log-categories";
 import { markdownToHtml } from "@/lib/markdown";
 import { getPost } from "@/lib/posts";
 import { SiteFooter, SiteHeader } from "../../site-chrome";
@@ -17,12 +18,9 @@ export default async function PostDetail({ params }: { params: Promise<{ id: str
       <SiteHeader />
       <main className="articleShell">
         <Link className="backLink" href="/logs">← 研究ログ一覧へ</Link>
-        <p className="eyebrow">{post.category}</p>
+        <p className="eyebrow">{getPostCategories(post).join(" / ")}</p>
         <h1>{post.title || "無題のあそび"}</h1>
         <p className="articleSummary">{post.summary || "画像を置いたら、もう投稿。"}</p>
-        <div className="tagRow">
-          {post.tags.map((tag) => <span key={tag}>#{tag}</span>)}
-        </div>
         {post.thumbnail ? (
           <div className="articleHero">
             <Image src={post.thumbnail} alt="" fill priority sizes="(max-width: 900px) 100vw, 900px" />

@@ -115,7 +115,6 @@ img {
   background: var(--blue);
 }
 
-.contactButton,
 .footerContact {
   display: inline-flex;
   align-items: center;
@@ -129,6 +128,80 @@ img {
   font-size: 15px;
   font-weight: 900;
   box-shadow: 0 8px 24px rgba(20, 88, 170, 0.14);
+}
+
+.siteSearch {
+  display: grid;
+  grid-template-columns: minmax(128px, 180px) 42px;
+  align-items: center;
+  min-height: 52px;
+  padding: 0 6px 0 18px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 8px 24px rgba(20, 88, 170, 0.14);
+}
+
+.siteSearch input {
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--navy);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 850;
+}
+
+.siteSearch input::placeholder {
+  color: #6b83ad;
+}
+
+.siteSearch button {
+  display: inline-grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border: 0;
+  border-radius: 999px;
+  background: #dff0ff;
+  color: var(--blue);
+}
+
+.siteSearch svg {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.mobileSearch {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+  padding: 8px;
+}
+
+.mobileSearch input,
+.mobileSearch button {
+  min-height: 44px;
+  border-radius: 14px;
+  font: inherit;
+  font-weight: 850;
+}
+
+.mobileSearch input {
+  min-width: 0;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+}
+
+.mobileSearch button {
+  padding: 0 14px;
+  border: 0;
+  background: var(--blue);
+  color: white;
 }
 
 .mobileMenuButton {
@@ -618,9 +691,9 @@ img {
 
 .newsletterCat {
   position: absolute;
-  right: 18px;
+  right: 14px;
   bottom: 0;
-  width: 132px;
+  width: 140px;
   height: auto;
   object-fit: contain;
   filter: drop-shadow(0 10px 14px rgba(0, 31, 78, 0.12));
@@ -914,6 +987,17 @@ img {
     font-size: 13px;
   }
 
+  .siteSearch {
+    grid-template-columns: minmax(110px, 150px) 38px;
+    min-height: 48px;
+    padding-left: 14px;
+  }
+
+  .siteSearch button {
+    width: 38px;
+    height: 38px;
+  }
+
   .lpHero {
     height: 560px;
     padding-inline: 30px;
@@ -949,7 +1033,7 @@ img {
   }
 
   .siteHeader > nav,
-  .contactButton {
+  .siteSearch {
     display: none;
   }
 
@@ -1157,9 +1241,9 @@ img {
   }
 
   .newsletterCat {
-    right: 12px;
+    right: 10px;
     bottom: 0;
-    width: 132px;
+    width: 138px;
   }
 
   .siteFooter {
@@ -2813,19 +2897,19 @@ img {
 }
 
 .aboutPage .originDialogue {
-  grid-template-columns: 72px minmax(280px, 430px);
-  gap: 14px;
+  grid-template-columns: 136px minmax(280px, 430px);
+  gap: 22px;
   align-items: center;
 }
 
 .aboutPage .originDialogue.nyabbit {
-  grid-template-columns: minmax(260px, 380px) 72px;
+  grid-template-columns: minmax(260px, 380px) 136px;
   justify-content: end;
 }
 
 .aboutPage .originDialogue img {
-  width: 68px;
-  height: 68px;
+  width: 132px;
+  height: 132px;
   background-color: #fff;
   background-repeat: no-repeat;
   background-position: center;
@@ -3131,8 +3215,8 @@ img {
 
   .aboutPage .originDialogue,
   .aboutPage .originDialogue.nyabbit {
-    grid-template-columns: 54px minmax(0, 1fr);
-    gap: 12px;
+    grid-template-columns: 92px minmax(0, 1fr);
+    gap: 14px;
     justify-content: stretch;
   }
 
@@ -3143,8 +3227,8 @@ img {
   }
 
   .aboutPage .originDialogue img {
-    width: 54px;
-    height: 54px;
+    width: 88px;
+    height: 88px;
   }
 
   .aboutPage .originBubble {

@@ -197,14 +197,6 @@ export default function AboutPage() {
     <div className="pageFrame aboutPage">
       <SiteHeader active="about" />
       <main className="aboutMain">
-        <nav className="breadcrumb" aria-label="パンくずリスト">
-          <Link href="/">ホーム</Link>
-          <span aria-hidden="true">›</span>
-          <Link href="/about">よこぼについて</Link>
-          <span aria-hidden="true">›</span>
-          <span>よこぼのAIラボってなに？</span>
-        </nav>
-
         <section className="exHero" aria-labelledby="about-title">
           <div className="exHeroCopy">
             <div className="aboutTitleMark">

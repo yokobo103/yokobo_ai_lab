@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { logCategoryLinks } from "@/lib/log-categories";
+import { getPostCategories, logCategoryLinks } from "@/lib/log-categories";
 import { readPosts } from "@/lib/posts";
 import { SiteFooter, SiteHeader } from "./site-chrome";
 
@@ -16,14 +16,25 @@ function formatPostDate(value: string) {
   }).format(date);
 }
 
+function makeExcerpt(post: { summary: string; body: string }) {
+  const source = post.summary || post.body || "画像を置いたら、もう投稿。";
+  return source
+    .replace(/!\[[^\]]*]\([^)]*\)/g, " ")
+    .replace(/\[[^\]]+]\([^)]*\)/g, " ")
+    .replace(/[#*>`_\-\n]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, 62) || "画像を置いたら、もう投稿。";
+}
+
 export default async function Home() {
   const posts = (await readPosts()).filter((post) => post.status === "public");
   const latestPosts = posts.slice(0, 4).map((post) => ({
     href: `/posts/${post.id}`,
-    category: post.category,
+    category: getPostCategories(post).join(" / "),
     date: formatPostDate(post.updatedAt || post.createdAt),
     title: post.title || "無題のあそび",
-    summary: post.summary || (post.body ? post.body.replace(/[#*>\-\n]/g, " ").trim().slice(0, 56) : "画像を置いたら、もう投稿。"),
+    summary: makeExcerpt(post),
     image: post.thumbnail || post.images[0] || "/assets/logs/thumb-future-lab.webp"
   }));
 
@@ -152,7 +163,7 @@ export default async function Home() {
                 </div>
                 <Image
                   className="newsletterCat"
-                  src="/assets/characters/nyabbit-profile.png"
+                  src="/assets/characters/yokobo-reference.webp"
                   alt=""
                   width={300}
                   height={300}

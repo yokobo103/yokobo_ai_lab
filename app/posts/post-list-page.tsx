@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { filterPostsByLogCategory, getLogCategoryLabel, logCategoryLinks } from "@/lib/log-categories";
+import { filterPostsByLogCategory, getLogCategoryLabel, getPostCategories, logCategoryLinks } from "@/lib/log-categories";
 import { readPosts } from "@/lib/posts";
 import { SiteFooter, SiteHeader } from "../site-chrome";
 
@@ -48,12 +48,9 @@ export async function PostListPage({ searchParams }: PostListPageProps) {
                 <div className="postThumb">
                   {post.thumbnail ? <Image src={post.thumbnail} alt="" fill sizes="(max-width: 720px) 100vw, 320px" /> : null}
                 </div>
-                <span className="chip">{post.category}</span>
+                <span className="chip">{getPostCategories(post).join(" / ")}</span>
                 <h2>{post.title || "無題のあそび"}</h2>
                 <p>{post.summary || "画像を置いたら、もう投稿。"}</p>
-                <div className="tagRow">
-                  {post.tags.map((tag) => <span key={tag}>#{tag}</span>)}
-                </div>
               </Link>
             ))}
           </div>

@@ -55,14 +55,18 @@ export const logCategoryLinks = [
 
 export type LogCategorySlug = (typeof logCategoryLinks)[number]["slug"];
 
-const categoryFilters: Record<Exclude<LogCategorySlug, "all">, Category[]> = {
-  "image-video": ["画像生成"],
-  "ai-system": ["AIツール"],
-  "3d-space": ["3D"],
-  game: ["ゲーム制作"],
-  web: [],
-  log: ["失敗ログ", "気づき", "メモ"]
+const categoryFilters: Record<Exclude<LogCategorySlug, "all">, Category> = {
+  "image-video": "画像・動画あそび",
+  "ai-system": "AIしくみあそび",
+  "3d-space": "3D・空間あそび",
+  game: "ゲームあそび",
+  web: "Webあそび",
+  log: "気づき・ログ"
 };
+
+export function getPostCategories(post: Post) {
+  return post.categories?.length ? post.categories : [post.category];
+}
 
 export function getLogCategoryLabel(slug?: string) {
   return logCategoryLinks.find((item) => item.slug === slug)?.label;
@@ -72,6 +76,6 @@ export function filterPostsByLogCategory(posts: Post[], slug?: string) {
   if (!slug || slug === "all") return posts;
   if (!(slug in categoryFilters)) return posts;
 
-  const categories = categoryFilters[slug as Exclude<LogCategorySlug, "all">];
-  return posts.filter((post) => categories.includes(post.category));
+  const category = categoryFilters[slug as Exclude<LogCategorySlug, "all">];
+  return posts.filter((post) => getPostCategories(post).includes(category));
 }

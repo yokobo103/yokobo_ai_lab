@@ -7,6 +7,40 @@ export { categories, type Category, type Post };
 
 const dataPath = path.join(process.cwd(), "data", "posts.json");
 
+const legacyCategoryMap: Record<string, Category> = {
+  "画像生成": "画像・動画あそび",
+  "ゲーム制作": "ゲームあそび",
+  "3D": "3D・空間あそび",
+  "AIツール": "AIしくみあそび",
+  "失敗ログ": "気づき・ログ",
+  "気づき": "気づき・ログ",
+  "メモ": "気づき・ログ"
+};
+
+function normalizeCategory(value: unknown): Category | null {
+  if (categories.includes(value as Category)) return value as Category;
+  if (typeof value === "string") return legacyCategoryMap[value] ?? null;
+  return null;
+}
+
+function normalizeCategories(input: Partial<Post>, previous?: Post): Category[] {
+  const rawCategories = Array.isArray(input.categories) ? input.categories : [];
+  const next = rawCategories
+    .map((category) => normalizeCategory(category))
+    .filter((category): category is Category => Boolean(category));
+
+  const singleCategory = normalizeCategory(input.category) ?? normalizeCategory(previous?.category);
+  if (singleCategory) next.unshift(singleCategory);
+
+  const previousCategories = Array.isArray(previous?.categories) ? previous.categories : [];
+  previousCategories
+    .map((category) => normalizeCategory(category))
+    .filter((category): category is Category => Boolean(category))
+    .forEach((category) => next.push(category));
+
+  return [...new Set(next)].slice(0, 2);
+}
+
 async function ensureDataFile() {
   await fs.mkdir(path.dirname(dataPath), { recursive: true });
   try {
@@ -64,17 +98,17 @@ export function makeSlug(input: string) {
 
 export function normalizePost(input: Partial<Post>, previous?: Post): Post {
   const now = new Date().toISOString();
-  const category = categories.includes(input.category as Category)
-    ? (input.category as Category)
-    : previous?.category ?? "メモ";
+  const postCategories = normalizeCategories(input, previous);
+  const primaryCategory = postCategories[0] ?? "気づき・ログ";
 
   return {
     id: input.id || previous?.id || makeSlug(input.title || ""),
     title: input.title?.trim() || previous?.title || "",
     summary: input.summary?.trim() || "",
-    category,
+    category: primaryCategory,
+    categories: postCategories.length ? postCategories : [primaryCategory],
     status: input.status === "public" ? "public" : "draft",
-    tags: Array.isArray(input.tags) ? input.tags.map((tag) => tag.trim()).filter(Boolean) : [],
+    tags: [],
     thumbnail: input.thumbnail || "",
     images: Array.isArray(input.images) ? input.images.filter(Boolean) : [],
     body: input.body || "",

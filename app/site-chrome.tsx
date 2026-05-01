@@ -22,10 +22,15 @@ export function SiteHeader({ active = "home" }: { active?: string }) {
           </Link>
         ))}
       </nav>
-      <Link className="contactButton" href="/admin">
-        お問い合わせ
-        <Image src="/assets/decor/paw-blue.svg" alt="" width={22} height={22} />
-      </Link>
+      <form className="siteSearch" action="/logs" role="search">
+        <input type="search" name="q" placeholder="サイト内検索" aria-label="サイト内検索" />
+        <button type="submit" aria-label="検索">
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="none">
+            <circle cx="11" cy="11" r="6" />
+            <path d="m16 16 4 4" />
+          </svg>
+        </button>
+      </form>
       <details className="mobileMenu">
         <summary className="mobileMenuButton" aria-label="メニューを開閉">
           <span />
@@ -38,7 +43,10 @@ export function SiteHeader({ active = "home" }: { active?: string }) {
               {link.label}
             </Link>
           ))}
-          <Link href="/admin">お問い合わせ</Link>
+          <form className="mobileSearch" action="/logs" role="search">
+            <input type="search" name="q" placeholder="サイト内検索" aria-label="サイト内検索" />
+            <button type="submit">検索</button>
+          </form>
         </div>
       </details>
     </header>

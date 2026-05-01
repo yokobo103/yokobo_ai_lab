@@ -1,11 +1,10 @@
 export const categories = [
-  "画像生成",
-  "ゲーム制作",
-  "3D",
-  "AIツール",
-  "失敗ログ",
-  "気づき",
-  "メモ"
+  "画像・動画あそび",
+  "AIしくみあそび",
+  "3D・空間あそび",
+  "ゲームあそび",
+  "Webあそび",
+  "気づき・ログ"
 ] as const;
 
 export type Category = (typeof categories)[number];
@@ -15,6 +14,7 @@ export type Post = {
   title: string;
   summary: string;
   category: Category;
+  categories: Category[];
   status: "draft" | "public";
   tags: string[];
   thumbnail: string;

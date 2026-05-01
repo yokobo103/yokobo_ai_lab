@@ -14,7 +14,8 @@ const emptyPost = (): Post => {
     id,
     title: "",
     summary: "",
-    category: "メモ",
+    category: "気づき・ログ",
+    categories: ["気づき・ログ"],
     status: "draft",
     tags: [],
     thumbnail: "",
@@ -115,14 +116,6 @@ export default function AdminApp() {
     setPublicPath(post.status === "public" ? `/posts/${post.id}` : "");
   }
 
-  function tagText() {
-    return current.tags.join(", ");
-  }
-
-  function setTagText(value: string) {
-    update("tags", value.split(",").map((tag) => tag.trim()).filter(Boolean));
-  }
-
   function linkText() {
     return current.links.map((link) => `${link.label},${link.url}`).join("\n");
   }
@@ -164,6 +157,29 @@ export default function AdminApp() {
 
   function insertMarkdownImage(image: string) {
     insertAtCursor(`![画像](${image})`);
+  }
+
+  function selectedCategories(post = current) {
+    return post.categories?.length ? post.categories : [post.category];
+  }
+
+  function toggleCategory(category: Post["category"]) {
+    const selected = selectedCategories();
+    const exists = selected.includes(category);
+    const next = exists ? selected.filter((item) => item !== category) : [...selected, category];
+
+    if (next.length === 0) {
+      setMessage("カテゴリは1つ以上選んでください。");
+      return;
+    }
+
+    if (next.length > 2) {
+      setMessage("カテゴリは2つまで選べます。");
+      return;
+    }
+
+    setMessage("");
+    setCurrent((post) => ({ ...post, category: next[0], categories: next }));
   }
 
   async function save(status: "draft" | "public") {
@@ -322,7 +338,7 @@ export default function AdminApp() {
           {posts.map((post) => (
             <button className={post.id === current.id ? "active" : ""} key={post.id} type="button" onClick={() => selectPost(post)}>
               <span>{post.title || "無題のあそび"}</span>
-              <small>{post.status === "public" ? "公開" : "下書き"} / {post.category}</small>
+              <small>{post.status === "public" ? "公開" : "下書き"} / {selectedCategories(post).join("・")}</small>
             </button>
           ))}
         </aside>
@@ -330,13 +346,28 @@ export default function AdminApp() {
         <section className="editorPanel">
           <div className="fieldGrid">
             <label>ID<input value={current.id} onChange={(event) => update("id", event.target.value)} /></label>
-            <label>カテゴリ<select value={current.category} onChange={(event) => update("category", event.target.value as Post["category"])}>
-              {categories.map((category) => <option key={category}>{category}</option>)}
-            </select></label>
+            <div className="categorySummary">
+              <span>カテゴリ</span>
+              <strong>{selectedCategories().join(" / ")}</strong>
+            </div>
+          </div>
+          <div className="categoryPicker" aria-label="カテゴリを選択">
+            {categories.map((category) => {
+              const active = selectedCategories().includes(category);
+              return (
+                <button
+                  className={active ? "active" : ""}
+                  key={category}
+                  type="button"
+                  onClick={() => toggleCategory(category)}
+                >
+                  {category}
+                </button>
+              );
+            })}
           </div>
           <label>タイトル<input value={current.title} onChange={(event) => update("title", event.target.value)} placeholder="画像だけなら空でもOK" /></label>
           <label>ひとこと<textarea value={current.summary} onChange={(event) => update("summary", event.target.value)} rows={3} /></label>
-          <label>タグ（カンマ区切り）<input value={tagText()} onChange={(event) => setTagText(event.target.value)} placeholder="画像生成, 今日のあそび" /></label>
 
           <div className="uploadBox">
             <div className="uploadHeader">

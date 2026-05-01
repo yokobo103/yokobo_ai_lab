@@ -174,6 +174,50 @@
   gap: 14px;
 }
 
+.categorySummary {
+  display: grid;
+  align-content: end;
+  min-height: 78px;
+  padding: 12px;
+  border: 1px solid #cfe0f5;
+  border-radius: 14px;
+  background: #f7fbff;
+}
+
+.categorySummary span {
+  color: #5d7094;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.categorySummary strong {
+  margin-top: 6px;
+  color: #102861;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.categoryPicker {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.categoryPicker button {
+  min-height: 48px;
+  padding: 0 10px;
+  border: 1px solid #cfe0f5;
+  background: white;
+  color: #102861;
+  text-align: center;
+}
+
+.categoryPicker button.active {
+  border-color: #2f7df6;
+  background: #dff0ff;
+  color: #102861;
+}
+
 .bodyInput {
   min-height: 240px;
 }
@@ -376,6 +420,7 @@
   }
 
   .fieldGrid,
+  .categoryPicker,
   .uploadedGrid,
   .actionBar {
     grid-template-columns: 1fr;

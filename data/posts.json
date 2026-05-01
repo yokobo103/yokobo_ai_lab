@@ -3,11 +3,12 @@
     "id": "d1643910-3b68-484e-b436-c4722cde191d",
     "title": "テスト（スマホ）",
     "summary": "なんかすごいのができたかも！！",
-    "category": "メモ",
-    "status": "public",
-    "tags": [
-      "テスト"
+    "category": "気づき・ログ",
+    "categories": [
+      "気づき・ログ"
     ],
+    "status": "public",
+    "tags": [],
     "thumbnail": "/uploads/d1643910-3b68-484e-b436-c4722cde191d/thumbnail-b968befa-ba0c-4638-91f8-21754c35fb73.webp",
     "images": [],
     "body": "これで投稿できるのはありがたい！！\n\nすごいね！！！\n\n\nこれがvercel",
@@ -19,11 +20,12 @@
     "id": "47313a58-6d76-43e2-96a6-5a74d8638a51",
     "title": "テスト(PC)",
     "summary": "ちゃんとアップロードできるといいなぁ",
-    "category": "メモ",
-    "status": "public",
-    "tags": [
-      "画像生成"
+    "category": "画像・動画あそび",
+    "categories": [
+      "画像・動画あそび"
     ],
+    "status": "public",
+    "tags": [],
     "thumbnail": "/uploads/47313a58-6d76-43e2-96a6-5a74d8638a51/thumbnail-952b4c60-36f5-4b50-a48e-6bfe78d51d4f.webp",
     "images": [],
     "body": "やあやあこんにちは\n\n![画像](/uploads/47313a58-6d76-43e2-96a6-5a74d8638a51/thumbnail-952b4c60-36f5-4b50-a48e-6bfe78d51d4f.webp)",
@@ -35,7 +37,10 @@
     "id": "c39d699e-bbda-4931-8d4b-0bac6c723b97",
     "title": "",
     "summary": "",
-    "category": "メモ",
+    "category": "気づき・ログ",
+    "categories": [
+      "気づき・ログ"
+    ],
     "status": "public",
     "tags": [],
     "thumbnail": "/uploads/c39d699e-bbda-4931-8d4b-0bac6c723b97/thumbnail-1777419995450-gnzlcr.webp",
@@ -51,13 +56,12 @@
     "id": "welcome-lab",
     "title": "よこぼのAIラボ、仮オープン",
     "summary": "完成していなくても、今日のあそびを置いていくための研究ログを始めました。",
-    "category": "気づき",
-    "status": "public",
-    "tags": [
-      "ラボ",
-      "はじめに",
-      "今日のあそび"
+    "category": "気づき・ログ",
+    "categories": [
+      "気づき・ログ"
     ],
+    "status": "public",
+    "tags": [],
     "thumbnail": "/assets/posts/lp-reference.webp",
     "images": [
       "/assets/posts/character-reference.webp",
@@ -72,12 +76,12 @@
     "id": "image-first-note",
     "title": "画像だけ先に置く実験",
     "summary": "文章がまだなくても、生成画像を先に保存して未来の自分に渡す。",
-    "category": "画像生成",
-    "status": "public",
-    "tags": [
-      "画像生成",
-      "メモ"
+    "category": "画像・動画あそび",
+    "categories": [
+      "画像・動画あそび"
     ],
+    "status": "public",
+    "tags": [],
     "thumbnail": "/assets/posts/character-design-sheet.webp",
     "images": [
       "/assets/posts/character-design-sheet.webp"
