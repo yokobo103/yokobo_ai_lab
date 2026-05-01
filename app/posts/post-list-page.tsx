@@ -5,14 +5,28 @@ import { readPosts } from "@/lib/posts";
 import { SiteFooter, SiteHeader } from "../site-chrome";
 
 type PostListPageProps = {
-  searchParams?: Promise<{ category?: string }>;
+  searchParams?: Promise<{ category?: string; q?: string }>;
 };
 
 export async function PostListPage({ searchParams }: PostListPageProps) {
   const params = searchParams ? await searchParams : undefined;
   const selectedCategory = params?.category;
+  const query = params?.q?.trim() ?? "";
   const allPosts = (await readPosts()).filter((post) => post.status === "public");
-  const posts = filterPostsByLogCategory(allPosts, selectedCategory);
+  const categoryPosts = filterPostsByLogCategory(allPosts, selectedCategory);
+  const normalizedQuery = query.toLocaleLowerCase();
+  const posts = normalizedQuery
+    ? categoryPosts.filter((post) => {
+        const haystack = [
+          post.title,
+          post.summary,
+          post.body,
+          ...getPostCategories(post),
+          ...post.links.flatMap((link) => [link.label, link.url])
+        ].join(" ").toLocaleLowerCase();
+        return haystack.includes(normalizedQuery);
+      })
+    : categoryPosts;
   const selectedLabel = getLogCategoryLabel(selectedCategory);
 
   return (
@@ -23,10 +37,18 @@ export async function PostListPage({ searchParams }: PostListPageProps) {
           <p className="eyebrow">研究ログ</p>
           <h1>よこぼのあそび倉庫</h1>
           <p>
-            公開中のAI実験、画像生成、ゲーム制作、3D、失敗ログ、気づきメモです。
+            公開中のAI実験、画像・動画あそび、ゲーム、3D、Web、気づきログです。
             {selectedLabel ? `いまは「${selectedLabel}」を表示しています。` : ""}
+            {query ? `「${query}」で検索しています。` : ""}
           </p>
         </div>
+
+        <form className="logSearchBox" action="/logs" role="search">
+          {selectedCategory ? <input type="hidden" name="category" value={selectedCategory} /> : null}
+          <input type="search" name="q" defaultValue={query} placeholder="ログを検索" aria-label="ログを検索" />
+          <button type="submit">検索</button>
+          {query ? <Link href={selectedCategory ? `/logs?category=${selectedCategory}` : "/logs"}>クリア</Link> : null}
+        </form>
 
         <nav className="logFilterPills" aria-label="研究ログのカテゴリ">
           {logCategoryLinks.map((category) => (
@@ -57,7 +79,7 @@ export async function PostListPage({ searchParams }: PostListPageProps) {
         ) : (
           <div className="emptyLogState">
             <h2>このテーマのログはまだ準備中です。</h2>
-            <p>ほかのテーマをのぞくか、ぜんぶのログを見てみてください。</p>
+            <p>{query ? "検索条件に合うログがありませんでした。" : "ほかのテーマをのぞくか、ぜんぶのログを見てみてください。"}</p>
             <Link className="aboutButton" href="/logs">ぜんぶみる</Link>
           </div>
         )}

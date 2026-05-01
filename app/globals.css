@@ -1367,6 +1367,15 @@ img {
     display: none;
   }
 
+  .logSearchBox {
+    grid-template-columns: 1fr auto;
+    justify-content: stretch;
+  }
+
+  .logSearchBox a {
+    grid-column: 1 / -1;
+  }
+
   .themePills {
     gap: 9px;
     width: 100%;
@@ -2400,6 +2409,47 @@ img {
   margin: -8px 0 28px;
 }
 
+.logSearchBox {
+  display: grid;
+  grid-template-columns: minmax(0, 420px) auto auto;
+  justify-content: center;
+  gap: 10px;
+  margin: -10px 0 26px;
+}
+
+.logSearchBox input {
+  min-height: 48px;
+  min-width: 0;
+  padding: 0 16px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: white;
+  color: var(--navy);
+  font: inherit;
+  font-weight: 800;
+  box-shadow: 0 8px 18px rgba(20, 88, 170, 0.07);
+}
+
+.logSearchBox button,
+.logSearchBox a {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--blue);
+  color: white;
+  font: inherit;
+  font-weight: 900;
+}
+
+.logSearchBox a {
+  background: #fff5e6;
+  color: var(--navy);
+}
+
 .logFilterPill {
   display: inline-flex;
   min-height: 44px;
@@ -2815,6 +2865,15 @@ img {
   box-shadow: 0 12px 26px rgba(20, 88, 170, 0.12);
 }
 
+.exHeroBubble::after {
+  content: "";
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  background: inherit;
+  transform: rotate(45deg);
+}
+
 .exHeroBubble.doctor {
   left: 8px;
   top: 128px;
@@ -2822,11 +2881,26 @@ img {
   background: rgba(255, 249, 232, 0.94);
 }
 
+.exHeroBubble.doctor::after {
+  right: -11px;
+  top: 50%;
+  border-right: 1.5px solid #f6d891;
+  border-top: 1.5px solid #f6d891;
+  transform: translateY(-50%) rotate(45deg);
+}
+
 .exHeroBubble.nyabbit {
   right: 8px;
   top: 56px;
   border: 1.5px solid #bfe7fb;
   background: rgba(239, 252, 255, 0.94);
+}
+
+.exHeroBubble.nyabbit::after {
+  left: 34px;
+  bottom: -11px;
+  border-bottom: 1.5px solid #bfe7fb;
+  border-right: 1.5px solid #bfe7fb;
 }
 
 .aboutPage .originStorySection {
@@ -3194,6 +3268,17 @@ img {
     right: auto;
     left: 12px;
     top: 74px;
+  }
+
+  .exHeroBubble.doctor::after,
+  .exHeroBubble.nyabbit::after {
+    left: 28px;
+    right: auto;
+    top: auto;
+    bottom: -9px;
+    width: 18px;
+    height: 18px;
+    transform: rotate(45deg);
   }
 
   .aboutPage .originStorySection {
