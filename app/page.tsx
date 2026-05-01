@@ -7,7 +7,7 @@ import { SiteFooter, SiteHeader } from "./site-chrome";
 export const dynamic = "force-dynamic";
 
 const socialLinks = [
-  { label: "X", href: "https://x.com/", icon: "/assets/social/x.svg", tone: "black" },
+  { label: "X", href: "https://x.com/yokobo_ai", icon: "/assets/social/x.svg", tone: "black" },
   { label: "YouTube", href: "https://www.youtube.com/", icon: "/assets/social/video.svg", tone: "red" },
   { label: "音楽", href: "https://www.tiktok.com/", icon: "/assets/social/music.svg", tone: "green" },
   { label: "Instagram", href: "https://www.instagram.com/", icon: "/assets/social/camera.svg", tone: "rainbow" }
@@ -149,6 +149,9 @@ export default async function Home() {
                     メール配信は整備中です
                     <Image src="/assets/decor/paw-navy.svg" alt="" width={22} height={22} />
                   </div>
+                  <Link className="xHandleBanner" href="https://x.com/yokobo_ai" target="_blank" rel="noreferrer" aria-label="Xで @yokobo_ai を開く">
+                    <Image src="/assets/social/x-yokobo-ai.svg" alt="@yokobo_ai" width={760} height={150} />
+                  </Link>
                   <p className="snsLabel">SNSでも発信中！</p>
                   <div className="socialList">
                     {socialLinks.map((social) => (

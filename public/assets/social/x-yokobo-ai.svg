@@ -1,0 +1,9 @@
+<svg width="760" height="150" viewBox="0 0 760 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="8" y="8" width="744" height="134" rx="38" fill="white"/>
+  <rect x="8" y="8" width="744" height="134" rx="38" stroke="#DFF0FF" stroke-width="6"/>
+  <circle cx="84" cy="75" r="38" fill="#111111"/>
+  <path d="M91.95 68.02 117.91 38h-6.16L89.21 64.08 71.24 38H50.48l27.27 39.51-27.27 31.55h6.16l23.85-27.6 18.97 27.6h20.76L91.95 68.02Zm-8.49 9.82-2.78-3.93-21.94-31.28h9.42l17.73 25.23 2.77 3.93 23.03 32.37h-9.42L83.46 77.84Z" fill="white"/>
+  <text x="145" y="67" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="800" fill="#5D7094">Xでフォロー</text>
+  <text x="145" y="108" font-family="Arial, Helvetica, sans-serif" font-size="46" font-weight="900" fill="#102861">@yokobo_ai</text>
+  <path d="M662 76h46m0 0-16-16m16 16-16 16" stroke="#2F7DF6" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

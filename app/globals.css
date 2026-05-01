@@ -577,6 +577,25 @@ img {
   stroke-linejoin: round;
 }
 
+.xHandleBanner {
+  display: block;
+  width: min(100%, 330px);
+  margin-top: 12px;
+  border-radius: 16px;
+  transition: transform 0.18s ease, filter 0.18s ease;
+}
+
+.xHandleBanner:hover {
+  transform: translateY(-2px);
+  filter: drop-shadow(0 8px 14px rgba(12, 53, 120, 0.18));
+}
+
+.xHandleBanner img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 .snsLabel {
   margin-top: 18px !important;
 }
