@@ -6,33 +6,6 @@ import { SiteFooter, SiteHeader } from "./site-chrome";
 
 export const dynamic = "force-dynamic";
 
-const discoveryLogs = [
-  {
-    category: "画像生成",
-    date: "2024.05.13",
-    title: "GPT-image2で未来の研究室をつくってみた！",
-    image: "/assets/logs/thumb-comfyui-cat.webp"
-  },
-  {
-    category: "3D",
-    date: "2024.05.10",
-    title: "ニャビットの3DモデルをBlenderで作ってみた",
-    image: "/assets/logs/thumb-3d-nyabbit.webp"
-  },
-  {
-    category: "ゲーム制作",
-    date: "2024.05.08",
-    title: "AI生成素材でRPGの町をつくってみた",
-    image: "/assets/logs/thumb-rpg-game.webp"
-  },
-  {
-    category: "AI活用",
-    date: "2024.05.05",
-    title: "ChatGPTにプロンプト設計を相談してみた",
-    image: "/assets/logs/thumb-chatgpt-prompt.webp"
-  }
-];
-
 const socialLinks = [
   { label: "X", href: "https://x.com/", icon: "/assets/social/x.svg", tone: "black" },
   { label: "YouTube", href: "https://www.youtube.com/", icon: "/assets/social/video.svg", tone: "red" },
@@ -40,9 +13,25 @@ const socialLinks = [
   { label: "Instagram", href: "https://www.instagram.com/", icon: "/assets/social/camera.svg", tone: "rainbow" }
 ];
 
+function formatPostDate(value: string) {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "";
+  return new Intl.DateTimeFormat("ja-JP", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit"
+  }).format(date);
+}
+
 export default async function Home() {
   const posts = (await readPosts()).filter((post) => post.status === "public");
-  const logHref = (index: number) => (posts[index]?.id ? `/posts/${posts[index].id}` : "/logs");
+  const latestPosts = posts.slice(0, 4).map((post) => ({
+    href: `/posts/${post.id}`,
+    category: post.category,
+    date: formatPostDate(post.updatedAt || post.createdAt),
+    title: post.title || "無題のあそび",
+    image: post.thumbnail || post.images[0] || "/assets/logs/thumb-future-lab.webp"
+  }));
 
   return (
     <div className="pageFrame lpPage">
@@ -121,8 +110,8 @@ export default async function Home() {
 
             <div className="latestLayout">
               <div className="logScroller" aria-label="発見ログ一覧">
-                {discoveryLogs.map((log, index) => (
-                  <Link className="logCard" href={logHref(index)} key={log.title}>
+                {latestPosts.map((log) => (
+                  <Link className="logCard" href={log.href} key={log.href}>
                     <div className="logThumb">
                       <Image src={log.image} alt="" fill sizes="(max-width: 760px) 260px, 230px" />
                       <span>{log.category}</span>
@@ -132,6 +121,17 @@ export default async function Home() {
                     <span className="circleArrow" aria-hidden="true">→</span>
                   </Link>
                 ))}
+                {latestPosts.length === 0 ? (
+                  <Link className="logCard" href="/logs">
+                    <div className="logThumb">
+                      <Image src="/assets/logs/thumb-future-lab.webp" alt="" fill sizes="(max-width: 760px) 260px, 230px" />
+                      <span>準備中</span>
+                    </div>
+                    <time>--</time>
+                    <h3>公開中のログはまだありません</h3>
+                    <span className="circleArrow" aria-hidden="true">→</span>
+                  </Link>
+                ) : null}
               </div>
 
               <section className="newsletterPanel" aria-labelledby="newsletter-heading">

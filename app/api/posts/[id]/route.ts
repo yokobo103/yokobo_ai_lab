@@ -26,3 +26,20 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
   await writePosts(posts);
   return NextResponse.json(post);
 }
+
+export async function DELETE(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  if (!isAdminPassword(request.headers.get("x-admin-password"))) {
+    return NextResponse.json(authError, { status: 401 });
+  }
+
+  const { id } = await params;
+  const posts = await readPosts();
+  const nextPosts = posts.filter((post) => post.id !== id);
+
+  if (nextPosts.length === posts.length) {
+    return NextResponse.json({ message: "投稿が見つかりません。" }, { status: 404 });
+  }
+
+  await writePosts(nextPosts);
+  return NextResponse.json({ ok: true });
+}

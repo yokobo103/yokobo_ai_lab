@@ -1,6 +1,6 @@
 # LP Asset Inventory
 
-Visual source of truth: `public/design-reference/lp_reference.png`  
+Visual source of truth: local reference captures in `public/design-reference/` are intentionally ignored by Git.  
 Reference size: approximately `862 x 1824px`.
 
 ## Inferred Layout And Asset Count

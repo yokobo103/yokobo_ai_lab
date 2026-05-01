@@ -74,7 +74,7 @@ img {
   width: 270px;
   height: 72px;
   overflow: hidden;
-  background: url("/design-reference/lp_logo.png") no-repeat -12px -51px / 292px auto;
+  background: url("/assets/brand/lp-logo.webp") no-repeat -12px -51px / 292px auto;
 }
 
 .brand img {
@@ -213,7 +213,7 @@ img {
   padding: 112px 50px 54px;
   overflow: hidden;
   background-color: var(--white);
-  background-image: url("/design-reference/hero_pc_full.png");
+  background-image: url("/assets/hero/hero-pc-full.webp");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center right;
@@ -652,7 +652,7 @@ img {
 .footerBrand {
   height: 56px;
   overflow: hidden;
-  background: url("/design-reference/lp_logo.png") no-repeat -10px -25px / 230px auto;
+  background: url("/assets/brand/lp-logo.webp") no-repeat -10px -25px / 230px auto;
   filter: brightness(0) invert(1);
 }
 
@@ -1225,7 +1225,7 @@ img {
 
 @media (max-width: 768px) {
   .lpHero {
-    background-image: url("/design-reference/hero_mobile_full.png");
+    background-image: url("/assets/hero/hero-mobile-full.webp");
     background-size: cover;
     background-position: right top;
   }
@@ -2718,7 +2718,7 @@ img {
   min-height: 310px;
   align-self: stretch;
   overflow: visible;
-  background: url("/design-reference/ex_page.png") no-repeat center right / cover;
+  background: url("/assets/about/ex-page.webp") no-repeat center right / cover;
 }
 
 .exHeroVisual img {
@@ -2843,11 +2843,11 @@ img {
 }
 
 .aboutPage .originDialogue.doctor img {
-  background-image: url("/design-reference/yokobo_reference.png");
+  background-image: url("/assets/characters/yokobo-reference.webp");
 }
 
 .aboutPage .originDialogue.nyabbit img {
-  background-image: url("/design-reference/reference_nyabitto.png");
+  background-image: url("/assets/characters/nyabbit-reference.webp");
 }
 
 .aboutPage .originBubble {
@@ -2893,14 +2893,14 @@ img {
   left: clamp(28px, 4.8vw, 76px);
   bottom: -22px;
   width: clamp(108px, 12vw, 164px);
-  background: url("/design-reference/yokobo_reference.png") no-repeat center / contain;
+  background: url("/assets/characters/yokobo-reference.webp") no-repeat center / contain;
 }
 
 .aboutPage .originMessageNyabbit {
   right: clamp(34px, 5.2vw, 84px);
   bottom: 14px;
   width: clamp(92px, 10vw, 138px);
-  background: url("/design-reference/reference_nyabitto.png") no-repeat center / contain;
+  background: url("/assets/characters/nyabbit-reference.webp") no-repeat center / contain;
 }
 
 .aboutPage .valuesSection,

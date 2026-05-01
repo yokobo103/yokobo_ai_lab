@@ -58,10 +58,10 @@
       "はじめに",
       "今日のあそび"
     ],
-    "thumbnail": "/design-reference/lp_reference.png",
+    "thumbnail": "/assets/posts/lp-reference.webp",
     "images": [
-      "/design-reference/character_reference.png",
-      "/design-reference/logo-reference.png"
+      "/assets/posts/character-reference.webp",
+      "/assets/posts/logo-reference.webp"
     ],
     "body": "## 完成してなくてOK\n\nAIで作った画像、ゲームのメモ、3Dの試作、失敗ログを気軽に置いていく場所です。\n\n- 画像を置いたら、もう投稿\n- ひとことだけでも保存\n- あとから育てる",
     "links": [],
@@ -78,9 +78,9 @@
       "画像生成",
       "メモ"
     ],
-    "thumbnail": "/design-reference/character_design_sheet.png",
+    "thumbnail": "/assets/posts/character-design-sheet.webp",
     "images": [
-      "/design-reference/character_design_sheet.png"
+      "/assets/posts/character-design-sheet.webp"
     ],
     "body": "画像を見返すだけで、あとから設定やゲーム案が出てくることがあります。",
     "links": [],

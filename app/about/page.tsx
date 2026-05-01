@@ -6,27 +6,27 @@ import { SiteFooter, SiteHeader } from "../site-chrome";
 const dialogue = [
   {
     speaker: "Dr.よこぼ",
-    avatar: "/design-reference/yokobo_reference.png",
+    avatar: "/assets/characters/yokobo-reference.webp",
     text: "AIに出会って、\n世界がガラッと広がったんだ。"
   },
   {
     speaker: "ニャビット",
-    avatar: "/design-reference/reference_nyabitto.png",
+    avatar: "/assets/characters/nyabbit-reference.webp",
     text: "そんなに変わるものなの？"
   },
   {
     speaker: "Dr.よこぼ",
-    avatar: "/design-reference/yokobo_reference.png",
+    avatar: "/assets/characters/yokobo-reference.webp",
     text: "うん。できることが一気に増えて、\n毎日がちょっとずつ楽しくなっていった。"
   },
   {
     speaker: "ニャビット",
-    avatar: "/design-reference/reference_nyabitto.png",
+    avatar: "/assets/characters/nyabbit-reference.webp",
     text: "へえ〜！それで、\nこのラボを作ったんだね！"
   },
   {
     speaker: "Dr.よこぼ",
-    avatar: "/design-reference/yokobo_reference.png",
+    avatar: "/assets/characters/yokobo-reference.webp",
     text: "そう。いろんな“ワクワク”を\nみんなと分かち合う場所にしたくて。"
   }
 ];
@@ -219,7 +219,7 @@ export default function AboutPage() {
           </div>
           <div className="exHeroVisual" aria-label="よこぼのAIラボの案内ビジュアル">
             <Image
-              src="/design-reference/ex_page.png"
+              src="/assets/about/ex-page.webp"
               alt="明るい研究室にいるDr.よこぼとニャビット"
               fill
               priority
@@ -258,7 +258,7 @@ export default function AboutPage() {
           <div className="originMessage" aria-label="ラボの始まり">
             <Image
               className="originMessageDoctor"
-              src="/design-reference/yokobo_reference.png"
+              src="/assets/characters/yokobo-reference.webp"
               alt=""
               width={180}
               height={180}
@@ -272,7 +272,7 @@ export default function AboutPage() {
             </p>
             <Image
               className="originMessageNyabbit"
-              src="/design-reference/reference_nyabitto.png"
+              src="/assets/characters/nyabbit-reference.webp"
               alt=""
               width={150}
               height={150}
@@ -335,7 +335,7 @@ export default function AboutPage() {
         </section>
 
         <section className="finalTourCta" aria-label="ラボへの案内">
-          <Image src="/design-reference/reference_nyabitto.png" alt="" width={120} height={120} unoptimized />
+          <Image src="/assets/characters/nyabbit-reference.webp" alt="" width={120} height={120} unoptimized />
           <div>
             <h2>いっしょに、未来を研究しよう！</h2>
             <p>気になるテーマから、あなたのワクワクを見つけてにゃ。</p>
@@ -344,7 +344,7 @@ export default function AboutPage() {
             ホームにもどる
             <span aria-hidden="true">→</span>
           </Link>
-          <Image src="/design-reference/yokobo_reference.png" alt="" width={150} height={150} unoptimized />
+          <Image src="/assets/characters/yokobo-reference.webp" alt="" width={150} height={150} unoptimized />
         </section>
       </main>
       <SiteFooter />

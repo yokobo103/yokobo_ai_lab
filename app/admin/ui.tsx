@@ -37,6 +37,7 @@ export default function AdminApp() {
   const [message, setMessage] = useState("");
   const [preview, setPreview] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [deleting, setDeleting] = useState(false);
   const [publicPath, setPublicPath] = useState("");
   const bodyRef = useRef<HTMLTextAreaElement | null>(null);
 
@@ -194,6 +195,45 @@ export default function AdminApp() {
     setPublicPath(status === "public" ? `/posts/${data.id}` : "");
     await reloadPosts();
     setMessage(status === "public" ? "公開しました。" : "下書き保存しました。");
+  }
+
+  async function deleteCurrentPost() {
+    const exists = posts.some((post) => post.id === current.id);
+    if (!exists) {
+      setMessage("まだ保存されていない投稿です。");
+      return;
+    }
+
+    const title = current.title || "無題のあそび";
+    if (!window.confirm(`「${title}」を削除します。公開ページからも消えます。よろしいですか？`)) {
+      return;
+    }
+
+    setDeleting(true);
+    setMessage("");
+    const response = await fetch(`/api/posts/${current.id}`, {
+      method: "DELETE",
+      headers: jsonHeaders
+    });
+    const data = await response.json();
+    setDeleting(false);
+
+    if (!response.ok) {
+      if (response.status === 401) {
+        setAuthed(false);
+        setAuthPassword("");
+        sessionStorage.removeItem(STORAGE_KEY);
+        setMessage("パスワードが違います。再ログインしてください");
+      } else {
+        setMessage(data.message || "削除できませんでした。");
+      }
+      return;
+    }
+
+    const nextPosts = await reloadPosts();
+    setCurrent(nextPosts[0] ?? emptyPost());
+    setPublicPath(nextPosts[0]?.status === "public" ? `/posts/${nextPosts[0].id}` : "");
+    setMessage("投稿を削除しました。");
   }
 
   async function upload(files: FileList | null, role: "thumbnail" | "gallery") {
@@ -365,6 +405,9 @@ export default function AdminApp() {
             <button type="button" onClick={() => setPreview(!preview)}>プレビュー</button>
             <button type="button" disabled={saving} onClick={() => save("draft")}>Save Draft</button>
             <button className="publishButton" type="button" disabled={saving} onClick={() => save("public")}>Publish</button>
+            <button className="deleteButton" type="button" disabled={saving || deleting} onClick={deleteCurrentPost}>
+              削除
+            </button>
           </div>
         </section>
       </div>

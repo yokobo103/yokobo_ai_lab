@@ -13,7 +13,7 @@ export function SiteHeader({ active = "home" }: { active?: string }) {
   return (
     <header className="siteHeader">
       <Link className="brand" href="/" aria-label="よこぼのAIラボ ホーム">
-        <Image src="/design-reference/lp_logo.png" alt="よこぼのAIラボ" width={360} height={118} priority />
+        <Image src="/assets/brand/lp-logo.webp" alt="よこぼのAIラボ" width={360} height={118} priority />
       </Link>
       <nav aria-label="メインナビゲーション">
         {navLinks.map((link) => (
@@ -49,7 +49,7 @@ export function SiteFooter() {
   return (
     <footer className="siteFooter">
       <div className="footerBrand">
-        <Image src="/design-reference/lp_logo.png" alt="よこぼのAIラボ" width={260} height={86} />
+        <Image src="/assets/brand/lp-logo.webp" alt="よこぼのAIラボ" width={260} height={86} />
       </div>
       <nav aria-label="フッターナビゲーション">
         {navLinks.map((link) => (
