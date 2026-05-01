@@ -1,7 +1,10 @@
 import { promises as fs } from "fs";
 import path from "path";
 import { NextRequest, NextResponse } from "next/server";
+import { isGitHubStorageEnabled, writeBufferToGitHub } from "@/lib/github-storage";
 import { isAdminPassword, makeSlug } from "@/lib/posts";
+
+export const runtime = "nodejs";
 
 const supportedTypes = ["image/jpeg", "image/png", "image/webp"];
 const authError = { message: "パスワードが違います。再ログインしてください" };
@@ -42,7 +45,11 @@ export async function POST(request: NextRequest) {
   }
 
   const uploadDir = path.join(process.cwd(), "public", "uploads", postId);
-  await fs.mkdir(uploadDir, { recursive: true });
+  const saveToGitHub = isGitHubStorageEnabled();
+
+  if (!saveToGitHub) {
+    await fs.mkdir(uploadDir, { recursive: true });
+  }
 
   const uploaded: string[] = [];
   for (const file of files) {
@@ -65,8 +72,16 @@ export async function POST(request: NextRequest) {
     const optimized = await optimizeImage(Buffer.from(arrayBuffer), role);
     const fallbackExtension = file.type === "image/png" ? "png" : file.type === "image/webp" ? "webp" : "jpg";
     const extension = optimized.extension === "bin" ? fallbackExtension : optimized.extension;
-    const filename = `${role}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${extension}`;
-    await fs.writeFile(path.join(uploadDir, filename), optimized.buffer);
+    const filename = `${role}-${globalThis.crypto.randomUUID()}.${extension}`;
+    if (saveToGitHub) {
+      await writeBufferToGitHub(
+        `public/uploads/${postId}/${filename}`,
+        optimized.buffer,
+        `Upload ${role} image from admin`
+      );
+    } else {
+      await fs.writeFile(path.join(uploadDir, filename), optimized.buffer);
+    }
     uploaded.push(`/uploads/${postId}/${filename}`);
   }
 

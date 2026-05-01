@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { isAdminPassword, normalizePost, readPosts, validatePost, writePosts } from "@/lib/posts";
 
+export const runtime = "nodejs";
+
 const authError = { message: "パスワードが違います。再ログインしてください" };
 
 export async function PUT(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {

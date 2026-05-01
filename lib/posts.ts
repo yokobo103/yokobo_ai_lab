@@ -1,5 +1,6 @@
 import { promises as fs } from "fs";
 import path from "path";
+import { isGitHubStorageEnabled, readTextFromGitHub, writeTextToGitHub } from "./github-storage";
 import { categories, type Category, type Post } from "./schema";
 
 export { categories, type Category, type Post };
@@ -16,6 +17,12 @@ async function ensureDataFile() {
 }
 
 export async function readPosts(): Promise<Post[]> {
+  if (isGitHubStorageEnabled()) {
+    const raw = await readTextFromGitHub("data/posts.json");
+    const posts = JSON.parse(raw || "[]") as Post[];
+    return posts.sort((a, b) => Date.parse(b.updatedAt) - Date.parse(a.updatedAt));
+  }
+
   await ensureDataFile();
   const raw = await fs.readFile(dataPath, "utf8");
   const posts = JSON.parse(raw) as Post[];
@@ -23,9 +30,16 @@ export async function readPosts(): Promise<Post[]> {
 }
 
 export async function writePosts(posts: Post[]) {
-  await ensureDataFile();
   const sorted = [...posts].sort((a, b) => Date.parse(b.updatedAt) - Date.parse(a.updatedAt));
-  await fs.writeFile(dataPath, `${JSON.stringify(sorted, null, 2)}\n`, "utf8");
+  const content = `${JSON.stringify(sorted, null, 2)}\n`;
+
+  if (isGitHubStorageEnabled()) {
+    await writeTextToGitHub("data/posts.json", content, "Update posts from admin");
+    return;
+  }
+
+  await ensureDataFile();
+  await fs.writeFile(dataPath, content, "utf8");
 }
 
 export async function getPost(id: string) {

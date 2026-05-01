@@ -29,9 +29,24 @@ HEIC/HEIFはMVPでは未対応です。アップロード時にエラーが出�
 
 ## 本番移行
 
-Vercelで運用する場合、ファイルシステム保存は永続化されません。次の実装候補はGitHub API保存方式です。
+Vercelで運用する場合、ファイルシステム保存は永続化されません。このリポジトリでは、Vercel上でGitHub用の環境変数が設定されている場合、GitHub API保存方式で動きます。
 
 - 管理画面から投稿を保存
 - API RouteがGitHub Contents APIへJSONをコミット
-- 画像はGitHubまたはCloudflare R2へ保存
-- build不要で最新投稿を読めるようにする場合は、GitHub raw JSONや外部ストレージを読む構成にする
+- 画像も最適化後に `public/uploads/` へコミット
+- GitHubへのコミットをきっかけにVercelが再デプロイ
+- 再デプロイ後に公開ページへ反映
+
+Vercelの Environment Variables には以下を設定してください。
+
+```env
+ADMIN_PASSWORD=管理画面のパスワード
+GITHUB_TOKEN=GitHub Fine-grained token
+GITHUB_OWNER=yokobo103
+GITHUB_REPO=yokobo_ai_lab
+GITHUB_BRANCH=main
+GITHUB_AUTHOR_NAME=Yokobo
+GITHUB_AUTHOR_EMAIL=GitHubのnoreplyメールなど
+```
+
+`GITHUB_TOKEN` は `yokobo_ai_lab` のみを対象にし、Repository permissions の `Contents` を `Read and write` にします。

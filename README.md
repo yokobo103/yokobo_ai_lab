@@ -52,13 +52,25 @@ npm run dev
 
 ## Vercel運用時の制限
 
-このMVPはローカル開発環境でのファイル保存を優先しています。Vercel の通常デプロイでは、実行時に `data/posts.json` や `public/uploads/` へ保存しても永続化されません。
+Vercel 本番では、実行時に `data/posts.json` や `public/uploads/` へ直接保存しても永続化されません。
 
-次フェーズでは以下のいずれかへ移行する想定です。
+このリポジトリでは、Vercel 上で `GITHUB_TOKEN` などの環境変数が設定されている場合、管理画面の保存処理は GitHub Contents API 経由で `data/posts.json` と `public/uploads/` にコミットします。
 
-- GitHub APIで `data/posts.json` と画像をリポジトリへコミットする
-- Cloudflare R2 / Supabase Storage に画像を保存する
-- 投稿JSONだけGitHub、画像だけR2のハイブリッドにする
+Vercel の Environment Variables に以下を設定してください。
+
+```env
+ADMIN_PASSWORD=管理画面のパスワード
+GITHUB_TOKEN=GitHub Fine-grained token
+GITHUB_OWNER=yokobo103
+GITHUB_REPO=yokobo_ai_lab
+GITHUB_BRANCH=main
+GITHUB_AUTHOR_NAME=Yokobo
+GITHUB_AUTHOR_EMAIL=GitHubのnoreplyメールなど
+```
+
+`GITHUB_TOKEN` は対象リポジトリを `yokobo_ai_lab` に限定し、Repository permissions の `Contents` を `Read and write` にしてください。
+
+保存後は GitHub にコミットが作られ、Vercel の Git 連携により再デプロイ後に公開サイトへ反映されます。
 
 ## 検証
 
