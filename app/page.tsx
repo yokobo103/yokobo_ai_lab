@@ -6,13 +6,6 @@ import { SiteFooter, SiteHeader } from "./site-chrome";
 
 export const dynamic = "force-dynamic";
 
-const socialLinks = [
-  { label: "X", href: "https://x.com/yokobo_ai", icon: "/assets/social/x.svg", tone: "black" },
-  { label: "YouTube", href: "https://www.youtube.com/", icon: "/assets/social/video.svg", tone: "red" },
-  { label: "音楽", href: "https://www.tiktok.com/", icon: "/assets/social/music.svg", tone: "green" },
-  { label: "Instagram", href: "https://www.instagram.com/", icon: "/assets/social/camera.svg", tone: "rainbow" }
-];
-
 function formatPostDate(value: string) {
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return "";
@@ -30,6 +23,7 @@ export default async function Home() {
     category: post.category,
     date: formatPostDate(post.updatedAt || post.createdAt),
     title: post.title || "無題のあそび",
+    summary: post.summary || (post.body ? post.body.replace(/[#*>\-\n]/g, " ").trim().slice(0, 56) : "画像を置いたら、もう投稿。"),
     image: post.thumbnail || post.images[0] || "/assets/logs/thumb-future-lab.webp"
   }));
 
@@ -118,6 +112,7 @@ export default async function Home() {
                     </div>
                     <time>{log.date}</time>
                     <h3>{log.title}</h3>
+                    <p>{log.summary}</p>
                     <span className="circleArrow" aria-hidden="true">→</span>
                   </Link>
                 ))}
@@ -129,6 +124,7 @@ export default async function Home() {
                     </div>
                     <time>--</time>
                     <h3>公開中のログはまだありません</h3>
+                    <p>新しい実験ログを準備中です。</p>
                     <span className="circleArrow" aria-hidden="true">→</span>
                   </Link>
                 ) : null}
@@ -150,25 +146,13 @@ export default async function Home() {
                     <Image src="/assets/decor/paw-navy.svg" alt="" width={22} height={22} />
                   </div>
                   <Link className="xHandleBanner" href="https://x.com/yokobo_ai" target="_blank" rel="noreferrer" aria-label="Xで @yokobo_ai を開く">
-                    <Image src="/assets/social/x-yokobo-ai.svg" alt="@yokobo_ai" width={760} height={150} />
+                    <Image src="/assets/social/x-yokobo-ai.svg" alt="@yokobo_ai" width={760} height={132} />
                   </Link>
                   <p className="snsLabel">SNSでも発信中！</p>
-                  <div className="socialList">
-                    {socialLinks.map((social) => (
-                      <Link
-                        className={`socialLink ${social.tone}`}
-                        href={social.href}
-                        aria-label={social.label}
-                        key={social.label}
-                      >
-                        <Image src={social.icon} alt="" width={26} height={26} />
-                      </Link>
-                    ))}
-                  </div>
                 </div>
                 <Image
                   className="newsletterCat"
-                  src="/assets/cta/dr-yokobo-waving.png"
+                  src="/assets/characters/nyabbit-profile.png"
                   alt=""
                   width={300}
                   height={300}
