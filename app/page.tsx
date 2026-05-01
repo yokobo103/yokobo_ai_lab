@@ -1,20 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
+import { logCategoryLinks } from "@/lib/log-categories";
 import { readPosts } from "@/lib/posts";
 import { SiteFooter, SiteHeader } from "./site-chrome";
 
 export const dynamic = "force-dynamic";
-
-const themes = [
-  { label: "画像生成", icon: "/assets/play/icons/icon-image.svg" },
-  { label: "ゲーム制作", icon: "/assets/play/icons/icon-gamepad.svg" },
-  { label: "3D", icon: "/assets/play/icons/icon-cube.svg" },
-  { label: "AI実験", icon: "/assets/play/icons/icon-flask.svg" },
-  { label: "プロンプト", icon: "/assets/play/icons/icon-share.svg" },
-  { label: "キャラ・イラスト", icon: "/assets/concerns/icon-cat-face.svg" },
-  { label: "初心者向け", icon: "/assets/vision/icon-creation.svg" },
-  { label: "ちょっと試してみる", icon: "/assets/concerns/icon-star.svg", warm: true }
-];
 
 const discoveryLogs = [
   {
@@ -52,24 +42,14 @@ const socialLinks = [
 
 export default async function Home() {
   const posts = (await readPosts()).filter((post) => post.status === "public");
-  const logHref = (index: number) => (posts[index]?.id ? `/posts/${posts[index].id}` : "/posts");
+  const logHref = (index: number) => (posts[index]?.id ? `/posts/${posts[index].id}` : "/logs");
 
   return (
     <div className="pageFrame lpPage">
       <SiteHeader />
       <main>
         <section className="lpHero" aria-labelledby="hero-title">
-          <Image
-            className="lpHeroBg"
-            src="/design-reference/lp_top.png"
-            alt=""
-            fill
-            priority
-            sizes="100vw"
-          />
           <div className="lpHeroShade" />
-          <Image className="heroDoodle atomOne" src="/assets/decor/atom.svg" alt="" width={58} height={58} />
-          <Image className="heroDoodle pawOne" src="/assets/decor/paw-blue.svg" alt="" width={34} height={34} />
 
           <div className="lpHeroInner">
             <div className="lpHeroCopy">
@@ -84,11 +64,11 @@ export default async function Home() {
                 思いつきを形にしながら、未来の自分に出会えるラボです。
               </p>
               <div className="lpHeroActions" aria-label="メイン導線">
-                <Link className="lpButton primary" href="/posts">
+                <Link className="lpButton primary" href="/logs">
                   ラボをのぞいてみる
                   <Image src="/assets/decor/paw-white.svg" alt="" width={24} height={24} />
                 </Link>
-                <Link className="lpButton secondary" href="#themes">
+                <Link className="lpButton secondary" href="/about">
                   <Image src="/assets/decor/flask-button.svg" alt="" width={26} height={26} />
                   <span>
                     はじめての方へ
@@ -108,10 +88,17 @@ export default async function Home() {
               <Image src="/assets/decor/paw-blue.svg" alt="" width={28} height={28} />
             </h2>
             <nav className="themePills" aria-label="テーマ">
-              {themes.map((theme) => (
-                <Link className={`themePill${theme.warm ? " warm" : ""}`} href="/posts" key={theme.label}>
-                  <Image src={theme.icon} alt="" width={30} height={30} />
-                  <span>{theme.label}</span>
+              {logCategoryLinks.map((theme) => (
+                <Link
+                  className={`themePill${"warm" in theme ? " warm" : ""}`}
+                  href={theme.href}
+                  key={theme.slug}
+                  aria-label={theme.label}
+                  title={theme.label}
+                >
+                  <Image className="themeIconSvg" src={theme.icon} alt="" width={32} height={32} />
+                  <span className="themeLabelFull">{theme.label}</span>
+                  <span className="themeLabelShort" aria-hidden="true">{theme.shortLabel}</span>
                 </Link>
               ))}
             </nav>
@@ -126,7 +113,7 @@ export default async function Home() {
                 <h2 id="latest-heading">最新の発見ログ</h2>
                 <p>ラボで生まれた最新の発見をチェック！</p>
               </div>
-              <Link className="textArrowLink" href="/posts">
+              <Link className="textArrowLink" href="/logs">
                 すべての発見ログを見る
                 <span aria-hidden="true">→</span>
               </Link>
@@ -137,7 +124,7 @@ export default async function Home() {
                 {discoveryLogs.map((log, index) => (
                   <Link className="logCard" href={logHref(index)} key={log.title}>
                     <div className="logThumb">
-                      <Image src={log.image} alt="" fill sizes="(max-width: 700px) 260px, 230px" />
+                      <Image src={log.image} alt="" fill sizes="(max-width: 760px) 260px, 230px" />
                       <span>{log.category}</span>
                     </div>
                     <time>{log.date}</time>
@@ -155,7 +142,10 @@ export default async function Home() {
                   </h2>
                   <p>新しい発見やお役立ち情報をお届けします。</p>
                   <div className="emailNotice" aria-label="メール配信は整備中です">
-                    <span aria-hidden="true">✉</span>
+                    <svg className="emailIcon" viewBox="0 0 24 24" aria-hidden="true" fill="none">
+                      <rect x="3" y="6" width="18" height="12" rx="3" />
+                      <path d="m4.5 8 7.5 5 7.5-5" />
+                    </svg>
                     メール配信は整備中です
                     <Image src="/assets/decor/paw-navy.svg" alt="" width={22} height={22} />
                   </div>

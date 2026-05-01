@@ -16,7 +16,7 @@ export default async function PostDetail({ params }: { params: Promise<{ id: str
     <>
       <SiteHeader />
       <main className="articleShell">
-        <Link className="backLink" href="/posts">← 研究ログ一覧へ</Link>
+        <Link className="backLink" href="/logs">← 研究ログ一覧へ</Link>
         <p className="eyebrow">{post.category}</p>
         <h1>{post.title || "無題のあそび"}</h1>
         <p className="articleSummary">{post.summary || "画像を置いたら、もう投稿。"}</p>

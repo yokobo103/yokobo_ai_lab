@@ -2,14 +2,14 @@ import Image from "next/image";
 import Link from "next/link";
 
 const navLinks = [
-  { href: "/", label: "ホーム" },
-  { href: "/posts", label: "発見ログ" },
-  { href: "/#themes", label: "遊びのテーマ" },
-  { href: "/posts", label: "ツール・素材" },
-  { href: "/#newsletter-heading", label: "よこぼについて" }
+  { href: "/", label: "ホーム", key: "home" },
+  { href: "/logs", label: "発見ログ", key: "posts" },
+  { href: "/#themes", label: "遊びのテーマ", key: "themes" },
+  { href: "/logs?category=ai-system", label: "ツール・素材", key: "tools" },
+  { href: "/about", label: "よこぼについて", key: "about" }
 ];
 
-export function SiteHeader() {
+export function SiteHeader({ active = "home" }: { active?: string }) {
   return (
     <header className="siteHeader">
       <Link className="brand" href="/" aria-label="よこぼのAIラボ ホーム">
@@ -17,7 +17,7 @@ export function SiteHeader() {
       </Link>
       <nav aria-label="メインナビゲーション">
         {navLinks.map((link) => (
-          <Link href={link.href} key={link.label}>
+          <Link className={link.key === active ? "active" : undefined} href={link.href} key={link.label}>
             {link.label}
           </Link>
         ))}
@@ -27,14 +27,14 @@ export function SiteHeader() {
         <Image src="/assets/decor/paw-blue.svg" alt="" width={22} height={22} />
       </Link>
       <details className="mobileMenu">
-        <summary className="mobileMenuButton" aria-label="メニューを開く">
+        <summary className="mobileMenuButton" aria-label="メニューを開閉">
           <span />
           <span />
           <span />
         </summary>
         <div className="mobileMenuPanel">
           {navLinks.map((link) => (
-            <Link href={link.href} key={link.label}>
+            <Link className={link.key === active ? "active" : undefined} href={link.href} key={link.label}>
               {link.label}
             </Link>
           ))}
