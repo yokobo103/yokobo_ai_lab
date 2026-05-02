@@ -9,6 +9,9 @@ const navLinks = [
   { href: "/about", label: "よこぼについて", key: "about" }
 ];
 
+const contactFormUrl =
+  "https://docs.google.com/forms/d/e/1FAIpQLScgKOrGgMR1S_TlSgRCCjsGQVZpK1PjqJvrX3E2ZdnpjqGC2w/viewform?usp=dialog";
+
 export function SiteHeader({ active = "home" }: { active?: string }) {
   return (
     <header className="siteHeader">
@@ -65,10 +68,12 @@ export function SiteFooter() {
             {link.label}
           </Link>
         ))}
-        <Link href="/admin">お問い合わせ</Link>
+        <Link href={contactFormUrl} target="_blank" rel="noreferrer">
+          お問い合わせ・感想
+        </Link>
       </nav>
-      <Link className="footerContact" href="/admin">
-        お問い合わせ
+      <Link className="footerContact" href={contactFormUrl} target="_blank" rel="noreferrer">
+        お問い合わせ・感想
         <Image src="/assets/decor/paw-blue.svg" alt="" width={22} height={22} />
       </Link>
       <p>© YOKOBO AI LAB All Rights Reserved.</p>
