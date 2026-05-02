@@ -595,10 +595,12 @@ img {
   height: 30px;
   align-items: center;
   justify-content: center;
-  border: 2px solid var(--blue);
+  border: 2px solid #b9d6ff;
   border-radius: 999px;
-  color: var(--blue);
+  background: #ffffff url("/assets/decor/paw-blue.svg") no-repeat center / 17px auto;
+  color: transparent;
   font-weight: 950;
+  box-shadow: 0 6px 14px rgba(20, 88, 170, 0.08);
 }
 
 .newsletterPanel {
