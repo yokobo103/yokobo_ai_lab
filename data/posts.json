@@ -9,7 +9,7 @@
       "Webあそび"
     ],
     "status": "public",
-    "pinned": true,
+    "pinned": false,
     "tags": [],
     "thumbnail": "/uploads/2025-ai-asobi-summary-draft/thumbnail-1a4afc75-676d-4a30-97a8-6264c4a3d25f.webp",
     "images": [
@@ -41,7 +41,7 @@
       }
     ],
     "createdAt": "2026-05-02T01:54:13.032Z",
-    "updatedAt": "2026-05-02T12:34:20.296Z"
+    "updatedAt": "2026-05-02T12:34:23.765Z"
   },
   {
     "id": "d1643910-3b68-484e-b436-c4722cde191d",
