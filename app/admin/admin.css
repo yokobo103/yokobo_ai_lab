@@ -435,21 +435,30 @@
 }
 
 .pinMark {
+  display: inline-grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
   justify-self: end;
-  color: #7b8eb2;
-  font-size: 18px;
+  border-radius: 999px;
+  background: #eef4fb;
+  color: #8aa0c2;
+  font-size: 17px;
   font-weight: 950;
 }
 
 .pinMark.active {
-  color: #f0a51c;
+  background: #fff1b8;
+  color: #d79000;
 }
 
 .adminPage .logCard.active .pinMark {
-  color: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.24);
+  color: rgba(255, 255, 255, 0.76);
 }
 
 .adminPage .logCard.active .pinMark.active {
+  background: #fff1b8;
   color: #ffd86b;
 }
 
