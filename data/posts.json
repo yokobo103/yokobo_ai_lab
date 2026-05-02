@@ -44,25 +44,6 @@
     "updatedAt": "2026-05-02T12:52:30.265Z"
   },
   {
-    "id": "c39d699e-bbda-4931-8d4b-0bac6c723b97",
-    "title": "",
-    "summary": "",
-    "category": "気づき・ログ",
-    "categories": [
-      "気づき・ログ"
-    ],
-    "status": "public",
-    "tags": [],
-    "thumbnail": "/uploads/c39d699e-bbda-4931-8d4b-0bac6c723b97/thumbnail-1777419995450-gnzlcr.webp",
-    "images": [
-      "/uploads/c39d699e-bbda-4931-8d4b-0bac6c723b97/gallery-1777420048746-bdyer4.webp"
-    ],
-    "body": "## テストですん\n\n本文中に入れたりできるかな？\n\n![画像](/uploads/c39d699e-bbda-4931-8d4b-0bac6c723b97/gallery-1777420048746-bdyer4.webp)\n\nねずみ！",
-    "links": [],
-    "createdAt": "2026-04-28T23:46:12.818Z",
-    "updatedAt": "2026-04-28T23:47:48.569Z"
-  },
-  {
     "id": "welcome-lab",
     "title": "よこぼのAIラボ、仮オープン",
     "summary": "完成していなくても、今日のあそびを置いていくための研究ログを始めました。",
