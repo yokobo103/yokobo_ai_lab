@@ -517,6 +517,18 @@
   padding: 0;
 }
 
+.editorTop > .iconButton {
+  border-color: #d9e8fb;
+  background: #eef4fb;
+  color: #8aa0c2;
+}
+
+.editorTop > .iconButton.active {
+  border-color: #f5c542;
+  background: #fff1b8;
+  color: #d79000;
+}
+
 .editorActions {
   display: grid;
   gap: 10px;
