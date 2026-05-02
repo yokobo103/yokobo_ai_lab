@@ -303,7 +303,7 @@
   gap: 8px;
 }
 
-.logCard {
+.adminPage .logCard {
   position: relative;
   display: grid;
   grid-template-columns: 58px minmax(0, 1fr) 28px;
@@ -312,17 +312,26 @@
   width: 100%;
   min-height: 82px;
   padding: 10px;
-  border: 1px solid transparent;
-  border-bottom-color: #e5eefb;
+  border: 1px solid #d9e8fb;
   border-radius: 14px;
   background: white;
   color: #102861;
   text-align: left;
+  box-shadow: 0 8px 18px rgba(20, 88, 170, 0.04);
+  transition: background 0.16s ease, border-color 0.16s ease, color 0.16s ease, box-shadow 0.16s ease;
 }
 
-.logCard.active {
-  border-color: #2f7df6;
+.adminPage .logCard:hover {
+  border-color: #b9d6ff;
   background: #f4fbff;
+  color: #102861;
+}
+
+.adminPage .logCard.active {
+  border-color: #2f7df6;
+  background: linear-gradient(180deg, #3f8df8, #1f67d8);
+  color: white;
+  box-shadow: 0 12px 24px rgba(31, 103, 216, 0.18);
 }
 
 .logThumb {
@@ -363,6 +372,7 @@
 .logText strong {
   font-size: 14px;
   font-weight: 950;
+  color: inherit;
 }
 
 .logText small,
@@ -371,6 +381,12 @@
   color: #5d7094;
   font-size: 12px;
   font-weight: 800;
+}
+
+.adminPage .logCard.active .logText small,
+.adminPage .logCard.active .metaRow,
+.adminPage .logCard.active .tagLine {
+  color: rgba(255, 255, 255, 0.78);
 }
 
 .metaRow,
@@ -404,6 +420,16 @@
   color: #1178ff;
 }
 
+.adminPage .logCard.active .miniStatus {
+  background: rgba(255, 255, 255, 0.92);
+  color: #16407f;
+}
+
+.adminPage .logCard.active .miniStatus.public {
+  background: #dff0ff;
+  color: #16407f;
+}
+
 .tagLine em {
   font-style: normal;
 }
@@ -417,6 +443,14 @@
 
 .pinMark.active {
   color: #f0a51c;
+}
+
+.adminPage .logCard.active .pinMark {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.adminPage .logCard.active .pinMark.active {
+  color: #ffd86b;
 }
 
 .emptyState,
