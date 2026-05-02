@@ -1,5 +1,27 @@
 [
   {
+    "id": "f5e0a374-44e9-4f89-beec-b53e62bc9a1f",
+    "title": "GPT-Image-2とGPT-5.5でよこぼのAIラボをリニューアルしました！",
+    "summary": "GPTさんと協力してこのサイトはできあがりました！",
+    "category": "Webあそび",
+    "categories": [
+      "Webあそび",
+      "気づき・ログ"
+    ],
+    "status": "draft",
+    "pinned": false,
+    "tags": [],
+    "thumbnail": "",
+    "images": [
+      "/uploads/f5e0a374-44e9-4f89-beec-b53e62bc9a1f/gallery-5ca73b5e-ec59-4f26-866c-cf31e7d97b39.webp",
+      "/uploads/f5e0a374-44e9-4f89-beec-b53e62bc9a1f/gallery-5c77926b-f5ad-4201-bc17-dbbb7fe593d2.webp"
+    ],
+    "body": "## まずはこのサイトに立ち寄ってくださったみなさま、ありがとうございます！！\n\n「よこぼのAIラボ」はここが2代目です。\n\n旧サイトはこんな感じ。\n![画像](/uploads/f5e0a374-44e9-4f89-beec-b53e62bc9a1f/gallery-5ca73b5e-ec59-4f26-866c-cf31e7d97b39.webp)\n![画像](/uploads/f5e0a374-44e9-4f89-beec-b53e62bc9a1f/gallery-5c77926b-f5ad-4201-bc17-dbbb7fe593d2.webp)\n\n\nだいぶ進化しました。\nここまでの道のりを、今回は紹介したいと思います。\n\n---\n\n\n\n\n",
+    "links": [],
+    "createdAt": "2026-05-02T14:54:16.330Z",
+    "updatedAt": "2026-05-02T15:07:33.961Z"
+  },
+  {
     "id": "2025-ai-asobi-summary-draft",
     "title": "2025年のAIあそびまとめ：よこぼのAIラボができるまで",
     "summary": "旧AIラボに残っていた2025年のWeb、画像、音楽、3D、AR、ゲーム的な実験を、活動の流れとして再構成してみました",
