@@ -100,6 +100,11 @@ export function normalizePost(input: Partial<Post>, previous?: Post): Post {
   const now = new Date().toISOString();
   const postCategories = normalizeCategories(input, previous);
   const primaryCategory = postCategories[0] ?? "気づき・ログ";
+  const tags = Array.isArray(input.tags)
+    ? input.tags
+        .map((tag) => (typeof tag === "string" ? tag.trim().replace(/^#/, "") : ""))
+        .filter(Boolean)
+    : previous?.tags ?? [];
 
   return {
     id: input.id || previous?.id || makeSlug(input.title || ""),
@@ -108,7 +113,8 @@ export function normalizePost(input: Partial<Post>, previous?: Post): Post {
     category: primaryCategory,
     categories: postCategories,
     status: input.status === "public" ? "public" : "draft",
-    tags: [],
+    pinned: Boolean(input.pinned ?? previous?.pinned),
+    tags: [...new Set(tags)].slice(0, 12),
     thumbnail: input.thumbnail || "",
     images: Array.isArray(input.images) ? input.images.filter(Boolean) : [],
     body: input.body || "",

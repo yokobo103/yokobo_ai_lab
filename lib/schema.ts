@@ -16,6 +16,7 @@ export type Post = {
   category: Category;
   categories: Category[];
   status: "draft" | "public";
+  pinned?: boolean;
   tags: string[];
   thumbnail: string;
   images: string[];
