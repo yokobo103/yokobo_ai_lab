@@ -2842,12 +2842,15 @@ img {
   min-height: 310px;
   align-self: stretch;
   overflow: visible;
-  background: url("/assets/about/ex-page.webp") no-repeat center right / cover;
+  background:
+    linear-gradient(90deg, rgba(248, 252, 255, 0.98) 0%, rgba(248, 252, 255, 0.66) 13%, rgba(248, 252, 255, 0) 28%),
+    url("/assets/about/ex-page.webp") no-repeat center right / cover;
 }
 
 .exHeroVisual img {
   object-fit: cover;
   object-position: center right;
+  opacity: 0;
   filter: drop-shadow(0 16px 32px rgba(20, 88, 170, 0.12));
 }
 
@@ -2875,7 +2878,7 @@ img {
 }
 
 .exHeroBubble.doctor {
-  left: 8px;
+  left: 40px;
   top: 128px;
   border: 1.5px solid #f6d891;
   background: rgba(255, 249, 232, 0.94);

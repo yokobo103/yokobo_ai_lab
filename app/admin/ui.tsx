@@ -15,7 +15,7 @@ const emptyPost = (): Post => {
     title: "",
     summary: "",
     category: "気づき・ログ",
-    categories: ["気づき・ログ"],
+    categories: [],
     status: "draft",
     tags: [],
     thumbnail: "",
@@ -160,7 +160,7 @@ export default function AdminApp() {
   }
 
   function selectedCategories(post = current) {
-    return post.categories?.length ? post.categories : [post.category];
+    return post.categories ?? [];
   }
 
   function toggleCategory(category: Post["category"]) {
@@ -168,18 +168,13 @@ export default function AdminApp() {
     const exists = selected.includes(category);
     const next = exists ? selected.filter((item) => item !== category) : [...selected, category];
 
-    if (next.length === 0) {
-      setMessage("カテゴリは1つ以上選んでください。");
-      return;
-    }
-
     if (next.length > 2) {
       setMessage("カテゴリは2つまで選べます。");
       return;
     }
 
     setMessage("");
-    setCurrent((post) => ({ ...post, category: next[0], categories: next }));
+    setCurrent((post) => ({ ...post, category: next[0] ?? "気づき・ログ", categories: next }));
   }
 
   async function save(status: "draft" | "public") {
@@ -338,7 +333,7 @@ export default function AdminApp() {
           {posts.map((post) => (
             <button className={post.id === current.id ? "active" : ""} key={post.id} type="button" onClick={() => selectPost(post)}>
               <span>{post.title || "無題のあそび"}</span>
-              <small>{post.status === "public" ? "公開" : "下書き"} / {selectedCategories(post).join("・")}</small>
+              <small>{post.status === "public" ? "公開" : "下書き"} / {selectedCategories(post).join("・") || "未選択"}</small>
             </button>
           ))}
         </aside>
@@ -348,9 +343,10 @@ export default function AdminApp() {
             <label>ID<input value={current.id} onChange={(event) => update("id", event.target.value)} /></label>
             <div className="categorySummary">
               <span>カテゴリ</span>
-              <strong>{selectedCategories().join(" / ")}</strong>
+              <strong>{selectedCategories().join(" / ") || "未選択（保存時に気づき・ログ）"}</strong>
             </div>
           </div>
+          <p className="categoryHelp">カテゴリは0〜2個まで選べます。迷ったら未選択でも保存できます。</p>
           <div className="categoryPicker" aria-label="カテゴリを選択">
             {categories.map((category) => {
               const active = selectedCategories().includes(category);

@@ -106,7 +106,7 @@ export function normalizePost(input: Partial<Post>, previous?: Post): Post {
     title: input.title?.trim() || previous?.title || "",
     summary: input.summary?.trim() || "",
     category: primaryCategory,
-    categories: postCategories.length ? postCategories : [primaryCategory],
+    categories: postCategories,
     status: input.status === "public" ? "public" : "draft",
     tags: [],
     thumbnail: input.thumbnail || "",
