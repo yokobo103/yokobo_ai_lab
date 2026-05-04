@@ -72,6 +72,20 @@ function splitTags(value: string) {
   return [...new Set(value.split(/[,\s　#]+/).map((tag) => tag.trim()).filter(Boolean))].slice(0, 12);
 }
 
+function formatLinkText(post: Post) {
+  return post.links.map((link) => `${link.label},${link.url}`).join("\n");
+}
+
+function parseLinkText(value: string) {
+  return value
+    .split("\n")
+    .map((line) => {
+      const [label, ...urlParts] = line.split(",");
+      return { label: label?.trim() || "", url: urlParts.join(",").trim() };
+    })
+    .filter((link) => link.label && link.url);
+}
+
 export default function AdminApp() {
   const [passwordInput, setPasswordInput] = useState(() =>
     typeof window === "undefined" ? "" : sessionStorage.getItem(STORAGE_KEY) ?? ""
@@ -80,6 +94,7 @@ export default function AdminApp() {
   const [authed, setAuthed] = useState(false);
   const [posts, setPosts] = useState<Post[]>([]);
   const [current, setCurrent] = useState<Post>(() => emptyPost());
+  const [linkDraft, setLinkDraft] = useState("");
   const [message, setMessage] = useState("");
   const [saving, setSaving] = useState(false);
   const [deleting, setDeleting] = useState(false);
@@ -164,7 +179,9 @@ export default function AdminApp() {
       setAuthed(true);
       setAuthPassword(pass);
       sessionStorage.setItem(STORAGE_KEY, pass);
-      setCurrent(data[0] ?? emptyPost());
+      const nextCurrent = data[0] ?? emptyPost();
+      setCurrent(nextCurrent);
+      setLinkDraft(formatLinkText(nextCurrent));
       setMessage("ログインしました。");
     } catch {
       setMessage("ログインに失敗しました。ngrok の URL を開き直してから再試行してください。");
@@ -175,7 +192,9 @@ export default function AdminApp() {
     setAuthed(false);
     setAuthPassword("");
     setPosts([]);
-    setCurrent(emptyPost());
+    const nextCurrent = emptyPost();
+    setCurrent(nextCurrent);
+    setLinkDraft(formatLinkText(nextCurrent));
     setPublicPath("");
     sessionStorage.removeItem(STORAGE_KEY);
     setMessage("ログアウトしました。");
@@ -202,7 +221,9 @@ export default function AdminApp() {
   }
 
   function startNewPost() {
-    setCurrent(emptyPost());
+    const nextCurrent = emptyPost();
+    setCurrent(nextCurrent);
+    setLinkDraft(formatLinkText(nextCurrent));
     setPublicPath("");
     setEditorTab("edit");
     setView("editor");
@@ -210,6 +231,7 @@ export default function AdminApp() {
 
   function selectPost(post: Post) {
     setCurrent(post);
+    setLinkDraft(formatLinkText(post));
     setPublicPath(post.status === "public" ? `/posts/${post.id}` : "");
     setEditorTab("edit");
     setView("editor");
@@ -231,20 +253,12 @@ export default function AdminApp() {
   }
 
   function linkText() {
-    return current.links.map((link) => `${link.label},${link.url}`).join("\n");
+    return linkDraft;
   }
 
   function setLinkText(value: string) {
-    update(
-      "links",
-      value
-        .split("\n")
-        .map((line) => {
-          const [label, ...urlParts] = line.split(",");
-          return { label: label?.trim() || "", url: urlParts.join(",").trim() };
-        })
-        .filter((link) => link.label && link.url)
-    );
+    setLinkDraft(value);
+    update("links", parseLinkText(value));
   }
 
   function insertAtCursor(markdown: string) {
@@ -317,6 +331,7 @@ export default function AdminApp() {
     }
 
     setCurrent(data);
+    setLinkDraft(formatLinkText(data));
     setPublicPath(status === "public" ? `/posts/${data.id}` : "");
     await reloadPosts();
     setMessage(status === "public" ? "公開しました。" : "下書きを保存しました。");
@@ -375,8 +390,10 @@ export default function AdminApp() {
     }
 
     const nextPosts = await reloadPosts();
-    setCurrent(nextPosts[0] ?? emptyPost());
-    setPublicPath(nextPosts[0]?.status === "public" ? `/posts/${nextPosts[0].id}` : "");
+    const nextCurrent = nextPosts[0] ?? emptyPost();
+    setCurrent(nextCurrent);
+    setLinkDraft(formatLinkText(nextCurrent));
+    setPublicPath(nextCurrent.status === "public" ? `/posts/${nextCurrent.id}` : "");
     setView("logs");
     setMessage("投稿を削除しました。");
   }
