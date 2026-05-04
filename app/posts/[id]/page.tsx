@@ -4,18 +4,11 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getPostCategories } from "@/lib/log-categories";
 import { markdownToHtml } from "@/lib/markdown";
+import { getAbsoluteUrl, getArticleDescription, getArticleOgpImage } from "@/lib/ogp";
 import { getPost } from "@/lib/posts";
 import { SiteFooter, SiteHeader } from "../../site-chrome";
 
 export const dynamic = "force-dynamic";
-
-function siteUrl() {
-  return process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
-}
-
-function absoluteUrl(path: string) {
-  return new URL(path, siteUrl()).toString();
-}
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await params;
@@ -23,9 +16,9 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   if (!post || post.status !== "public") return {};
 
   const title = post.title || "無題のあそび";
-  const description = post.summary || post.body.split("\n").find(Boolean) || "よこぼのAIラボの研究ログです。";
-  const url = absoluteUrl(`/posts/${post.id}`);
-  const image = post.thumbnail ? absoluteUrl(post.thumbnail) : undefined;
+  const description = getArticleDescription(post);
+  const url = getAbsoluteUrl(`/posts/${post.id}`);
+  const image = getArticleOgpImage(post);
 
   return {
     title,
@@ -37,13 +30,18 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
       title,
       description,
       url,
-      images: image ? [{ url: image }] : undefined
+      images: [
+        {
+          url: image,
+          alt: title
+        }
+      ]
     },
     twitter: {
-      card: image ? "summary_large_image" : "summary",
+      card: "summary_large_image",
       title,
       description,
-      images: image ? [image] : undefined
+      images: [image]
     }
   };
 }
