@@ -1,7 +1,7 @@
 "use client";
 
 /* eslint-disable @next/next/no-img-element */
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { categories, type Post } from "@/lib/schema";
 import "./admin.css";
 
@@ -38,6 +38,11 @@ function postTitle(post: Post) {
 
 function postSummary(post: Post) {
   return post.summary || post.body.split("\n").find(Boolean) || "ひとこと未入力";
+}
+
+function truncateText(value: string, maxLength = 80) {
+  const normalized = value.replace(/\s+/g, " ").trim();
+  return normalized.length > maxLength ? `${normalized.slice(0, maxLength)}...` : normalized;
 }
 
 function postCategories(post: Post) {
@@ -107,6 +112,7 @@ export default function AdminApp() {
   const [tagFilter, setTagFilter] = useState("all");
   const [pinnedOnly, setPinnedOnly] = useState(false);
   const [sortKey, setSortKey] = useState<SortKey>("updated");
+  const [siteOrigin, setSiteOrigin] = useState("");
   const bodyRef = useRef<HTMLTextAreaElement | null>(null);
 
   const jsonHeaders = useMemo(
@@ -154,6 +160,55 @@ export default function AdminApp() {
   const recentDrafts = useMemo(() => stats.drafts.slice(0, 4), [stats.drafts]);
   const currentExists = posts.some((post) => post.id === current.id);
   const tagText = current.tags?.map((tag) => `#${tag}`).join(" ") ?? "";
+  const currentCopyText = makeTweetCopyText(current);
+  const currentCanShare = canSharePost(current);
+
+  useEffect(() => {
+    setSiteOrigin(window.location.origin);
+  }, []);
+
+  function getPublicPostUrl(post: Post) {
+    if (!siteOrigin || post.status !== "public" || !post.id) return "";
+    return `${siteOrigin}/posts/${post.id}`;
+  }
+
+  function canSharePost(post: Post) {
+    return Boolean(siteOrigin && post.status === "public" && post.id);
+  }
+
+  function makeTweetText(post: Post) {
+    const lines = ["【新記事】", "", postTitle(post)];
+    const summary = truncateText(post.summary || "");
+    if (summary) lines.push("", summary);
+    lines.push("", "試行錯誤をまとめました👇");
+    return lines.join("\n");
+  }
+
+  function makeTweetCopyText(post: Post) {
+    const url = getPublicPostUrl(post);
+    return url ? `${makeTweetText(post)}\n\n${url}` : makeTweetText(post);
+  }
+
+  async function copyTweet(post = current) {
+    const text = makeTweetCopyText(post);
+    try {
+      await navigator.clipboard.writeText(text);
+      setMessage("投稿文をコピーしました。");
+    } catch {
+      setMessage("コピーできませんでした。投稿文を選択してコピーしてください。");
+    }
+  }
+
+  function openTweetIntent(post = current) {
+    const url = getPublicPostUrl(post);
+    if (!url) {
+      setMessage("公開済みの記事URLがないため、X投稿を作成できません。");
+      return;
+    }
+
+    const intentUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(makeTweetText(post))}&url=${encodeURIComponent(url)}`;
+    window.open(intentUrl, "_blank", "noopener,noreferrer");
+  }
 
   async function login() {
     const pass = passwordInput.trim();
@@ -334,7 +389,7 @@ export default function AdminApp() {
     setLinkDraft(formatLinkText(data));
     setPublicPath(status === "public" ? `/posts/${data.id}` : "");
     await reloadPosts();
-    setMessage(status === "public" ? "公開しました。" : "下書きを保存しました。");
+    setMessage(status === "public" ? "公開しました。Xで宣伝しますか？" : "下書きを保存しました。");
   }
 
   async function togglePinned(post = current) {
@@ -483,25 +538,56 @@ export default function AdminApp() {
 
   function renderPostRow(post: Post, dense = false) {
     const active = post.id === current.id;
+    const shareDisabled = !canSharePost(post);
     return (
-      <button key={post.id} className={active ? "logCard active" : "logCard"} type="button" onClick={() => selectPost(post)}>
-        <span className={dense ? "logThumb dense" : "logThumb"}>
-          {post.thumbnail ? <img src={post.thumbnail} alt="" /> : <span className="thumbFallback">AI</span>}
-        </span>
-        <span className="logText">
-          <strong>{postTitle(post)}</strong>
-          <small>{postSummary(post)}</small>
-          <span className="metaRow">
-            <span className={post.status === "public" ? "miniStatus public" : "miniStatus draft"}>{post.status === "public" ? "公開" : "下書き"}</span>
-            <span>{postCategories(post).join(" / ") || "未分類"}</span>
-            <span>更新: {formatRelative(post.updatedAt)}</span>
+      <article key={post.id} className={active ? "logCard active" : "logCard"}>
+        <button className="logMain" type="button" onClick={() => selectPost(post)}>
+          <span className={dense ? "logThumb dense" : "logThumb"}>
+            {post.thumbnail ? <img src={post.thumbnail} alt="" /> : <span className="thumbFallback">AI</span>}
           </span>
-          {post.tags?.length ? (
-            <span className="tagLine">{post.tags.slice(0, 4).map((tag) => <em key={tag}>#{tag}</em>)}</span>
-          ) : null}
-        </span>
-        <span className={post.pinned ? "pinMark active" : "pinMark"}>{post.pinned ? "★" : "…"}</span>
-      </button>
+          <span className="logText">
+            <strong>{postTitle(post)}</strong>
+            <small>{postSummary(post)}</small>
+            <span className="metaRow">
+              <span className={post.status === "public" ? "miniStatus public" : "miniStatus draft"}>{post.status === "public" ? "公開" : "下書き"}</span>
+              <span>{postCategories(post).join(" / ") || "未分類"}</span>
+              <span>更新: {formatRelative(post.updatedAt)}</span>
+            </span>
+            {post.tags?.length ? (
+              <span className="tagLine">{post.tags.slice(0, 4).map((tag) => <em key={tag}>#{tag}</em>)}</span>
+            ) : null}
+          </span>
+        </button>
+        <details className="logMenu">
+          <summary aria-label={`${postTitle(post)}のメニュー`}>…</summary>
+          <div>
+            <button type="button" onClick={() => selectPost(post)}>編集</button>
+            <a href={`/posts/${post.id}`} target="_blank" rel="noreferrer" aria-disabled={post.status !== "public"}>プレビュー</a>
+            <button type="button" disabled={shareDisabled} onClick={() => openTweetIntent(post)}>X投稿を作成</button>
+            <button type="button" disabled={shareDisabled} onClick={() => void copyTweet(post)}>コピー</button>
+          </div>
+        </details>
+      </article>
+    );
+  }
+
+  function renderTweetPreview() {
+    return (
+      <section className="tweetPreview">
+        <div>
+          <h3>X投稿プレビュー</h3>
+          <p>{currentCanShare ? "公開ページURLを添えて投稿を作成できます。" : "公開済みの記事で使えます。"}</p>
+        </div>
+        <pre>{currentCopyText}</pre>
+        <div className="tweetActions">
+          <button className="tweetButton" type="button" disabled={!currentCanShare} onClick={() => openTweetIntent()}>
+            X投稿を作成
+          </button>
+          <button className="copyButton" type="button" disabled={!currentCanShare} onClick={() => void copyTweet()}>
+            投稿文をコピー
+          </button>
+        </div>
+      </section>
     );
   }
 
@@ -546,6 +632,7 @@ export default function AdminApp() {
         <div className="editorActions top">
           <button type="button" disabled={saving} onClick={() => save("draft")}>下書き保存</button>
           <button className="publishButton" type="button" disabled={saving} onClick={() => save("public")}>公開する</button>
+          <button className="tweetButton" type="button" disabled={!currentCanShare} onClick={() => openTweetIntent()}>X投稿を作成</button>
         </div>
 
         <div className="editorTabs">
@@ -662,10 +749,13 @@ export default function AdminApp() {
 
         {message ? <p className="adminMessage">{message}</p> : null}
         {publicPath ? <a className="publicLink" href={publicPath} target="_blank" rel="noreferrer">公開ページを開く</a> : null}
+        {renderTweetPreview()}
 
         <div className="editorActions bottom">
           <button type="button" disabled={saving} onClick={() => save("draft")}>下書き保存</button>
           <button className="publishButton" type="button" disabled={saving} onClick={() => save("public")}>公開する</button>
+          <button className="tweetButton" type="button" disabled={!currentCanShare} onClick={() => openTweetIntent()}>X投稿を作成</button>
+          <button className="copyButton" type="button" disabled={!currentCanShare} onClick={() => void copyTweet()}>投稿文をコピー</button>
           <button className="deleteButton" type="button" disabled={saving || deleting} onClick={deleteCurrentPost}>削除する</button>
         </div>
       </section>

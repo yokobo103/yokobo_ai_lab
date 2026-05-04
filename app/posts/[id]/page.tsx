@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getPostCategories } from "@/lib/log-categories";
 import { markdownToHtml } from "@/lib/markdown";
@@ -7,6 +8,45 @@ import { getPost } from "@/lib/posts";
 import { SiteFooter, SiteHeader } from "../../site-chrome";
 
 export const dynamic = "force-dynamic";
+
+function siteUrl() {
+  return process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+}
+
+function absoluteUrl(path: string) {
+  return new URL(path, siteUrl()).toString();
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const { id } = await params;
+  const post = await getPost(id);
+  if (!post || post.status !== "public") return {};
+
+  const title = post.title || "無題のあそび";
+  const description = post.summary || post.body.split("\n").find(Boolean) || "よこぼのAIラボの研究ログです。";
+  const url = absoluteUrl(`/posts/${post.id}`);
+  const image = post.thumbnail ? absoluteUrl(post.thumbnail) : undefined;
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: url
+    },
+    openGraph: {
+      title,
+      description,
+      url,
+      images: image ? [{ url: image }] : undefined
+    },
+    twitter: {
+      card: image ? "summary_large_image" : "summary",
+      title,
+      description,
+      images: image ? [image] : undefined
+    }
+  };
+}
 
 export default async function PostDetail({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;

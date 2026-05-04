@@ -150,10 +150,17 @@
 .editorTabs button,
 .markdownToolbar button,
 .uploadBox button,
-.publicLink {
+.publicLink,
+.copyButton {
   border: 1px solid #cfe0f5;
   background: white;
   color: #102861;
+}
+
+.tweetButton {
+  border: 1px solid #b9d6ff !important;
+  background: #eaf6ff !important;
+  color: #0e5bc8 !important;
 }
 
 .adminSidebar nav {
@@ -306,12 +313,12 @@
 .adminPage .logCard {
   position: relative;
   display: grid;
-  grid-template-columns: 58px minmax(0, 1fr) 28px;
-  gap: 12px;
+  grid-template-columns: minmax(0, 1fr) 42px;
+  gap: 6px;
   align-items: center;
   width: 100%;
   min-height: 82px;
-  padding: 10px;
+  padding: 8px;
   border: 1px solid #d9e8fb;
   border-radius: 14px;
   background: white;
@@ -332,6 +339,20 @@
   background: linear-gradient(180deg, #3f8df8, #1f67d8);
   color: white;
   box-shadow: 0 12px 24px rgba(31, 103, 216, 0.18);
+}
+
+.adminPage .logMain {
+  display: grid;
+  grid-template-columns: 58px minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+  width: 100%;
+  min-height: 66px;
+  padding: 2px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
 }
 
 .logThumb {
@@ -434,32 +455,72 @@
   font-style: normal;
 }
 
-.pinMark {
-  display: inline-grid;
-  width: 28px;
-  height: 28px;
-  place-items: center;
+.logMenu {
+  position: relative;
   justify-self: end;
+}
+
+.logMenu summary {
+  display: grid;
+  width: 36px;
+  min-height: 36px;
+  place-items: center;
   border-radius: 999px;
   background: #eef4fb;
-  color: #8aa0c2;
-  font-size: 17px;
+  color: #4c6285;
+  font-size: 18px;
   font-weight: 950;
+  list-style: none;
+  cursor: pointer;
 }
 
-.pinMark.active {
-  background: #fff1b8;
-  color: #d79000;
+.logMenu summary::-webkit-details-marker {
+  display: none;
 }
 
-.adminPage .logCard.active .pinMark {
+.adminPage .logCard.active .logMenu summary {
   background: rgba(255, 255, 255, 0.24);
-  color: rgba(255, 255, 255, 0.76);
+  color: white;
 }
 
-.adminPage .logCard.active .pinMark.active {
-  background: #fff1b8;
-  color: #ffd86b;
+.logMenu div {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 6px);
+  z-index: 8;
+  display: grid;
+  min-width: 156px;
+  padding: 8px;
+  border: 1px solid #cfe0f5;
+  border-radius: 14px;
+  background: white;
+  box-shadow: 0 14px 28px rgba(16, 40, 97, 0.16);
+}
+
+.logMenu button,
+.logMenu a {
+  display: flex;
+  align-items: center;
+  min-height: 38px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 10px;
+  background: white;
+  color: #102861;
+  font-size: 13px;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.logMenu button:hover,
+.logMenu a:hover {
+  background: #eaf6ff;
+}
+
+.logMenu button:disabled,
+.logMenu a[aria-disabled="true"] {
+  opacity: 0.52;
+  pointer-events: none;
 }
 
 .emptyState,
@@ -535,13 +596,13 @@
 }
 
 .editorActions.top {
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
 }
 
 .editorActions.bottom {
   position: sticky;
   bottom: -18px;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   padding: 12px 0 0;
   border-top: 1px solid #e5eefb;
   background: rgba(255, 255, 255, 0.96);
@@ -699,6 +760,48 @@
   background: #fffaf1;
 }
 
+.tweetPreview {
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid #cfe0f5;
+  border-radius: 18px;
+  background: #f4fbff;
+}
+
+.tweetPreview h3,
+.tweetPreview p {
+  margin: 0;
+}
+
+.tweetPreview h3 {
+  color: #102861;
+  font-size: 15px;
+  font-weight: 950;
+}
+
+.tweetPreview p {
+  color: #5d7094;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.tweetPreview pre {
+  max-height: 132px;
+  margin: 0;
+  overflow: auto;
+  white-space: pre-wrap;
+  color: #16305f;
+  font-family: inherit;
+  line-height: 1.65;
+}
+
+.tweetActions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
 .previewBox h2,
 .previewBox p,
 .historyBox p {
@@ -849,9 +952,13 @@
     gap: 8px;
   }
 
-  .logCard {
-    grid-template-columns: 56px minmax(0, 1fr) 26px;
+  .adminPage .logCard {
+    grid-template-columns: minmax(0, 1fr) 38px;
     min-height: 88px;
+  }
+
+  .adminPage .logMain {
+    grid-template-columns: 56px minmax(0, 1fr);
   }
 
   .editorPanel {
@@ -875,9 +982,14 @@
     position: sticky;
     top: 0;
     z-index: 4;
+    grid-template-columns: 1fr 1fr;
     padding: 10px 0;
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(12px);
+  }
+
+  .editorActions.top .tweetButton {
+    grid-column: 1 / -1;
   }
 
   .fieldGrid,
@@ -900,6 +1012,10 @@
 
   .editorActions.bottom .deleteButton {
     grid-column: 1 / -1;
+  }
+
+  .tweetPreview {
+    padding: 12px;
   }
 
   .quickGrid {
