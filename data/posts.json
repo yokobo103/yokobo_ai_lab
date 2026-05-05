@@ -1,5 +1,25 @@
 [
   {
+    "id": "323c30ae-d25a-4ef8-b647-117e2b17f933",
+    "title": "Codexで横スクロールゲームをつくる",
+    "summary": "",
+    "category": "気づき・ログ",
+    "categories": [
+      "気づき・ログ"
+    ],
+    "status": "draft",
+    "pinned": false,
+    "tags": [],
+    "thumbnail": "",
+    "images": [
+      "/uploads/323c30ae-d25a-4ef8-b647-117e2b17f933/gallery-49cbc9ba-2785-4966-9351-a9351f73d835.webp"
+    ],
+    "body": "",
+    "links": [],
+    "createdAt": "2026-05-05T10:37:09.095Z",
+    "updatedAt": "2026-05-05T10:42:41.440Z"
+  },
+  {
     "id": "f5e0a374-44e9-4f89-beec-b53e62bc9a1f",
     "title": "GPT-Image-2とGPT-5.5でよこぼのAIラボをリニューアルしました！",
     "summary": "祝！！新サイトオープン！！",
