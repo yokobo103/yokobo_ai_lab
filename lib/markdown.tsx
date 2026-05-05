@@ -25,6 +25,55 @@ function noteMarkdown(lines: string[]) {
     .join("");
 }
 
+function parseUrl(value: string) {
+  try {
+    const url = new URL(value.trim());
+    return url.protocol === "https:" ? url : null;
+  } catch {
+    return null;
+  }
+}
+
+function tweetEmbed(value: string) {
+  const url = parseUrl(value);
+  if (!url) return null;
+
+  const hostname = url.hostname.replace(/^www\./, "");
+  const parts = url.pathname.split("/").filter(Boolean);
+  const statusIndex = parts.indexOf("status");
+  if (!["twitter.com", "x.com"].includes(hostname) || statusIndex < 1 || !parts[statusIndex + 1]) return null;
+
+  return `<blockquote class="twitter-tweet"><a href="${escapeAttribute(url.toString())}"></a></blockquote>`;
+}
+
+function youtubeEmbed(value: string) {
+  const url = parseUrl(value);
+  if (!url) return null;
+
+  const hostname = url.hostname.replace(/^www\./, "");
+  const parts = url.pathname.split("/").filter(Boolean);
+  let id = "";
+
+  if (hostname === "youtu.be") {
+    id = parts[0] ?? "";
+  } else if (["youtube.com", "m.youtube.com", "music.youtube.com"].includes(hostname)) {
+    if (url.pathname === "/watch") id = url.searchParams.get("v") ?? "";
+    else if (["shorts", "embed"].includes(parts[0] ?? "")) id = parts[1] ?? "";
+  }
+
+  if (!/^[\w-]{11}$/.test(id)) return null;
+
+  return [
+    '<div class="video-embed">',
+    `<iframe src="https://www.youtube.com/embed/${escapeAttribute(id)}" title="YouTube video" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`,
+    "</div>"
+  ].join("");
+}
+
+function mediaEmbed(value: string) {
+  return tweetEmbed(value) ?? youtubeEmbed(value);
+}
+
 export function markdownToHtml(markdown: string) {
   const lines = markdown.split(/\r?\n/);
   const html: string[] = [];
@@ -88,7 +137,12 @@ export function markdownToHtml(markdown: string) {
       continue;
     }
 
-    if (line.startsWith("### ")) {
+    const embed = mediaEmbed(line.trim());
+    if (embed) {
+      if (inList) html.push("</ul>");
+      inList = false;
+      html.push(embed);
+    } else if (line.startsWith("### ")) {
       if (inList) html.push("</ul>");
       inList = false;
       html.push(`<h3>${inlineMarkdown(line.slice(4))}</h3>`);

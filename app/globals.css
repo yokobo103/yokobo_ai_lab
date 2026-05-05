@@ -984,6 +984,29 @@ img {
   margin-top: 0.65em;
 }
 
+.markdown .twitter-tweet {
+  margin: 22px auto !important;
+  max-width: 100%;
+}
+
+.markdown .video-embed {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  margin: 22px 0;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #0f172a;
+}
+
+.markdown .video-embed iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
 .galleryGrid {
   grid-template-columns: repeat(2, 1fr);
 }

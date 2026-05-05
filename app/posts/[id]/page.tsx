@@ -7,6 +7,7 @@ import { markdownToHtml } from "@/lib/markdown";
 import { getAbsoluteUrl, getArticleDescription, getArticleOgpImage } from "@/lib/ogp";
 import { getPost } from "@/lib/posts";
 import { SiteFooter, SiteHeader } from "../../site-chrome";
+import { SocialEmbedLoader } from "./social-embed-loader";
 
 export const dynamic = "force-dynamic";
 
@@ -65,7 +66,10 @@ export default async function PostDetail({ params }: { params: Promise<{ id: str
           </div>
         ) : null}
         {post.body ? (
-          <article className="markdown" dangerouslySetInnerHTML={{ __html: markdownToHtml(post.body) }} />
+          <>
+            <article className="markdown" dangerouslySetInnerHTML={{ __html: markdownToHtml(post.body) }} />
+            <SocialEmbedLoader />
+          </>
         ) : null}
         {post.images.length > 0 ? (
           <section>
