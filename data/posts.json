@@ -19,10 +19,10 @@
       "/uploads/323c30ae-d25a-4ef8-b647-117e2b17f933/gallery-d23d14ba-98cb-4b05-8dc8-8f4de83a1999.webp",
       "/uploads/323c30ae-d25a-4ef8-b647-117e2b17f933/gallery-b2a1a49b-57e5-4121-8ebe-4667d72b6eaa.webp"
     ],
-    "body": "## はじまりは思い付き\n\nChatGPT-Images-2.0の性能がものすごいので、\n**イメージ画像を作ってもらう→codexで実装する**\nというやり方を知った僕は、さっそくチャレンジしてみました。\n\n![画像](/uploads/323c30ae-d25a-4ef8-b647-117e2b17f933/gallery-49cbc9ba-2785-4966-9351-a9351f73d835.webp)\n\n\n\nhttps://x.com/yokobo_ai/status/2049280332525134114?s=20\n\n\nhttps://youtu.be/r7mBFzmFgcA\n\n\nテストです\n\n\n\n\n",
+    "body": "## はじまりは思い付き\n\nChatGPT-Images-2.0の性能がものすごいので、\n**イメージ画像を作ってもらう→codexで実装する**\nというやり方を知った僕は、さっそくチャレンジしてみました。\n\n![画像](/uploads/323c30ae-d25a-4ef8-b647-117e2b17f933/gallery-49cbc9ba-2785-4966-9351-a9351f73d835.webp)\n\n\n\nhttps://x.com/yokobo_ai/status/2049280332525134114?s=20\n\n\nhttps://youtu.be/r7mBFzmFgcA\n\n\nテストです\n\n\n\n\n:::note\nRead this local project.\n\nUse input/reference.png as the primary visual reference.\n\nYour task is NOT to generate images yet.\nYour task is to analyze the reference image and create reusable prompt markdown files.\n\nCreate the following folder if it does not exist:\n\nprompts/\n\nThen create prompt files for game asset generation based on input/reference.png.\n\nRequired prompt files:\n\n1. prompts/00_global_style.md\n2. prompts/01_character_prompts.md\n3. prompts/02_item_prompts.md\n4. prompts/03_enemy_prompts.md\n5. prompts/04_background_tiles_prompts.md\n6. prompts/05_stage_props_prompts.md\n7. prompts/06_ui_prompts.md\n8. prompts/07_generation_plan.md\n\nEach markdown file should contain practical image-generation prompts for a 2D pixel-art side-scrolling cat game.\n\nImportant rules:\n\n- Do not generate images.\n- Do not create sprite sheets yet.\n- Only create markdown prompt files.\n- Base the prompts on input/reference.png.\n:::\n\n\n",
     "links": [],
     "createdAt": "2026-05-05T10:37:09.095Z",
-    "updatedAt": "2026-05-05T11:26:53.288Z"
+    "updatedAt": "2026-05-05T11:29:56.624Z"
   },
   {
     "id": "f5e0a374-44e9-4f89-beec-b53e62bc9a1f",
