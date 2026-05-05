@@ -3,8 +3,9 @@
     "id": "323c30ae-d25a-4ef8-b647-117e2b17f933",
     "title": "Codexで横スクロールゲームをつくる",
     "summary": "",
-    "category": "気づき・ログ",
+    "category": "ゲームあそび",
     "categories": [
+      "ゲームあそび",
       "気づき・ログ"
     ],
     "status": "public",
@@ -21,7 +22,7 @@
     "body": "## はじまりは思い付き\n\nChatGPT-Images-2.0の性能がものすごいので、\n**イメージ画像を作ってもらう→codexで実装する**\nというやり方を知った僕は、さっそくチャレンジしてみました。\n\n![画像](/uploads/323c30ae-d25a-4ef8-b647-117e2b17f933/gallery-49cbc9ba-2785-4966-9351-a9351f73d835.webp)\n\n\n\nhttps://x.com/yokobo_ai/status/2049280332525134114?s=20\n\n\n\n",
     "links": [],
     "createdAt": "2026-05-05T10:37:09.095Z",
-    "updatedAt": "2026-05-05T11:17:02.290Z"
+    "updatedAt": "2026-05-05T11:17:17.837Z"
   },
   {
     "id": "f5e0a374-44e9-4f89-beec-b53e62bc9a1f",
