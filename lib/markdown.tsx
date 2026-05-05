@@ -5,6 +5,10 @@ function escapeHtml(value: string) {
     .replace(/>/g, "&gt;");
 }
 
+function escapeAttribute(value: string) {
+  return escapeHtml(value).replace(/"/g, "&quot;");
+}
+
 function inlineMarkdown(value: string) {
   return escapeHtml(value)
     .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" />')
@@ -13,12 +17,69 @@ function inlineMarkdown(value: string) {
     .replace(/`([^`]+)`/g, "<code>$1</code>");
 }
 
+function noteMarkdown(lines: string[]) {
+  return lines
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .map((line) => `<p>${inlineMarkdown(line)}</p>`)
+    .join("");
+}
+
 export function markdownToHtml(markdown: string) {
   const lines = markdown.split(/\r?\n/);
   const html: string[] = [];
   let inList = false;
+  let inCodeBlock = false;
+  let codeLanguage = "";
+  let codeLines: string[] = [];
+  let inNote = false;
+  let noteLines: string[] = [];
 
   for (const line of lines) {
+    if (line.startsWith("```")) {
+      if (inCodeBlock) {
+        const languageClass = codeLanguage ? ` class="language-${escapeAttribute(codeLanguage)}"` : "";
+        html.push(`<pre><code${languageClass}>${escapeHtml(codeLines.join("\n"))}</code></pre>`);
+        inCodeBlock = false;
+        codeLanguage = "";
+        codeLines = [];
+      } else {
+        if (inList) {
+          html.push("</ul>");
+          inList = false;
+        }
+        inCodeBlock = true;
+        codeLanguage = line.slice(3).trim().split(/\s+/)[0] ?? "";
+      }
+      continue;
+    }
+
+    if (inCodeBlock) {
+      codeLines.push(line);
+      continue;
+    }
+
+    if (line.trim() === ":::note") {
+      if (inList) {
+        html.push("</ul>");
+        inList = false;
+      }
+      inNote = true;
+      noteLines = [];
+      continue;
+    }
+
+    if (inNote) {
+      if (line.trim() === ":::") {
+        html.push(`<div class="note-box">${noteMarkdown(noteLines)}</div>`);
+        inNote = false;
+        noteLines = [];
+      } else {
+        noteLines.push(line);
+      }
+      continue;
+    }
+
     if (!line.trim()) {
       if (inList) {
         html.push("</ul>");
@@ -55,5 +116,12 @@ export function markdownToHtml(markdown: string) {
   }
 
   if (inList) html.push("</ul>");
+  if (inCodeBlock) {
+    const languageClass = codeLanguage ? ` class="language-${escapeAttribute(codeLanguage)}"` : "";
+    html.push(`<pre><code${languageClass}>${escapeHtml(codeLines.join("\n"))}</code></pre>`);
+  }
+  if (inNote) {
+    html.push(`<div class="note-box">${noteMarkdown(noteLines)}</div>`);
+  }
   return html.join("");
 }

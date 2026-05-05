@@ -338,6 +338,32 @@ export default function AdminApp() {
     });
   }
 
+  function wrapSelection(prefix: string, suffix: string, placeholder: string, block = false) {
+    const textarea = bodyRef.current;
+    if (!textarea) {
+      insertAtCursor(`${prefix}${placeholder}${suffix}`);
+      return;
+    }
+
+    const start = textarea.selectionStart ?? current.body.length;
+    const end = textarea.selectionEnd ?? current.body.length;
+    const before = current.body.slice(0, start);
+    const selected = current.body.slice(start, end) || placeholder;
+    const after = current.body.slice(end);
+    const markdown = `${prefix}${selected}${suffix}`;
+    const linePrefix = block && before && !before.endsWith("\n") ? "\n\n" : "";
+    const lineSuffix = block && after && !after.startsWith("\n") ? "\n\n" : "";
+    const nextBody = `${before}${linePrefix}${markdown}${lineSuffix}${after}`;
+
+    update("body", nextBody);
+    requestAnimationFrame(() => {
+      textarea.focus();
+      const selectionStart = before.length + linePrefix.length + prefix.length;
+      const selectionEnd = selectionStart + selected.length;
+      textarea.setSelectionRange(selectionStart, selectionEnd);
+    });
+  }
+
   function insertMarkdownImage(image: string) {
     insertAtCursor(`![画像](${image})`);
   }
@@ -719,6 +745,9 @@ export default function AdminApp() {
                 {toolbarItems.map(([label, markdown]) => (
                   <button key={label} type="button" onClick={() => insertAtCursor(markdown)}>{label}</button>
                 ))}
+                <button type="button" onClick={() => wrapSelection("`", "`", "ここにコード")}>Code</button>
+                <button type="button" onClick={() => wrapSelection("```\n", "\n```", "ここにコード", true)}>CodeBlock</button>
+                <button type="button" onClick={() => wrapSelection(":::note\n", "\n:::", "補足：ここに気になる人向けの説明を書く", true)}>Note</button>
               </div>
               <textarea ref={bodyRef} className="bodyInput" value={current.body} onChange={(event) => update("body", event.target.value)} rows={12} />
             </section>
