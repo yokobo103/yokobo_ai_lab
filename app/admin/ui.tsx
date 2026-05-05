@@ -1,7 +1,7 @@
 "use client";
 
 /* eslint-disable @next/next/no-img-element */
-import { useEffect, useMemo, useRef, useState } from "react";
+import { type MouseEvent, useEffect, useMemo, useRef, useState } from "react";
 import { categories, type Post } from "@/lib/schema";
 import "./admin.css";
 
@@ -10,6 +10,11 @@ type AdminView = "home" | "logs" | "editor" | "settings";
 type StatusFilter = "all" | "draft" | "public";
 type SortKey = "updated" | "created" | "title";
 type EditorTab = "edit" | "preview" | "history";
+type BodySelection = {
+  start: number;
+  end: number;
+  scrollTop: number;
+};
 
 const emptyPost = (): Post => {
   const id = crypto.randomUUID();
@@ -114,6 +119,7 @@ export default function AdminApp() {
   const [sortKey, setSortKey] = useState<SortKey>("updated");
   const [siteOrigin, setSiteOrigin] = useState("");
   const bodyRef = useRef<HTMLTextAreaElement | null>(null);
+  const bodySelectionRef = useRef<BodySelection>({ start: 0, end: 0, scrollTop: 0 });
 
   const jsonHeaders = useMemo(
     () => ({
@@ -316,6 +322,44 @@ export default function AdminApp() {
     update("links", parseLinkText(value));
   }
 
+  function rememberBodySelection() {
+    const textarea = bodyRef.current;
+    if (!textarea) return bodySelectionRef.current;
+
+    const selection = {
+      start: textarea.selectionStart ?? current.body.length,
+      end: textarea.selectionEnd ?? current.body.length,
+      scrollTop: textarea.scrollTop
+    };
+    bodySelectionRef.current = selection;
+    return selection;
+  }
+
+  function currentBodySelection(textarea: HTMLTextAreaElement) {
+    const fallback = bodySelectionRef.current;
+    const hasLiveSelection = document.activeElement === textarea || textarea.selectionStart !== textarea.selectionEnd;
+    const start = hasLiveSelection ? textarea.selectionStart : fallback.start;
+    const end = hasLiveSelection ? textarea.selectionEnd : fallback.end;
+    return {
+      start: Math.min(start ?? current.body.length, current.body.length),
+      end: Math.min(end ?? current.body.length, current.body.length),
+      scrollTop: textarea.scrollTop || fallback.scrollTop
+    };
+  }
+
+  function restoreBodySelection(textarea: HTMLTextAreaElement, start: number, end: number, scrollTop: number) {
+    const windowX = window.scrollX;
+    const windowY = window.scrollY;
+    bodySelectionRef.current = { start, end, scrollTop };
+
+    requestAnimationFrame(() => {
+      textarea.focus({ preventScroll: true });
+      textarea.scrollTop = scrollTop;
+      textarea.setSelectionRange(start, end);
+      window.scrollTo(windowX, windowY);
+    });
+  }
+
   function insertAtCursor(markdown: string) {
     const textarea = bodyRef.current;
     if (!textarea) {
@@ -323,19 +367,17 @@ export default function AdminApp() {
       return;
     }
 
-    const start = textarea.selectionStart ?? current.body.length;
-    const end = textarea.selectionEnd ?? current.body.length;
+    const selection = currentBodySelection(textarea);
+    const start = selection.start;
+    const end = selection.end;
     const before = current.body.slice(0, start);
     const after = current.body.slice(end);
     const prefix = before && !before.endsWith("\n") ? "\n" : "";
     const suffix = after && !after.startsWith("\n") ? "\n" : "";
     const nextBody = `${before}${prefix}${markdown}${suffix}${after}`;
     update("body", nextBody);
-    requestAnimationFrame(() => {
-      textarea.focus();
-      const pos = before.length + prefix.length + markdown.length;
-      textarea.setSelectionRange(pos, pos);
-    });
+    const pos = before.length + prefix.length + markdown.length;
+    restoreBodySelection(textarea, pos, pos, selection.scrollTop);
   }
 
   function wrapSelection(prefix: string, suffix: string, placeholder: string, block = false) {
@@ -345,8 +387,9 @@ export default function AdminApp() {
       return;
     }
 
-    const start = textarea.selectionStart ?? current.body.length;
-    const end = textarea.selectionEnd ?? current.body.length;
+    const selection = currentBodySelection(textarea);
+    const start = selection.start;
+    const end = selection.end;
     const before = current.body.slice(0, start);
     const selected = current.body.slice(start, end) || placeholder;
     const after = current.body.slice(end);
@@ -356,12 +399,39 @@ export default function AdminApp() {
     const nextBody = `${before}${linePrefix}${markdown}${lineSuffix}${after}`;
 
     update("body", nextBody);
-    requestAnimationFrame(() => {
-      textarea.focus();
-      const selectionStart = before.length + linePrefix.length + prefix.length;
-      const selectionEnd = selectionStart + selected.length;
-      textarea.setSelectionRange(selectionStart, selectionEnd);
-    });
+    const selectionStart = before.length + linePrefix.length + prefix.length;
+    const selectionEnd = selectionStart + selected.length;
+    restoreBodySelection(textarea, selectionStart, selectionEnd, selection.scrollTop);
+  }
+
+  function prefixSelectedLines(prefix: string, placeholder: string) {
+    const textarea = bodyRef.current;
+    if (!textarea) {
+      insertAtCursor(`${prefix}${placeholder}`);
+      return;
+    }
+
+    const selection = currentBodySelection(textarea);
+    const beforeSelection = current.body.slice(0, selection.start);
+    const lineStart = beforeSelection.lastIndexOf("\n") + 1;
+    const lineEndBreak = current.body.indexOf("\n", selection.end);
+    const lineEnd = lineEndBreak === -1 ? current.body.length : lineEndBreak;
+    const before = current.body.slice(0, lineStart);
+    const selectedBlock = current.body.slice(lineStart, lineEnd) || placeholder;
+    const after = current.body.slice(lineEnd);
+    const formatted = selectedBlock
+      .split("\n")
+      .map((line) => (line.startsWith(prefix) ? line : `${prefix}${line || placeholder}`))
+      .join("\n");
+
+    update("body", `${before}${formatted}${after}`);
+    const nextStart = lineStart + prefix.length;
+    const nextEnd = lineStart + formatted.length;
+    restoreBodySelection(textarea, nextStart, nextEnd, selection.scrollTop);
+  }
+
+  function insertHorizontalLine() {
+    insertAtCursor("---");
   }
 
   function insertMarkdownImage(image: string) {
@@ -511,15 +581,10 @@ export default function AdminApp() {
     setMessage("画像を追加しました。保存ボタンで投稿に反映してください。");
   }
 
-  const toolbarItems = [
-    ["H2", "## 見出し"],
-    ["H3", "### 小見出し"],
-    ["B", "**太字**"],
-    ["List", "- 項目"],
-    ["Quote", "> 引用"],
-    ["Link", "[リンク名](https://example.com)"],
-    ["Line", "---"]
-  ] as const;
+  const keepBodySelection = (event: MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    rememberBodySelection();
+  };
 
   function renderSearchControls(compact = false) {
     return (
@@ -716,7 +781,7 @@ export default function AdminApp() {
                   {current.thumbnail ? (
                     <div className="imagePreview currentThumb">
                       <img src={current.thumbnail} alt="現在のサムネ画像" />
-                      <button type="button" onClick={() => insertMarkdownImage(current.thumbnail)}>本文に挿入</button>
+                      <button type="button" onMouseDown={keepBodySelection} onClick={() => insertMarkdownImage(current.thumbnail)}>本文に挿入</button>
                     </div>
                   ) : null}
                 </div>
@@ -731,7 +796,7 @@ export default function AdminApp() {
                     {current.images.map((image, index) => (
                       <div className="imageTile" key={image}>
                         <img src={image} alt={`ギャラリー画像 ${index + 1}`} />
-                        <button type="button" onClick={() => insertMarkdownImage(image)}>挿入</button>
+                        <button type="button" onMouseDown={keepBodySelection} onClick={() => insertMarkdownImage(image)}>挿入</button>
                       </div>
                     ))}
                   </div>
@@ -742,14 +807,32 @@ export default function AdminApp() {
             <section className="formSection">
               <h3>本文 Markdown</h3>
               <div className="markdownToolbar" aria-label="Markdown ツールバー">
-                {toolbarItems.map(([label, markdown]) => (
-                  <button key={label} type="button" onClick={() => insertAtCursor(markdown)}>{label}</button>
-                ))}
-                <button type="button" onClick={() => wrapSelection("`", "`", "ここにコード")}>Code</button>
-                <button type="button" onClick={() => wrapSelection("```\n", "\n```", "ここにコード", true)}>CodeBlock</button>
-                <button type="button" onClick={() => wrapSelection(":::note\n", "\n:::", "補足：ここに気になる人向けの説明を書く", true)}>Note</button>
+                <button type="button" onMouseDown={keepBodySelection} onClick={() => prefixSelectedLines("## ", "見出し")}>H2</button>
+                <button type="button" onMouseDown={keepBodySelection} onClick={() => prefixSelectedLines("### ", "小見出し")}>H3</button>
+                <button type="button" onMouseDown={keepBodySelection} onClick={() => wrapSelection("**", "**", "太字")}>B</button>
+                <button type="button" onMouseDown={keepBodySelection} onClick={() => prefixSelectedLines("- ", "項目")}>List</button>
+                <button type="button" onMouseDown={keepBodySelection} onClick={() => prefixSelectedLines("> ", "引用")}>Quote</button>
+                <button type="button" onMouseDown={keepBodySelection} onClick={() => wrapSelection("[", "](https://example.com)", "リンク名")}>Link</button>
+                <button type="button" onMouseDown={keepBodySelection} onClick={insertHorizontalLine}>Line</button>
+                <button type="button" onMouseDown={keepBodySelection} onClick={() => wrapSelection("`", "`", "ここにコード")}>Code</button>
+                <button type="button" onMouseDown={keepBodySelection} onClick={() => wrapSelection("```\n", "\n```", "ここにコード", true)}>CodeBlock</button>
+                <button type="button" onMouseDown={keepBodySelection} onClick={() => wrapSelection(":::note\n", "\n:::", "補足：ここに気になる人向けの説明を書く", true)}>Note</button>
               </div>
-              <textarea ref={bodyRef} className="bodyInput" value={current.body} onChange={(event) => update("body", event.target.value)} rows={12} />
+              <textarea
+                ref={bodyRef}
+                className="bodyInput"
+                value={current.body}
+                onBlur={rememberBodySelection}
+                onClick={rememberBodySelection}
+                onKeyUp={rememberBodySelection}
+                onSelect={rememberBodySelection}
+                onScroll={rememberBodySelection}
+                onChange={(event) => {
+                  update("body", event.target.value);
+                  rememberBodySelection();
+                }}
+                rows={12}
+              />
             </section>
 
             <section className="formSection">
