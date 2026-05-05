@@ -985,8 +985,26 @@ img {
 }
 
 .markdown .twitter-tweet {
+  display: block;
   margin: 22px auto !important;
+  padding: 14px 16px;
+  border: 1px solid #dbeafe;
+  border-radius: 12px;
+  background: #f8fafc;
+  color: #475569;
   max-width: 100%;
+}
+
+.markdown .twitter-tweet a {
+  color: var(--blue);
+  font-weight: 800;
+  text-decoration: underline;
+}
+
+.markdown iframe.twitter-tweet {
+  padding: 0;
+  border: 0;
+  background: transparent;
 }
 
 .markdown .video-embed {

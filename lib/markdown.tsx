@@ -43,7 +43,8 @@ function tweetEmbed(value: string) {
   const statusIndex = parts.indexOf("status");
   if (!["twitter.com", "x.com"].includes(hostname) || statusIndex < 1 || !parts[statusIndex + 1]) return null;
 
-  return `<blockquote class="twitter-tweet"><a href="${escapeAttribute(url.toString())}"></a></blockquote>`;
+  url.hostname = "twitter.com";
+  return `<blockquote class="twitter-tweet"><p><a href="${escapeAttribute(url.toString())}" target="_blank" rel="noreferrer">Xの投稿を表示</a></p></blockquote>`;
 }
 
 function youtubeEmbed(value: string) {

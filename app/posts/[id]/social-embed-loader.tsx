@@ -15,8 +15,25 @@ declare global {
 
 export function SocialEmbedLoader() {
   useEffect(() => {
-    window.twttr?.widgets?.load();
+    const timers = [0, 300, 1000, 2500].map((delay) =>
+      window.setTimeout(() => {
+        window.twttr?.widgets?.load();
+      }, delay)
+    );
+
+    return () => {
+      timers.forEach((timer) => window.clearTimeout(timer));
+    };
   }, []);
 
-  return <Script async src="https://platform.twitter.com/widgets.js" strategy="lazyOnload" onLoad={() => window.twttr?.widgets?.load()} />;
+  return (
+    <Script
+      async
+      src="https://platform.twitter.com/widgets.js"
+      strategy="afterInteractive"
+      onLoad={() => {
+        window.twttr?.widgets?.load();
+      }}
+    />
+  );
 }
