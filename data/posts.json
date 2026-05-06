@@ -1,23 +1,5 @@
 [
   {
-    "id": "1fc17bef-15d0-4ea0-87af-e7b3516109f6",
-    "title": "テスト",
-    "summary": "てすと",
-    "category": "画像・動画あそび",
-    "categories": [
-      "画像・動画あそび"
-    ],
-    "status": "public",
-    "pinned": false,
-    "tags": [],
-    "thumbnail": "",
-    "images": [],
-    "body": "てすと",
-    "links": [],
-    "createdAt": "2026-05-06T13:52:46.664Z",
-    "updatedAt": "2026-05-06T13:53:08.428Z"
-  },
-  {
     "id": "323c30ae-d25a-4ef8-b647-117e2b17f933",
     "title": "Codexで横スクロールゲームをつくる",
     "summary": "思い付きから横スクロールゲームをつくってみた🐈",
