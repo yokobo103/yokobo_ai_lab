@@ -1,6 +1,7 @@
 function escapeHtml(value: string) {
   return value
     .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;");
 }
@@ -9,12 +10,61 @@ function escapeAttribute(value: string) {
   return escapeHtml(value).replace(/"/g, "&quot;");
 }
 
+function safeUrl(value: string) {
+  const url = value.trim();
+  if (url.startsWith("/")) return url;
+
+  try {
+    const parsed = new URL(url);
+    return ["http:", "https:"].includes(parsed.protocol) ? url : "";
+  } catch {
+    return "";
+  }
+}
+
+function splitTrailingPunctuation(value: string) {
+  const match = value.match(/^(.*?)([.,!?;:、。！？）」』】]+)?$/);
+  return {
+    url: match?.[1] ?? value,
+    trailing: match?.[2] ?? ""
+  };
+}
+
+function autoLinkUrls(value: string) {
+  return value.replace(/(^|[\s(（])((?:https?:\/\/|www\.)[^\s<]+)/g, (match, prefix: string, rawUrl: string) => {
+    const { url, trailing } = splitTrailingPunctuation(rawUrl);
+    const href = safeUrl(url.startsWith("www.") ? `https://${url}` : url);
+    if (!href) return match;
+
+    return `${prefix}<a href="${escapeAttribute(href)}" target="_blank" rel="noreferrer">${url}</a>${trailing}`;
+  });
+}
+
 function inlineMarkdown(value: string) {
-  return escapeHtml(value)
-    .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" />')
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noreferrer">$1</a>')
-    .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
-    .replace(/`([^`]+)`/g, "<code>$1</code>");
+  const protectedHtml: string[] = [];
+  const protect = (html: string) => {
+    const key = `@@INLINE_${protectedHtml.length}@@`;
+    protectedHtml.push(html);
+    return key;
+  };
+
+  const prepared = value
+    .replace(/`([^`]+)`/g, (_, code: string) => protect(`<code>${escapeHtml(code)}</code>`))
+    .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (match: string, alt: string, src: string) => {
+      const safeSrc = safeUrl(src);
+      return safeSrc ? protect(`<img src="${escapeAttribute(safeSrc)}" alt="${escapeAttribute(alt)}" />`) : match;
+    })
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, (match: string, label: string, href: string) => {
+      const safeHref = safeUrl(href);
+      return safeHref ? protect(`<a href="${escapeAttribute(safeHref)}" target="_blank" rel="noreferrer">${escapeHtml(label)}</a>`) : match;
+    })
+    .replace(/\*\*([^*]+)\*\*/g, (_, text: string) => protect(`<strong>${escapeHtml(text)}</strong>`));
+
+  const html = autoLinkUrls(escapeHtml(prepared));
+
+  return protectedHtml.reduce((nextHtml, protectedValue, index) => {
+    return nextHtml.replace(`@@INLINE_${index}@@`, protectedValue);
+  }, html);
 }
 
 function noteMarkdown(lines: string[]) {

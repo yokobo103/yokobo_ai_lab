@@ -926,6 +926,14 @@ img {
   line-height: 1.95;
 }
 
+.markdown a {
+  color: var(--blue);
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  overflow-wrap: anywhere;
+}
+
 .markdown h1,
 .markdown h2,
 .markdown h3,
