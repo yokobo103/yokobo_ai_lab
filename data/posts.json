@@ -18,12 +18,13 @@
       "/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-366e7ef8-69bd-4131-ba27-5752c504b3dd.webp",
       "/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-2cf31be6-eea5-4d60-8e1b-77c2e2fb8c28.webp",
       "/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-5386f807-4e3d-40c2-9955-25232b176994.webp",
-      "/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-eda999ab-0829-4253-abd3-329995c3aa1c.webp"
+      "/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-eda999ab-0829-4253-abd3-329995c3aa1c.webp",
+      "/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-e05b1468-4d52-4e66-8c28-d6353e4327cf.webp"
     ],
-    "body": "",
+    "body": "ゴールデンウィークにゲーム作りに勤しんだよこぼです。\n\nマ◯オカートみたいな3Dゲームを作りたくてチャレンジしてみました💪\n\n\n## ①ひとまず2Dでつくってみる\n\nGPT-images-2.0にイメージ画像を作ってもらいました。すごい。\n\n![画像](/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-e05b1468-4d52-4e66-8c28-d6353e4327cf.webp)\n\n\nで、これをもとにcodexにゲームを作ってもらいました。\n\n![画像](/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-25c6df3a-b9a2-4c9b-ac35-89e969b02fda.webp)\n\n\n一つ発見だったのは、チャットGPTにcodex用プロンプトを作ってもらうときの罠です。今回はめちゃめちゃ制約ガチガチプロンプトだったので、最初にできたのはショボショボゲームでした😭制約外してもらって作ったのが上画像のゲームです。\n\n\n## いよいよ3Dゲームをつくる\n\nチャットGPTが出してくれたイメージ画像がこちら。すげぇ…マリ◯カートやん🏎️\n![画像](/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-21df0b12-62e6-4404-88a0-54283bb6486a.webp)\n\n",
     "links": [],
     "createdAt": "2026-05-07T22:14:40.883Z",
-    "updatedAt": "2026-05-07T22:22:57.576Z"
+    "updatedAt": "2026-05-07T22:56:54.592Z"
   },
   {
     "id": "1d868e67-d4a2-4309-9f1b-5edb9f5f115a",
