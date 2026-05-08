@@ -7,6 +7,7 @@ import { markdownToHtml } from "@/lib/markdown";
 import { getAbsoluteUrl, getArticleDescription, getArticleOgpImage } from "@/lib/ogp";
 import { getPost } from "@/lib/posts";
 import { SiteFooter, SiteHeader } from "../../site-chrome";
+import { PawReaction } from "./paw-reaction";
 import { SocialEmbedLoader } from "./social-embed-loader";
 
 export const dynamic = "force-dynamic";
@@ -71,6 +72,7 @@ export default async function PostDetail({ params }: { params: Promise<{ id: str
             <SocialEmbedLoader />
           </>
         ) : null}
+        <PawReaction postId={post.id} />
         {post.images.length > 0 ? (
           <section>
             <h2 className="smallHeading">ギャラリー</h2>
