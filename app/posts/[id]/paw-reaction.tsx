@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 
 type ReactionState = "idle" | "loading" | "submitting" | "voted" | "error";
@@ -75,27 +76,41 @@ export function PawReaction({ postId }: PawReactionProps) {
   }
 
   const disabled = state === "loading" || state === "submitting" || state === "voted";
-  const buttonLabel = state === "voted" ? "🐾 応援済み" : "🐾 ぽちっと応援";
+  const buttonLabel = state === "voted" ? "応援済み" : "ぽちっと応援する";
 
   return (
     <section className="pawReaction" aria-label="肉球リアクション">
       <div className="pawReactionInner">
-        <p className="pawReactionLead">読んだしるしに、そっと肉球を置いていけます。</p>
-        <div className="pawReactionControls">
-          <button
-            className={`pawReactionButton${justPawed ? " pawed" : ""}`}
-            type="button"
-            onClick={handlePaw}
-            disabled={disabled}
-            aria-pressed={state === "voted"}
-          >
-            <span>{buttonLabel}</span>
-          </button>
-          <span className="pawReactionCount" aria-live="polite">
-            {count.toLocaleString("ja-JP")} 肉球
-          </span>
+        <div className="pawReactionCopy">
+          <p className="pawReactionLead">読んだしるしに、そっと肉球を置いていけます</p>
+          <div className="pawReactionControls">
+            <button
+              className={`pawReactionButton${justPawed ? " pawed" : ""}`}
+              type="button"
+              onClick={handlePaw}
+              disabled={disabled}
+              aria-pressed={state === "voted"}
+            >
+              <span className="pawReactionButtonIcon" aria-hidden="true">
+                🐾
+              </span>
+              <span>{buttonLabel}</span>
+            </button>
+            <span className="pawReactionCount" aria-live="polite">
+              <span aria-hidden="true">🐾</span>
+              {count.toLocaleString("ja-JP")}
+            </span>
+          </div>
+          {error ? <p className="pawReactionError">{error}</p> : null}
         </div>
-        {error ? <p className="pawReactionError">{error}</p> : null}
+        <Image
+          className="pawReactionStamp"
+          src="/assets/characters/dr-yokobo-stamp.webp"
+          alt=""
+          width="210"
+          height="210"
+          loading="lazy"
+        />
       </div>
     </section>
   );
