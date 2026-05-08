@@ -1,5 +1,28 @@
 [
   {
+    "id": "e7862082-5d7d-4b33-9002-9eeeb7313268",
+    "title": "かるくすることがとっても大事",
+    "summary": "",
+    "category": "ゲームあそび",
+    "categories": [
+      "ゲームあそび",
+      "気づき・ログ"
+    ],
+    "status": "draft",
+    "pinned": false,
+    "tags": [],
+    "thumbnail": "",
+    "images": [
+      "/uploads/e7862082-5d7d-4b33-9002-9eeeb7313268/gallery-b3ebaacc-21eb-420d-ab38-cad1b1763dc7.webp",
+      "/uploads/e7862082-5d7d-4b33-9002-9eeeb7313268/gallery-1185a3dd-c161-4e69-9faf-297d9e744a79.webp",
+      "/uploads/e7862082-5d7d-4b33-9002-9eeeb7313268/gallery-5b33796a-5f69-4437-b1af-ff6bbd5d61d2.webp"
+    ],
+    "body": "",
+    "links": [],
+    "createdAt": "2026-05-08T16:05:00.678Z",
+    "updatedAt": "2026-05-08T16:08:12.613Z"
+  },
+  {
     "id": "2b237510-0f6c-4d24-bf2c-77ab0b07869d",
     "title": "ほんやくこんにゃくを作った",
     "summary": "gpt-realtime-translateを使えばそんなこともできちゃう",
