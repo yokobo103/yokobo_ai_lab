@@ -82,6 +82,10 @@ function splitTags(value: string) {
   return [...new Set(value.split(/[,\s　#]+/).map((tag) => tag.trim()).filter(Boolean))].slice(0, 12);
 }
 
+function formatTagText(post: Post) {
+  return post.tags?.map((tag) => `#${tag}`).join(" ") ?? "";
+}
+
 function formatLinkText(post: Post) {
   return post.links.map((link) => `${link.label},${link.url}`).join("\n");
 }
@@ -104,6 +108,7 @@ export default function AdminApp() {
   const [authed, setAuthed] = useState(false);
   const [posts, setPosts] = useState<Post[]>([]);
   const [current, setCurrent] = useState<Post>(() => emptyPost());
+  const [tagDraft, setTagDraft] = useState("");
   const [linkDraft, setLinkDraft] = useState("");
   const [message, setMessage] = useState("");
   const [saving, setSaving] = useState(false);
@@ -165,7 +170,6 @@ export default function AdminApp() {
   const recentPosts = useMemo(() => [...posts].sort((a, b) => Date.parse(b.updatedAt) - Date.parse(a.updatedAt)).slice(0, 5), [posts]);
   const recentDrafts = useMemo(() => stats.drafts.slice(0, 4), [stats.drafts]);
   const currentExists = posts.some((post) => post.id === current.id);
-  const tagText = current.tags?.map((tag) => `#${tag}`).join(" ") ?? "";
   const currentCopyText = makeTweetCopyText(current);
   const currentCanShare = canSharePost(current);
 
@@ -242,6 +246,7 @@ export default function AdminApp() {
       sessionStorage.setItem(STORAGE_KEY, pass);
       const nextCurrent = data[0] ?? emptyPost();
       setCurrent(nextCurrent);
+      setTagDraft(formatTagText(nextCurrent));
       setLinkDraft(formatLinkText(nextCurrent));
       setMessage("ログインしました。");
     } catch {
@@ -255,6 +260,7 @@ export default function AdminApp() {
     setPosts([]);
     const nextCurrent = emptyPost();
     setCurrent(nextCurrent);
+    setTagDraft(formatTagText(nextCurrent));
     setLinkDraft(formatLinkText(nextCurrent));
     setPublicPath("");
     sessionStorage.removeItem(STORAGE_KEY);
@@ -284,6 +290,7 @@ export default function AdminApp() {
   function startNewPost() {
     const nextCurrent = emptyPost();
     setCurrent(nextCurrent);
+    setTagDraft(formatTagText(nextCurrent));
     setLinkDraft(formatLinkText(nextCurrent));
     setPublicPath("");
     setEditorTab("edit");
@@ -292,6 +299,7 @@ export default function AdminApp() {
 
   function selectPost(post: Post) {
     setCurrent(post);
+    setTagDraft(formatTagText(post));
     setLinkDraft(formatLinkText(post));
     setPublicPath(post.status === "public" ? `/posts/${post.id}` : "");
     setEditorTab("edit");
@@ -320,6 +328,11 @@ export default function AdminApp() {
   function setLinkText(value: string) {
     setLinkDraft(value);
     update("links", parseLinkText(value));
+  }
+
+  function setTagText(value: string) {
+    setTagDraft(value);
+    update("tags", splitTags(value));
   }
 
   function rememberBodySelection() {
@@ -482,6 +495,7 @@ export default function AdminApp() {
     }
 
     setCurrent(data);
+    setTagDraft(formatTagText(data));
     setLinkDraft(formatLinkText(data));
     setPublicPath(status === "public" ? `/posts/${data.id}` : "");
     await reloadPosts();
@@ -543,6 +557,7 @@ export default function AdminApp() {
     const nextPosts = await reloadPosts();
     const nextCurrent = nextPosts[0] ?? emptyPost();
     setCurrent(nextCurrent);
+    setTagDraft(formatTagText(nextCurrent));
     setLinkDraft(formatLinkText(nextCurrent));
     setPublicPath(nextCurrent.status === "public" ? `/posts/${nextCurrent.id}` : "");
     setView("logs");
@@ -766,7 +781,7 @@ export default function AdminApp() {
                   );
                 })}
               </div>
-              <label>タグ<input value={tagText} onChange={(event) => update("tags", splitTags(event.target.value))} placeholder="#スマホ #実験 #アイデア" /></label>
+              <label>タグ<input value={tagDraft} onChange={(event) => setTagText(event.target.value)} placeholder="#スマホ #実験 #アイデア" /></label>
             </section>
 
             <section className="formSection imageSection">
