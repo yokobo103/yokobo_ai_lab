@@ -1,5 +1,32 @@
 [
   {
+    "id": "2b237510-0f6c-4d24-bf2c-77ab0b07869d",
+    "title": "ほんやくこんにゃくを作った",
+    "summary": "gpt-realtime-translateを使えばそんなこともできちゃう",
+    "category": "気づき・ログ",
+    "categories": [
+      "気づき・ログ"
+    ],
+    "status": "draft",
+    "pinned": false,
+    "tags": [],
+    "thumbnail": "",
+    "images": [
+      "/uploads/2b237510-0f6c-4d24-bf2c-77ab0b07869d/gallery-07412648-22d8-430d-9764-9250d3e636ca.webp",
+      "/uploads/2b237510-0f6c-4d24-bf2c-77ab0b07869d/gallery-0e4cb59c-5dc8-4387-9973-7d7a3745c93c.webp",
+      "/uploads/2b237510-0f6c-4d24-bf2c-77ab0b07869d/gallery-72376096-1be7-415d-a6e8-9e2100934b39.webp"
+    ],
+    "body": "",
+    "links": [
+      {
+        "label": "おためしサイト(OpenAIのAPIキーが必要)",
+        "url": "https://t.co/Jtr3b9Q2A8"
+      }
+    ],
+    "createdAt": "2026-05-08T16:02:15.329Z",
+    "updatedAt": "2026-05-08T16:04:47.619Z"
+  },
+  {
     "id": "f6a3450e-f7c5-49f8-afbc-9688e7d74e41",
     "title": "マ〇オカートみたいな3Dレーシングゲームをつくりたい！",
     "summary": "3Dレーシングゲーム、できちゃった！",
