@@ -1,5 +1,90 @@
 [
   {
+    "id": "f6a3450e-f7c5-49f8-afbc-9688e7d74e41",
+    "title": "マ〇オカートみたいな3Dレーシングゲームをつくりたい！",
+    "summary": "3Dレーシングゲーム、できちゃった！",
+    "category": "ゲームあそび",
+    "categories": [
+      "ゲームあそび",
+      "3D・空間あそび"
+    ],
+    "status": "public",
+    "pinned": false,
+    "weeklyPickup": true,
+    "archivePickup": false,
+    "tags": [
+      "blender"
+    ],
+    "thumbnail": "/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/thumbnail-b2b3d5d5-0166-46f9-961c-1fe8d0939359.webp",
+    "images": [
+      "/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-25c6df3a-b9a2-4c9b-ac35-89e969b02fda.webp",
+      "/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-21df0b12-62e6-4404-88a0-54283bb6486a.webp",
+      "/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-d42d4ae3-16b1-423d-bfe6-a7d3c6c3836d.webp",
+      "/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-366e7ef8-69bd-4131-ba27-5752c504b3dd.webp",
+      "/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-2cf31be6-eea5-4d60-8e1b-77c2e2fb8c28.webp",
+      "/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-5386f807-4e3d-40c2-9955-25232b176994.webp",
+      "/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-eda999ab-0829-4253-abd3-329995c3aa1c.webp",
+      "/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-e05b1468-4d52-4e66-8c28-d6353e4327cf.webp",
+      "/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-bc1f94b1-fb3f-4ec1-8e39-0a0edac724f1.webp",
+      "/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-ee14117d-facf-417f-ba24-df13666382ee.webp"
+    ],
+    "body": "ゴールデンウィークにゲーム作りに勤しんだよこぼです。\n\nマ◯オカートみたいな3Dゲームを作りたくてチャレンジしてみました💪\n\n\n## ①ひとまず2Dでつくってみる\n\nGPT-images-2.0にイメージ画像を作ってもらいました。すごい。\n\n![画像](/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-e05b1468-4d52-4e66-8c28-d6353e4327cf.webp)\n\n\nで、これをもとにcodexにゲームを作ってもらいました。\n\n![画像](/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-25c6df3a-b9a2-4c9b-ac35-89e969b02fda.webp)\n\n\n一つ発見だったのは、チャットGPTにcodex用プロンプトを作ってもらうときの罠です。今回はめちゃめちゃ制約ガチガチプロンプトだったので、最初にできたのはショボショボゲームでした😭制約外してもらって作ったのが上画像のゲームです。\n\n\n## いよいよ3Dゲームをつくる\n\nチャットGPTが出してくれたイメージ画像がこちら。すげぇ…マリ◯カートやん🏎️\n![画像](/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-21df0b12-62e6-4404-88a0-54283bb6486a.webp)\n\n\nで、これを参考にcodexに作ってもらったゲームがこちら\n![画像](/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-21df0b12-62e6-4404-88a0-54283bb6486a.webp)\n\nやっぱり、3Dモデルはcodexに作らせることができないのでこんな感じになっちゃうんですよね…\n\nというわけで、3Dモデルはblenderというソフトで自作することにしました。\nとはいえ、よこぼはblender超初心者なので、そんなにすごいモデルを作ることはできません。\n\nそこで、チャットGPTにガイドを作ってもらいました！\n![画像](/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-d42d4ae3-16b1-423d-bfe6-a7d3c6c3836d.webp)\n\n\nこれがあれば作れるかも！！\nというわけでblenderでせっせとつくりました。\n\n![画像](/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-366e7ef8-69bd-4131-ba27-5752c504b3dd.webp)\n\n![画像](/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-2cf31be6-eea5-4d60-8e1b-77c2e2fb8c28.webp)\n\nこれは途中経過\n![画像](/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-eda999ab-0829-4253-abd3-329995c3aa1c.webp)\n\n全然前を向いてくれないときもあったけれど・・・\n![画像](/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-bc1f94b1-fb3f-4ec1-8e39-0a0edac724f1.webp)\n\nなんとかそれっぽいものができました！！\n![画像](/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-ee14117d-facf-417f-ba24-df13666382ee.webp)\n\n\n\nhttps://x.com/yokobo_ai/status/2052763045005611233?s=20\n\n\nみなさん、ぜひ遊んでみてください。\nhttps://yokobo103.github.io/3D_cart_game/\n\n\n:::note\n・Dr.よこぼとニャビットのモデリングについてはまたどこかで書きます。\n・BGMはSUNO AI、SEはStableAudioで生成しました。これもまた書きたい。\n:::\n\n",
+    "links": [
+      {
+        "label": "よこぼカート3D",
+        "url": "https://yokobo103.github.io/3D_cart_game/"
+      }
+    ],
+    "createdAt": "2026-05-07T22:14:40.883Z",
+    "updatedAt": "2026-05-09T23:41:35.416Z"
+  },
+  {
+    "id": "2025-ai-asobi-summary-draft",
+    "title": "2025年のAIあそびまとめ：よこぼのAIラボができるまで",
+    "summary": "旧AIラボに残っていた2025年のWeb、画像、音楽、3D、AR、ゲーム的な実験を、活動の流れとして再構成してみました",
+    "category": "気づき・ログ",
+    "categories": [
+      "気づき・ログ",
+      "Webあそび"
+    ],
+    "status": "public",
+    "pinned": false,
+    "weeklyPickup": false,
+    "archivePickup": true,
+    "tags": [],
+    "thumbnail": "/uploads/2025-ai-asobi-summary-draft/thumbnail-1a4afc75-676d-4a30-97a8-6264c4a3d25f.webp",
+    "images": [
+      "/images/2025/antigravity_generated_site_top.webp",
+      "/images/2025/codex_before_image_overflow.webp",
+      "/images/2025/codex_after_image_fit.webp",
+      "/images/2025/probanana_manga_comparison.webp",
+      "/images/2025/probanana_site_header_result.webp",
+      "/images/2025/genie_cat_3d_attempt.webp",
+      "/images/2025/first_cat_ar_on_floor.webp",
+      "/images/2025/spar3d_cat_model_result.webp",
+      "/images/2025/mediapipe_hand_count_success.webp",
+      "/images/2025/fireball_sprite_sheet.webp",
+      "/images/2025/interactive_magic_ar_result.webp"
+    ],
+    "body": "# 2025年のAIあそびまとめ：よこぼのAIラボができるまで\n\n---\n\n## はじめに\n\n2025年のAIラボは、「AIにWebサイトを作ってもらえるのか？」という実験から始まった。\n\n最初は軽い興味だった。  \nでも気づけば、画像、音楽、3D、AR、そしてインタラクティブな表現へと、遊びの範囲はどんどん広がっていった。\n\n旧サイトは、その試行錯誤をそのまま置いておく場所だった。  \nこの記事では個別記事を移植するのではなく、「2025年に何を試し、どこでつまずき、どう次につながったか」をまとめている。\n\n[過去の詳細ログはこちら](https://yokobo103.github.io/AI-Lab-Site/)\n\n---\n\n## 1. AIにサイトを作ってもらうところから始まった\n\n最初の実験は、Google AntigravityにWebサイト制作を任せてみることだった。\n\nGPTと相談しながら構想を整理し、プロンプトを作って投げる。  \nすると、GitHub Pagesで公開できるサイトが短時間でできあがった。\n\n![Antigravityで生成した旧サイトのトップ画面](/images/2025/antigravity_generated_site_top.webp)\n*Antigravityで生成した旧AIラボのトップ画面。すべての始まり。*\n\nここで得たのは、「Web制作はコードを書く前に、AIと会話するところから始められる」という感覚だった。\n\nその後、Markdownで記事管理をしたり、表示崩れをCodexで修正したりしながら、サイトは少しずつ「自分で育てられる場所」になっていった。\n\n---\n\n## 2. 画像と音楽で、サイトに表情が出てきた\n\n次に広がったのが、画像生成と音楽生成だった。\n\nNano BananaやChatGPT、Geminiを使って、4コマ漫画やサイトのヘッダー画像を試作していく。  \n思い通りにいかないことも多く、日本語が崩れたり、「よこぼ」の「ぼ」がうまく出なかったりもした。\n\nそれでも、何度か試して比較すれば、使える素材は自分で作れる。\n\n![Pro Bananaで作成したサイトヘッダー画像](/images/2025/probanana_site_header_result.webp)\n*試行錯誤の中でたどり着いた、サイト用ヘッダー画像。*\n\nSunoでBGMを作ったり、Codexの修正作業を動画にしたりと、ただのテキスト記事から「体験ごと残す」方向にも広がっていった。\n\n---\n\n## 3. 2Dから3D、そしてARへ\n\n2025年の中で大きな転換点になったのが、猫アイコンを3D化しようとしたことだった。\n\nTripo AIやGenieなどを試したが、思ったような形にならなかったり、色がつかなかったりと、うまくいかないことも多かった。  \nピクセルアートが3Dに向かないこともここでわかった。\n\n![Genieで生成した猫3Dモデルの試行結果](/images/2025/genie_cat_3d_attempt.webp)\n*試行錯誤の途中で生成された猫モデル。まだ理想には遠い。*\n\nそれでも試し続ける中で、3DモデルをARで表示するところまで進む。  \nBlenderで形式を変換し、model-viewerで読み込み、最終的にiPhoneの画面越しに、自作の猫を床に置けるようになった。\n\n画面の中の生成物が、現実の空間に出てきた瞬間だった。\n\n---\n\n## 4. 指の動きに反応する「魔法」にたどり着いた\n\nAR表示の次は、「反応する遊び」へと進んだ。\n\n最初は指の本数を数えるだけの実験。  \nそこからMediaPipe Handsを使って精度を上げ、指の本数に応じて魔法が出る仕組みに発展した。\n\n水、雷、炎、毒、バリア。  \nさらにスプライトシートを生成し、加工し、見た目も整えていく。\n\n![魔法インタラクティブARの実行画面](/images/2025/interactive_magic_ar_result.webp)\n*指の動きに応じて魔法が変わるインタラクティブAR。*\n\nここまで来ると、単なる素材生成ではなく、「入力→反応→演出」という小さな体験を作る段階に入っていた。\n\n---\n\n## 5. うまくいかなかったことも、そのまま価値になった\n\n振り返ると、2025年の実験は失敗の連続でもあった。\n\n- 日本語が崩れる  \n- 画像がはみ出す  \n- 3Dモデルが思い通りにならない  \n- ARがうまく表示されない  \n- 手の認識が安定しない  \n\nでも、それぞれの失敗が次の実験につながっていた。\n\nAIに相談して直す。  \n直らなくてもログとして残す。  \nそのログが次の遊びのヒントになる。\n\nこの循環こそが、AIラボの本質だったと思う。\n\n---\n\n## 6. 2026年の新サイトにつながったこと\n\n旧サイトは「実験ログを置く場所」だった。\n\nでも続けていく中で、\n\n- もっと気軽に投稿したい  \n- スマホから更新したい  \n- 画像を扱いやすくしたい  \n- 未完成のまま置いておきたい  \n\nという欲が出てきた。\n\n新サイトはその延長にある。  \n単なる移行ではなく、「続けやすくするための形」への進化だった。\n\n---\n\n## まとめ\n\n2025年のAIラボは、AIにサイトを作ってもらうところから始まった。\n\nそこから、画像を作り、音楽を作り、3Dモデルを作り、ARで表示し、最後は指の動きに反応する魔法までたどり着いた。\n\n一つひとつは小さな実験だったけれど、並べてみると「AIとの遊び方が変わっていく過程」になっている。\n\n完成品を作ることだけが目的ではなく、  \n試すこと、失敗すること、直すこと、残すこと。\n\nその全部が、このラボの中身だった。\n\nそしてこの流れは、2026年の新しいラボへと続いていく。\n\n\n---\n\nこの記事はGPT-5.5で作成しました。",
+    "links": [
+      {
+        "label": "過去の詳細ログはこちら",
+        "url": "https://yokobo103.github.io/AI-Lab-Site/"
+      },
+      {
+        "label": "旧サイトリポジトリ内のAR猫",
+        "url": "https://yokobo103.github.io/AI-Lab-Site/ar/cat.html"
+      },
+      {
+        "label": "魔法インタラクティブAR",
+        "url": "https://yokobo103.github.io/AI-Lab-Site/ar/interactive_ar_magic3.html"
+      }
+    ],
+    "createdAt": "2026-05-02T01:54:13.032Z",
+    "updatedAt": "2026-05-09T23:41:24.363Z"
+  },
+  {
     "id": "2b237510-0f6c-4d24-bf2c-77ab0b07869d",
     "title": "ほんやくこんにゃくを作った",
     "summary": "gpt-realtime-translateを使えばそんなこともできちゃう",
@@ -49,43 +134,6 @@
     "links": [],
     "createdAt": "2026-05-08T16:05:00.678Z",
     "updatedAt": "2026-05-08T16:08:12.613Z"
-  },
-  {
-    "id": "f6a3450e-f7c5-49f8-afbc-9688e7d74e41",
-    "title": "マ〇オカートみたいな3Dレーシングゲームをつくりたい！",
-    "summary": "3Dレーシングゲーム、できちゃった！",
-    "category": "ゲームあそび",
-    "categories": [
-      "ゲームあそび",
-      "3D・空間あそび"
-    ],
-    "status": "public",
-    "pinned": false,
-    "tags": [
-      "blender"
-    ],
-    "thumbnail": "/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/thumbnail-b2b3d5d5-0166-46f9-961c-1fe8d0939359.webp",
-    "images": [
-      "/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-25c6df3a-b9a2-4c9b-ac35-89e969b02fda.webp",
-      "/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-21df0b12-62e6-4404-88a0-54283bb6486a.webp",
-      "/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-d42d4ae3-16b1-423d-bfe6-a7d3c6c3836d.webp",
-      "/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-366e7ef8-69bd-4131-ba27-5752c504b3dd.webp",
-      "/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-2cf31be6-eea5-4d60-8e1b-77c2e2fb8c28.webp",
-      "/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-5386f807-4e3d-40c2-9955-25232b176994.webp",
-      "/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-eda999ab-0829-4253-abd3-329995c3aa1c.webp",
-      "/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-e05b1468-4d52-4e66-8c28-d6353e4327cf.webp",
-      "/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-bc1f94b1-fb3f-4ec1-8e39-0a0edac724f1.webp",
-      "/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-ee14117d-facf-417f-ba24-df13666382ee.webp"
-    ],
-    "body": "ゴールデンウィークにゲーム作りに勤しんだよこぼです。\n\nマ◯オカートみたいな3Dゲームを作りたくてチャレンジしてみました💪\n\n\n## ①ひとまず2Dでつくってみる\n\nGPT-images-2.0にイメージ画像を作ってもらいました。すごい。\n\n![画像](/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-e05b1468-4d52-4e66-8c28-d6353e4327cf.webp)\n\n\nで、これをもとにcodexにゲームを作ってもらいました。\n\n![画像](/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-25c6df3a-b9a2-4c9b-ac35-89e969b02fda.webp)\n\n\n一つ発見だったのは、チャットGPTにcodex用プロンプトを作ってもらうときの罠です。今回はめちゃめちゃ制約ガチガチプロンプトだったので、最初にできたのはショボショボゲームでした😭制約外してもらって作ったのが上画像のゲームです。\n\n\n## いよいよ3Dゲームをつくる\n\nチャットGPTが出してくれたイメージ画像がこちら。すげぇ…マリ◯カートやん🏎️\n![画像](/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-21df0b12-62e6-4404-88a0-54283bb6486a.webp)\n\n\nで、これを参考にcodexに作ってもらったゲームがこちら\n![画像](/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-21df0b12-62e6-4404-88a0-54283bb6486a.webp)\n\nやっぱり、3Dモデルはcodexに作らせることができないのでこんな感じになっちゃうんですよね…\n\nというわけで、3Dモデルはblenderというソフトで自作することにしました。\nとはいえ、よこぼはblender超初心者なので、そんなにすごいモデルを作ることはできません。\n\nそこで、チャットGPTにガイドを作ってもらいました！\n![画像](/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-d42d4ae3-16b1-423d-bfe6-a7d3c6c3836d.webp)\n\n\nこれがあれば作れるかも！！\nというわけでblenderでせっせとつくりました。\n\n![画像](/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-366e7ef8-69bd-4131-ba27-5752c504b3dd.webp)\n\n![画像](/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-2cf31be6-eea5-4d60-8e1b-77c2e2fb8c28.webp)\n\nこれは途中経過\n![画像](/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-eda999ab-0829-4253-abd3-329995c3aa1c.webp)\n\n全然前を向いてくれないときもあったけれど・・・\n![画像](/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-bc1f94b1-fb3f-4ec1-8e39-0a0edac724f1.webp)\n\nなんとかそれっぽいものができました！！\n![画像](/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-ee14117d-facf-417f-ba24-df13666382ee.webp)\n\n\n\nhttps://x.com/yokobo_ai/status/2052763045005611233?s=20\n\n\nみなさん、ぜひ遊んでみてください。\nhttps://yokobo103.github.io/3D_cart_game/\n\n\n:::note\n・Dr.よこぼとニャビットのモデリングについてはまたどこかで書きます。\n・BGMはSUNO AI、SEはStableAudioで生成しました。これもまた書きたい。\n:::\n\n",
-    "links": [
-      {
-        "label": "よこぼカート3D",
-        "url": "https://yokobo103.github.io/3D_cart_game/"
-      }
-    ],
-    "createdAt": "2026-05-07T22:14:40.883Z",
-    "updatedAt": "2026-05-08T14:57:45.691Z"
   },
   {
     "id": "1d868e67-d4a2-4309-9f1b-5edb9f5f115a",
@@ -166,50 +214,6 @@
     "links": [],
     "createdAt": "2026-05-02T14:54:16.330Z",
     "updatedAt": "2026-05-02T15:43:12.861Z"
-  },
-  {
-    "id": "2025-ai-asobi-summary-draft",
-    "title": "2025年のAIあそびまとめ：よこぼのAIラボができるまで",
-    "summary": "旧AIラボに残っていた2025年のWeb、画像、音楽、3D、AR、ゲーム的な実験を、活動の流れとして再構成してみました",
-    "category": "気づき・ログ",
-    "categories": [
-      "気づき・ログ",
-      "Webあそび"
-    ],
-    "status": "public",
-    "pinned": false,
-    "tags": [],
-    "thumbnail": "/uploads/2025-ai-asobi-summary-draft/thumbnail-1a4afc75-676d-4a30-97a8-6264c4a3d25f.webp",
-    "images": [
-      "/images/2025/antigravity_generated_site_top.webp",
-      "/images/2025/codex_before_image_overflow.webp",
-      "/images/2025/codex_after_image_fit.webp",
-      "/images/2025/probanana_manga_comparison.webp",
-      "/images/2025/probanana_site_header_result.webp",
-      "/images/2025/genie_cat_3d_attempt.webp",
-      "/images/2025/first_cat_ar_on_floor.webp",
-      "/images/2025/spar3d_cat_model_result.webp",
-      "/images/2025/mediapipe_hand_count_success.webp",
-      "/images/2025/fireball_sprite_sheet.webp",
-      "/images/2025/interactive_magic_ar_result.webp"
-    ],
-    "body": "# 2025年のAIあそびまとめ：よこぼのAIラボができるまで\n\n---\n\n## はじめに\n\n2025年のAIラボは、「AIにWebサイトを作ってもらえるのか？」という実験から始まった。\n\n最初は軽い興味だった。  \nでも気づけば、画像、音楽、3D、AR、そしてインタラクティブな表現へと、遊びの範囲はどんどん広がっていった。\n\n旧サイトは、その試行錯誤をそのまま置いておく場所だった。  \nこの記事では個別記事を移植するのではなく、「2025年に何を試し、どこでつまずき、どう次につながったか」をまとめている。\n\n[過去の詳細ログはこちら](https://yokobo103.github.io/AI-Lab-Site/)\n\n---\n\n## 1. AIにサイトを作ってもらうところから始まった\n\n最初の実験は、Google AntigravityにWebサイト制作を任せてみることだった。\n\nGPTと相談しながら構想を整理し、プロンプトを作って投げる。  \nすると、GitHub Pagesで公開できるサイトが短時間でできあがった。\n\n![Antigravityで生成した旧サイトのトップ画面](/images/2025/antigravity_generated_site_top.webp)\n*Antigravityで生成した旧AIラボのトップ画面。すべての始まり。*\n\nここで得たのは、「Web制作はコードを書く前に、AIと会話するところから始められる」という感覚だった。\n\nその後、Markdownで記事管理をしたり、表示崩れをCodexで修正したりしながら、サイトは少しずつ「自分で育てられる場所」になっていった。\n\n---\n\n## 2. 画像と音楽で、サイトに表情が出てきた\n\n次に広がったのが、画像生成と音楽生成だった。\n\nNano BananaやChatGPT、Geminiを使って、4コマ漫画やサイトのヘッダー画像を試作していく。  \n思い通りにいかないことも多く、日本語が崩れたり、「よこぼ」の「ぼ」がうまく出なかったりもした。\n\nそれでも、何度か試して比較すれば、使える素材は自分で作れる。\n\n![Pro Bananaで作成したサイトヘッダー画像](/images/2025/probanana_site_header_result.webp)\n*試行錯誤の中でたどり着いた、サイト用ヘッダー画像。*\n\nSunoでBGMを作ったり、Codexの修正作業を動画にしたりと、ただのテキスト記事から「体験ごと残す」方向にも広がっていった。\n\n---\n\n## 3. 2Dから3D、そしてARへ\n\n2025年の中で大きな転換点になったのが、猫アイコンを3D化しようとしたことだった。\n\nTripo AIやGenieなどを試したが、思ったような形にならなかったり、色がつかなかったりと、うまくいかないことも多かった。  \nピクセルアートが3Dに向かないこともここでわかった。\n\n![Genieで生成した猫3Dモデルの試行結果](/images/2025/genie_cat_3d_attempt.webp)\n*試行錯誤の途中で生成された猫モデル。まだ理想には遠い。*\n\nそれでも試し続ける中で、3DモデルをARで表示するところまで進む。  \nBlenderで形式を変換し、model-viewerで読み込み、最終的にiPhoneの画面越しに、自作の猫を床に置けるようになった。\n\n画面の中の生成物が、現実の空間に出てきた瞬間だった。\n\n---\n\n## 4. 指の動きに反応する「魔法」にたどり着いた\n\nAR表示の次は、「反応する遊び」へと進んだ。\n\n最初は指の本数を数えるだけの実験。  \nそこからMediaPipe Handsを使って精度を上げ、指の本数に応じて魔法が出る仕組みに発展した。\n\n水、雷、炎、毒、バリア。  \nさらにスプライトシートを生成し、加工し、見た目も整えていく。\n\n![魔法インタラクティブARの実行画面](/images/2025/interactive_magic_ar_result.webp)\n*指の動きに応じて魔法が変わるインタラクティブAR。*\n\nここまで来ると、単なる素材生成ではなく、「入力→反応→演出」という小さな体験を作る段階に入っていた。\n\n---\n\n## 5. うまくいかなかったことも、そのまま価値になった\n\n振り返ると、2025年の実験は失敗の連続でもあった。\n\n- 日本語が崩れる  \n- 画像がはみ出す  \n- 3Dモデルが思い通りにならない  \n- ARがうまく表示されない  \n- 手の認識が安定しない  \n\nでも、それぞれの失敗が次の実験につながっていた。\n\nAIに相談して直す。  \n直らなくてもログとして残す。  \nそのログが次の遊びのヒントになる。\n\nこの循環こそが、AIラボの本質だったと思う。\n\n---\n\n## 6. 2026年の新サイトにつながったこと\n\n旧サイトは「実験ログを置く場所」だった。\n\nでも続けていく中で、\n\n- もっと気軽に投稿したい  \n- スマホから更新したい  \n- 画像を扱いやすくしたい  \n- 未完成のまま置いておきたい  \n\nという欲が出てきた。\n\n新サイトはその延長にある。  \n単なる移行ではなく、「続けやすくするための形」への進化だった。\n\n---\n\n## まとめ\n\n2025年のAIラボは、AIにサイトを作ってもらうところから始まった。\n\nそこから、画像を作り、音楽を作り、3Dモデルを作り、ARで表示し、最後は指の動きに反応する魔法までたどり着いた。\n\n一つひとつは小さな実験だったけれど、並べてみると「AIとの遊び方が変わっていく過程」になっている。\n\n完成品を作ることだけが目的ではなく、  \n試すこと、失敗すること、直すこと、残すこと。\n\nその全部が、このラボの中身だった。\n\nそしてこの流れは、2026年の新しいラボへと続いていく。\n\n\n---\n\nこの記事はGPT-5.5で作成しました。",
-    "links": [
-      {
-        "label": "過去の詳細ログはこちら",
-        "url": "https://yokobo103.github.io/AI-Lab-Site/"
-      },
-      {
-        "label": "旧サイトリポジトリ内のAR猫",
-        "url": "https://yokobo103.github.io/AI-Lab-Site/ar/cat.html"
-      },
-      {
-        "label": "魔法インタラクティブAR",
-        "url": "https://yokobo103.github.io/AI-Lab-Site/ar/interactive_ar_magic3.html"
-      }
-    ],
-    "createdAt": "2026-05-02T01:54:13.032Z",
-    "updatedAt": "2026-05-02T12:52:30.265Z"
   },
   {
     "id": "welcome-lab",
