@@ -194,7 +194,7 @@ export default async function Home() {
                 </div>
                 <Image
                   className="featureCharacter doctor"
-                  src="/design-reference/20260510_Dr_yokobo.png"
+                  src="/assets/featured/dr-yokobo-pickup.webp"
                   alt=""
                   width={520}
                   height={520}
@@ -255,7 +255,7 @@ export default async function Home() {
                 </div>
                 <Image
                   className="featureCharacter nyabbit"
-                  src="/design-reference/20260510_nyabitto_2.png"
+                  src="/assets/featured/nyabbit-archive.webp"
                   alt=""
                   width={520}
                   height={520}
