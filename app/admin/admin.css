@@ -667,13 +667,32 @@
   gap: 8px;
 }
 
-.categoryPicker button {
+.categoryPicker button,
+.featuredPicker button {
   min-height: 42px;
   padding: 0 8px;
   border: 1px solid #cfe0f5;
   background: white;
   color: #102861;
   font-size: 12px;
+}
+
+.featuredPicker {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.featuredPicker button {
+  min-height: 54px;
+  padding: 8px 10px;
+  line-height: 1.35;
+}
+
+.featuredPicker button.active {
+  border-color: #2f7df6;
+  background: #eaf6ff;
+  color: #1178ff;
 }
 
 .imagePanels {
@@ -997,7 +1016,8 @@
     grid-template-columns: 1fr;
   }
 
-  .categoryPicker {
+  .categoryPicker,
+  .featuredPicker {
     grid-template-columns: 1fr 1fr;
   }
 
@@ -1081,6 +1101,7 @@
 
   .quickGrid,
   .categoryPicker,
+  .featuredPicker,
   .mobileSelectFilters {
     grid-template-columns: 1fr 1fr;
   }

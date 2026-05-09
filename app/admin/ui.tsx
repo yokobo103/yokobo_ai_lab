@@ -27,6 +27,8 @@ const emptyPost = (): Post => {
     categories: [],
     status: "draft",
     pinned: false,
+    weeklyPickup: false,
+    archivePickup: false,
     tags: [],
     thumbnail: "",
     images: [],
@@ -523,6 +525,10 @@ export default function AdminApp() {
     await reloadPosts();
   }
 
+  function toggleFeaturedSlot(key: "weeklyPickup" | "archivePickup") {
+    setCurrent((post) => ({ ...post, [key]: !post[key] }));
+  }
+
   async function deleteCurrentPost() {
     const exists = posts.some((post) => post.id === current.id);
     if (!exists) {
@@ -782,6 +788,19 @@ export default function AdminApp() {
                 })}
               </div>
               <label>タグ<input value={tagDraft} onChange={(event) => setTagText(event.target.value)} placeholder="#スマホ #実験 #アイデア" /></label>
+            </section>
+
+            <section className="formSection">
+              <h3>トップページ掲載</h3>
+              <p className="fieldHelp">公開済みログだけがトップページに表示されます。今週のおすすめや過去ログの発掘枠に出したいログを選びます。</p>
+              <div className="featuredPicker">
+                <button className={current.weeklyPickup ? "active" : ""} type="button" onClick={() => toggleFeaturedSlot("weeklyPickup")}>
+                  今週のピックアップ実験ログ
+                </button>
+                <button className={current.archivePickup ? "active" : ""} type="button" onClick={() => toggleFeaturedSlot("archivePickup")}>
+                  発掘！過去の実験ログ
+                </button>
+              </div>
             </section>
 
             <section className="formSection imageSection">

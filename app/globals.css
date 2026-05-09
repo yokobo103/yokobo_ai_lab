@@ -705,6 +705,293 @@ img {
   filter: drop-shadow(0 10px 14px rgba(0, 31, 78, 0.12));
 }
 
+.featuredLabSection {
+  padding: 8px 48px 36px;
+  background: var(--white);
+}
+
+.featuredLabGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 24px;
+  align-items: stretch;
+}
+
+.weeklyPickupPanel,
+.archivePickupPanel {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: 360px;
+  overflow: hidden;
+  border: 1.5px solid #f7c9d5;
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 12% 82%, rgba(255, 230, 236, 0.72), transparent 26%),
+    radial-gradient(circle at 62% 22%, rgba(255, 255, 255, 0.92), transparent 28%),
+    linear-gradient(135deg, #fff8f8 0%, #fffdfb 100%);
+  box-shadow: 0 14px 30px rgba(20, 88, 170, 0.08);
+}
+
+.archivePickupPanel {
+  border-color: #b9d6ff;
+  background:
+    radial-gradient(circle at 82% 18%, rgba(212, 235, 255, 0.9), transparent 28%),
+    radial-gradient(circle at 16% 82%, rgba(255, 255, 255, 0.95), transparent 24%),
+    linear-gradient(135deg, #eef8ff 0%, #ffffff 100%);
+}
+
+.featureBadge {
+  position: relative;
+  z-index: 3;
+  display: inline-flex;
+  width: fit-content;
+  max-width: calc(100% - 28px);
+  min-height: 48px;
+  align-items: center;
+  gap: 10px;
+  margin: -1px 0 0 22px;
+  padding: 0 18px;
+  border: 1.5px solid #f7c9d5;
+  border-radius: 0 0 14px 14px;
+  background: rgba(255, 247, 248, 0.96);
+  color: #ff3f7b;
+  box-shadow: 0 8px 18px rgba(20, 88, 170, 0.06);
+}
+
+.featureBadge.blue {
+  border-color: #b9d6ff;
+  background: rgba(239, 248, 255, 0.96);
+  color: var(--blue);
+}
+
+.featureBadge h2 {
+  margin: 0;
+  font-size: clamp(18px, 1.7vw, 24px);
+  font-weight: 950;
+  line-height: 1.2;
+}
+
+.featurePanelBody,
+.archivePanelBody {
+  position: relative;
+  display: grid;
+  min-height: 250px;
+  padding: 18px 20px 14px;
+}
+
+.featurePanelBody {
+  grid-template-columns: minmax(220px, 0.72fr) minmax(260px, 1fr);
+  grid-template-rows: auto 1fr;
+  gap: 18px;
+}
+
+.weeklyPickupPanel .featureLead {
+  grid-column: 1 / -1;
+  grid-row: 1;
+}
+
+.archivePanelBody {
+  grid-template-columns: minmax(0, 1fr) 250px;
+  grid-template-rows: auto 1fr;
+  gap: 12px 18px;
+}
+
+.featureLead {
+  position: relative;
+  z-index: 2;
+}
+
+.featureLead p {
+  margin: 0;
+  color: var(--navy);
+  font-size: 15px;
+  font-weight: 850;
+  line-height: 1.75;
+}
+
+.featureCatch,
+.archiveCatch {
+  margin-bottom: 8px !important;
+  color: #ff3f7b !important;
+  font-size: clamp(22px, 2.35vw, 34px) !important;
+  font-weight: 950 !important;
+  line-height: 1.25 !important;
+}
+
+.featureCatch {
+  white-space: nowrap;
+}
+
+.archiveCatch {
+  color: var(--blue) !important;
+}
+
+.featureCharacter {
+  position: relative;
+  z-index: 1;
+  object-fit: contain;
+  pointer-events: none;
+  filter: drop-shadow(0 12px 18px rgba(20, 88, 170, 0.1));
+}
+
+.featureCharacter.doctor {
+  grid-column: 1;
+  grid-row: 2;
+  align-self: end;
+  justify-self: start;
+  width: min(100%, 270px);
+  height: auto;
+}
+
+.featureCharacter.nyabbit {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  align-self: end;
+  justify-self: end;
+  width: min(100%, 300px);
+  height: auto;
+}
+
+.featureList,
+.archiveList {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  gap: 12px;
+  align-content: start;
+}
+
+.archiveList {
+  grid-column: 1;
+}
+
+.featureList {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.featureMiniCard,
+.archiveMiniCard {
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+  min-height: 92px;
+  padding: 10px;
+  border: 1px solid rgba(217, 232, 251, 0.86);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 8px 20px rgba(20, 88, 170, 0.06);
+}
+
+.archiveMiniCard {
+  grid-template-columns: 92px minmax(0, 1fr);
+}
+
+.featureMiniCard img,
+.archiveMiniCard img {
+  width: 100%;
+  aspect-ratio: 1.36 / 1;
+  object-fit: cover;
+  border-radius: 10px;
+  background: var(--sky);
+}
+
+.featureMiniCard span,
+.archiveMiniCard span {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.featureMiniCard small,
+.archiveMiniCard small {
+  width: fit-content;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: #eaf6ff;
+  color: var(--blue);
+  font-size: 11px;
+  font-weight: 950;
+  line-height: 1.2;
+}
+
+.featureMiniCard strong,
+.archiveMiniCard strong {
+  display: -webkit-box;
+  overflow: hidden;
+  color: var(--navy);
+  font-size: 15px;
+  font-weight: 950;
+  line-height: 1.45;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.featureMiniCard time,
+.archiveMiniCard time {
+  color: #637fae;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.featureEmpty {
+  padding: 18px;
+  border: 1px dashed #b9d6ff;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.82);
+}
+
+.featureEmpty strong {
+  display: block;
+  color: var(--navy);
+  font-weight: 950;
+}
+
+.featureEmpty p {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 780;
+  line-height: 1.65;
+}
+
+.featureMoreButton {
+  position: relative;
+  z-index: 3;
+  display: inline-flex;
+  width: min(320px, calc(100% - 40px));
+  min-height: 50px;
+  align-items: center;
+  justify-content: space-between;
+  justify-self: end;
+  gap: 12px;
+  margin: 0 20px 18px 0;
+  padding: 0 20px;
+  border: 1.5px solid #ff99b8;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.94);
+  color: var(--navy);
+  font-size: 14px;
+  font-weight: 950;
+  box-shadow: 0 8px 18px rgba(20, 88, 170, 0.07);
+}
+
+.featureMoreButton.blue {
+  border-color: #8fc8ff;
+}
+
+.featureMoreButton span {
+  color: #ff3f7b;
+  font-size: 22px;
+  line-height: 1;
+}
+
+.featureMoreButton.blue span {
+  color: var(--blue);
+}
+
 .siteFooter {
   position: relative;
   display: grid;
@@ -1281,6 +1568,15 @@ img {
     min-height: 236px;
   }
 
+  .featuredLabGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .weeklyPickupPanel,
+  .archivePickupPanel {
+    min-height: 320px;
+  }
+
   .postGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -1515,6 +1811,57 @@ img {
     width: 138px;
   }
 
+  .featuredLabSection {
+    padding: 2px 28px 34px;
+  }
+
+  .featuredLabGrid {
+    gap: 18px;
+  }
+
+  .featurePanelBody,
+  .archivePanelBody {
+    grid-template-columns: 1fr;
+    min-height: 0;
+    padding: 18px;
+  }
+
+  .featureList,
+  .archiveList {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .featureLead {
+    min-height: 0;
+    padding-right: 0;
+  }
+
+  .featureCatch,
+  .archiveCatch {
+    font-size: clamp(22px, 6.3vw, 30px) !important;
+  }
+
+  .featureCatch {
+    white-space: normal;
+  }
+
+  .featureCharacter.doctor,
+  .featureCharacter.nyabbit {
+    display: none;
+  }
+
+  .featureMiniCard,
+  .archiveMiniCard {
+    grid-template-columns: 92px minmax(0, 1fr);
+  }
+
+  .featureMoreButton {
+    justify-self: stretch;
+    width: auto;
+    margin: 0 18px 18px;
+  }
+
   .siteFooter {
     grid-template-columns: 1fr auto;
     align-items: start;
@@ -1660,7 +2007,8 @@ img {
   }
 
   .themeSection,
-  .latestSection {
+  .latestSection,
+  .featuredLabSection {
     padding-inline: 20px;
   }
 
@@ -1758,6 +2106,62 @@ img {
 
   .newsletterCat {
     display: none;
+  }
+
+  .weeklyPickupPanel,
+  .archivePickupPanel {
+    border-radius: 20px;
+  }
+
+  .featureBadge {
+    max-width: calc(100% - 24px);
+    min-height: 44px;
+    gap: 7px;
+    margin-left: 12px;
+    padding: 0 12px;
+    border-radius: 0 0 12px 12px;
+  }
+
+  .featureBadge h2 {
+    font-size: clamp(16px, 4.6vw, 19px);
+  }
+
+  .featureBadge img {
+    width: 20px;
+    height: 20px;
+  }
+
+  .featurePanelBody,
+  .archivePanelBody {
+    padding: 16px 14px;
+  }
+
+  .featureLead {
+    min-height: 0;
+    padding-right: 0;
+  }
+
+  .featureLead p {
+    font-size: 13px;
+  }
+
+  .featureCharacter.doctor,
+  .featureCharacter.nyabbit {
+    display: none;
+  }
+
+  .featureMiniCard,
+  .archiveMiniCard {
+    grid-template-columns: 78px minmax(0, 1fr);
+    gap: 10px;
+    min-height: 84px;
+    padding: 8px;
+    border-radius: 14px;
+  }
+
+  .featureMiniCard strong,
+  .archiveMiniCard strong {
+    font-size: 13px;
   }
 
   .footerContact {

@@ -114,6 +114,8 @@ export function normalizePost(input: Partial<Post>, previous?: Post): Post {
     categories: postCategories,
     status: input.status === "public" ? "public" : "draft",
     pinned: Boolean(input.pinned ?? previous?.pinned),
+    weeklyPickup: Boolean(input.weeklyPickup ?? previous?.weeklyPickup),
+    archivePickup: Boolean(input.archivePickup ?? previous?.archivePickup),
     tags: [...new Set(tags)].slice(0, 12),
     thumbnail: input.thumbnail || "",
     images: Array.isArray(input.images) ? input.images.filter(Boolean) : [],

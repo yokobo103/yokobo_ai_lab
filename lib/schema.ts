@@ -17,6 +17,8 @@ export type Post = {
   categories: Category[];
   status: "draft" | "public";
   pinned?: boolean;
+  weeklyPickup?: boolean;
+  archivePickup?: boolean;
   tags: string[];
   thumbnail: string;
   images: string[];

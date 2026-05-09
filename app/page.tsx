@@ -27,16 +27,22 @@ function makeExcerpt(post: { summary: string; body: string }) {
     .slice(0, 62) || "画像を置いたら、もう投稿。";
 }
 
-export default async function Home() {
-  const posts = (await readPosts()).filter((post) => post.status === "public");
-  const latestPosts = posts.slice(0, 4).map((post) => ({
+function toLogCard(post: Awaited<ReturnType<typeof readPosts>>[number]) {
+  return {
     href: `/posts/${post.id}`,
     category: getPostCategories(post).join(" / "),
     date: formatPostDate(post.updatedAt || post.createdAt),
     title: post.title || "無題のあそび",
     summary: makeExcerpt(post),
     image: post.thumbnail || post.images[0] || "/assets/logs/thumb-future-lab.webp"
-  }));
+  };
+}
+
+export default async function Home() {
+  const posts = (await readPosts()).filter((post) => post.status === "public");
+  const latestPosts = posts.slice(0, 4).map(toLogCard);
+  const weeklyPickups = posts.filter((post) => post.weeklyPickup).slice(0, 3).map(toLogCard);
+  const archivePickups = posts.filter((post) => post.archivePickup).slice(0, 2).map(toLogCard);
 
   return (
     <div className="pageFrame lpPage">
@@ -170,6 +176,96 @@ export default async function Home() {
                 />
               </section>
             </div>
+          </div>
+        </section>
+
+        <section className="featuredLabSection" aria-labelledby="featured-heading">
+          <div className="sectionInner featuredLabGrid">
+            <section className="weeklyPickupPanel" aria-labelledby="featured-heading">
+              <div className="featureBadge">
+                <Image src="/assets/decor/flask-button.svg" alt="" width={26} height={26} />
+                <h2 id="featured-heading">今週のピックアップ実験ログ</h2>
+                <Image src="/assets/decor/paw-blue.svg" alt="" width={22} height={22} />
+              </div>
+              <div className="featurePanelBody">
+                <div className="featureLead">
+                  <p className="featureCatch">これはすごい発見かも...！</p>
+                  <p>Dr.よこぼが厳選した、今週のイチオシ実験を紹介します！</p>
+                </div>
+                <Image
+                  className="featureCharacter doctor"
+                  src="/design-reference/20260510_Dr_yokobo.png"
+                  alt=""
+                  width={520}
+                  height={520}
+                />
+                <div className="featureList">
+                  {weeklyPickups.map((log) => (
+                    <Link className="featureMiniCard" href={log.href} key={log.href}>
+                      <Image src={log.image} alt="" width={112} height={82} />
+                      <span>
+                        <small>{log.category}</small>
+                        <strong>{log.title}</strong>
+                        <time>{log.date}</time>
+                      </span>
+                    </Link>
+                  ))}
+                  {weeklyPickups.length === 0 ? (
+                    <div className="featureEmpty">
+                      <strong>ピックアップは準備中です</strong>
+                      <p>管理画面で「今週のピックアップ実験ログ」を選ぶとここに表示されます。</p>
+                    </div>
+                  ) : null}
+                </div>
+              </div>
+              <Link className="featureMoreButton" href="/logs">
+                ピックアップをもっと見る
+                <span aria-hidden="true">＋</span>
+              </Link>
+            </section>
+
+            <section className="archivePickupPanel" aria-labelledby="archive-heading">
+              <div className="featureBadge blue">
+                <Image src="/assets/decor/flask-button.svg" alt="" width={26} height={26} />
+                <h2 id="archive-heading">発掘！過去の実験ログ</h2>
+                <Image src="/assets/decor/paw-blue.svg" alt="" width={22} height={22} />
+              </div>
+              <div className="archivePanelBody">
+                <div className="featureLead">
+                  <p className="archiveCatch">ニャビットが掘り出したにゃ！</p>
+                  <p>過去の実験の中から、今読んでも面白いログを発掘してきたよ！</p>
+                </div>
+                <div className="archiveList">
+                  {archivePickups.map((log) => (
+                    <Link className="archiveMiniCard" href={log.href} key={log.href}>
+                      <Image src={log.image} alt="" width={92} height={72} />
+                      <span>
+                        <small>{log.category}</small>
+                        <strong>{log.title}</strong>
+                        <time>{log.date}</time>
+                      </span>
+                    </Link>
+                  ))}
+                  {archivePickups.length === 0 ? (
+                    <div className="featureEmpty compact">
+                      <strong>発掘ログは準備中です</strong>
+                      <p>管理画面で「発掘！過去の実験ログ」を選ぶとここに表示されます。</p>
+                    </div>
+                  ) : null}
+                </div>
+                <Image
+                  className="featureCharacter nyabbit"
+                  src="/design-reference/20260510_nyabitto_2.png"
+                  alt=""
+                  width={520}
+                  height={520}
+                />
+              </div>
+              <Link className="featureMoreButton blue" href="/logs">
+                発掘ログをもっと見る
+                <span aria-hidden="true">＋</span>
+              </Link>
+            </section>
           </div>
         </section>
       </main>
