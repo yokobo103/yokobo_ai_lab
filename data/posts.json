@@ -17,7 +17,7 @@
       "/uploads/2b237510-0f6c-4d24-bf2c-77ab0b07869d/gallery-0e4cb59c-5dc8-4387-9973-7d7a3745c93c.webp",
       "/uploads/2b237510-0f6c-4d24-bf2c-77ab0b07869d/gallery-72376096-1be7-415d-a6e8-9e2100934b39.webp"
     ],
-    "body": "2026/5/8\nOpen\n\n\nhttps://x.com/jxnlco/status/2052449634266812744?s=46",
+    "body": "2026/5/8\nきっかけはこのXのポストでした…！！\n\nhttps://x.com/jxnlco/status/2052449634266812744?s=46\n\n\nOh… スゲーよ…\n\nこの日、OpenAIから「gpt-realtime-translate」というものすごいモデルが発表されました。\n\nこれはまさに…\nほんやくコンニャク！！\n\n\nというわけで自分でこのほんやくコンニャクを体験するためにwebアプリっぽいものを作りましたというログです！！\n\n---\n\n遊んでみたい方はこちら\nhttps://gpt-rt-translate-app.vercel.app/\n\nOpenAIのAPIキーが必要になります…\n（ よこぼのAIラボも財政難でして💦）\n\nAPIキーの取得はこちらの記事がわかりやすいですね↓\nhttps://note.com/yuki_tech/n/nbc29be8da07f\n\n---\n\n## webアプリを使ってみる\n\n毎度のごとく、codexさんに丸投げします。\n![画像](/uploads/2b237510-0f6c-4d24-bf2c-77ab0b07869d/gallery-72376096-1be7-415d-a6e8-9e2100934b39.webp)\n\n\n:::note\nちなみにスマホアプリのcodexで作ろうとしたらまったくうまくいきませんでした。やっぱりcodexが自分でテストできる環境を与えるのって大事だなって思いました。\n:::\n\nで、できたのがこんな感じのアプリ。\n![画像](/uploads/2b237510-0f6c-4d24-bf2c-77ab0b07869d/gallery-07412648-22d8-430d-9764-9250d3e636ca.webp)\n\n\nせっかくなので「よこぼのAIラボ」感を出してみます。\n![画像](/uploads/2b237510-0f6c-4d24-bf2c-77ab0b07869d/gallery-0e4cb59c-5dc8-4387-9973-7d7a3745c93c.webp)\n\n\nお試し動画はこんな感じ。\n\n\n",
     "links": [
       {
         "label": "おためしサイト(OpenAIのAPIキーが必要)",
@@ -25,7 +25,7 @@
       }
     ],
     "createdAt": "2026-05-08T16:02:15.329Z",
-    "updatedAt": "2026-05-09T01:07:14.822Z"
+    "updatedAt": "2026-05-09T01:21:28.432Z"
   },
   {
     "id": "e7862082-5d7d-4b33-9002-9eeeb7313268",
