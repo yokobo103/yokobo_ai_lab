@@ -81,6 +81,14 @@ export async function getPost(id: string) {
   return posts.find((post) => post.id === id) ?? null;
 }
 
+export function publicSortTime(post: Post) {
+  return Date.parse(post.publishedAt || post.createdAt || post.updatedAt || "");
+}
+
+export function sortPublicPosts(posts: Post[]) {
+  return [...posts].sort((a, b) => publicSortTime(b) - publicSortTime(a));
+}
+
 export function isAdminPassword(value: string | null) {
   const password = process.env.ADMIN_PASSWORD;
   if (password) return Boolean(value && value === password);
@@ -98,6 +106,11 @@ export function makeSlug(input: string) {
 
 export function normalizePost(input: Partial<Post>, previous?: Post): Post {
   const now = new Date().toISOString();
+  const nextStatus = input.status === "public" ? "public" : "draft";
+  const publishedAt =
+    nextStatus === "public"
+      ? previous?.publishedAt || input.publishedAt || (previous?.status === "public" ? previous.createdAt : now)
+      : previous?.publishedAt || input.publishedAt;
   const postCategories = normalizeCategories(input, previous);
   const primaryCategory = postCategories[0] ?? "気づき・ログ";
   const tags = Array.isArray(input.tags)
@@ -112,7 +125,7 @@ export function normalizePost(input: Partial<Post>, previous?: Post): Post {
     summary: input.summary?.trim() || "",
     category: primaryCategory,
     categories: postCategories,
-    status: input.status === "public" ? "public" : "draft",
+    status: nextStatus,
     pinned: Boolean(input.pinned ?? previous?.pinned),
     weeklyPickup: Boolean(input.weeklyPickup ?? previous?.weeklyPickup),
     archivePickup: Boolean(input.archivePickup ?? previous?.archivePickup),
@@ -124,6 +137,7 @@ export function normalizePost(input: Partial<Post>, previous?: Post): Post {
       ? input.links.filter((link) => link.label?.trim() && link.url?.trim())
       : [],
     createdAt: previous?.createdAt || input.createdAt || now,
+    publishedAt,
     updatedAt: now
   };
 }

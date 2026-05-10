@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { filterPostsByLogCategory, getLogCategoryLabel, getPostCategories, logCategoryLinks } from "@/lib/log-categories";
-import { readPosts } from "@/lib/posts";
+import { readPosts, sortPublicPosts } from "@/lib/posts";
 import { SiteFooter, SiteHeader } from "../site-chrome";
 
 type PostListPageProps = {
@@ -12,7 +12,7 @@ export async function PostListPage({ searchParams }: PostListPageProps) {
   const params = searchParams ? await searchParams : undefined;
   const selectedCategory = params?.category;
   const query = params?.q?.trim() ?? "";
-  const allPosts = (await readPosts()).filter((post) => post.status === "public");
+  const allPosts = sortPublicPosts((await readPosts()).filter((post) => post.status === "public"));
   const categoryPosts = filterPostsByLogCategory(allPosts, selectedCategory);
   const normalizedQuery = query.toLocaleLowerCase();
   const posts = normalizedQuery

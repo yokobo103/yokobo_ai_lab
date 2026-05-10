@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getPostCategories, logCategoryLinks } from "@/lib/log-categories";
-import { readPosts } from "@/lib/posts";
+import { readPosts, sortPublicPosts } from "@/lib/posts";
 import { SiteFooter, SiteHeader } from "./site-chrome";
 
 export const dynamic = "force-dynamic";
@@ -31,7 +31,7 @@ function toLogCard(post: Awaited<ReturnType<typeof readPosts>>[number]) {
   return {
     href: `/posts/${post.id}`,
     category: getPostCategories(post).join(" / "),
-    date: formatPostDate(post.updatedAt || post.createdAt),
+    date: formatPostDate(post.publishedAt || post.createdAt || post.updatedAt),
     title: post.title || "無題のあそび",
     summary: makeExcerpt(post),
     image: post.thumbnail || post.images[0] || "/assets/logs/thumb-future-lab.webp"
@@ -39,7 +39,7 @@ function toLogCard(post: Awaited<ReturnType<typeof readPosts>>[number]) {
 }
 
 export default async function Home() {
-  const posts = (await readPosts()).filter((post) => post.status === "public");
+  const posts = sortPublicPosts((await readPosts()).filter((post) => post.status === "public"));
   const latestPosts = posts.slice(0, 4).map(toLogCard);
   const weeklyPickups = posts.filter((post) => post.weeklyPickup).slice(0, 3).map(toLogCard);
   const archivePickups = posts.filter((post) => post.archivePickup).slice(0, 2).map(toLogCard);

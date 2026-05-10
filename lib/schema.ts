@@ -25,5 +25,6 @@ export type Post = {
   body: string;
   links: { label: string; url: string }[];
   createdAt: string;
+  publishedAt?: string;
   updatedAt: string;
 };
