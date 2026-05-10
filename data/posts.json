@@ -1,5 +1,32 @@
 [
   {
+    "id": "e7862082-5d7d-4b33-9002-9eeeb7313268",
+    "title": "かるくすることがとっても大事",
+    "summary": "",
+    "category": "ゲームあそび",
+    "categories": [
+      "ゲームあそび",
+      "気づき・ログ"
+    ],
+    "status": "draft",
+    "pinned": false,
+    "weeklyPickup": false,
+    "archivePickup": false,
+    "tags": [],
+    "thumbnail": "",
+    "images": [
+      "/uploads/e7862082-5d7d-4b33-9002-9eeeb7313268/gallery-b3ebaacc-21eb-420d-ab38-cad1b1763dc7.webp",
+      "/uploads/e7862082-5d7d-4b33-9002-9eeeb7313268/gallery-1185a3dd-c161-4e69-9faf-297d9e744a79.webp",
+      "/uploads/e7862082-5d7d-4b33-9002-9eeeb7313268/gallery-5b33796a-5f69-4437-b1af-ff6bbd5d61d2.webp",
+      "/uploads/e7862082-5d7d-4b33-9002-9eeeb7313268/gallery-152367a9-9740-46b0-9d42-342c76cd3548.webp",
+      "/uploads/e7862082-5d7d-4b33-9002-9eeeb7313268/gallery-816f1f00-f59c-4eda-b9a3-6a8ba958fdea.webp"
+    ],
+    "body": "\n\n\n\n最近こんな感じで画像は絶対軽量化してもらうようにしている\n![画像](/uploads/e7862082-5d7d-4b33-9002-9eeeb7313268/gallery-152367a9-9740-46b0-9d42-342c76cd3548.webp)\n\n\nGLBファイル軽量化\n![画像](/uploads/e7862082-5d7d-4b33-9002-9eeeb7313268/gallery-816f1f00-f59c-4eda-b9a3-6a8ba958fdea.webp)",
+    "links": [],
+    "createdAt": "2026-05-08T16:05:00.678Z",
+    "updatedAt": "2026-05-10T15:18:49.973Z"
+  },
+  {
     "id": "1c58dd2f-5ce3-4615-a2a8-399d2cdc1a99",
     "title": "よこぼのAIラボは、日々改良を重ねております！",
     "summary": "ラボ拡大中",
@@ -178,29 +205,6 @@
     ],
     "createdAt": "2026-05-08T16:02:15.329Z",
     "updatedAt": "2026-05-09T01:36:38.090Z"
-  },
-  {
-    "id": "e7862082-5d7d-4b33-9002-9eeeb7313268",
-    "title": "かるくすることがとっても大事",
-    "summary": "",
-    "category": "ゲームあそび",
-    "categories": [
-      "ゲームあそび",
-      "気づき・ログ"
-    ],
-    "status": "draft",
-    "pinned": false,
-    "tags": [],
-    "thumbnail": "",
-    "images": [
-      "/uploads/e7862082-5d7d-4b33-9002-9eeeb7313268/gallery-b3ebaacc-21eb-420d-ab38-cad1b1763dc7.webp",
-      "/uploads/e7862082-5d7d-4b33-9002-9eeeb7313268/gallery-1185a3dd-c161-4e69-9faf-297d9e744a79.webp",
-      "/uploads/e7862082-5d7d-4b33-9002-9eeeb7313268/gallery-5b33796a-5f69-4437-b1af-ff6bbd5d61d2.webp"
-    ],
-    "body": "",
-    "links": [],
-    "createdAt": "2026-05-08T16:05:00.678Z",
-    "updatedAt": "2026-05-08T16:08:12.613Z"
   },
   {
     "id": "1d868e67-d4a2-4309-9f1b-5edb9f5f115a",
