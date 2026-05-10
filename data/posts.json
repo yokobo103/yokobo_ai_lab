@@ -1,5 +1,40 @@
 [
   {
+    "id": "323c30ae-d25a-4ef8-b647-117e2b17f933",
+    "title": "Codexで横スクロールゲームをつくる",
+    "summary": "思い付きから横スクロールゲームをつくってみた🐈",
+    "category": "ゲームあそび",
+    "categories": [
+      "ゲームあそび",
+      "気づき・ログ"
+    ],
+    "status": "public",
+    "pinned": false,
+    "weeklyPickup": false,
+    "archivePickup": false,
+    "tags": [],
+    "thumbnail": "/uploads/323c30ae-d25a-4ef8-b647-117e2b17f933/thumbnail-3bca667d-00ab-4b42-9424-d30dd8a46e3b.webp",
+    "images": [
+      "/uploads/323c30ae-d25a-4ef8-b647-117e2b17f933/gallery-49cbc9ba-2785-4966-9351-a9351f73d835.webp",
+      "/uploads/323c30ae-d25a-4ef8-b647-117e2b17f933/gallery-4a7f29ea-9cd7-46e8-84a8-80169ffcf0cf.webp",
+      "/uploads/323c30ae-d25a-4ef8-b647-117e2b17f933/gallery-1233cd9b-464f-41ca-bc73-3959815f21a2.webp",
+      "/uploads/323c30ae-d25a-4ef8-b647-117e2b17f933/gallery-d23d14ba-98cb-4b05-8dc8-8f4de83a1999.webp",
+      "/uploads/323c30ae-d25a-4ef8-b647-117e2b17f933/gallery-b2a1a49b-57e5-4121-8ebe-4667d72b6eaa.webp",
+      "/uploads/323c30ae-d25a-4ef8-b647-117e2b17f933/gallery-0f25fb3f-b314-4b3e-860c-2c8d5e5943b7.webp",
+      "/uploads/323c30ae-d25a-4ef8-b647-117e2b17f933/gallery-f55861c9-b13e-41c2-b7b5-f89cbc4cf9b0.webp"
+    ],
+    "body": "## はじまりは思い付き\n\nChatGPT-Images-2.0の性能がものすごいので、\n**イメージ画像を作ってもらう→codexで実装する**\nというやり方を知った僕は、さっそくチャレンジしてみました。\n\n\nひとまずイメージ画像をつくってもらいます。\n![画像](/uploads/323c30ae-d25a-4ef8-b647-117e2b17f933/gallery-49cbc9ba-2785-4966-9351-a9351f73d835.webp)\n\n\n\nおお！すげー！！\nさらに、素材ごとのスプライトシートを作ってもらいます。\n![画像](/uploads/323c30ae-d25a-4ef8-b647-117e2b17f933/gallery-4a7f29ea-9cd7-46e8-84a8-80169ffcf0cf.webp)\n\nとてもいい！\nでも背景が透明じゃないと使いにくいので、\n「背景透明にしてほしいな」と頼んでみました。\n![画像](/uploads/323c30ae-d25a-4ef8-b647-117e2b17f933/gallery-1233cd9b-464f-41ca-bc73-3959815f21a2.webp)\n\nあれ？なんか変だな・・・\nめちゃめちゃ崩れちゃった・・・\n\nこの後何度か試したけれどもうまくいかず、\nここでよこぼ氏、Codexでも画像生成ができるということを知ります。\n\n![画像](/uploads/323c30ae-d25a-4ef8-b647-117e2b17f933/gallery-b2a1a49b-57e5-4121-8ebe-4667d72b6eaa.webp)\n\nおお！すごいぞ！！\n\n\nちなみに、素材スプライトシートがうまく作れないとこんな感じになります。\nアイテムに変な背景が写っちゃってますね・・・\n![画像](/uploads/323c30ae-d25a-4ef8-b647-117e2b17f933/gallery-d23d14ba-98cb-4b05-8dc8-8f4de83a1999.webp)\n\n\n---\n\n最終的に出来上がったゲームはこんな感じ！\n\nhttps://x.com/yokobo_ai/status/2049280332525134114?s=20\n\nプレイできます！\n\nhttps://yokobo103.github.io/yokobo-cat-forest-run/\n\n---\n\n\nちなみに、bgmはSUNO AIで作っております。\nSUNO  AI\nhttps://suno.com/create\n\n![画像](/uploads/323c30ae-d25a-4ef8-b647-117e2b17f933/gallery-0f25fb3f-b314-4b3e-860c-2c8d5e5943b7.webp)\n\n:::note\nプロンプト：\nCute retro platformer grassland stage background music, playful cat adventure, cheerful chiptune melody, light bouncing rhythm, warm synth sounds, happy and energetic, nostalgic arcade game style, seamless looping game BGM, around 30 seconds\n:::\n\n\nさらに、SEはComfyUIの\"Stable Audio\"というモデルを使って、ローカルで作りました！\n\n![画像](/uploads/323c30ae-d25a-4ef8-b647-117e2b17f933/gallery-f55861c9-b13e-41c2-b7b5-f89cbc4cf9b0.webp)\n\nちなみに、このモデルの\"Steps\"を10ぐらいでやると何をやっても機械音みたいになります。\nStepsは50ぐらいあったほうがいいということを学びました。\n（これだけで実験ログ1個書けちゃいそう）\n\n\n:::note\nプロンプト(1例)\nジャンプ音：cute cartoon jump sound effect, soft pop, toy sound, arcade game, clean\n\n回復音：one-shot sound effect, healing item use, warm magical rise tone, cute soft game sound, clean\n:::\n\n\n---\n\n最終的に出来上がったゲームはこんな感じ！\n\nhttps://x.com/yokobo_ai/status/2049280332525134114?s=20\n\nプレイできます！\n\nhttps://yokobo103.github.io/yokobo-cat-forest-run/\n\n---\n\n\n公開する際に、画像の軽量化(webp化)をしたんですが、\nそうしたら敵キャラが透けた感じになってしまいました。\nなかなかうまくいかなくて、それもまた面白い🐈\n",
+    "links": [
+      {
+        "label": "ここから遊べます",
+        "url": "https://yokobo103.github.io/yokobo-cat-forest-run/"
+      }
+    ],
+    "createdAt": "2026-05-05T10:37:09.095Z",
+    "publishedAt": "2026-05-05T10:37:09.095Z",
+    "updatedAt": "2026-05-10T12:00:43.278Z"
+  },
+  {
     "id": "f6a3450e-f7c5-49f8-afbc-9688e7d74e41",
     "title": "マ〇オカートみたいな3Dレーシングゲームをつくりたい！",
     "summary": "3Dレーシングゲーム、できちゃった！",
@@ -156,38 +191,6 @@
     "links": [],
     "createdAt": "2026-05-06T14:57:28.739Z",
     "updatedAt": "2026-05-06T22:59:32.691Z"
-  },
-  {
-    "id": "323c30ae-d25a-4ef8-b647-117e2b17f933",
-    "title": "Codexで横スクロールゲームをつくる",
-    "summary": "思い付きから横スクロールゲームをつくってみた🐈",
-    "category": "ゲームあそび",
-    "categories": [
-      "ゲームあそび",
-      "気づき・ログ"
-    ],
-    "status": "public",
-    "pinned": false,
-    "tags": [],
-    "thumbnail": "/uploads/323c30ae-d25a-4ef8-b647-117e2b17f933/thumbnail-3bca667d-00ab-4b42-9424-d30dd8a46e3b.webp",
-    "images": [
-      "/uploads/323c30ae-d25a-4ef8-b647-117e2b17f933/gallery-49cbc9ba-2785-4966-9351-a9351f73d835.webp",
-      "/uploads/323c30ae-d25a-4ef8-b647-117e2b17f933/gallery-4a7f29ea-9cd7-46e8-84a8-80169ffcf0cf.webp",
-      "/uploads/323c30ae-d25a-4ef8-b647-117e2b17f933/gallery-1233cd9b-464f-41ca-bc73-3959815f21a2.webp",
-      "/uploads/323c30ae-d25a-4ef8-b647-117e2b17f933/gallery-d23d14ba-98cb-4b05-8dc8-8f4de83a1999.webp",
-      "/uploads/323c30ae-d25a-4ef8-b647-117e2b17f933/gallery-b2a1a49b-57e5-4121-8ebe-4667d72b6eaa.webp",
-      "/uploads/323c30ae-d25a-4ef8-b647-117e2b17f933/gallery-0f25fb3f-b314-4b3e-860c-2c8d5e5943b7.webp",
-      "/uploads/323c30ae-d25a-4ef8-b647-117e2b17f933/gallery-f55861c9-b13e-41c2-b7b5-f89cbc4cf9b0.webp"
-    ],
-    "body": "## はじまりは思い付き\n\nChatGPT-Images-2.0の性能がものすごいので、\n**イメージ画像を作ってもらう→codexで実装する**\nというやり方を知った僕は、さっそくチャレンジしてみました。\n\n\nひとまずイメージ画像をつくってもらいます。\n![画像](/uploads/323c30ae-d25a-4ef8-b647-117e2b17f933/gallery-49cbc9ba-2785-4966-9351-a9351f73d835.webp)\n\n\n\nおお！すげー！！\nさらに、素材ごとのスプライトシートを作ってもらいます。\n![画像](/uploads/323c30ae-d25a-4ef8-b647-117e2b17f933/gallery-4a7f29ea-9cd7-46e8-84a8-80169ffcf0cf.webp)\n\nとてもいい！\nでも背景が透明じゃないと使いにくいので、\n「背景透明にしてほしいな」と頼んでみました。\n![画像](/uploads/323c30ae-d25a-4ef8-b647-117e2b17f933/gallery-1233cd9b-464f-41ca-bc73-3959815f21a2.webp)\n\nあれ？なんか変だな・・・\nめちゃめちゃ崩れちゃった・・・\n\nこの後何度か試したけれどもうまくいかず、\nここでよこぼ氏、Codexでも画像生成ができるということを知ります。\n\n![画像](/uploads/323c30ae-d25a-4ef8-b647-117e2b17f933/gallery-b2a1a49b-57e5-4121-8ebe-4667d72b6eaa.webp)\n\nおお！すごいぞ！！\n\n\nちなみに、素材スプライトシートがうまく作れないとこんな感じになります。\nアイテムに変な背景が写っちゃってますね・・・\n![画像](/uploads/323c30ae-d25a-4ef8-b647-117e2b17f933/gallery-d23d14ba-98cb-4b05-8dc8-8f4de83a1999.webp)\n\n\n---\n\n最終的に出来上がったゲームはこんな感じ！\n\nhttps://x.com/yokobo_ai/status/2049280332525134114?s=20\n\nプレイできます！\n\nhttps://yokobo103.github.io/yokobo-cat-forest-run/\n\n---\n\n\nちなみに、bgmはSUNO AIで作っております。\nSUNO  AI\nhttps://suno.com/create\n\n![画像](/uploads/323c30ae-d25a-4ef8-b647-117e2b17f933/gallery-0f25fb3f-b314-4b3e-860c-2c8d5e5943b7.webp)\n\n:::note\nプロンプト：\nCute retro platformer grassland stage background music, playful cat adventure, cheerful chiptune melody, light bouncing rhythm, warm synth sounds, happy and energetic, nostalgic arcade game style, seamless looping game BGM, around 30 seconds\n:::\n\n\nさらに、SEはComfyUIの\"Stable Audio\"というモデルを使って、ローカルで作りました！\n\n![画像](/uploads/323c30ae-d25a-4ef8-b647-117e2b17f933/gallery-f55861c9-b13e-41c2-b7b5-f89cbc4cf9b0.webp)\n\nちなみに、このモデルの\"Steps\"を10ぐらいでやると何をやっても機械音みたいになります。\nStepsは50ぐらいあったほうがいいということを学びました。\n（これだけで実験ログ1個書けちゃいそう）\n\n\n:::note\nプロンプト(1例)\nジャンプ音：cute cartoon jump sound effect, soft pop, toy sound, arcade game, clean\n\n回復音：one-shot sound effect, healing item use, warm magical rise tone, cute soft game sound, clean\n:::\n\n\n---\n\n最終的に出来上がったゲームはこんな感じ！\n\nhttps://x.com/yokobo_ai/status/2049280332525134114?s=20\n\nプレイできます！\n\nhttps://yokobo103.github.io/yokobo-cat-forest-run/\n\n---\n\n\n公開する際に、画像の軽量化(webp化)をしたんですが、\nそうしたら敵キャラが透けた感じになってしまいました。\nなかなかうまくいかなくて、それもまた面白い🐈\n",
-    "links": [
-      {
-        "label": "ここから遊べます",
-        "url": "https://yokobo103.github.io/yokobo-cat-forest-run/"
-      }
-    ],
-    "createdAt": "2026-05-05T10:37:09.095Z",
-    "updatedAt": "2026-05-06T13:52:28.205Z"
   },
   {
     "id": "f5e0a374-44e9-4f89-beec-b53e62bc9a1f",
