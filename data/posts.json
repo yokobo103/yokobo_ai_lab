@@ -1,5 +1,33 @@
 [
   {
+    "id": "03cdcc5a-6c54-4fff-842d-1ef2bbddf055",
+    "title": "\"縛りプレイ\"ならぬ\"縛りメイク\"（1MBでゲームをつくる）",
+    "summary": "1MBのhtmlのみでゲームをつくる。これ結構おもしろい。",
+    "category": "ゲームあそび",
+    "categories": [
+      "ゲームあそび",
+      "気づき・ログ"
+    ],
+    "status": "draft",
+    "pinned": false,
+    "weeklyPickup": false,
+    "archivePickup": false,
+    "tags": [],
+    "thumbnail": "",
+    "images": [
+      "/uploads/03cdcc5a-6c54-4fff-842d-1ef2bbddf055/gallery-0f3fb4fc-2b43-48fd-8079-0d7a12d43982.webp",
+      "/uploads/03cdcc5a-6c54-4fff-842d-1ef2bbddf055/gallery-71afedb3-4156-4586-aa0b-f67504cddd26.webp",
+      "/uploads/03cdcc5a-6c54-4fff-842d-1ef2bbddf055/gallery-e952d49b-695c-48fb-973a-1374a875f06f.webp",
+      "/uploads/03cdcc5a-6c54-4fff-842d-1ef2bbddf055/gallery-39883507-4265-4082-bb4f-9834f6b93b4a.webp",
+      "/uploads/03cdcc5a-6c54-4fff-842d-1ef2bbddf055/gallery-13bc5d9b-26f9-471c-b4d9-cefae11233d4.webp",
+      "/uploads/03cdcc5a-6c54-4fff-842d-1ef2bbddf055/gallery-fde751b0-b1fc-44f0-bb48-d0cfaccd5d52.webp"
+    ],
+    "body": "## はじまりは突然に\n\nXで「よこぼの3Dカート」をポストしたときに、\nCraftNovaさんからお声がけいただきました。\n\n![画像](/uploads/03cdcc5a-6c54-4fff-842d-1ef2bbddf055/gallery-0f3fb4fc-2b43-48fd-8079-0d7a12d43982.webp)\n\n\nhttps://www.craftnovagame.com/\n\n:::note\nCraftNovaはブラウザゲームのプラットフォームです。\nAIで作成したあなたのゲームを世界に発信しましょう！\n:::\n\nほーん、何やら面白そう。\n\nただ、\n・html1ファイルのみで動作\n・1MB以下\n\nという\"縛りプレイ\"ならぬ\"縛りメイク\"が必要なんですね。\n\n\nゲーム制作初心者🔰ながら、\n何やら燃えてきたよこぼ🔥　\nさっそくチャレンジ開始します！！\n\n---\n\n## ①よこぼの3Dカートを2Dアレンジしてみる\n\nまず最初に、よこぼの3Dカート2Dアレンジを考えました。\nChatGPTに相談してイメージを決めました。\n\nいい感じかも。\n![画像](/uploads/03cdcc5a-6c54-4fff-842d-1ef2bbddf055/gallery-71afedb3-4156-4586-aa0b-f67504cddd26.webp)\n\n\nところがどっこい、Codexたんに投げたら\nばちくそに面白くないものができあがりました。\n![画像](/uploads/03cdcc5a-6c54-4fff-842d-1ef2bbddf055/gallery-e952d49b-695c-48fb-973a-1374a875f06f.webp)\n\nその後も何度か改良を重ねたものの、\nゲーム性に関しては「？」なものができてしまい、ひとまずレーシングゲームは中断・・・\n![画像](/uploads/03cdcc5a-6c54-4fff-842d-1ef2bbddf055/gallery-39883507-4265-4082-bb4f-9834f6b93b4a.webp)\n\n---\n\n## ②パズルゲームをつくろう\n\nもっと低容量htmlゲームに合いそうなテーマがあるよな、と思ったときに目を付けたのがパズルゲームです。\nhttps://yokobo-ai-lab.vercel.app/posts/1d868e67-d4a2-4309-9f1b-5edb9f5f115a\n\nこのイメージをGPTさんに投げました。\n![画像](/uploads/03cdcc5a-6c54-4fff-842d-1ef2bbddf055/gallery-13bc5d9b-26f9-471c-b4d9-cefae11233d4.webp)\n\nで、つくってきてくれた画像がこちら。\n![画像](/uploads/03cdcc5a-6c54-4fff-842d-1ef2bbddf055/gallery-fde751b0-b1fc-44f0-bb48-d0cfaccd5d52.webp)\n\nおお、なかなかいいやん。\nということで、この画像をCodexたんに渡していつも通り開発スタートです！！\n\n\n\n\n\n",
+    "links": [],
+    "createdAt": "2026-05-11T19:02:07.063Z",
+    "updatedAt": "2026-05-12T05:29:57.379Z"
+  },
+  {
     "id": "dc2b464b-63ee-41a0-986b-fb84b8f06f48",
     "title": "3Dレーシングゲームのスマホ対応が思った以上にハードだった",
     "summary": "スマホ対応ってハードモード...",
@@ -21,33 +49,6 @@
     "links": [],
     "createdAt": "2026-05-11T17:20:04.444Z",
     "updatedAt": "2026-05-11T22:20:44.914Z"
-  },
-  {
-    "id": "03cdcc5a-6c54-4fff-842d-1ef2bbddf055",
-    "title": "\"縛りプレイ\"ならぬ\"縛りメイク\"（1MBでゲームをつくる）",
-    "summary": "1MBのhtmlのみでゲームをつくる。これ結構おもしろい。",
-    "category": "ゲームあそび",
-    "categories": [
-      "ゲームあそび",
-      "気づき・ログ"
-    ],
-    "status": "draft",
-    "pinned": false,
-    "weeklyPickup": false,
-    "archivePickup": false,
-    "tags": [],
-    "thumbnail": "",
-    "images": [
-      "/uploads/03cdcc5a-6c54-4fff-842d-1ef2bbddf055/gallery-0f3fb4fc-2b43-48fd-8079-0d7a12d43982.webp",
-      "/uploads/03cdcc5a-6c54-4fff-842d-1ef2bbddf055/gallery-71afedb3-4156-4586-aa0b-f67504cddd26.webp",
-      "/uploads/03cdcc5a-6c54-4fff-842d-1ef2bbddf055/gallery-e952d49b-695c-48fb-973a-1374a875f06f.webp",
-      "/uploads/03cdcc5a-6c54-4fff-842d-1ef2bbddf055/gallery-39883507-4265-4082-bb4f-9834f6b93b4a.webp",
-      "/uploads/03cdcc5a-6c54-4fff-842d-1ef2bbddf055/gallery-13bc5d9b-26f9-471c-b4d9-cefae11233d4.webp"
-    ],
-    "body": "## はじまりは突然に\n\nXで「よこぼの3Dカート」をポストしたときに、\nCraftNovaさんからお声がけいただきました。\n\n![画像](/uploads/03cdcc5a-6c54-4fff-842d-1ef2bbddf055/gallery-0f3fb4fc-2b43-48fd-8079-0d7a12d43982.webp)\n\n\nhttps://www.craftnovagame.com/\n\n:::note\nCraftNovaはブラウザゲームのプラットフォームです。\nAIで作成したあなたのゲームを世界に発信しましょう！\n:::\n\nほーん、何やら面白そう。\n\nただ、\n・html1ファイルのみで動作\n・1MB以下\n\nという\"縛りプレイ\"ならぬ\"縛りメイク\"が必要なんですね。\n\n\nゲーム制作初心者🔰ながら、\n何やら燃えてきたよこぼ🔥　\nさっそくチャレンジ開始します！！\n\n---\n\n## ①よこぼの3Dカートを2Dアレンジしてみる\n\nまず最初に、よこぼの3Dカート2Dアレンジを考えました。\nChatGPTに相談してイメージを決めました。\n\nいい感じかも。\n![画像](/uploads/03cdcc5a-6c54-4fff-842d-1ef2bbddf055/gallery-71afedb3-4156-4586-aa0b-f67504cddd26.webp)\n\n\nところがどっこい、Codexたんに投げたら\nばちくそに面白くないものができあがりました。\n![画像](/uploads/03cdcc5a-6c54-4fff-842d-1ef2bbddf055/gallery-e952d49b-695c-48fb-973a-1374a875f06f.webp)\n\nその後も何度か改良を重ねたものの、\nゲーム性に関しては「？」なものができてしまい、ひとまずレーシングゲームは中断・・・\n![画像](/uploads/03cdcc5a-6c54-4fff-842d-1ef2bbddf055/gallery-39883507-4265-4082-bb4f-9834f6b93b4a.webp)\n\n---\n\n## ②パズルゲームをつくろう\n\nもっと低容量htmlゲームに合いそうなテーマがあるよな、と思ったときに目を付けたのがパズルゲームです。\nhttps://yokobo-ai-lab.vercel.app/posts/1d868e67-d4a2-4309-9f1b-5edb9f5f115a\nこのイメージをGPTさんに投げました。\n![画像](/uploads/03cdcc5a-6c54-4fff-842d-1ef2bbddf055/gallery-13bc5d9b-26f9-471c-b4d9-cefae11233d4.webp)\n\nで、\n\n\n",
-    "links": [],
-    "createdAt": "2026-05-11T19:02:07.063Z",
-    "updatedAt": "2026-05-11T20:22:31.580Z"
   },
   {
     "id": "e7862082-5d7d-4b33-9002-9eeeb7313268",
