@@ -1,5 +1,30 @@
 [
   {
+    "id": "dc2b464b-63ee-41a0-986b-fb84b8f06f48",
+    "title": "3Dレーシングゲームのスマホ対応が思った以上にハードだった",
+    "summary": "スマホ対応ってハードモード...",
+    "category": "気づき・ログ",
+    "categories": [
+      "気づき・ログ",
+      "ゲームあそび"
+    ],
+    "status": "draft",
+    "pinned": false,
+    "weeklyPickup": false,
+    "archivePickup": false,
+    "tags": [],
+    "thumbnail": "/uploads/dc2b464b-63ee-41a0-986b-fb84b8f06f48/thumbnail-f53fb550-a025-4dcb-8c98-d6e75b9588e2.webp",
+    "images": [
+      "/uploads/dc2b464b-63ee-41a0-986b-fb84b8f06f48/gallery-198ad5b6-07c7-4d9d-b76d-812454c8c787.webp",
+      "/uploads/dc2b464b-63ee-41a0-986b-fb84b8f06f48/gallery-1e912560-2a3b-4372-826a-3767814fcaa6.webp",
+      "/uploads/dc2b464b-63ee-41a0-986b-fb84b8f06f48/gallery-cc0bf1cf-8ba9-44d8-b73d-dba5011d7f6d.webp"
+    ],
+    "body": "## きっかけはXのリアクション\n\n**よこぼカート3D**の反響が思った以上に大きかったのですが、\nその中で「スマホでは遊べないの？」\nというコメントをいただきました。\n\n![画像](/uploads/dc2b464b-63ee-41a0-986b-fb84b8f06f48/gallery-198ad5b6-07c7-4d9d-b76d-812454c8c787.webp)\n\n\n残念ながら、スマホで遊ぶことは想定してなかったんです。\nバリバリのPC専用ゲームとして考えてたんです。\n\nいや、でもせっかくならスマホで遊べるようにできたら、\nもっとたくさんの人に遊んでもらえるぞ🤔💡\n\nと思い立った僕は、スマホ対応にチャレンジすることにしました。\n\nそれが\"ハードモード\"とも知らずに…\n\n\n---\n\n## まずはUIをつける\n\nもともとPCの矢印キーで走らせるゲームなので、\nスマホでは一切動きませんでした。\n\nなのでUIをつけました。UIの配置はGPTさんに相談しました。\n\n![画像](/uploads/dc2b464b-63ee-41a0-986b-fb84b8f06f48/gallery-1e912560-2a3b-4372-826a-3767814fcaa6.webp)\n\n赤で囲った部分が追加したUI\n\n\n\n## とにかく重い問題をどうにかしたかった\n\n最初にスマホでプレイした時、\nめちゃめちゃカクカクしてしまい\nとても遊べたもんじゃないな、って感じでした。\n\nなのでなんとかしてスマホ版のカクカクを改善したかったのです。\n\n\n![画像](/uploads/dc2b464b-63ee-41a0-986b-fb84b8f06f48/gallery-cc0bf1cf-8ba9-44d8-b73d-dba5011d7f6d.webp)\n\n\n開発中の画面。\nPC版とくらべてめちゃめちゃ簡素なグラフィックにしました。\n\n\n",
+    "links": [],
+    "createdAt": "2026-05-11T17:20:04.444Z",
+    "updatedAt": "2026-05-13T00:16:54.431Z"
+  },
+  {
     "id": "e7862082-5d7d-4b33-9002-9eeeb7313268",
     "title": "\"軽くする\"ってとっても大事",
     "summary": "",
@@ -57,29 +82,6 @@
     "links": [],
     "createdAt": "2026-05-11T19:02:07.063Z",
     "updatedAt": "2026-05-12T23:10:03.869Z"
-  },
-  {
-    "id": "dc2b464b-63ee-41a0-986b-fb84b8f06f48",
-    "title": "3Dレーシングゲームのスマホ対応が思った以上にハードだった",
-    "summary": "スマホ対応ってハードモード...",
-    "category": "気づき・ログ",
-    "categories": [
-      "気づき・ログ",
-      "ゲームあそび"
-    ],
-    "status": "draft",
-    "pinned": false,
-    "weeklyPickup": false,
-    "archivePickup": false,
-    "tags": [],
-    "thumbnail": "",
-    "images": [
-      "/uploads/dc2b464b-63ee-41a0-986b-fb84b8f06f48/gallery-198ad5b6-07c7-4d9d-b76d-812454c8c787.webp"
-    ],
-    "body": "## きっかけはXのリアクション\n\n**よこぼカート3D**の反響が思った以上に大きかったのですが、\nその中で「スマホでは遊べないの？」\nというコメントをいただきました。\n\n![画像](/uploads/dc2b464b-63ee-41a0-986b-fb84b8f06f48/gallery-198ad5b6-07c7-4d9d-b76d-812454c8c787.webp)\n\n\n残念ながら、スマホで遊ぶことは想定してなかったんです。\nバリバリのPC専用ゲームとして考えてたんです。\n\nいや、でもせっかくならスマホで遊べるようにできたら、\nもっとたくさんの人に遊んでもらえるぞ🤔💡\n\nと思い立った僕は、スマホ対応にチャレンジすることにしました。\n\nそれが\"ハードモード\"とも知らずに…\n\n\n---\n\n\n\n\n",
-    "links": [],
-    "createdAt": "2026-05-11T17:20:04.444Z",
-    "updatedAt": "2026-05-11T22:20:44.914Z"
   },
   {
     "id": "1c58dd2f-5ce3-4615-a2a8-399d2cdc1a99",
