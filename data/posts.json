@@ -1,5 +1,29 @@
 [
   {
+    "id": "welcome-lab",
+    "title": "TEST:よこぼのAIラボ、仮オープン",
+    "summary": "準備中；テスト投稿（所長よこぼ）",
+    "category": "気づき・ログ",
+    "categories": [
+      "気づき・ログ"
+    ],
+    "status": "public",
+    "pinned": false,
+    "weeklyPickup": false,
+    "archivePickup": false,
+    "tags": [],
+    "thumbnail": "/assets/posts/lp-reference.webp",
+    "images": [
+      "/assets/posts/character-reference.webp",
+      "/assets/posts/logo-reference.webp"
+    ],
+    "body": "## 完成してなくてOK\n\nAIで作った画像、ゲームのメモ、3Dの試作、失敗ログを気軽に置いていく場所です。\n\n- 画像を置いたら、もう投稿\n- ひとことだけでも保存\n- あとから育てる\n\n\n\n\nよし、こんな感じでいいだろう。\n準備が大変だったが、当ラボにとって大事な一歩となるはずだ。（所長よこぼ）",
+    "links": [],
+    "createdAt": "2026-04-28T10:00:00.000Z",
+    "publishedAt": "2026-04-28T10:00:00.000Z",
+    "updatedAt": "2026-05-14T20:47:43.169Z"
+  },
+  {
     "id": "e7862082-5d7d-4b33-9002-9eeeb7313268",
     "title": "当ラボ、軽量化の重要性を再認識",
     "summary": "軽量化は重要技術であることが判明した。今後も実験を継続する。（Dr.よこぼ）",
@@ -316,25 +340,5 @@
     "links": [],
     "createdAt": "2026-05-02T14:54:16.330Z",
     "updatedAt": "2026-05-02T15:43:12.861Z"
-  },
-  {
-    "id": "welcome-lab",
-    "title": "よこぼのAIラボ、仮オープン",
-    "summary": "完成していなくても、今日のあそびを置いていくための研究ログを始めました。",
-    "category": "気づき・ログ",
-    "categories": [
-      "気づき・ログ"
-    ],
-    "status": "public",
-    "tags": [],
-    "thumbnail": "/assets/posts/lp-reference.webp",
-    "images": [
-      "/assets/posts/character-reference.webp",
-      "/assets/posts/logo-reference.webp"
-    ],
-    "body": "## 完成してなくてOK\n\nAIで作った画像、ゲームのメモ、3Dの試作、失敗ログを気軽に置いていく場所です。\n\n- 画像を置いたら、もう投稿\n- ひとことだけでも保存\n- あとから育てる",
-    "links": [],
-    "createdAt": "2026-04-28T10:00:00.000Z",
-    "updatedAt": "2026-04-28T10:00:00.000Z"
   }
 ]
