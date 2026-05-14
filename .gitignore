@@ -4,3 +4,4 @@ node_modules
 .env
 .env.local
 public/design-reference/
+log_gen_agent
