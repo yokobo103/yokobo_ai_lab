@@ -1,5 +1,36 @@
 [
   {
+    "id": "2b237510-0f6c-4d24-bf2c-77ab0b07869d",
+    "title": "\"ほんやくコンニャク\" 錬成実験を開始した",
+    "summary": "これは翻訳アプリではない、よこぼのAIラボで観測された未来道具の試作品である。（Dr.よこぼ）",
+    "category": "AIしくみあそび",
+    "categories": [
+      "AIしくみあそび",
+      "気づき・ログ"
+    ],
+    "status": "public",
+    "pinned": false,
+    "weeklyPickup": false,
+    "archivePickup": false,
+    "tags": [],
+    "thumbnail": "/uploads/2b237510-0f6c-4d24-bf2c-77ab0b07869d/thumbnail-6791fa5c-5d9f-4688-b4ff-d791b3c25e6b.webp",
+    "images": [
+      "/uploads/2b237510-0f6c-4d24-bf2c-77ab0b07869d/gallery-07412648-22d8-430d-9764-9250d3e636ca.webp",
+      "/uploads/2b237510-0f6c-4d24-bf2c-77ab0b07869d/gallery-0e4cb59c-5dc8-4387-9973-7d7a3745c93c.webp",
+      "/uploads/2b237510-0f6c-4d24-bf2c-77ab0b07869d/gallery-72376096-1be7-415d-a6e8-9e2100934b39.webp"
+    ],
+    "body": "担当：Dr.よこぼ  \n実験結果：動作確認に成功  \n-------\n\n## 実験目的\n\nきっかけはこのXのポストだった。\n\nhttps://x.com/jxnlco/status/2052449634266812744?s=46\n\nOh…\n\n驚愕だ…\n\nこの日、OpenAIから「gpt-realtime-translate」という極めて危険そうなモデルが発表された。\n\nリアルタイム翻訳。\n\nつまりこれは実質…\n\n「ほんやくコンニャク」である。\n\n当ラボでも実験せねばならない。\n\nというわけで、\nRealtime APIを利用した翻訳Webアプリ構築実験を開始した。\n\n---\n\n## 実験環境\n\n今回構築したアプリはこちら。\n\nhttps://gpt-rt-translate-app.vercel.app/\n\n※ OpenAI APIキーが必要\n\n当ラボも財政難につき、\nAPI料金は各研究員負担方式となっている。\n\nAPIキー取得については、\nこちらの記事が非常にわかりやすかった。\n\nhttps://note.com/yuki_tech/n/nbc29be8da07f\n\n---\n\n## Codexによる生成実験\n\n毎度のごとく、\n当ラボ所属の生成支援装置「Codex」に丸投げした。\n\n![画像](/uploads/2b237510-0f6c-4d24-bf2c-77ab0b07869d/gallery-72376096-1be7-415d-a6e8-9e2100934b39.webp)\n\n:::note\nちなみにスマホ版Codexのみで構築しようとしたところ、\n挙動がかなり不安定だった。\n\nやはりCodexに「自分でテスト可能な環境」を与えることは極めて重要らしい。\n\nコード生成だけではなく、\n実際に動作確認できる環境込みで性能が変わることを確認した。\n:::\n\n---\n\n## 構築したアプリ\n\n生成されたものがこちら。\n\n![画像](/uploads/2b237510-0f6c-4d24-bf2c-77ab0b07869d/gallery-07412648-22d8-430d-9764-9250d3e636ca.webp)\n\nRealtime翻訳がかなり自然に動作する。\n\n未来感がある。\n\nそして、\nせっかくなので「よこぼのAIラボ」感も追加した。\n\n![画像](/uploads/2b237510-0f6c-4d24-bf2c-77ab0b07869d/gallery-0e4cb59c-5dc8-4387-9973-7d7a3745c93c.webp)\n\n---\n\n## 動作確認\n\n実際の挙動はこんな感じ。\n\nhttps://x.com/yokobo_ai/status/2052732380910325846?s=46\n\nかなり楽しい。\n\nしかもコストが思ったより安い。\n\n実験時点では、\n1分あたり約0.034ドル。\n\n日本円換算で約5円程度。\n\n電話料金より安い事象を確認した。\n\n---\n\n## 今回の実験で判明したこと\n\n今回かなり強く感じたのは、\n\n「イメージを即座に形にできる」\n\nという体験そのものの重要性である。\n\nRealtime翻訳というだけでも未来感があるのだが、\nそれを数時間単位で実際に触れる形へ持っていける。\n\nこの速度感はかなり危険。\n\nAIによる開発環境が、\n単なる効率化ではなく\n「試作中毒装置」になりつつあることを確認した。\n\n---\n\n## 研究継続\n\nRealtime系はまだまだ実験余地がある。\n\n翻訳だけではなく、\n\n- キャラクター会話\n- AI通訳\n- 音声ゲーム\n- AIラボ端末化\n\nなど、\nいろいろ危険な方向へ発展できそうである。\n\n当ラボは引き続きRealtime系実験を継続する。（Dr.よこぼ）",
+    "links": [
+      {
+        "label": "おためしサイト(OpenAIのAPIキーが必要)",
+        "url": "https://t.co/Jtr3b9Q2A8"
+      }
+    ],
+    "createdAt": "2026-05-08T16:02:15.329Z",
+    "publishedAt": "2026-05-08T16:02:15.329Z",
+    "updatedAt": "2026-05-14T22:03:29.972Z"
+  },
+  {
     "id": "1c58dd2f-5ce3-4615-a2a8-399d2cdc1a99",
     "title": "よこぼのAIラボは、日々改良を重ねております！",
     "summary": "当ラボは継続的な改良を実施中、快適に実験できる環境を目指しております！（所長よこぼ）",
@@ -289,34 +320,6 @@
     ],
     "createdAt": "2026-05-02T01:54:13.032Z",
     "updatedAt": "2026-05-09T23:41:24.363Z"
-  },
-  {
-    "id": "2b237510-0f6c-4d24-bf2c-77ab0b07869d",
-    "title": "ほんやくこんにゃくを作った",
-    "summary": "gpt-realtime-translateを使えばそんなこともできちゃう",
-    "category": "AIしくみあそび",
-    "categories": [
-      "AIしくみあそび",
-      "気づき・ログ"
-    ],
-    "status": "public",
-    "pinned": false,
-    "tags": [],
-    "thumbnail": "/uploads/2b237510-0f6c-4d24-bf2c-77ab0b07869d/thumbnail-6791fa5c-5d9f-4688-b4ff-d791b3c25e6b.webp",
-    "images": [
-      "/uploads/2b237510-0f6c-4d24-bf2c-77ab0b07869d/gallery-07412648-22d8-430d-9764-9250d3e636ca.webp",
-      "/uploads/2b237510-0f6c-4d24-bf2c-77ab0b07869d/gallery-0e4cb59c-5dc8-4387-9973-7d7a3745c93c.webp",
-      "/uploads/2b237510-0f6c-4d24-bf2c-77ab0b07869d/gallery-72376096-1be7-415d-a6e8-9e2100934b39.webp"
-    ],
-    "body": "2026/5/8\nきっかけはこのXのポストでした…！！\n\nhttps://x.com/jxnlco/status/2052449634266812744?s=46\n\n\nOh… スゲーよ…\n\nこの日、OpenAIから「gpt-realtime-translate」というものすごいモデルが発表されました。\n\nこれはまさに…\nほんやくコンニャク！！\n\n\nというわけで自分でこのほんやくコンニャクを体験するためにwebアプリっぽいものを作りましたというログです！！\n\n---\n\n遊んでみたい方はこちら\nhttps://gpt-rt-translate-app.vercel.app/\n\nOpenAIのAPIキーが必要になります…\n（ よこぼのAIラボも財政難でして💦）\n\nAPIキーの取得はこちらの記事がわかりやすいですね↓\nhttps://note.com/yuki_tech/n/nbc29be8da07f\n\n---\n\n## webアプリを使ってみる\n\n毎度のごとく、codexさんに丸投げします。\n![画像](/uploads/2b237510-0f6c-4d24-bf2c-77ab0b07869d/gallery-72376096-1be7-415d-a6e8-9e2100934b39.webp)\n\n\n:::note\nちなみにスマホアプリのcodexで作ろうとしたらまったくうまくいきませんでした。やっぱりcodexに\"自分でテストできる環境\"を与えるのって大事だなって思いました。\n:::\n\nで、できたのがこんな感じのアプリ。\n![画像](/uploads/2b237510-0f6c-4d24-bf2c-77ab0b07869d/gallery-07412648-22d8-430d-9764-9250d3e636ca.webp)\n\n\nせっかくなので「よこぼのAIラボ」感を出してみます。\n![画像](/uploads/2b237510-0f6c-4d24-bf2c-77ab0b07869d/gallery-0e4cb59c-5dc8-4387-9973-7d7a3745c93c.webp)\n\n\nお試し動画はこんな感じ。\n\nhttps://x.com/yokobo_ai/status/2052732380910325846?s=46\n\n\nめっちゃ楽しいです。\nちなみに1分あたり0.034ドルかかります。\n1分あたり5円。電話より安いですね(ﾟ∀ﾟ)\n\n\n---\n\n遊んでみたい方はこちら\nhttps://gpt-rt-translate-app.vercel.app/\n\nOpenAIのAPIキーが必要になります…\n（ よこぼのAIラボも財政難でして💦）\n\nAPIキーの取得はこちらの記事がわかりやすいですね↓\nhttps://note.com/yuki_tech/n/nbc29be8da07f\n\n---\n\n\n",
-    "links": [
-      {
-        "label": "おためしサイト(OpenAIのAPIキーが必要)",
-        "url": "https://t.co/Jtr3b9Q2A8"
-      }
-    ],
-    "createdAt": "2026-05-08T16:02:15.329Z",
-    "updatedAt": "2026-05-09T01:36:38.090Z"
   },
   {
     "id": "f5e0a374-44e9-4f89-beec-b53e62bc9a1f",
