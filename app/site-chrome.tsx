@@ -1,5 +1,9 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const navLinks = [
   { href: "/", label: "ホーム", key: "home" },
@@ -13,6 +17,29 @@ const contactFormUrl =
   "https://docs.google.com/forms/d/e/1FAIpQLScgKOrGgMR1S_TlSgRCCjsGQVZpK1PjqJvrX3E2ZdnpjqGC2w/viewform?usp=dialog";
 
 export function SiteHeader({ active = "home" }: { active?: string }) {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
+  const mobileMenuPanelId = "site-mobile-menu-panel";
+
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    function closeOnEscape(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setIsMobileMenuOpen(false);
+      }
+    }
+
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, []);
+
+  function closeMobileMenu() {
+    setIsMobileMenuOpen(false);
+  }
+
   return (
     <header className="siteHeader">
       <Link className="brand" href="/" aria-label="よこぼのAIラボ ホーム">
@@ -34,23 +61,34 @@ export function SiteHeader({ active = "home" }: { active?: string }) {
           </svg>
         </button>
       </form>
-      <details className="mobileMenu">
-        <summary className="mobileMenuButton" aria-label="メニューを開閉">
+      <details className={`mobileMenu${isMobileMenuOpen ? " isOpen" : ""}`} data-state={isMobileMenuOpen ? "open" : "closed"} open={isMobileMenuOpen}>
+        <summary
+          className="mobileMenuButton"
+          aria-controls={mobileMenuPanelId}
+          aria-expanded={isMobileMenuOpen}
+          aria-label={isMobileMenuOpen ? "メニューを閉じる" : "メニューを開く"}
+          onClick={(event) => {
+            event.preventDefault();
+            setIsMobileMenuOpen((open) => !open);
+          }}
+        >
           <span />
           <span />
           <span />
         </summary>
-        <div className="mobileMenuPanel">
-          {navLinks.map((link) => (
-            <Link className={link.key === active ? "active" : undefined} href={link.href} key={link.label}>
-              {link.label}
-            </Link>
-          ))}
-          <form className="mobileSearch" action="/logs" role="search">
-            <input type="search" name="q" placeholder="サイト内検索" aria-label="サイト内検索" />
-            <button type="submit">検索</button>
-          </form>
-        </div>
+        {isMobileMenuOpen ? (
+          <div className="mobileMenuPanel" id={mobileMenuPanelId}>
+            {navLinks.map((link) => (
+              <Link className={link.key === active ? "active" : undefined} href={link.href} key={link.label} onClick={closeMobileMenu}>
+                {link.label}
+              </Link>
+            ))}
+            <form className="mobileSearch" action="/logs" role="search" onSubmit={closeMobileMenu}>
+              <input type="search" name="q" placeholder="サイト内検索" aria-label="サイト内検索" />
+              <button type="submit">検索</button>
+            </form>
+          </div>
+        ) : null}
       </details>
     </header>
   );

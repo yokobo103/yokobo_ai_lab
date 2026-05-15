@@ -231,15 +231,18 @@ img {
   transition: transform 0.18s ease, opacity 0.18s ease;
 }
 
-.mobileMenu[open] .mobileMenuButton span:nth-child(1) {
+.mobileMenu.isOpen .mobileMenuButton span:nth-child(1),
+.mobileMenu[data-state="open"] .mobileMenuButton span:nth-child(1) {
   transform: translateY(10px) rotate(45deg);
 }
 
-.mobileMenu[open] .mobileMenuButton span:nth-child(2) {
+.mobileMenu.isOpen .mobileMenuButton span:nth-child(2),
+.mobileMenu[data-state="open"] .mobileMenuButton span:nth-child(2) {
   opacity: 0;
 }
 
-.mobileMenu[open] .mobileMenuButton span:nth-child(3) {
+.mobileMenu.isOpen .mobileMenuButton span:nth-child(3),
+.mobileMenu[data-state="open"] .mobileMenuButton span:nth-child(3) {
   transform: translateY(-10px) rotate(-45deg);
 }
 
@@ -254,17 +257,29 @@ img {
   right: 0;
   top: calc(100% + 12px);
   display: none;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate3d(0, -6px, 0);
+  z-index: 40;
   min-width: 220px;
   padding: 12px;
   border: 1px solid var(--line);
   border-radius: 18px;
   background: rgba(255, 255, 255, 0.96);
   box-shadow: 0 18px 38px rgba(20, 88, 170, 0.18);
+  transition: opacity 0.16s ease, transform 0.16s ease, visibility 0.16s ease;
+  will-change: opacity, transform;
 }
 
-.mobileMenu[open] .mobileMenuPanel {
+.mobileMenu.isOpen .mobileMenuPanel,
+.mobileMenu[data-state="open"] .mobileMenuPanel {
   display: grid;
   gap: 4px;
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate3d(0, 0, 0);
 }
 
 .mobileMenuPanel a {
