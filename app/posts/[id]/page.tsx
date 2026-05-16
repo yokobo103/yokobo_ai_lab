@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { getPostCategories } from "@/lib/log-categories";
 import { markdownToHtml } from "@/lib/markdown";
 import { getAbsoluteUrl, getArticleDescription, getArticleOgpImage } from "@/lib/ogp";
-import { getPost } from "@/lib/posts";
+import { formatPostDate, getPost, getPostDateValue } from "@/lib/posts";
 import { SiteFooter, SiteHeader } from "../../site-chrome";
 import { PawReaction } from "./paw-reaction";
 import { SocialEmbedLoader } from "./social-embed-loader";
@@ -52,6 +52,8 @@ export default async function PostDetail({ params }: { params: Promise<{ id: str
   const { id } = await params;
   const post = await getPost(id);
   if (!post || post.status !== "public") notFound();
+  const dateValue = getPostDateValue(post);
+  const formattedDate = formatPostDate(dateValue);
 
   return (
     <>
@@ -60,6 +62,7 @@ export default async function PostDetail({ params }: { params: Promise<{ id: str
         <Link className="backLink" href="/logs">← 研究ログ一覧へ</Link>
         <p className="eyebrow">{getPostCategories(post).join(" / ")}</p>
         <h1>{post.title || "無題のあそび"}</h1>
+        {formattedDate ? <time className="articleMeta" dateTime={dateValue}>{formattedDate}</time> : null}
         <p className="articleSummary">{post.summary || "画像を置いたら、もう投稿。"}</p>
         {post.thumbnail ? (
           <div className="articleHero">

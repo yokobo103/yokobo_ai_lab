@@ -85,6 +85,21 @@ export function publicSortTime(post: Post) {
   return Date.parse(post.publishedAt || post.createdAt || post.updatedAt || "");
 }
 
+export function getPostDateValue(post: Pick<Post, "publishedAt" | "createdAt" | "updatedAt">) {
+  return post.publishedAt || post.createdAt || post.updatedAt || "";
+}
+
+export function formatPostDate(value?: string) {
+  if (!value) return "";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "";
+  return new Intl.DateTimeFormat("ja-JP", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit"
+  }).format(date);
+}
+
 export function sortPublicPosts(posts: Post[]) {
   return [...posts].sort((a, b) => publicSortTime(b) - publicSortTime(a));
 }

@@ -1,20 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getPostCategories, logCategoryLinks } from "@/lib/log-categories";
-import { readPosts, sortPublicPosts } from "@/lib/posts";
+import { formatPostDate, getPostDateValue, readPosts, sortPublicPosts } from "@/lib/posts";
 import { SiteFooter, SiteHeader } from "./site-chrome";
 
 export const dynamic = "force-dynamic";
-
-function formatPostDate(value: string) {
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return "";
-  return new Intl.DateTimeFormat("ja-JP", {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit"
-  }).format(date);
-}
 
 function makeExcerpt(post: { summary: string; body: string }) {
   const source = post.summary || post.body || "画像を置いたら、もう投稿。";
@@ -31,7 +21,7 @@ function toLogCard(post: Awaited<ReturnType<typeof readPosts>>[number]) {
   return {
     href: `/posts/${post.id}`,
     category: getPostCategories(post).join(" / "),
-    date: formatPostDate(post.publishedAt || post.createdAt || post.updatedAt),
+    date: formatPostDate(getPostDateValue(post)),
     title: post.title || "無題のあそび",
     summary: makeExcerpt(post),
     image: post.thumbnail || post.images[0] || "/assets/logs/thumb-future-lab.webp"

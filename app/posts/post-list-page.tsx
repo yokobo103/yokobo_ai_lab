@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { filterPostsByLogCategory, getLogCategoryLabel, getPostCategories, logCategoryLinks } from "@/lib/log-categories";
-import { readPosts, sortPublicPosts } from "@/lib/posts";
+import { formatPostDate, getPostDateValue, readPosts, sortPublicPosts } from "@/lib/posts";
 import { SiteFooter, SiteHeader } from "../site-chrome";
 
 type PostListPageProps = {
@@ -65,16 +65,24 @@ export async function PostListPage({ searchParams }: PostListPageProps) {
 
         {posts.length > 0 ? (
           <div className="postGrid wide">
-            {posts.map((post) => (
-              <Link className="postCard" href={`/posts/${post.id}`} key={post.id}>
-                <div className="postThumb">
-                  {post.thumbnail ? <Image src={post.thumbnail} alt="" fill sizes="(max-width: 720px) 100vw, 320px" /> : null}
-                </div>
-                <span className="chip">{getPostCategories(post).join(" / ")}</span>
-                <h2>{post.title || "無題のあそび"}</h2>
-                <p>{post.summary || "画像を置いたら、もう投稿。"}</p>
-              </Link>
-            ))}
+            {posts.map((post) => {
+              const dateValue = getPostDateValue(post);
+              const formattedDate = formatPostDate(dateValue);
+
+              return (
+                <Link className="postCard" href={`/posts/${post.id}`} key={post.id}>
+                  <div className="postThumb">
+                    {post.thumbnail ? <Image src={post.thumbnail} alt="" fill sizes="(max-width: 720px) 100vw, 320px" /> : null}
+                  </div>
+                  <div className="postCardMeta">
+                    <span className="chip">{getPostCategories(post).join(" / ")}</span>
+                    {formattedDate ? <time className="postDate" dateTime={dateValue}>{formattedDate}</time> : null}
+                  </div>
+                  <h2>{post.title || "無題のあそび"}</h2>
+                  <p>{post.summary || "画像を置いたら、もう投稿。"}</p>
+                </Link>
+              );
+            })}
           </div>
         ) : (
           <div className="emptyLogState">
