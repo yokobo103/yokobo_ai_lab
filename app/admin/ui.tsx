@@ -2,6 +2,8 @@
 
 /* eslint-disable @next/next/no-img-element */
 import { type MouseEvent, useEffect, useMemo, useRef, useState } from "react";
+import { authorProfiles, defaultAuthorId, getAuthorProfile, type AuthorId } from "@/lib/authors";
+import { defaultResultStatusId, getResultStatus, resultStatuses, type ResultStatusId } from "@/lib/result-statuses";
 import { categories, type Post } from "@/lib/schema";
 import "./admin.css";
 
@@ -23,6 +25,9 @@ const emptyPost = (): Post => {
     id,
     title: "",
     summary: "",
+    author: defaultAuthorId,
+    experimentResult: "実験結果メモは編集中です。",
+    resultStatus: defaultResultStatusId,
     category: "気づき・ログ",
     categories: [],
     status: "draft",
@@ -45,6 +50,18 @@ function postTitle(post: Post) {
 
 function postSummary(post: Post) {
   return post.summary || post.body.split("\n").find(Boolean) || "ひとこと未入力";
+}
+
+function postAuthor(post: Post) {
+  return getAuthorProfile(post.author);
+}
+
+function postExperimentResult(post: Post) {
+  return post.experimentResult || "実験結果メモは編集中です。";
+}
+
+function postResultStatus(post: Post) {
+  return getResultStatus(post.resultStatus);
 }
 
 function truncateText(value: string, maxLength = 80) {
@@ -154,7 +171,7 @@ export default function AdminApp() {
     const normalizedQuery = query.trim().toLowerCase();
     return posts
       .filter((post) => {
-        const haystack = [post.title, post.summary, post.body, post.id, ...(post.tags ?? [])].join(" ").toLowerCase();
+        const haystack = [post.title, post.summary, post.body, post.experimentResult, postAuthor(post).name, post.id, ...(post.tags ?? [])].join(" ").toLowerCase();
         const matchesQuery = !normalizedQuery || haystack.includes(normalizedQuery);
         const matchesStatus = statusFilter === "all" || post.status === statusFilter;
         const matchesCategory = categoryFilter === "all" || postCategories(post).includes(categoryFilter as Post["category"]);
@@ -662,6 +679,7 @@ export default function AdminApp() {
             <small>{postSummary(post)}</small>
             <span className="metaRow">
               <span className={post.status === "public" ? "miniStatus public" : "miniStatus draft"}>{post.status === "public" ? "公開" : "下書き"}</span>
+              <span>{postAuthor(post).name}</span>
               <span>{postCategories(post).join(" / ") || "未分類"}</span>
               <span>更新: {formatRelative(post.updatedAt)}</span>
             </span>
@@ -770,8 +788,19 @@ export default function AdminApp() {
                   <option value="public">公開済み</option>
                 </select></label>
               </div>
+              <label>担当<select value={current.author} onChange={(event) => update("author", event.target.value as AuthorId)}>
+                {authorProfiles.map((profile) => (
+                  <option key={profile.id} value={profile.id}>{profile.name}</option>
+                ))}
+              </select></label>
+              <label>Result Status<select value={current.resultStatus} onChange={(event) => update("resultStatus", event.target.value as ResultStatusId)}>
+                {resultStatuses.map((status) => (
+                  <option key={status.id} value={status.id}>{status.label}</option>
+                ))}
+              </select></label>
               <label>タイトル<input value={current.title} onChange={(event) => update("title", event.target.value)} placeholder="画像だけなら空でもOK" /></label>
               <label>ひとこと<textarea value={current.summary} onChange={(event) => update("summary", event.target.value)} rows={3} /></label>
+              <label>実験結果<textarea value={current.experimentResult} onChange={(event) => update("experimentResult", event.target.value)} rows={2} placeholder="例：大成功。画像生成から実装まで一気通貫で確認できた。" /></label>
             </section>
 
             <section className="formSection">
@@ -879,6 +908,11 @@ export default function AdminApp() {
         {editorTab === "preview" ? (
           <div className="previewBox">
             <h2>{postTitle(current)}</h2>
+            <div className="previewMeta">
+              <span>担当：{postAuthor(current).name}</span>
+              <span>Status：{postResultStatus(current).label}</span>
+              <span>実験結果：{postExperimentResult(current)}</span>
+            </div>
             <p>{current.summary}</p>
             {current.thumbnail ? <img src={current.thumbnail} alt="" /> : null}
             <pre>{current.body || "本文なし。画像だけの投稿もOKです。"}</pre>

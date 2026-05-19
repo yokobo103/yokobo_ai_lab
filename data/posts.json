@@ -32,7 +32,10 @@
     ],
     "createdAt": "2026-05-17T13:28:19.718Z",
     "publishedAt": "2026-05-18T22:58:58.559Z",
-    "updatedAt": "2026-05-18T22:58:58.559Z"
+    "updatedAt": "2026-05-18T22:58:58.559Z",
+    "author": "nyabitto",
+    "experimentResult": "失敗・・・いっぱい準備したのに、しょぼくなった",
+    "resultStatus": "failed"
   },
   {
     "id": "03cdcc5a-6c54-4fff-842d-1ef2bbddf055",
@@ -64,7 +67,10 @@
     "links": [],
     "createdAt": "2026-05-11T19:02:07.063Z",
     "publishedAt": "2026-05-17T04:12:15.994Z",
-    "updatedAt": "2026-05-17T12:28:36.645Z"
+    "updatedAt": "2026-05-17T12:28:36.645Z",
+    "author": "dr-yokobo",
+    "experimentResult": "大成功（制限に屈せず、当ラボの技術力を証明できた）",
+    "resultStatus": "success"
   },
   {
     "id": "1d868e67-d4a2-4309-9f1b-5edb9f5f115a",
@@ -89,7 +95,10 @@
     "links": [],
     "createdAt": "2026-05-06T14:57:28.739Z",
     "publishedAt": "2026-05-06T14:57:28.739Z",
-    "updatedAt": "2026-05-16T21:21:54.410Z"
+    "updatedAt": "2026-05-16T21:21:54.410Z",
+    "author": "dr-yokobo",
+    "experimentResult": "部分的成功",
+    "resultStatus": "success"
   },
   {
     "id": "2b237510-0f6c-4d24-bf2c-77ab0b07869d",
@@ -120,7 +129,10 @@
     ],
     "createdAt": "2026-05-08T16:02:15.329Z",
     "publishedAt": "2026-05-08T16:02:15.329Z",
-    "updatedAt": "2026-05-14T22:03:29.972Z"
+    "updatedAt": "2026-05-14T22:03:29.972Z",
+    "author": "dr-yokobo",
+    "experimentResult": "動作確認に成功",
+    "resultStatus": "success"
   },
   {
     "id": "1c58dd2f-5ce3-4615-a2a8-399d2cdc1a99",
@@ -151,7 +163,10 @@
     "links": [],
     "createdAt": "2026-05-10T14:13:49.077Z",
     "publishedAt": "2026-05-10T14:48:39.331Z",
-    "updatedAt": "2026-05-14T21:32:24.809Z"
+    "updatedAt": "2026-05-14T21:32:24.809Z",
+    "author": "chief",
+    "experimentResult": "大成功！！！",
+    "resultStatus": "success"
   },
   {
     "id": "323c30ae-d25a-4ef8-b647-117e2b17f933",
@@ -186,7 +201,10 @@
     ],
     "createdAt": "2026-05-05T10:37:09.095Z",
     "publishedAt": "2026-05-05T10:37:09.095Z",
-    "updatedAt": "2026-05-14T21:28:38.838Z"
+    "updatedAt": "2026-05-14T21:28:38.838Z",
+    "author": "dr-yokobo",
+    "experimentResult": "成功、だが挙動不安定",
+    "resultStatus": "unstable"
   },
   {
     "id": "welcome-lab",
@@ -210,7 +228,10 @@
     "links": [],
     "createdAt": "2026-04-28T10:00:00.000Z",
     "publishedAt": "2026-04-28T10:00:00.000Z",
-    "updatedAt": "2026-05-14T20:47:43.169Z"
+    "updatedAt": "2026-05-14T20:47:43.169Z",
+    "author": "chief",
+    "experimentResult": "実験結果メモは編集中です。",
+    "resultStatus": "observation"
   },
   {
     "id": "e7862082-5d7d-4b33-9002-9eeeb7313268",
@@ -243,7 +264,10 @@
     "links": [],
     "createdAt": "2026-05-08T16:05:00.678Z",
     "publishedAt": "2026-05-14T10:06:14.942Z",
-    "updatedAt": "2026-05-14T10:06:14.942Z"
+    "updatedAt": "2026-05-14T10:06:14.942Z",
+    "author": "dr-yokobo",
+    "experimentResult": "－",
+    "resultStatus": "observation"
   },
   {
     "id": "f6a3450e-f7c5-49f8-afbc-9688e7d74e41",
@@ -283,7 +307,10 @@
     ],
     "createdAt": "2026-05-07T22:14:40.883Z",
     "publishedAt": "2026-05-07T22:14:40.883Z",
-    "updatedAt": "2026-05-14T09:57:32.491Z"
+    "updatedAt": "2026-05-14T09:57:32.491Z",
+    "author": "dr-yokobo",
+    "experimentResult": "最高だった",
+    "resultStatus": "observation"
   },
   {
     "id": "dc2b464b-63ee-41a0-986b-fb84b8f06f48",
@@ -309,7 +336,10 @@
     "body": "## きっかけはXのリアクション\n\n**よこぼカート3D**の反響が思った以上に大きかったのですが、\nその中で「スマホでは遊べないの？」\nというコメントをいただきました。\n\n![画像](/uploads/dc2b464b-63ee-41a0-986b-fb84b8f06f48/gallery-198ad5b6-07c7-4d9d-b76d-812454c8c787.webp)\n\n\n残念ながら、スマホで遊ぶことは想定してなかったんです。\nバリバリのPC専用ゲームとして考えてたんです。\n\nいや、でもせっかくならスマホで遊べるようにできたら、\nもっとたくさんの人に遊んでもらえるぞ🤔💡\n\nと思い立った僕は、スマホ対応にチャレンジすることにしました。\n\nそれが\"ハードモード\"とも知らずに…\n\n\n---\n\n## まずはUIをつける\n\nもともとPCの矢印キーで走らせるゲームなので、\nスマホでは一切動きませんでした。\n\nなのでUIをつけました。UIの配置はGPTさんに相談しました。\n\n![画像](/uploads/dc2b464b-63ee-41a0-986b-fb84b8f06f48/gallery-1e912560-2a3b-4372-826a-3767814fcaa6.webp)\n\n赤で囲った部分が追加したUI\n\n\n\n## とにかく重い問題をどうにかしたかった\n\n最初にスマホでプレイした時、\nめちゃめちゃカクカクしてしまい\nとても遊べたもんじゃないな、って感じでした。\n\nなのでなんとかしてスマホ版のカクカクを改善したかったのです。\n\n\n![画像](/uploads/dc2b464b-63ee-41a0-986b-fb84b8f06f48/gallery-cc0bf1cf-8ba9-44d8-b73d-dba5011d7f6d.webp)\n\n\n↑開発中の画面。\nPC版とくらべてめちゃめちゃ簡素なグラフィックにしました。\n\n\n\n\nで、最終的に諦めました。\nエンジニアの方に教えていただきたい。\n僕の力量では完璧快適は無理でした😭\n\n![画像](/uploads/dc2b464b-63ee-41a0-986b-fb84b8f06f48/gallery-d05ee9bc-9924-4741-a75d-0cb4ad604812.webp)\n\n\n---\n",
     "links": [],
     "createdAt": "2026-05-11T17:20:04.444Z",
-    "updatedAt": "2026-05-13T00:25:03.485Z"
+    "updatedAt": "2026-05-13T00:25:03.485Z",
+    "author": "dr-yokobo",
+    "experimentResult": "実験結果メモは編集中です。",
+    "resultStatus": "observation"
   },
   {
     "id": "2025-ai-asobi-summary-draft",
@@ -355,7 +385,10 @@
       }
     ],
     "createdAt": "2026-05-02T01:54:13.032Z",
-    "updatedAt": "2026-05-09T23:41:24.363Z"
+    "updatedAt": "2026-05-09T23:41:24.363Z",
+    "author": "dr-yokobo",
+    "experimentResult": "実験結果メモは編集中です。",
+    "resultStatus": "observation"
   },
   {
     "id": "f5e0a374-44e9-4f89-beec-b53e62bc9a1f",
@@ -381,6 +414,9 @@
     "body": "## まずはこのサイトに立ち寄ってくださったみなさま、ありがとうございます！！\n\n「よこぼのAIラボ」はここが2代目です。\n\n旧サイトはこんな感じ。\n![画像](/uploads/f5e0a374-44e9-4f89-beec-b53e62bc9a1f/gallery-5ca73b5e-ec59-4f26-866c-cf31e7d97b39.webp)\n![画像](/uploads/f5e0a374-44e9-4f89-beec-b53e62bc9a1f/gallery-5c77926b-f5ad-4201-bc17-dbbb7fe593d2.webp)\n\nhttps://yokobo103.github.io/AI-Lab-Site/\n\n\nだいぶ進化しました。\nここまでの道のりを、今回は紹介したいと思います。\n\n---\n\n## GPTの進化で「これ、自分でもいけるかも」と思った\n\nGPT-image-2 や GPT-5.5（codex）が出てきて、「これ、自分でもちゃんとしたサイト作れるんじゃ？」と思ったのが今回のきっかけでした。\n\nこれまでもAIでいろいろ遊んできたんですが、\nwebサイトはちょっと手が出しにくくて、特にデザインとかわからないし・・・\nところが、GPT-image-2はデザインもすごいとのこと。\nじゃあやってみるかとなったわけです。\n\n![画像](/uploads/f5e0a374-44e9-4f89-beec-b53e62bc9a1f/gallery-17dc2d39-64b8-47b4-982d-cd8f70afab38.webp)\nこれがすべての始まりだった・・・！\n\n---\n\n## キャラクターと世界観を育てる\n\nせっかく作るなら、ただの投稿サイトにはしたくないなと思って、\nDr.よこぼとニャビットというキャラクターを軸に、研究室っぽい世界観を少しずつ形にしていきました。\n\n![画像](/uploads/f5e0a374-44e9-4f89-beec-b53e62bc9a1f/gallery-cc20abaf-44e2-4021-9fee-b1a2f4b100fd.webp)\nこれもGPT-image-2で作成\n\nDr.よこぼ と ニャビット の画像を作って、配置して、また作り直して…。\n（作るのはcodexにお願いしました）\nそんなことを繰り返して、このサイトができあがったわけです。\n![画像](/uploads/f5e0a374-44e9-4f89-beec-b53e62bc9a1f/gallery-d3f0ebaf-4b48-430c-985a-78a10ef70c4b.webp)\nGPT-image-2が作ってくれたイメージ画像\n\n\n---\n\n## 旧サイトでつまずいた「続かない問題」\n\n一方で、前に作っていたサイトにははっきりした課題がありました。\nとにかく更新が面倒だったことです。\n\nPCを開いて、Pythonファイルを実行して、やっと投稿できる・・・\nけっこうめんどくさいんです。。。\n\nそこで今回は、ブラウザから更新できるように改良しました！\n![画像](/uploads/f5e0a374-44e9-4f89-beec-b53e62bc9a1f/gallery-3b1d9f1b-c612-4894-a25a-2ec2ed81657c.webp)\n\n\n---\n\nこうしてできあがったのが、今のAIラボです。\n\n完成したものを並べる場所というより、\n試行錯誤の途中もそのまま置いておける場所。\n\nそんな場所を目指して、日々改良を重ねております。\n\n\n",
     "links": [],
     "createdAt": "2026-05-02T14:54:16.330Z",
-    "updatedAt": "2026-05-02T15:43:12.861Z"
+    "updatedAt": "2026-05-02T15:43:12.861Z",
+    "author": "dr-yokobo",
+    "experimentResult": "実験結果メモは編集中です。",
+    "resultStatus": "observation"
   }
 ]

@@ -1,3 +1,6 @@
+import type { AuthorId } from "./authors";
+import type { ResultStatusId } from "./result-statuses";
+
 export const categories = [
   "画像・動画あそび",
   "AIしくみあそび",
@@ -13,6 +16,9 @@ export type Post = {
   id: string;
   title: string;
   summary: string;
+  author: AuthorId;
+  experimentResult: string;
+  resultStatus: ResultStatusId;
   category: Category;
   categories: Category[];
   status: "draft" | "public";

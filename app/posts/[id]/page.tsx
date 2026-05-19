@@ -2,15 +2,25 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { getAuthorProfile } from "@/lib/authors";
 import { getPostCategories } from "@/lib/log-categories";
 import { markdownToHtml } from "@/lib/markdown";
 import { getAbsoluteUrl, getArticleDescription, getArticleOgpImage } from "@/lib/ogp";
 import { formatPostDate, getPost, getPostDateValue } from "@/lib/posts";
+import { getResultStatus } from "@/lib/result-statuses";
 import { SiteFooter, SiteHeader } from "../../site-chrome";
 import { PawReaction } from "./paw-reaction";
 import { SocialEmbedLoader } from "./social-embed-loader";
 
 export const dynamic = "force-dynamic";
+
+function stripLegacyPostMeta(body: string) {
+  return body
+    .replace(/^\s*担当[：:][^\n\r]*(?:\r?\n|$)/, "")
+    .replace(/^\s*実験結果[：:][^\n\r]*(?:\r?\n|$)/, "")
+    .replace(/^\s*-{3,}\s*(?:\r?\n|$)/, "")
+    .trimStart();
+}
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await params;
@@ -54,6 +64,10 @@ export default async function PostDetail({ params }: { params: Promise<{ id: str
   if (!post || post.status !== "public") notFound();
   const dateValue = getPostDateValue(post);
   const formattedDate = formatPostDate(dateValue);
+  const authorProfile = getAuthorProfile(post.author);
+  const experimentResult = post.experimentResult || "実験結果メモは編集中です。";
+  const resultStatus = getResultStatus(post.resultStatus);
+  const body = stripLegacyPostMeta(post.body);
 
   return (
     <>
@@ -69,9 +83,37 @@ export default async function PostDetail({ params }: { params: Promise<{ id: str
             <Image src={post.thumbnail} alt="" fill priority sizes="(max-width: 900px) 100vw, 900px" />
           </div>
         ) : null}
-        {post.body ? (
+        <section className="articleAuthor" aria-labelledby="article-author-heading">
+          <div className="articleHudLabel" aria-hidden="true">
+            <span>RESPONSIBLE</span>
+            <span>担当研究員</span>
+          </div>
+          <div className="articleAuthorImage">
+            <Image src={authorProfile.image} alt="" width={144} height={144} />
+          </div>
+          <div className="articleAuthorBody">
+            <h2 id="article-author-heading">この記事の担当</h2>
+            <p className="articleAuthorName">{authorProfile.name}</p>
+            <p className="articleAuthorTitle">{authorProfile.title}</p>
+            <p>{authorProfile.description}</p>
+          </div>
+        </section>
+        <section className="articleExperiment" aria-labelledby="article-experiment-heading">
+          <div className="articleHudLabel" aria-hidden="true">
+            <span>RESULT</span>
+            <span>実験結果</span>
+          </div>
+          <div className="articleExperimentPanel">
+            <Image className="articleResultBadge" src={resultStatus.image} alt={resultStatus.label} width={360} height={102} />
+            <div className="articleExperimentText">
+              <h2 id="article-experiment-heading">実験結果</h2>
+              <p>{experimentResult}</p>
+            </div>
+          </div>
+        </section>
+        {body ? (
           <>
-            <article className="markdown" dangerouslySetInnerHTML={{ __html: markdownToHtml(post.body) }} />
+            <article className="markdown" dangerouslySetInnerHTML={{ __html: markdownToHtml(body) }} />
             <SocialEmbedLoader />
           </>
         ) : null}

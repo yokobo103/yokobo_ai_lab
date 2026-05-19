@@ -779,6 +779,22 @@
   background: #fffaf1;
 }
 
+.previewMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.previewMeta span {
+  padding: 6px 10px;
+  border: 1px solid #d9e8fb;
+  border-radius: 999px;
+  background: white;
+  color: #102861;
+  font-size: 12px;
+  font-weight: 900;
+}
+
 .tweetPreview {
   display: grid;
   gap: 12px;

@@ -1,6 +1,8 @@
 import { promises as fs } from "fs";
 import path from "path";
+import { defaultAuthorId, inferAuthorIdFromText, normalizeAuthorId } from "./authors";
 import { isGitHubStorageEnabled, readTextFromGitHub, writeTextToGitHub } from "./github-storage";
+import { inferResultStatusId, normalizeResultStatusId } from "./result-statuses";
 import { categories, type Category, type Post } from "./schema";
 
 export { categories, type Category, type Post };
@@ -41,6 +43,11 @@ function normalizeCategories(input: Partial<Post>, previous?: Post): Category[] 
   return [...new Set(next)].slice(0, 2);
 }
 
+function extractExperimentResult(value?: string) {
+  if (!value) return "";
+  return value.slice(0, 420).match(/実験結果[：:]\s*([^\n\r]+)/)?.[1]?.trim() ?? "";
+}
+
 async function ensureDataFile() {
   await fs.mkdir(path.dirname(dataPath), { recursive: true });
   try {
@@ -53,13 +60,13 @@ async function ensureDataFile() {
 export async function readPosts(): Promise<Post[]> {
   if (isGitHubStorageEnabled()) {
     const raw = await readTextFromGitHub("data/posts.json");
-    const posts = JSON.parse(raw || "[]") as Post[];
+    const posts = (JSON.parse(raw || "[]") as Partial<Post>[]).map(hydratePost);
     return posts.sort((a, b) => Date.parse(b.updatedAt) - Date.parse(a.updatedAt));
   }
 
   await ensureDataFile();
   const raw = await fs.readFile(dataPath, "utf8");
-  const posts = JSON.parse(raw) as Post[];
+  const posts = (JSON.parse(raw) as Partial<Post>[]).map(hydratePost);
   return posts.sort((a, b) => Date.parse(b.updatedAt) - Date.parse(a.updatedAt));
 }
 
@@ -128,6 +135,17 @@ export function normalizePost(input: Partial<Post>, previous?: Post): Post {
       : previous?.publishedAt || input.publishedAt;
   const postCategories = normalizeCategories(input, previous);
   const primaryCategory = postCategories[0] ?? "気づき・ログ";
+  const body = input.body ?? previous?.body ?? "";
+  const author = normalizeAuthorId(input.author) ?? normalizeAuthorId(previous?.author) ?? inferAuthorIdFromText(body) ?? defaultAuthorId;
+  const experimentResult =
+    input.experimentResult?.trim() ||
+    previous?.experimentResult?.trim() ||
+    extractExperimentResult(body) ||
+    "実験結果メモは編集中です。";
+  const resultStatus =
+    normalizeResultStatusId(input.resultStatus) ??
+    normalizeResultStatusId(previous?.resultStatus) ??
+    inferResultStatusId(experimentResult);
   const tags = Array.isArray(input.tags)
     ? input.tags
         .map((tag) => (typeof tag === "string" ? tag.trim().replace(/^#/, "") : ""))
@@ -138,6 +156,9 @@ export function normalizePost(input: Partial<Post>, previous?: Post): Post {
     id: input.id || previous?.id || makeSlug(input.title || ""),
     title: input.title?.trim() || previous?.title || "",
     summary: input.summary?.trim() || "",
+    author,
+    experimentResult,
+    resultStatus,
     category: primaryCategory,
     categories: postCategories,
     status: nextStatus,
@@ -147,13 +168,23 @@ export function normalizePost(input: Partial<Post>, previous?: Post): Post {
     tags: [...new Set(tags)].slice(0, 12),
     thumbnail: input.thumbnail || "",
     images: Array.isArray(input.images) ? input.images.filter(Boolean) : [],
-    body: input.body || "",
+    body,
     links: Array.isArray(input.links)
       ? input.links.filter((link) => link.label?.trim() && link.url?.trim())
       : [],
     createdAt: previous?.createdAt || input.createdAt || now,
     publishedAt,
     updatedAt: now
+  };
+}
+
+function hydratePost(input: Partial<Post>): Post {
+  const post = normalizePost(input);
+  return {
+    ...post,
+    createdAt: input.createdAt || post.createdAt,
+    publishedAt: input.publishedAt,
+    updatedAt: input.updatedAt || post.updatedAt
   };
 }
 
