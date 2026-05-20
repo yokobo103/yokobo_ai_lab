@@ -759,6 +759,23 @@ export default function AdminApp() {
           </button>
         </div>
 
+        <div className="mobileMetaPanel" aria-label="投稿ステータスと担当">
+          <label>公開状態<select value={current.status} onChange={(event) => update("status", event.target.value as Post["status"])}>
+            <option value="draft">下書き</option>
+            <option value="public">公開済み</option>
+          </select></label>
+          <label>担当<select value={current.author} onChange={(event) => update("author", event.target.value as AuthorId)}>
+            {authorProfiles.map((profile) => (
+              <option key={profile.id} value={profile.id}>{profile.name}</option>
+            ))}
+          </select></label>
+          <label>Result Status<select value={current.resultStatus} onChange={(event) => update("resultStatus", event.target.value as ResultStatusId)}>
+            {resultStatuses.map((status) => (
+              <option key={status.id} value={status.id}>{status.label}</option>
+            ))}
+          </select></label>
+        </div>
+
         <div className="editorActions top">
           <button type="button" disabled={saving} onClick={() => save("draft")}>下書き保存</button>
           <button className="publishButton" type="button" disabled={saving} onClick={() => save("public")}>公開する</button>
@@ -781,23 +798,23 @@ export default function AdminApp() {
           <div className="editorForm">
             <section className="formSection">
               <h3>基本情報</h3>
-              <div className="fieldGrid">
-                <label>ID<input value={current.id} onChange={(event) => update("id", event.target.value)} disabled={currentExists} /></label>
+              <div className="metaSelectGrid desktopMetaFields">
                 <label>ステータス<select value={current.status} onChange={(event) => update("status", event.target.value as Post["status"])}>
                   <option value="draft">下書き</option>
                   <option value="public">公開済み</option>
                 </select></label>
+                <label>担当<select value={current.author} onChange={(event) => update("author", event.target.value as AuthorId)}>
+                  {authorProfiles.map((profile) => (
+                    <option key={profile.id} value={profile.id}>{profile.name}</option>
+                  ))}
+                </select></label>
+                <label>Result Status<select value={current.resultStatus} onChange={(event) => update("resultStatus", event.target.value as ResultStatusId)}>
+                  {resultStatuses.map((status) => (
+                    <option key={status.id} value={status.id}>{status.label}</option>
+                  ))}
+                </select></label>
               </div>
-              <label>担当<select value={current.author} onChange={(event) => update("author", event.target.value as AuthorId)}>
-                {authorProfiles.map((profile) => (
-                  <option key={profile.id} value={profile.id}>{profile.name}</option>
-                ))}
-              </select></label>
-              <label>Result Status<select value={current.resultStatus} onChange={(event) => update("resultStatus", event.target.value as ResultStatusId)}>
-                {resultStatuses.map((status) => (
-                  <option key={status.id} value={status.id}>{status.label}</option>
-                ))}
-              </select></label>
+              <label>ID<input value={current.id} onChange={(event) => update("id", event.target.value)} disabled={currentExists} /></label>
               <label>タイトル<input value={current.title} onChange={(event) => update("title", event.target.value)} placeholder="画像だけなら空でもOK" /></label>
               <label>ひとこと<textarea value={current.summary} onChange={(event) => update("summary", event.target.value)} rows={3} /></label>
               <label>実験結果<textarea value={current.experimentResult} onChange={(event) => update("experimentResult", event.target.value)} rows={2} placeholder="例：大成功。画像生成から実装まで一気通貫で確認できた。" /></label>

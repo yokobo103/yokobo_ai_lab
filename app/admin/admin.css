@@ -590,6 +590,10 @@
   color: #d79000;
 }
 
+.mobileMetaPanel {
+  display: none;
+}
+
 .editorActions {
   display: grid;
   gap: 10px;
@@ -658,6 +662,12 @@
 .fieldGrid {
   display: grid;
   grid-template-columns: 1fr 170px;
+  gap: 12px;
+}
+
+.metaSelectGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 12px;
 }
 
@@ -1007,6 +1017,35 @@
     grid-template-columns: auto minmax(0, 1fr) 44px;
   }
 
+  .mobileMetaPanel {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 12px;
+    border: 1px solid #b9d6ff;
+    border-radius: 18px;
+    background: #eef7ff;
+  }
+
+  .mobileMetaPanel label {
+    display: grid;
+    gap: 6px;
+    color: #102861;
+    font-size: 13px;
+    font-weight: 950;
+  }
+
+  .mobileMetaPanel select {
+    min-height: 48px;
+    border-color: #9ac4f4;
+    background: #ffffff;
+    font-size: 16px;
+  }
+
+  .desktopMetaFields {
+    display: none;
+  }
+
   .backButton {
     display: inline-flex;
     align-items: center;
@@ -1028,6 +1067,7 @@
   }
 
   .fieldGrid,
+  .metaSelectGrid,
   .imagePanels {
     grid-template-columns: 1fr;
   }
