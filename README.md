@@ -29,6 +29,30 @@ npm run dev
 - 投稿一覧: `http://localhost:3000/posts`
 - 管理画面: `http://localhost:3000/admin`
 
+## フォルダ構成
+
+```text
+.
+├─ app/                         Next.js App Router のページ、API、共通UI
+│  ├─ admin/                    管理画面
+│  ├─ api/                      投稿保存、画像アップロード、リアクションAPI
+│  ├─ posts/                    投稿一覧、投稿詳細
+│  ├─ about/                    Aboutページ
+│  └─ logs/                     ログ系ページ
+├─ data/
+│  └─ posts.json                投稿データ本体
+├─ lib/                         投稿、Markdown、GitHub保存などの共通処理
+├─ public/
+│  ├─ assets/                   LPやUIで使う固定アセット
+│  ├─ design-reference/         デザイン参考画像
+│  ├─ images/                   既存記事やステータス用の固定画像
+│  └─ uploads/                  管理画面からアップロードされた投稿画像
+├─ docs/                        運用メモ、アセット棚卸し
+├─ prompts/                     画像・素材生成用のプロンプトメモ
+├─ AGENTS.md                    開発方針、要件、デザイン方針
+└─ README.md                    このファイル
+```
+
 ## 投稿データ
 
 投稿データは `data/posts.json` に保存します。DBは使っていません。
