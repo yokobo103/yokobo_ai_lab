@@ -1,5 +1,52 @@
 [
   {
+    "id": "20260522-dr-yokobo-nyabitto-3d-model",
+    "title": "ドクターとニャビットの3Dモデルを作りました",
+    "summary": "Blender初心者のボクが、GPTのイメージをもとに3Dモデルとテクスチャ貼りに挑戦した実験ログです。",
+    "author": "nyabitto",
+    "experimentResult": "3Dモデル、なんとか形になった！",
+    "resultStatus": "success",
+    "category": "気づき・ログ",
+    "categories": [
+      "気づき・ログ",
+      "3D・空間あそび"
+    ],
+    "status": "draft",
+    "pinned": false,
+    "weeklyPickup": false,
+    "archivePickup": false,
+    "tags": [
+      "Blender",
+      "3Dモデル",
+      "GPT",
+      "テクスチャ",
+      "ローポリ"
+    ],
+    "thumbnail": "/uploads/20260522-dr-yokobo-nyabitto-3d-model/thumbnail-6.webp",
+    "images": [
+      "/uploads/20260522-dr-yokobo-nyabitto-3d-model/gallery-0.webp",
+      "/uploads/20260522-dr-yokobo-nyabitto-3d-model/gallery-1.webp",
+      "/uploads/20260522-dr-yokobo-nyabitto-3d-model/gallery-2.webp",
+      "/uploads/20260522-dr-yokobo-nyabitto-3d-model/gallery-3.webp",
+      "/uploads/20260522-dr-yokobo-nyabitto-3d-model/gallery-5.webp",
+      "/uploads/20260522-dr-yokobo-nyabitto-3d-model/gallery-6.webp",
+      "/uploads/20260522-dr-yokobo-nyabitto-3d-model/gallery-7.webp"
+    ],
+    "body": "担当：ニャビット\n実験結果：3Dモデル、なんとか形になった！\n-------\n\n## ドクターから3Dモデルを頼まれました\n\n今日はドクターに、\n\n「マリオカートみたいな再現ゲームを作りたいから、Dr.よこぼとニャビットの3Dモデルがほしい」\n\nみたいなことを言われました。\n\nえっ。\n\n3Dモデル？\n\nボク、2025年12月に[Blender](https://www.blender.org/)を触り始めたばっかりなんですけど・・・\n\nBlenderは、3Dモデルを作ったり、動かしたり、質感をつけたりできるソフトです。\nすごいソフトです。\nでも、ボクにはまだボタンがいっぱいありすぎて、どこを押したら研究室が爆発しないのかよくわかってません。\n\nでもドクターに頼まれたので、やってみました！\n\nボクに任せて！\nたぶん大丈夫！\n\n\n---\n\nちなみにドクターの実験ログはこちら↓\nhttps://yokobo-ai-lab.vercel.app/posts/f6a3450e-f7c5-49f8-afbc-9688e7d74e41\n\n---\n\n## まずはイメージを作ってもらう\n\n\n最初にドクターに渡された資料はこれでした。\n\n![画像](/uploads/20260522-dr-yokobo-nyabitto-3d-model/gallery-7.webp)\n\nこれはさすがに無理です・・・\nぜったいにつくれません・・・！！\n\n\nもうちょっとBlenderで作れそうなイメージをGPTさんに作ってもらいました。\n\n\n![画像](/uploads/20260522-dr-yokobo-nyabitto-3d-model/gallery-0.webp)\n\nおお。\n\nかわいい。\n\nこれならつくれるかもしれない・・・！\n\n---\n\n## Blenderで形を作る\n\nまずは、丸い頭、耳、体、腕、メガネ、プロペラ。\n\nシンプルな形を組み合わせて、Dr.よこぼとニャビットの素体を作りました。\n\n![画像](/uploads/20260522-dr-yokobo-nyabitto-3d-model/gallery-1.webp)\n\nまだ色も模様もないので、灰色です。\n\nでも、ちゃんと並んでる！\nドクターっぽいし、ニャビットっぽい！\n\nローポリなので、表面が少しカクカクしています。\nでもゲーム用なら、これくらいの方が軽くてよさそうです。\n\n---\n\n## 分解すると、こんな感じ\n\n製造過程は、正直ちょっと撮り忘れました。\n\n作っている途中は、\n\n「あれ、耳どこいった？」\n\n「メガネが顔に刺さってる」\n\n「プロペラ、思ったよりでかい」\n\nみたいなことがいっぱい起きていて、スクリーンショットどころではなかったです。\n\nなので、あとから分解するとこんな感じ。\n\n![画像](/uploads/20260522-dr-yokobo-nyabitto-3d-model/gallery-2.webp)\n\n頭、耳、体、腕、メガネ、プロペラ。\n\nこうして見ると、意外とシンプルです。\n\n---\n\n## ここからが難しい。表面の画像です\n\n形ができても、まだキャラクターには見えません。\n\nモデルの表面に貼り付ける画像、つまり\"テクスチャ\"が必要です。\n\nこれもGPTさんに作ってもらって、BlenderでUVに合わせて貼ってみました。\n\n![画像](/uploads/20260522-dr-yokobo-nyabitto-3d-model/gallery-3.webp)\n\nおお。\n\n顔が出た！\n\nドクターの顔になってる！\n\nでも、よく見ると、ちょっと足りてない・・・。\n\n\n後ろ側も見てみました。\n\n![画像](/uploads/20260522-dr-yokobo-nyabitto-3d-model/gallery-5.webp)\n\nうーん。\n\nまだ足りない。\n\nなんか、顔の方はそれっぽいのに、後頭部がちょっと不思議な感じです。\n\n\nここで何度か、貼り付ける画像を作り直してもらいました。\n\n僕は\n「テクスチャを貼るだけで完成すると思っていたけど、そんなに甘くない」\nということを学びました。\n\n---\n\n## やっとそれっぽくなった！\n\n何度かやり直して、最終的にここまで来ました。\n\n![画像](/uploads/20260522-dr-yokobo-nyabitto-3d-model/gallery-6.webp)\n\nできた！\n\nDr.よこぼとニャビットが並んでる！\n\n\nボク、ちょっと3Dできるようになってきたかもしれません。\n\nもう完璧では？\n\n---\n\n## 今回わかったこと\n\nBlenderは、思ったよりむずかしいです。\n\nでも、GPTでイメージを作って、\nそれを見ながらローポリで形にして、\nテクスチャも何度か作り直すと、\n初心者でも「それっぽいもの」にはなるんだなと思いました。\n\n\n全部、ちょっとずつ実験です。\n\n\nたぶん大丈夫！\n\nドクターにはまだ秘密だけど、ボクはかなりできる気がしています。（ニャビット）\n",
+    "links": [
+      {
+        "label": "Blender",
+        "url": "https://www.blender.org/"
+      },
+      {
+        "label": "ドクターの3Dゲーム実験ログ",
+        "url": "https://yokobo-ai-lab.vercel.app/posts/f6a3450e-f7c5-49f8-afbc-9688e7d74e41"
+      }
+    ],
+    "createdAt": "2026-05-24T00:00:00.000+09:00",
+    "updatedAt": "2026-05-24T00:00:00.000+09:00"
+  },
+  {
     "id": "20260522-lab-fighters",
     "title": "ラボで激しいバトルをしようじゃないか！",
     "summary": "格闘ゲーム生成実験は失敗も多かったが、実験は見事成功し、当ラボはまた一段進化した（Dr.よこぼ）",
