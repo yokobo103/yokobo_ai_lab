@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
+import { GoogleAnalytics } from "./google-analytics";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -10,9 +12,19 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const gaMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+  const shouldEnableAnalytics = process.env.NODE_ENV === "production" && gaMeasurementId;
+
   return (
     <html lang="ja">
-      <body>{children}</body>
+      <body>
+        {children}
+        {shouldEnableAnalytics ? (
+          <Suspense fallback={null}>
+            <GoogleAnalytics measurementId={gaMeasurementId} />
+          </Suspense>
+        ) : null}
+      </body>
     </html>
   );
 }
