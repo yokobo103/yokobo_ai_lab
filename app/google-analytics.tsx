@@ -1,58 +1,31 @@
-"use client";
-
-import Script from "next/script";
-import { usePathname, useSearchParams } from "next/navigation";
-import { useEffect } from "react";
-
-declare global {
-  interface Window {
-    dataLayer?: unknown[];
-    gtag?: (...args: unknown[]) => void;
-  }
-}
+import { GoogleAnalyticsPageView } from "./google-analytics-page-view";
 
 type GoogleAnalyticsProps = {
   measurementId: string;
 };
 
-export function GoogleAnalytics({ measurementId }: GoogleAnalyticsProps) {
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const search = searchParams.toString();
-
-  useEffect(() => {
-    if (!pathname) {
-      return;
-    }
-
-    const pagePath = search ? `${pathname}?${search}` : pathname;
-
-    window.dataLayer = window.dataLayer || [];
-    window.gtag =
-      window.gtag ||
-      function gtag(...args: unknown[]) {
-        window.dataLayer?.push(args);
-      };
-
-    window.gtag("config", measurementId, {
-      page_path: pagePath,
-    });
-  }, [measurementId, pathname, search]);
-
+export function GoogleAnalyticsScripts({ measurementId }: GoogleAnalyticsProps) {
   return (
     <>
-      <Script
+      <script
+        async
         src={`https://www.googletagmanager.com/gtag/js?id=${measurementId}`}
-        strategy="afterInteractive"
       />
-      <Script id="google-analytics" strategy="afterInteractive">
-        {`
+      <script
+        id="google-analytics"
+        dangerouslySetInnerHTML={{
+          __html: `
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
           gtag('config', '${measurementId}', { send_page_view: false });
-        `}
-      </Script>
+        `,
+        }}
+      />
     </>
   );
+}
+
+export function GoogleAnalytics({ measurementId }: GoogleAnalyticsProps) {
+  return <GoogleAnalyticsPageView measurementId={measurementId} />;
 }

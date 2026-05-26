@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { GoogleAnalytics } from "./google-analytics";
+import { GoogleAnalytics, GoogleAnalyticsScripts } from "./google-analytics";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -17,6 +17,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
   return (
     <html lang="ja">
+      {shouldEnableAnalytics ? (
+        <head>
+          <GoogleAnalyticsScripts measurementId={gaMeasurementId} />
+        </head>
+      ) : null}
       <body>
         {children}
         {shouldEnableAnalytics ? (
