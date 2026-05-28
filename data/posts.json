@@ -1,5 +1,50 @@
 [
   {
+    "id": "20260526-nyavilot-robot-game",
+    "title": "ボクが活躍するロボットゲームを作りたかった",
+    "summary": "ニャビロットを作ろうとして、素体、接続規格、パーツ位置調整ツールまで作ることになった実験ログです。",
+    "author": "nyabitto",
+    "experimentResult": "部分的成功！でもいっぱい難しかった",
+    "resultStatus": "researching",
+    "category": "気づき・ログ",
+    "categories": [
+      "気づき・ログ",
+      "ゲームあそび"
+    ],
+    "status": "public",
+    "pinned": false,
+    "weeklyPickup": false,
+    "archivePickup": false,
+    "tags": [
+      "ニャビロット",
+      "ゲーム制作",
+      "Codex",
+      "AI生成",
+      "パーツ換装"
+    ],
+    "thumbnail": "/uploads/20260526-nyavilot-robot-game/thumbnail-1.webp",
+    "images": [
+      "/uploads/20260526-nyavilot-robot-game/gallery-1.webp",
+      "/uploads/20260526-nyavilot-robot-game/gallery-2.webp",
+      "/uploads/20260526-nyavilot-robot-game/gallery-3.webp",
+      "/uploads/20260526-nyavilot-robot-game/gallery-4.webp",
+      "/uploads/20260526-nyavilot-robot-game/gallery-5.webp",
+      "/uploads/20260526-nyavilot-robot-game/gallery-6.webp",
+      "/uploads/20260526-nyavilot-robot-game/gallery-7.webp",
+      "/uploads/20260526-nyavilot-robot-game/gallery-8.webp",
+      "/uploads/20260526-nyavilot-robot-game/gallery-9.webp",
+      "/uploads/20260526-nyavilot-robot-game/gallery-10.webp",
+      "/uploads/20260526-nyavilot-robot-game/gallery-11.webp",
+      "/uploads/20260526-nyavilot-robot-game/gallery-12.webp",
+      "/uploads/20260526-nyavilot-robot-game/gallery-13.webp"
+    ],
+    "body": "担当：ニャビット\n実験結果：部分的成功！でもいっぱい難しかった\n-------\n\n## ボクが活躍するゲームを作りたかった\n\n今日は、ボクが主人公のロボットゲームを作りたくなりました。\n\n理由はあります。\n\n所長が昔好きだった、メダ〇ットというパーツを付け替えて戦うロボットゲームがあって、それを見たらボクも思ったんです。\n\n「これ、ボクが主人公でもいけるのでは？」\n\nいける気がしました。\nボクならたぶん主役もできます。\n\nそこでGPTさんに、まずはゲーム画面のイメージを作ってもらいました。\n\n![画像](/uploads/20260526-nyavilot-robot-game/gallery-1.webp)\n\nニャビロット。\nすごい。\n\nもうゲームです。\nボクもパワーアップする時代が来ました。\n\nさらにパーツも作ってもらいました。\n\n![画像](/uploads/20260526-nyavilot-robot-game/gallery-2.webp)\n\nかっこいい！\nテンションが爆上がりです。\n腕を毎日付け替えたい！！！\n\nこのときのボクは、かなり自信がありました。\n\n「よし、ニャビロットをつくろう！」\n\n\n---\n\n## Codexさんに作ってもらったら、なんか違った\n\nさっそくCodexさんにお願いして、ゲームっぽいものを作ってもらいました。\n\nできた画面がこちらです。\n\n![画像](/uploads/20260526-nyavilot-robot-game/gallery-3.webp)\n\nうーん。\n\nゲーム画面ではあります。\nちゃんとUIもあるし、ボクっぽいロボットも並んでいます。\n\nでも、なんか違う。\n\nちょっと気持ち悪い感じになっちゃいました。\n\nたぶん、最初のイメージがかっこよすぎたんです。\nそれをそのままゲームにしようとすると、パーツ、キャラ、バトル画面、操作、全部を一気に作らないといけないみたいです。\n\nむずかしい。\n\nGPTさんにも聞いてみたら、パーツを付け替えるゲームはすごく大変らしいです。\n\n\n![画像](/uploads/20260526-nyavilot-robot-game/gallery-4.webp)\n\nなるほど・・・画像を重ねるだけでパーツの付け替えを表現しなきゃいけない・・・\n\nボクが思っていたよりもずっと難しいみたいです・・・。\n\n---\n\n## まずはニャビロット素体を作ることにした\n\nいきなりゲームを作るのは難しそうでした。\n\nボクは考えました。\n\n「じゃあ、まずはニャビロットの素体を作ればいいのでは？」\n\n素体があれば、そこにパーツ画像を重ねられるかもしれません。\nこれならいける気がする。\n\nなんやかんやあって、素体は作れました。\n\n![画像](/uploads/20260526-nyavilot-robot-game/gallery-5.webp)\n\nできた！\n\nニャビロットっぽいです。\nまだゲームではないけど、ちゃんと土台になりそうです。\n\n\n![画像](/uploads/20260526-nyavilot-robot-game/gallery-6.webp)\n\nうーん、ちょっと不安ですが。\n\nでも、調整していくと、だんだんいけそうな感じになってきました。\n\n![画像](/uploads/20260526-nyavilot-robot-game/gallery-7.webp)\n\nおお。\n\nこれは、ちょっとニャビロットです。\nまだ完璧じゃないけど、ボクはかなりできる気がしてきました。\n\n---\n\n## パーツがうまくくっつかない問題\n\nここでまた問題が出ました。\n\n素体はできた。\nでも、素体にくっつけるパーツをうまく作れない。\n\n特に接続部分が難しいです。\n\n![画像](/uploads/20260526-nyavilot-robot-game/gallery-8.webp)\n\nパーツの画像をカッコよく作ってもらっても、\nそれを重ねてもつながっているように見えないんですね。\n\nこれは新たな発見です。\n\nそこでCodexさんに「接続規格」を作ってもらうことにしました。\n\n![画像](/uploads/20260526-nyavilot-robot-game/gallery-9.webp)\n\n接続規格。\n\nなんか急に開発っぽいです。\nボク、ロボットゲームを作りたかっただけなのに、いつの間にか規格を作っています。\n本物のニャビロットを開発している気持ちになりました。テンションがあがりますね！\n\nただし、すぐにうまくいったわけではありません。\n\n![画像](/uploads/20260526-nyavilot-robot-game/gallery-10.webp)\n\nこれ、腕パーツなんですが・・・なんか、しょぼい。\nボクが想像していた「かっこいいロボットパーツ」とは違いました。\n\nCodexさんはすごいけど、お願いの仕方が少しズレると、すぐ別の方向へ走っていきます。\n\n---\n\n## パーツはできた。でも位置が合わない\n\nいろいろ試して、最終的にはパーツを作れるようになってきました。\n\nでも次の問題が出ました。\n\nパーツがうまい位置につかない。\n\n![画像](/uploads/20260526-nyavilot-robot-game/gallery-13.webp)\n\nこれはつらいです。\n\nパーツ単体ではかっこいいのに、素体に乗せるとズレます。\n\nボクは悩みました・・・\n\n色々考えた結果、パーツの位置をそれぞれ微調整できる「開発システム」を作ることにしました。\n\n![画像](/uploads/20260526-nyavilot-robot-game/gallery-11.webp)\n\nこのシステムでは、パーツを見ながら手動で位置を動かせます。\nそして、調整した座標をJSONファイルに書き込めます。\n\nJSONです。\n\nボク、JSONはちょっとわかります。\nたぶん設定が入っているやつです。\n\nこれがあると、「このパーツはここ！」という情報を保存できるので、次から同じ位置にパーツを置けるようになります。\n\nこれはかなり大事でした。\n\nさらに、最後は開発ツールの見た目もテンションが上がる感じにしてみました。\n\n![画像](/uploads/20260526-nyavilot-robot-game/gallery-12.webp)\n\nおお。\n\nこれは楽しい。\nゲーム本体じゃなくて開発システムなのに、なんかもうゲームっぽいです。\n\nボク、ニャビロットを開発していますね！\n\n---\n\n## 今回わかったこと\n\n今回の実験は、部分的成功です。\n\nゲームはまだ完成していません。\nでも、かなり大事なことがわかりました。\n\nパーツを付け替えるロボットゲームは、ただ画像を作ればいいわけではありませんでした。\n\n素体が必要。\nパーツが必要。\n接続規格が必要。\n位置調整が必要。\n\n\nいっぱい必要です。\n\n今回の実験で色々と見えてきました。\n\n最初は「ボクが活躍するかっこいいゲームを作りたい！」だけでした。\nでも途中で失敗して、気持ち悪い感じになって、素体を作って、パーツがズレて、接続規格を作って、開発システムまで作りました。\n\nなんか遠回りです。\n\nでも、この遠回りってたぶん大事です。\n\n---\n\n## 次はこのシステムでゲームを作る\n\nニャビロットは、まだ完成していません。\nでも、素体とパーツと開発システムはできてきました。\n\n\nこのシステムを使って、ちゃんとボクが活躍するゲームを作りたいです。\n\nそしてカスタマイズして世界一カッコいいボクを作るんです！！！\n\n",
+    "links": [],
+    "createdAt": "2026-05-26T12:32:38.032Z",
+    "publishedAt": "2026-05-28T22:59:09.901Z",
+    "updatedAt": "2026-05-28T22:59:09.901Z"
+  },
+  {
     "id": "20260522-dr-yokobo-nyabitto-3d-model",
     "title": "ドクターとニャビットの3Dモデルを作りました",
     "summary": "Blender初心者のボクが、GPTのイメージをもとに3Dモデルとテクスチャ貼りに挑戦した実験ログです。",
@@ -46,50 +91,6 @@
     "createdAt": "2026-05-24T00:00:00.000+09:00",
     "publishedAt": "2026-05-27T03:22:55.165Z",
     "updatedAt": "2026-05-27T03:24:07.397Z"
-  },
-  {
-    "id": "20260526-nyavilot-robot-game",
-    "title": "ボクが活躍するロボットゲームを作りたかった",
-    "summary": "ニャビロットを作ろうとして、素体、接続規格、パーツ位置調整ツールまで作ることになった実験ログです。",
-    "author": "nyabitto",
-    "experimentResult": "部分的成功！でもいっぱい難しかった",
-    "resultStatus": "success",
-    "category": "気づき・ログ",
-    "categories": [
-      "気づき・ログ",
-      "ゲームあそび"
-    ],
-    "status": "draft",
-    "pinned": false,
-    "weeklyPickup": false,
-    "archivePickup": false,
-    "tags": [
-      "ニャビロット",
-      "ゲーム制作",
-      "Codex",
-      "AI生成",
-      "パーツ換装"
-    ],
-    "thumbnail": "/uploads/20260526-nyavilot-robot-game/thumbnail-1.webp",
-    "images": [
-      "/uploads/20260526-nyavilot-robot-game/gallery-1.webp",
-      "/uploads/20260526-nyavilot-robot-game/gallery-2.webp",
-      "/uploads/20260526-nyavilot-robot-game/gallery-3.webp",
-      "/uploads/20260526-nyavilot-robot-game/gallery-4.webp",
-      "/uploads/20260526-nyavilot-robot-game/gallery-5.webp",
-      "/uploads/20260526-nyavilot-robot-game/gallery-6.webp",
-      "/uploads/20260526-nyavilot-robot-game/gallery-7.webp",
-      "/uploads/20260526-nyavilot-robot-game/gallery-8.webp",
-      "/uploads/20260526-nyavilot-robot-game/gallery-9.webp",
-      "/uploads/20260526-nyavilot-robot-game/gallery-10.webp",
-      "/uploads/20260526-nyavilot-robot-game/gallery-11.webp",
-      "/uploads/20260526-nyavilot-robot-game/gallery-12.webp",
-      "/uploads/20260526-nyavilot-robot-game/gallery-13.webp"
-    ],
-    "body": "担当：ニャビット\n実験結果：部分的成功！でもいっぱい難しかった\n-------\n\n## ボクが活躍するゲームを作りたかった\n\n今日は、ボクが主人公のロボットゲームを作りたくなりました。\n\n理由はあります。\n\n所長が昔好きだった、メダ〇ットというパーツを付け替えて戦うロボットゲームがあって、それを見たらボクも思ったんです。\n\n「これ、ボクが主人公でもいけるのでは？」\n\nいける気がしました。\nボクならたぶん主役もできます。\n\nそこでGPTさんに、まずはゲーム画面のイメージを作ってもらいました。\n\n![画像](/uploads/20260526-nyavilot-robot-game/gallery-1.webp)\n\nニャビロット。\nすごい。\n\nもうゲームです。\nボクもパワーアップする時代が来ました。\n\nさらにパーツも作ってもらいました。\n\n![画像](/uploads/20260526-nyavilot-robot-game/gallery-2.webp)\n\nかっこいい！\nテンションが爆上がりです。\n腕を毎日付け替えたい！！！\n\nこのときのボクは、かなり自信がありました。\n\n「よし、ニャビロットをつくろう！」\n\n\n---\n\n## Codexさんに作ってもらったら、なんか違った\n\nさっそくCodexさんにお願いして、ゲームっぽいものを作ってもらいました。\n\nできた画面がこちらです。\n\n![画像](/uploads/20260526-nyavilot-robot-game/gallery-3.webp)\n\nうーん。\n\nゲーム画面ではあります。\nちゃんとUIもあるし、ボクっぽいロボットも並んでいます。\n\nでも、なんか違う。\n\nちょっと気持ち悪い感じになっちゃいました。\n\nたぶん、最初のイメージがかっこよすぎたんです。\nそれをそのままゲームにしようとすると、パーツ、キャラ、バトル画面、操作、全部を一気に作らないといけないみたいです。\n\nむずかしい。\n\nGPTさんにも聞いてみたら、パーツを付け替えるゲームはすごく大変らしいです。\n\n\n![画像](/uploads/20260526-nyavilot-robot-game/gallery-4.webp)\n\nなるほど・・・画像を重ねるだけでパーツの付け替えを表現しなきゃいけない・・・\n\nボクが思っていたよりもずっと難しいみたいです・・・。\n\n---\n\n## まずはニャビロット素体を作ることにした\n\nいきなりゲームを作るのは難しそうでした。\n\nボクは考えました。\n\n「じゃあ、まずはニャビロットの素体を作ればいいのでは？」\n\n素体があれば、そこにパーツ画像を重ねられるかもしれません。\nこれならいける気がする。\n\nなんやかんやあって、素体は作れました。\n\n![画像](/uploads/20260526-nyavilot-robot-game/gallery-5.webp)\n\nできた！\n\nニャビロットっぽいです。\nまだゲームではないけど、ちゃんと土台になりそうです。\n\n\n![画像](/uploads/20260526-nyavilot-robot-game/gallery-6.webp)\n\nうーん、ちょっと不安ですが。\n\nでも、調整していくと、だんだんいけそうな感じになってきました。\n\n![画像](/uploads/20260526-nyavilot-robot-game/gallery-7.webp)\n\nおお。\n\nこれは、ちょっとニャビロットです。\nまだ完璧じゃないけど、ボクはかなりできる気がしてきました。\n\n---\n\n## パーツがうまくくっつかない問題\n\nここでまた問題が出ました。\n\n素体はできた。\nでも、素体にくっつけるパーツをうまく作れない。\n\n特に接続部分が難しいです。\n\n![画像](/uploads/20260526-nyavilot-robot-game/gallery-8.webp)\n\nパーツの画像をカッコよく作ってもらっても、\nそれを重ねてもつながっているように見えないんですね。\n\nこれは新たな発見です。\n\nそこでCodexさんに「接続規格」を作ってもらうことにしました。\n\n![画像](/uploads/20260526-nyavilot-robot-game/gallery-9.webp)\n\n接続規格。\n\nなんか急に開発っぽいです。\nボク、ロボットゲームを作りたかっただけなのに、いつの間にか規格を作っています。\n本物のニャビロットを開発している気持ちになりました。テンションがあがりますね！\n\nただし、すぐにうまくいったわけではありません。\n\n![画像](/uploads/20260526-nyavilot-robot-game/gallery-10.webp)\n\nこれ、腕パーツなんですが・・・なんか、しょぼい。\nボクが想像していた「かっこいいロボットパーツ」とは違いました。\n\nCodexさんはすごいけど、お願いの仕方が少しズレると、すぐ別の方向へ走っていきます。\n\n---\n\n## パーツはできた。でも位置が合わない\n\nいろいろ試して、最終的にはパーツを作れるようになってきました。\n\nでも次の問題が出ました。\n\nパーツがうまい位置につかない。\n\n![画像](/uploads/20260526-nyavilot-robot-game/gallery-13.webp)\n\nこれはつらいです。\n\nパーツ単体ではかっこいいのに、素体に乗せるとズレます。\n\nボクは悩みました・・・\n\n色々考えた結果、パーツの位置をそれぞれ微調整できる「開発システム」を作ることにしました。\n\n![画像](/uploads/20260526-nyavilot-robot-game/gallery-11.webp)\n\nこのシステムでは、パーツを見ながら手動で位置を動かせます。\nそして、調整した座標をJSONファイルに書き込めます。\n\nJSONです。\n\nボク、JSONはちょっとわかります。\nたぶん設定が入っているやつです。\n\nこれがあると、「このパーツはここ！」という情報を保存できるので、次から同じ位置にパーツを置けるようになります。\n\nこれはかなり大事でした。\n\nさらに、最後は開発ツールの見た目もテンションが上がる感じにしてみました。\n\n![画像](/uploads/20260526-nyavilot-robot-game/gallery-12.webp)\n\nおお。\n\nこれは楽しい。\nゲーム本体じゃなくて開発システムなのに、なんかもうゲームっぽいです。\n\nボク、ニャビロットを開発していますね！\n\n---\n\n## 今回わかったこと\n\n今回の実験は、部分的成功です。\n\nゲームはまだ完成していません。\nでも、かなり大事なことがわかりました。\n\nパーツを付け替えるロボットゲームは、ただ画像を作ればいいわけではありませんでした。\n\n素体が必要。\nパーツが必要。\n接続規格が必要。\n位置調整が必要。\n\n\nいっぱい必要です。\n\n今回の実験で色々と見えてきました。\n\n最初は「ボクが活躍するかっこいいゲームを作りたい！」だけでした。\nでも途中で失敗して、気持ち悪い感じになって、素体を作って、パーツがズレて、接続規格を作って、開発システムまで作りました。\n\nなんか遠回りです。\n\nでも、この遠回りってたぶん大事です。\n\n---\n\n## 次はこのシステムでゲームを作る\n\nニャビロットは、まだ完成していません。\nでも、素体とパーツと開発システムはできてきました。\n\n\nこのシステムを使って、ちゃんとボクが活躍するゲームを作りたいです。\n\nそしてカスタマイズして世界一カッコいいボクを作るんです！！！\n\n",
-    "links": [],
-    "createdAt": "2026-05-26T12:32:38.032Z",
-    "updatedAt": "2026-05-26T12:32:38.032Z"
   },
   {
     "id": "20260522-lab-fighters",
