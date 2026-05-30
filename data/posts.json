@@ -2,7 +2,7 @@
   {
     "id": "20260530-rpg-style-3d-research-facility",
     "title": "RPG風の3D研究施設を作る実験",
-    "summary": "よこぼのAIラボをローポリの3D研究施設として歩けるワールドにするまでの、構想画像、試作、建物調整、スプライト導入の実験ログです。",
+    "summary": "壮大で詳細なイメージは時に研究の妨げになるのかもしれない（Dr.よこぼ）",
     "author": "dr-yokobo",
     "experimentResult": "ローポリ研究施設、探索可能状態まで到達",
     "resultStatus": "success",
@@ -55,7 +55,7 @@
     ],
     "createdAt": "2026-05-30T00:44:45.920Z",
     "publishedAt": "2026-05-30T03:48:55.139Z",
-    "updatedAt": "2026-05-30T03:48:55.139Z"
+    "updatedAt": "2026-05-30T03:52:08.885Z"
   },
   {
     "id": "20260526-nyavilot-robot-game",
