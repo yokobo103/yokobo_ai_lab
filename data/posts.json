@@ -1,5 +1,48 @@
 [
   {
+    "id": "f6a3450e-f7c5-49f8-afbc-9688e7d74e41",
+    "title": "当ラボ、某配管工レースゲームの再現を試みる",
+    "summary": "2Dよりも遥かに複雑だったが、3D空間内をキャラクターが走行した瞬間、当ラボのテンションは爆発した。引き続き研究を継続する。（Dr.よこぼ）",
+    "author": "dr-yokobo",
+    "experimentResult": "最高だった",
+    "resultStatus": "observation",
+    "category": "ゲームあそび",
+    "categories": [
+      "ゲームあそび",
+      "3D・空間あそび"
+    ],
+    "status": "public",
+    "pinned": false,
+    "weeklyPickup": true,
+    "archivePickup": false,
+    "tags": [
+      "blender"
+    ],
+    "thumbnail": "/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/thumbnail-b2b3d5d5-0166-46f9-961c-1fe8d0939359.webp",
+    "images": [
+      "/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-25c6df3a-b9a2-4c9b-ac35-89e969b02fda.webp",
+      "/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-21df0b12-62e6-4404-88a0-54283bb6486a.webp",
+      "/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-d42d4ae3-16b1-423d-bfe6-a7d3c6c3836d.webp",
+      "/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-366e7ef8-69bd-4131-ba27-5752c504b3dd.webp",
+      "/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-2cf31be6-eea5-4d60-8e1b-77c2e2fb8c28.webp",
+      "/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-5386f807-4e3d-40c2-9955-25232b176994.webp",
+      "/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-eda999ab-0829-4253-abd3-329995c3aa1c.webp",
+      "/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-e05b1468-4d52-4e66-8c28-d6353e4327cf.webp",
+      "/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-bc1f94b1-fb3f-4ec1-8e39-0a0edac724f1.webp",
+      "/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-ee14117d-facf-417f-ba24-df13666382ee.webp"
+    ],
+    "body": "担当：Dr.よこぼ\n実験結果：最高だった\n---\n\n最近の実験により、3Dレーシングゲームは個人開発でも製造可能であることが判明した。\n\n当初の目的は、某配管工カートゲームのような「それっぽい3Dレース空間」を生成することである。\n\n---\n\nここから研究成果を確認できる。\n是非とも体験いただきたい。\n（**PC推奨**：なお、スマホ環境では負荷軽減のため、各種軽量化処理を実施している。）\nhttps://yokobo103.github.io/3D_cart_game/\n\n---\n\n\n## ①2D試作結果報告\n\nまずは2D環境での試作を開始した。\n\nGPT-images-2.0にイメージ画像を生成させ、それをもとにCodexへゲーム製造を依頼した。\n\n\n生成したイメージ画像\n![画像](/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-e05b1468-4d52-4e66-8c28-d6353e4327cf.webp)\n\n\nCodexで製造したゲームの画面\n![画像](/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-25c6df3a-b9a2-4c9b-ac35-89e969b02fda.webp)\n\n\nここで重要な知見を得た。\n\nCodex用プロンプトに制約を与えすぎると、極めて安全だが面白みに欠けるゲームが生成される。\n\nどうやら「破綻しないようにする」と「面白さを出す」は別問題らしい。\n\n制約を緩和したところ、ようやくゲームらしい挙動を確認できた。\n\n\n## 3Dバージョンの製造に着手\n\nチャットGPTが出してくれたイメージ画像。\n私が主役というのはとても良い。\n![画像](/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-21df0b12-62e6-4404-88a0-54283bb6486a.webp)\n\n\nで、これを参考にcodexに作ってもらったゲームがこちら\n極めて既視感のあるレーシング空間である。\n当ラボの技術力向上を感じる。\n![画像](/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-21df0b12-62e6-4404-88a0-54283bb6486a.webp)\n\nしかし問題が発生した。\n\nCodex単体では、\n理想的な3Dモデル生成が困難だったのである。\n\nそのため、\nBlenderによる手動モデリング工程を追加し、ニャビットに任せることにした。\n\nとはいえ、\nニャビットはBlender初心者である。\n\nそこでチャットGPTに\nモデリングガイドを生成させた。\n![画像](/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-d42d4ae3-16b1-423d-bfe6-a7d3c6c3836d.webp)\n\n\nこれにより作業継続が可能となった。\nニャビットに任せよう。\n\n\n---\nニャビットの実験ログ（blender奮闘記）はこちら\nhttps://yokobo-ai-lab.vercel.app/posts/20260522-dr-yokobo-nyabitto-3d-model\n---\n\n\n![画像](/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-366e7ef8-69bd-4131-ba27-5752c504b3dd.webp)\n\n![画像](/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-2cf31be6-eea5-4d60-8e1b-77c2e2fb8c28.webp)\n\nこれは途中経過\n![画像](/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-eda999ab-0829-4253-abd3-329995c3aa1c.webp)\n\nキャラクターが全く前を向かない事象も発生した。\n![画像](/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-bc1f94b1-fb3f-4ec1-8e39-0a0edac724f1.webp)\n\n原因調査の結果、\n回転軸およびモデル向きの問題である可能性が高い。\n\n3D空間は難解である。\n\nしかし最終的に、\nそれっぽい3Dレーシングゲームの生成に成功した。\n![画像](/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-ee14117d-facf-417f-ba24-df13666382ee.webp)\n\n\n\nhttps://x.com/yokobo_ai/status/2052763045005611233?s=20\n\n\n---\n\nここから研究成果を確認できる。\n是非とも体験いただきたい。\n（**PC推奨**：なお、スマホ環境では負荷軽減のため、各種軽量化処理を実施している。）\nhttps://yokobo103.github.io/3D_cart_game/\n\n---\n\n\n\n:::note\n・Dr.よこぼとニャビットのモデリングについては別途実験ログとして記録予定（ニャビットに任せよう）\n・BGMはSUNO AI、SEはStableAudioを使用\n:::\n\n\n",
+    "links": [
+      {
+        "label": "よこぼカート3D",
+        "url": "https://yokobo103.github.io/3D_cart_game/"
+      }
+    ],
+    "createdAt": "2026-05-07T22:14:40.883Z",
+    "publishedAt": "2026-05-07T22:14:40.883Z",
+    "updatedAt": "2026-05-31T06:56:30.001Z"
+  },
+  {
     "id": "20260530-rpg-style-3d-research-facility",
     "title": "RPG風の3D研究施設を作る実験",
     "summary": "壮大で詳細なイメージは時に研究の妨げになるのかもしれない（Dr.よこぼ）",
@@ -505,49 +548,6 @@
     "createdAt": "2026-05-08T16:05:00.678Z",
     "publishedAt": "2026-05-14T10:06:14.942Z",
     "updatedAt": "2026-05-14T10:06:14.942Z"
-  },
-  {
-    "id": "f6a3450e-f7c5-49f8-afbc-9688e7d74e41",
-    "title": "当ラボ、某配管工レースゲームの再現を試みる",
-    "summary": "2Dよりも遥かに複雑だったが、3D空間内をキャラクターが走行した瞬間、当ラボのテンションは爆発した。引き続き研究を継続する。（Dr.よこぼ）",
-    "author": "dr-yokobo",
-    "experimentResult": "最高だった",
-    "resultStatus": "observation",
-    "category": "ゲームあそび",
-    "categories": [
-      "ゲームあそび",
-      "3D・空間あそび"
-    ],
-    "status": "public",
-    "pinned": false,
-    "weeklyPickup": true,
-    "archivePickup": false,
-    "tags": [
-      "blender"
-    ],
-    "thumbnail": "/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/thumbnail-b2b3d5d5-0166-46f9-961c-1fe8d0939359.webp",
-    "images": [
-      "/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-25c6df3a-b9a2-4c9b-ac35-89e969b02fda.webp",
-      "/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-21df0b12-62e6-4404-88a0-54283bb6486a.webp",
-      "/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-d42d4ae3-16b1-423d-bfe6-a7d3c6c3836d.webp",
-      "/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-366e7ef8-69bd-4131-ba27-5752c504b3dd.webp",
-      "/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-2cf31be6-eea5-4d60-8e1b-77c2e2fb8c28.webp",
-      "/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-5386f807-4e3d-40c2-9955-25232b176994.webp",
-      "/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-eda999ab-0829-4253-abd3-329995c3aa1c.webp",
-      "/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-e05b1468-4d52-4e66-8c28-d6353e4327cf.webp",
-      "/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-bc1f94b1-fb3f-4ec1-8e39-0a0edac724f1.webp",
-      "/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-ee14117d-facf-417f-ba24-df13666382ee.webp"
-    ],
-    "body": "担当：Dr.よこぼ\n実験結果：最高だった\n---\n\n最近の実験により、3Dレーシングゲームは個人開発でも製造可能であることが判明した。\n\n当初の目的は、某配管工カートゲームのような「それっぽい3Dレース空間」を生成することである。\n\n---\n\nここから研究成果を確認できる。\n是非とも体験いただきたい。\n（**PC推奨**：なお、スマホ環境では負荷軽減のため、各種軽量化処理を実施している。）\nhttps://yokobo103.github.io/3D_cart_game/\n\n---\n\n\n## ①2D試作結果報告\n\nまずは2D環境での試作を開始した。\n\nGPT-images-2.0にイメージ画像を生成させ、それをもとにCodexへゲーム製造を依頼した。\n\n\n生成したイメージ画像\n![画像](/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-e05b1468-4d52-4e66-8c28-d6353e4327cf.webp)\n\n\nCodexで製造したゲームの画面\n![画像](/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-25c6df3a-b9a2-4c9b-ac35-89e969b02fda.webp)\n\n\nここで重要な知見を得た。\n\nCodex用プロンプトに制約を与えすぎると、極めて安全だが面白みに欠けるゲームが生成される。\n\nどうやら「破綻しないようにする」と「面白さを出す」は別問題らしい。\n\n制約を緩和したところ、ようやくゲームらしい挙動を確認できた。\n\n\n## 3Dバージョンの製造に着手\n\nチャットGPTが出してくれたイメージ画像。\n私が主役というのはとても良い。\n![画像](/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-21df0b12-62e6-4404-88a0-54283bb6486a.webp)\n\n\nで、これを参考にcodexに作ってもらったゲームがこちら\n極めて既視感のあるレーシング空間である。\n当ラボの技術力向上を感じる。\n![画像](/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-21df0b12-62e6-4404-88a0-54283bb6486a.webp)\n\nしかし問題が発生した。\n\nCodex単体では、\n理想的な3Dモデル生成が困難だったのである。\n\nそのため、\nBlenderによる手動モデリング工程を追加し、ニャビットに任せることにした。\n\nとはいえ、\nニャビットはBlender初心者である。\n\nそこでチャットGPTに\nモデリングガイドを生成させた。\n![画像](/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-d42d4ae3-16b1-423d-bfe6-a7d3c6c3836d.webp)\n\n\nこれにより作業継続が可能となった。\nニャビットに任せよう。\n\n![画像](/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-366e7ef8-69bd-4131-ba27-5752c504b3dd.webp)\n\n![画像](/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-2cf31be6-eea5-4d60-8e1b-77c2e2fb8c28.webp)\n\nこれは途中経過\n![画像](/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-eda999ab-0829-4253-abd3-329995c3aa1c.webp)\n\nキャラクターが全く前を向かない事象も発生した。\n![画像](/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-bc1f94b1-fb3f-4ec1-8e39-0a0edac724f1.webp)\n\n原因調査の結果、\n回転軸およびモデル向きの問題である可能性が高い。\n\n3D空間は難解である。\n\nしかし最終的に、\nそれっぽい3Dレーシングゲームの生成に成功した。\n![画像](/uploads/f6a3450e-f7c5-49f8-afbc-9688e7d74e41/gallery-ee14117d-facf-417f-ba24-df13666382ee.webp)\n\n\n\nhttps://x.com/yokobo_ai/status/2052763045005611233?s=20\n\n\n---\n\nここから研究成果を確認できる。\n是非とも体験いただきたい。\n（**PC推奨**：なお、スマホ環境では負荷軽減のため、各種軽量化処理を実施している。）\nhttps://yokobo103.github.io/3D_cart_game/\n\n---\n\n\n\n:::note\n・Dr.よこぼとニャビットのモデリングについては別途実験ログとして記録予定（ニャビットに任せよう）\n・BGMはSUNO AI、SEはStableAudioを使用\n:::\n\n\n",
-    "links": [
-      {
-        "label": "よこぼカート3D",
-        "url": "https://yokobo103.github.io/3D_cart_game/"
-      }
-    ],
-    "createdAt": "2026-05-07T22:14:40.883Z",
-    "publishedAt": "2026-05-07T22:14:40.883Z",
-    "updatedAt": "2026-05-14T09:57:32.491Z"
   },
   {
     "id": "2025-ai-asobi-summary-draft",
