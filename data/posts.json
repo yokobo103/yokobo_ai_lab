@@ -11,7 +11,7 @@
       "ゲームあそび",
       "気づき・ログ"
     ],
-    "status": "draft",
+    "status": "public",
     "pinned": false,
     "weeklyPickup": false,
     "archivePickup": false,
@@ -51,7 +51,8 @@
       }
     ],
     "createdAt": "2026-05-30T00:00:00.000+09:00",
-    "updatedAt": "2026-06-07T08:11:22.997Z"
+    "publishedAt": "2026-06-07T08:11:25.287Z",
+    "updatedAt": "2026-06-07T08:11:25.287Z"
   },
   {
     "id": "f6a3450e-f7c5-49f8-afbc-9688e7d74e41",
