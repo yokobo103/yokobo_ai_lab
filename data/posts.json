@@ -1,5 +1,97 @@
 [
   {
+    "id": "20260618-claude-fable-open-world",
+    "title": "Claude Fableで3Dオープンワールド風ゲームを作ってみた",
+    "summary": "雑なプロンプトから3Dオープンワールド風ゲームがほぼ一発で立ち上がった、Claude Fable実験ログ。",
+    "author": "dr-yokobo",
+    "experimentResult": "一発生成の脅威を確認",
+    "resultStatus": "observation",
+    "category": "ゲームあそび",
+    "categories": [
+      "ゲームあそび",
+      "3D・空間あそび"
+    ],
+    "status": "draft",
+    "pinned": false,
+    "weeklyPickup": false,
+    "archivePickup": false,
+    "tags": [
+      "Claude Fable",
+      "3Dゲーム",
+      "オープンワールド",
+      "AI生成",
+      "世界モデル"
+    ],
+    "thumbnail": "/uploads/20260618-claude-fable-open-world/thumbnail-3.webp",
+    "images": [
+      "/uploads/20260618-claude-fable-open-world/gallery-1.webp",
+      "/uploads/20260618-claude-fable-open-world/gallery-2.webp",
+      "/uploads/20260618-claude-fable-open-world/gallery-3.webp",
+      "/uploads/20260618-claude-fable-open-world/gallery-4.webp"
+    ],
+    "body": "担当：Dr.よこぼ\n実験結果：一発生成の脅威を確認\n-------\n\n# Claude Fableで3Dオープンワールド風ゲームを作ってみた\n\n当ラボでは、Claude Fableを使った3Dゲーム生成実験を行った。\n\n結論から言うと、脅威である。\n\n完成品のゲームが一瞬で出てきた、という話ではない。\nまだ荒いし、挙動も不安定である。\n\nただ、雑なプロンプトから「それっぽい3Dオープンワールド風ゲーム」がほぼ一発で立ち上がる事象を確認した。\nこれはかなり重要な観測結果である。\n\nせっかちな人向けに、先に成果物を置いておく。\n\nhttps://yokobo103.github.io/3D_yokobo_open_world_fable/\n\n## 元になったイメージ\n\n最初に渡したのは、Dr.よこぼを主人公にした3Dオープンワールド風ゲームのイメージである。\n\n![画像](/uploads/20260618-claude-fable-open-world/gallery-1.webp)\n\n研究基地、川、青色鉱石、クエストUI、ミニマップ、相棒ロボ。\n情報量が多い。\n\n普通なら、これをゲームにするには、地形、キャラクター、カメラ、操作、UI、クエスト、昼夜サイクルなどを細かく分解する必要がある。\n\n## プロンプトはかなり雑だった\n\n実際に投げたプロンプトはこちらである。\n\n![画像](/uploads/20260618-claude-fable-open-world/gallery-2.webp)\n\n要旨としては、\n\n「referenceフォルダの画像を参考に、Dr.よこぼを主人公にした3Dサバイバルゲーム、オープンワールド風を作ってほしい」\n\nくらいである。\n\nかなり勢いのプロンプトだった。\n\nしかしFableは、ワールド、主人公、相棒ロボ、敵、効果音、クエスト、HUD、ミニマップ、インベントリなどを自動的に組み立て始めた。\n\nこちらが細かく指定していない要素まで、「ゲームに必要そうなもの」として補完していく。\nこの補完力が今回もっとも印象的だった。\n\n## ほぼ一発で起動した\n\nそして、実際に起動した画面がこちらである。\n\n![画像](/uploads/20260618-claude-fable-open-world/gallery-3.webp)\n\n正直、驚いた。\n\n見た目はローポリで、元画像のような超リッチな画面ではない。\nしかし、プレイヤーがいて、相棒キャラクターがいて、地形があり、木を伐採でき、クエスト表示とミニマップまである。\n\n「完成度が高い」というより、「世界として成立し始めている」と感じた。\n\nコードを書いたというより、ゲームに必要な暗黙知をかなりの密度で埋めてきた印象である。\n\n## 夜になった\n\nさらに動かしていると、夜になった。\n\n![画像](/uploads/20260618-claude-fable-open-world/gallery-4.webp)\n\n昼夜サイクル自体は、技術的には珍しくない。\n\nしかし、雑な指示から出てきた試作品に、当たり前のように夜があり、UIがあり、キャラクターがいて、探索っぽい空気がある。\n\nこの「当たり前のようにある」が怖い。\n\n人間が細部まで設計していないのに、ゲーム世界に必要そうな部品が配置されている。\nそれがFableの強さなのではないか。\n\n## 一瞬で消えたモデル\n\nなお、Claude Fable 5については、2026年6月時点で米国の輸出管理や安全性懸念をめぐる報道が相次いでいる。\n\nThe VergeやAxiosでは、AnthropicのFable 5 / Mythos 5について、米国政府の介入によりアクセス制限や停止が発生したと報じられていた。\nWiredでは、Fable 5のジェイルブレイク耐性をめぐる政府側の圧力についても触れられていた。\n\nこのあたりは公式発表だけで全容を確認できているわけではないため、当ラボでは報道ベースの観測として扱う。\n\nそういえば、所長もポッドキャストでこのへんの話をしていた気がする。\n\nhttps://open.spotify.com/show/033vTuXONCeGCsiffRWoNM\n\nただ、ユーザー体験としては単純である。\n\nすごいモデルが登場した。\n触ってみた。\nかなりすごかった。\nそして一瞬で使えなくなった。\n\nこの速度感そのものが、AI時代の研究ログとして重要である。\n\n## 今回わかったこと\n\nFableのすごさは、高品質な3Dを出す能力だけではなかった。\n\nむしろ、ユーザーが指定していない部分を「ゲームとして成立しそうな形」に補完する能力が強い。\n\n地形には高低差があり、プレイヤーには目的があり、相棒キャラクターは会話し、探索には採集対象がある。\n個別には珍しくない要素だが、雑な指示からまとめて出てくると印象が変わる。\n\nただし、これは完成ではない。\n\n操作感、当たり判定、目的設計、マップ密度、バランス、パフォーマンス。\n詰めるべき点は大量にある。\n\nそれでも、初速が異常である。\n\nこれまでなら「まずプロトタイプを作る」だけでかなり時間がかかった。\n今回は、出てきた世界を観測し、どこを直すか考えるところから始められた。\n\nゲーム制作も、3D制作も、今後は「最初の一歩」の意味が変わるかもしれない。\n\n最終成果物の動画はこちら。\n\nhttps://x.com/yokobo_ai/status/2065586574533038173?s=20\n\n実際に遊べる成果物はこちら。\n\nhttps://yokobo103.github.io/3D_yokobo_open_world_fable/\n\n## 参考にした報道\n\n- [Anthropic got hit by export rules nobody understands - The Verge](https://www.theverge.com/ai-artificial-intelligence/951703/anthropic-shutdown-export-controls)\n- [Anthropic-U.S. battle highlights AI power struggle - Axios](https://www.axios.com/2026/06/17/anthropic-fable-mythos-ai-model-government-oversight)\n- [The White House Wants Anthropic to Block All Jailbreaks. That May Not Be Possible - Wired](https://www.wired.com/story/the-white-house-wants-anthropic-to-block-all-jailbreaks-that-may-not-be-possible)\n\n当ラボとしては、継続観測せねばならない。（Dr.よこぼ）\n",
+    "links": [
+      {
+        "label": "遊べる成果物",
+        "url": "https://yokobo103.github.io/3D_yokobo_open_world_fable/"
+      },
+      {
+        "label": "最終成果物の動画",
+        "url": "https://x.com/yokobo_ai/status/2065586574533038173?s=20"
+      },
+      {
+        "label": "所長のポッドキャスト",
+        "url": "https://open.spotify.com/show/033vTuXONCeGCsiffRWoNM"
+      },
+      {
+        "label": "The Vergeの記事",
+        "url": "https://www.theverge.com/ai-artificial-intelligence/951703/anthropic-shutdown-export-controls"
+      },
+      {
+        "label": "Axiosの記事",
+        "url": "https://www.axios.com/2026/06/17/anthropic-fable-mythos-ai-model-government-oversight"
+      },
+      {
+        "label": "Wiredの記事",
+        "url": "https://www.wired.com/story/the-white-house-wants-anthropic-to-block-all-jailbreaks-that-may-not-be-possible"
+      }
+    ],
+    "createdAt": "2026-06-18T00:00:00.000+09:00",
+    "updatedAt": "2026-06-18T00:00:00.000+09:00"
+  },
+  {
+    "id": "20260614-minimum-memo-app",
+    "title": "超ミニマムなメモアプリを作ってみた！",
+    "summary": "忘れる前に書ける、超シンプルなMarkdownメモアプリをGPTさんとCodexさんで作ってみた実験ログ。",
+    "author": "nyabitto",
+    "experimentResult": "超ミニマムメモアプリ、できた！",
+    "resultStatus": "success",
+    "category": "気づき・ログ",
+    "categories": [
+      "気づき・ログ"
+    ],
+    "status": "draft",
+    "pinned": false,
+    "weeklyPickup": false,
+    "archivePickup": false,
+    "tags": [
+      "メモアプリ",
+      "Codex",
+      "GPT",
+      "Markdown",
+      "ミニマム開発"
+    ],
+    "thumbnail": "/uploads/20260614-minimum-memo-app/thumbnail-1.webp",
+    "images": [
+      "/uploads/20260614-minimum-memo-app/gallery-1.webp",
+      "/uploads/20260614-minimum-memo-app/gallery-2.webp"
+    ],
+    "body": "担当：ニャビット\n実験結果：超ミニマムメモアプリ、できた！\n-------\n\n# 超ミニマムなメモアプリを作ってみた！\n\n今日は、ボクの頭の中にある「これメモしないと消える！」問題をなんとかする実験をしました。\n\n所長もドクターも、アイデアがいっぱい出てくるタイプです。\nでも、アイデアって、ちょっと油断するとすぐどこかに行きます。\n\n「あれ、さっきのすごいやつ、なんだっけ？」\n\nこれ、研究室ではかなり危険です。\nたぶん。\n\n## まずGPTさんに相談しました\n\nボクは思いました。\n\n超超超かんたんなメモアプリがあればいいのでは？\nマークダウンで書けて、保存できて、日付も勝手についたら、もう完璧では？\n\nでもボク、自分では作れません。\nなのでGPTさんに相談しました。\n\n![GPTさんにメモアプリの最小構成を相談している画面](/uploads/20260614-minimum-memo-app/gallery-1.webp)\n\nGPTさんは「これはかなり作れます」と言ってくれました。\n\nボクも「いける！」と思いました。\nこの時点で、ボクはまだ何も作っていません。\nでも、できる気だけはすごくありました。\n\n## Codexさんに丸投げしてみた\n\n次に、Codexさんにお願いしました。\n\nお願いしたことは、かなりシンプルです。\n\n- すぐ開けること\n- マークダウンで書けること\n- 勝手に保存できること\n- 余計な機能を増やしすぎないこと\n\nメモアプリって、作り始めるとたぶん機能を増やしたくなります。\nタグとか、検索とか、同期とか、かっこいい見た目とか。\n\nでも今回は違います。\n\n目的は「忘れる前に書く」。\nそれだけです。\n\nボクにしては、かなり冷静な判断です。\nたぶん大丈夫！\n\n## できた\n\nそして、できました。\n\n![Daily Log Memoアプリの画面](/uploads/20260614-minimum-memo-app/gallery-2.webp)\n\n画面はすごくシンプルです。\nタイトルがあって、保存状態が見えて、大きなメモ欄がある。\n\nほんとうにそれだけ。\n\nでも、それがよかったです。\n\n開いて、書く。\n思いついたことを置いておく。\nそれだけなら、ドクターも所長も使ってくれそうです。\n\nというか、もう使ってくれてるっぽいです。\nボク、かなり役に立ったのでは？\n\n## ミニマムって、ちょっと強い\n\n今回ちょっとわかったのは、\n「小さいアプリ」は弱いんじゃなくて、むしろ強いかもしれないということです。\n\n大きなツールを作ろうとすると、考えることがいっぱいあります。\n\nログインどうする？\n同期どうする？\nデザインどうする？\nスマホ対応どうする？\n保存形式どうする？\n\n考えている間に、最初のアイデアが逃げます。\nこわい。\n\nでも、今回みたいに目的をひとつにすると、すぐ形になりました。\n\n「ちゃんとしたアプリ」じゃなくても、\n研究室の困りごとをひとつ減らせるなら、それはもう実験成功です。\n\n## 今日のメモ\n\n- アイデアはすぐ消える\n- メモアプリは小さいほど起動しやすい\n- GPTさんに最小構成を聞くと、話が早い\n- Codexさんに渡すと、形になるのが早い\n- でも、何を作りたいかを決めるのは人間側の仕事っぽい\n\nボクは今回、かなり良い発見をしました。\n\n「AIに作ってもらう」だけじゃなくて、\n「何に困っているか」を小さく切り出すのが大事なんだと思います。\n\n次は、このメモからまた何か作れる気がしています。\nボクに任せて！\n\nたぶん、メモを忘れなければ大丈夫です。（ニャビット）\n",
+    "links": [],
+    "createdAt": "2026-06-14T00:00:00.000+09:00",
+    "updatedAt": "2026-06-13T23:34:56.722Z"
+  },
+  {
     "id": "20260530-nyabbit-roll-mobile-game",
     "title": "スマホの上でニャビットを転がしたい（コロコロニャビット開発PJ始動）",
     "summary": "ニャビットを転がしたかっただけなんだが、思った以上に困難な道のりとなった。",
