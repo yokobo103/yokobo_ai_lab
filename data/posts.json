@@ -808,5 +808,51 @@
     "links": [],
     "createdAt": "2026-06-19T00:00:00.000+09:00",
     "updatedAt": "2026-06-19T06:31:05.711Z"
+  },
+  {
+    "id": "20260619-short-video-generation-pipeline",
+    "title": "ショート動画生成パイプラインを作ってみた",
+    "summary": "ポッドキャストの文字起こしから、図解・キャラクター・字幕つきの宣伝ショート動画を作るパイプラインをClaude Opus 4.8で構築した実験ログ。",
+    "author": "dr-yokobo",
+    "experimentResult": "成功",
+    "resultStatus": "success",
+    "category": "画像・動画あそび",
+    "categories": [
+      "画像・動画あそび",
+      "AIしくみあそび"
+    ],
+    "status": "draft",
+    "pinned": false,
+    "weeklyPickup": false,
+    "archivePickup": false,
+    "tags": [
+      "ショート動画",
+      "動画生成パイプライン",
+      "Claude Opus 4.8",
+      "Claude Code",
+      "GPT Image 2.0",
+      "Codex"
+    ],
+    "thumbnail": "/uploads/20260619-short-video-generation-pipeline/thumbnail-5.webp",
+    "images": [
+      "/uploads/20260619-short-video-generation-pipeline/gallery-1.webp",
+      "/uploads/20260619-short-video-generation-pipeline/gallery-2.webp",
+      "/uploads/20260619-short-video-generation-pipeline/gallery-3.webp",
+      "/uploads/20260619-short-video-generation-pipeline/gallery-4.webp",
+      "/uploads/20260619-short-video-generation-pipeline/gallery-5.webp"
+    ],
+    "body": "担当：Dr.よこぼ\n実験結果：成功\n-------\n\n# ショート動画生成パイプラインを作ってみた\n\nラボの倉庫を漁っていたところ、2026年5月末ごろにショート動画生成パイプラインへ挑戦した形跡を発見した。\n\n当時はCodexで制作していた。\n\n[Codexで作った前回の動画](https://x.com/yokobo_ai/status/2067977740322775055/video/2)\n\n今回はClaude Opus 4.8を使い、所長のポッドキャストを宣伝するショート動画生成パイプラインの構築実験を開始した。\n\n## Claudeへ動画づくりを依頼\n\n最初に渡したのは、Dr.よこぼとニャビットが登場するテーマ解説ショート動画のイメージである。\n\n![Claudeへショート動画の構成と実装を依頼した画面](/uploads/20260619-short-video-generation-pipeline/gallery-1.webp)\n\nClaudeは、速報から解説、まとめへ進む台本構成を考え、キャラクターの動き、字幕、音声、レンダリングまで含むパイプラインを組み立てた。\n\nここまでは極めて順調である。\n\n## 「できたよ！」しかし、だいぶ違う\n\nClaude Codeは「できたよ！」と報告した。\n\nしかし、出てきたキャラクターはだいぶ違った。\n\n![Claude Codeが生成した、参照とは異なるキャラクター](/uploads/20260619-short-video-generation-pipeline/gallery-2.webp)\n\n画面構成や字幕はそれっぽい。動画としての処理も動いている。\n\n一方で、Dr.よこぼとニャビットの再現には失敗していた。パイプラインが完成しても、出演者が別人では困る。\n\nここでキャラクター再現の調整を続けることもできたが、私は別の判断をした。\n\n画像生成は、画像生成モデルに任せる。\n\n## キャラクター画像はGPT Image 2.0へ\n\n諦めて、キャラクター画像はGPT Image 2.0に作ってもらった。\n\n![GPT Image 2.0で生成したクロマキー用キャラクター素材](/uploads/20260619-short-video-generation-pipeline/gallery-3.webp)\n\n切り抜きやすいように、背景はクロマキー用のピンクにした。\n\nClaudeへすべてを担当させるのではなく、構成と実装はClaude、キャラクター画像はGPT Image 2.0に分担した。これで参照キャラクターを保ったまま、動画側の自動処理へ素材を渡せるようになった。\n\n## 文字起こしから30秒動画を生成\n\n完成したパイプラインは、長い内容をショート動画用に再構成し、台詞を短くし、図解、字幕、キャラクター、音声を組み合わせてレンダリングする。\n\n![台本を短縮し30秒版を生成した結果](/uploads/20260619-short-video-generation-pipeline/gallery-4.webp)\n\n43秒版を残しつつ、台詞を削ってテンポを調整した30秒版も生成できた。目標の尺へ収まっているかの検証まで処理に含まれている。\n\n## 宣伝動画パイプラインができた\n\n最終的に、所長のポッドキャストの文字起こしを入れるだけで、内容を図解し、キャラクターと字幕を添えた宣伝動画を作れるようになった。\n\n![完成したショート動画の一場面](/uploads/20260619-short-video-generation-pipeline/gallery-5.webp)\n\n[Claude Opus 4.8で作った今回の動画](https://x.com/yokobo_ai/status/2067977740322775055/video/1)\n\n今回の実験で判明したのは、動画生成パイプラインを一つのAIだけで完結させる必要はないということだ。\n\nClaudeは台本構成と実装に強かった。しかし、キャラクター画像の再現はうまくいかなかった。そこでGPT Image 2.0へ工程を切り分けると、パイプライン全体を実用できるところまで持っていけた。\n\n重要なのは、AIごとの得意分野を見極め、途中で担当を切り替えられる構成にしておくことである。\n\n次は別のポッドキャスト文字起こしでも同じ品質を再現できるか確認せねばならない。研究継続案件だ。（Dr.よこぼ）\n",
+    "links": [
+      {
+        "label": "Codexで作った前回の動画",
+        "url": "https://x.com/yokobo_ai/status/2067977740322775055/video/2"
+      },
+      {
+        "label": "Claude Opus 4.8で作った今回の動画",
+        "url": "https://x.com/yokobo_ai/status/2067977740322775055/video/1"
+      }
+    ],
+    "createdAt": "2026-06-19T00:00:00.000+09:00",
+    "updatedAt": "2026-06-19T14:39:03.641Z"
   }
 ]
