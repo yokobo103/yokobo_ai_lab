@@ -11,7 +11,7 @@
       "画像・動画あそび",
       "AIしくみあそび"
     ],
-    "status": "draft",
+    "status": "public",
     "pinned": false,
     "weeklyPickup": false,
     "archivePickup": false,
@@ -44,7 +44,7 @@
     ],
     "createdAt": "2026-06-19T00:00:00.000+09:00",
     "publishedAt": "2026-06-19T23:24:19.229Z",
-    "updatedAt": "2026-06-20T00:04:34.543Z"
+    "updatedAt": "2026-06-20T00:04:37.867Z"
   },
   {
     "id": "20260619-hq-log-workflow-migration",
