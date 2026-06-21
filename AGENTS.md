@@ -98,7 +98,10 @@ The admin page must support:
 - Support file input, not only drag and drop.
 - Support iPhone photo library selection.
 - Multiple image selection.
-- Convert uploaded images to WebP if feasible.
+- Public raster images must use WebP by default. This includes uploaded images, manually added assets, thumbnails, illustrations, hero/background images, decorative images, and images referenced from CSS.
+- Use PNG/JPEG in production only when WebP cannot satisfy a concrete requirement. Document the reason in the work report. SVG remains appropriate for logos, icons, and simple vector artwork.
+- Keep original full-size PNG/JPEG files and design references outside production asset paths, such as the Gitignored `/public/design-reference/`, or in the upstream HQ asset storage.
+- After replacing an image, search HTML, JSX, JSON, and CSS for stale PNG/JPEG references. CSS background images are served directly and do not automatically receive Next.js image optimization.
 - Resize large images to max width 1600px.
 - Generate thumbnail max width 600px.
 - Save optimized public images to `/public/uploads/{postId}/`.
