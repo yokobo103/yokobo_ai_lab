@@ -1,5 +1,21 @@
 # AGENTS.md
 
+## HQ and repository relationship
+
+- 上流のHQリポジトリは `C:\Users\Yokob\playground\_LAB_HQ` にあり、企画・原稿・素材所在・判断待ちを管理する。
+- このリポジトリは公開Webサイト本体であり、HQの配下ではない独立した兄弟リポジトリである。
+- HQ由来の作業では、最初に `docs/codex_start_here.md` と `docs/hq_web_contract.md` を確認する。
+- `data/posts.json` は危険ファイルである。編集時は `docs/posts_json_rule.md` を確認する。
+- GitHub/Vercel保存に関わる作業では `docs/github_storage_guide.md` を確認する。
+
+## Mandatory pre-work pull
+
+- このリポジトリを触る前に、必ず `git status --short` で未コミット変更がないことを確認し、最新状態をpullする。
+- 未コミット変更がある場合はpullも作業も行わず、停止して変更状況を報告する。
+- 可能なら `C:\Users\Yokob\playground\tools\git\` の共通PowerShellスクリプトを使う。未実装の場合は `docs/codex_start_here.md` の暫定コマンドを実行する。
+- pull後に `data/posts.json` をJSON parseする。管理画面保存とローカル編集の両方で更新され得るため、特に競合へ注意する。
+- コンフリクトは自動解決せず、停止して報告する。
+
 ## Project concept
 
 This project is “よこぼのAIラボ”, a playful personal AI lab website.
