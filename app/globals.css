@@ -11,6 +11,891 @@
   --cream: #fff3d7;
   --white: #ffffff;
   --shadow: 0 14px 32px rgba(20, 88, 170, 0.14);
+  --arc-wood: #b3742e;
+  --arc-wood-deep: #7c4a16;
+  --arc-parchment: #fbf3e0;
+  --arc-glow: #6db8ff;
+  --arc-glow-soft: rgba(109, 184, 255, 0.35);
+  --arc-stamp: #d8533a;
+  --arc-gold: #f4c150;
+  --arc-card-radius: 18px;
+  --arc-tag-radius: 26px;
+  --tr-bg: #06111f;
+  --tr-panel: rgba(5, 18, 34, 0.86);
+  --tr-panel-strong: #081a2f;
+  --tr-line: rgba(71, 174, 255, 0.42);
+  --tr-blue: #1178ff;
+  --tr-cyan: #58d8ff;
+  --tr-glow: rgba(17, 120, 255, 0.48);
+  --tr-gold: #d6a84f;
+  --tr-metal: #24364d;
+  --tr-metal-dark: #101c2b;
+  --tr-orange: #ff9b3d;
+  --tr-radius: 18px;
+  --tr-card-radius: 16px;
+}
+
+/* Experience archive (CP1: data, collection cards and hero) */
+.experiencePage {
+  min-height: 100vh;
+  padding: 112px clamp(14px, 3vw, 48px) 72px;
+  background:
+    radial-gradient(circle at 8% 15%, rgba(244, 193, 80, 0.22) 0 2px, transparent 3px),
+    radial-gradient(circle at 92% 28%, rgba(109, 184, 255, 0.3) 0 2px, transparent 3px),
+    linear-gradient(180deg, #fffdf6 0%, #eef8ff 62%, #fff9e9 100%);
+}
+
+.experienceHero {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  min-height: 500px;
+  max-width: 1440px;
+  margin: 0 auto 18px;
+  overflow: hidden;
+  border: 4px solid #f1cf7d;
+  border-radius: 38px 38px 26px 26px;
+  background: #071d45 url("/assets/experience/hero/experience-archive-hero.png") center right / cover no-repeat;
+  box-shadow: 0 20px 46px rgba(11, 37, 75, 0.28), inset 0 0 0 2px rgba(255, 249, 218, 0.42);
+}
+
+.experienceHero::before {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(1, 20, 54, 0.96) 0%, rgba(2, 27, 67, 0.82) 35%, rgba(2, 29, 67, 0.34) 58%, rgba(1, 15, 39, 0.06) 78%),
+    linear-gradient(180deg, rgba(1, 19, 48, 0.08), rgba(1, 16, 42, 0.18));
+}
+
+.experienceHeroCopy {
+  position: relative;
+  z-index: 1;
+  width: min(52%, 690px);
+  min-width: 0;
+  align-self: center;
+  margin: 34px 0 34px clamp(28px, 4.5vw, 68px);
+  padding: clamp(26px, 3vw, 42px);
+  border: 1px solid rgba(255, 231, 166, 0.48);
+  border-radius: 24px;
+  color: white;
+  background: linear-gradient(135deg, rgba(3, 29, 70, 0.88), rgba(4, 34, 76, 0.62));
+  box-shadow: 0 18px 38px rgba(0, 11, 30, 0.28), inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(5px);
+}
+
+.experiencePlate {
+  display: inline-flex;
+  gap: 9px;
+  align-items: center;
+  margin: 0 0 15px;
+  padding: 7px 13px;
+  border: 1px solid rgba(255, 229, 158, 0.62);
+  border-radius: 7px;
+  color: #fff3c9;
+  background: rgba(4, 24, 57, 0.66);
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.experiencePlate span { font-family: inherit; letter-spacing: 0; }
+
+.experienceHero h1 {
+  margin: 0 0 14px;
+  color: white;
+  font-size: clamp(45px, 4.7vw, 76px);
+  line-height: 1;
+  letter-spacing: 0.03em;
+  text-shadow: 0 3px 18px rgba(0, 9, 33, 0.72), 0 0 28px rgba(109, 184, 255, 0.36);
+}
+
+.experienceLead {
+  max-width: 610px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.94);
+  font-size: clamp(14px, 1.2vw, 17px);
+  font-weight: 650;
+  line-height: 1.9;
+}
+
+.experienceHeroActions {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.experienceHeroActions button,
+.experiencePlayButton {
+  min-height: 48px;
+  border: 0;
+  border-radius: 999px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.experienceHeroPrimary {
+  padding: 0 24px;
+  color: white;
+  background: linear-gradient(180deg, #2585ff, #0057e9);
+  box-shadow: 0 7px 0 #003da4, 0 10px 18px rgba(0, 87, 233, 0.27);
+}
+
+.experienceHeroSecondary {
+  padding: 0 20px;
+  border: 2px solid rgba(255, 239, 194, 0.8) !important;
+  color: white;
+  background: rgba(5, 31, 70, 0.58);
+}
+
+.experienceCollection {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 0 40px;
+}
+
+.experienceToolbar {
+  position: sticky;
+  z-index: 20;
+  top: 8px;
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  padding: 12px 16px;
+  border: 1px solid rgba(179, 116, 46, 0.24);
+  border-radius: 22px;
+  background: rgba(255, 252, 241, 0.92);
+  box-shadow: 0 8px 24px rgba(8, 42, 99, 0.12);
+  backdrop-filter: blur(12px);
+}
+
+.experienceFilters {
+  display: flex;
+  gap: 8px;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.experienceFilters button {
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 7px;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 17px;
+  border: 1px solid #e5d5b4;
+  border-radius: 999px;
+  color: var(--navy);
+  background: #fffdf8;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.experienceFilters button.active {
+  border-color: #0e68ee;
+  color: white;
+  background: linear-gradient(180deg, #2b84ff, #0756db);
+  box-shadow: 0 5px 12px rgba(17, 120, 255, 0.25);
+}
+
+.experienceToolbarMeta {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 13px;
+  align-items: center;
+  color: var(--navy);
+  font-size: 13px;
+}
+
+.experienceToolbarMeta label { display: flex; gap: 7px; align-items: center; font-weight: 700; }
+.experienceToolbarMeta select { min-height: 40px; padding: 0 30px 0 12px; border: 1px solid #ddcba8; border-radius: 999px; color: var(--navy); background: white; font-weight: 800; }
+
+.experienceGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.experienceCard {
+  --arc-card-tilt: 0deg;
+  position: relative;
+  display: flex;
+  min-width: 0;
+  min-height: 450px;
+  flex-direction: column;
+  padding: 15px;
+  overflow: visible;
+  border: 1px solid #e6cda2;
+  border-radius: var(--arc-card-radius) var(--arc-tag-radius) var(--arc-card-radius) var(--arc-card-radius);
+  background:
+    radial-gradient(circle at 91% 8%, transparent 0 5px, #d8bc86 6px 7px, transparent 8px),
+    repeating-linear-gradient(0deg, transparent 0 25px, rgba(135, 86, 28, 0.035) 26px 27px),
+    var(--arc-parchment);
+  box-shadow: 0 8px 0 #e1c596, 0 14px 26px rgba(78, 55, 25, 0.14);
+  transform: rotate(var(--arc-card-tilt));
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.experienceCard::after {
+  position: absolute;
+  z-index: 2;
+  right: 34px;
+  bottom: 62px;
+  color: rgba(244, 193, 80, 0.38);
+  content: "✦";
+  font-size: 28px;
+  opacity: 0;
+  transform: rotate(12deg) scale(0.75);
+  transition: opacity 180ms ease, transform 180ms ease;
+  pointer-events: none;
+}
+
+.experienceCard:hover {
+  z-index: 2;
+  border-color: rgba(90, 166, 255, 0.68);
+  transform: translateY(-6px) rotate(calc(var(--arc-card-tilt) - 0.35deg));
+  box-shadow: 0 10px 0 #dfbf84, 0 22px 36px rgba(64, 46, 25, 0.25), 0 0 0 2px rgba(109, 184, 255, 0.3), 0 0 28px var(--arc-glow-soft);
+}
+
+.experienceCard:hover::after { opacity: 1; transform: rotate(25deg) scale(1.15); }
+
+.experienceCard--density-medium::after { opacity: 0.38; }
+.experienceCard--density-high::after { opacity: 0.72; }
+
+.experienceCard--forest {
+  --arc-card-tilt: -0.14deg;
+  background: radial-gradient(circle at 88% 12%, rgba(75, 175, 119, 0.15), transparent 25%), linear-gradient(125deg, transparent 0 72%, rgba(255, 206, 72, 0.1) 73% 74%, transparent 75%), repeating-linear-gradient(0deg, transparent 0 26px, rgba(52, 123, 73, 0.04) 27px 28px), #fff8e6;
+}
+
+.experienceCard--voxel {
+  --arc-card-tilt: 0.08deg;
+  border-color: #b8d1df;
+  background: linear-gradient(rgba(74, 145, 179, 0.075) 1px, transparent 1px), linear-gradient(90deg, rgba(74, 145, 179, 0.075) 1px, transparent 1px), radial-gradient(circle at 90% 10%, rgba(59, 194, 226, 0.18), transparent 24%), #f4fbf8;
+  background-size: 22px 22px, 22px 22px, auto, auto;
+}
+
+.experienceCard--fighter {
+  --arc-card-tilt: -0.2deg;
+  border-color: #ddb38d;
+  background: radial-gradient(circle at 89% 12%, rgba(255, 82, 87, 0.18), transparent 23%), repeating-linear-gradient(135deg, rgba(192, 60, 53, 0.035) 0 2px, transparent 2px 16px), #fff4df;
+}
+
+.experienceCard--translation {
+  --arc-card-tilt: 0.16deg;
+  background: linear-gradient(90deg, transparent 0 31px, rgba(216, 83, 58, 0.1) 32px 33px, transparent 34px), repeating-linear-gradient(0deg, transparent 0 27px, rgba(37, 110, 183, 0.07) 28px 29px), #fffdf2;
+}
+
+.experienceCard--old-site {
+  --arc-card-tilt: -0.1deg;
+  border: 2px solid #cf9d54;
+  background: radial-gradient(circle at 13% 8%, rgba(255, 86, 155, 0.14) 0 2px, transparent 3px), radial-gradient(circle at 88% 16%, rgba(65, 182, 255, 0.17) 0 3px, transparent 4px), linear-gradient(135deg, rgba(255, 255, 255, 0.35), transparent 36%), repeating-linear-gradient(90deg, rgba(124, 74, 22, 0.03) 0 38px, rgba(124, 74, 22, 0.075) 39px 40px), #f5e6ca;
+  box-shadow: 0 8px 0 #c99a5e, 0 15px 28px rgba(91, 55, 16, 0.18);
+}
+
+.experienceCard--drive {
+  --arc-card-tilt: 0.12deg;
+  border-style: dashed;
+  background: linear-gradient(110deg, rgba(255, 255, 255, 0.32), transparent 35%), #f8efd9;
+}
+
+.experienceCard--default {
+  --arc-card-tilt: 0deg;
+  background: radial-gradient(circle at 90% 10%, rgba(109, 184, 255, 0.12), transparent 22%), repeating-linear-gradient(0deg, transparent 0 25px, rgba(135, 86, 28, 0.035) 26px 27px), var(--arc-parchment);
+}
+
+.experienceCard.isFeatured {
+  border-color: rgba(244, 193, 80, 0.92);
+  box-shadow: 0 9px 0 #d9a943, 0 18px 34px rgba(67, 96, 152, 0.22), 0 0 0 3px rgba(244, 193, 80, 0.22), 0 0 30px rgba(109, 184, 255, 0.28);
+}
+
+.experienceFeaturedLabel {
+  align-self: flex-start;
+  margin: -3px 0 10px 4px;
+  padding: 6px 11px;
+  border: 1px solid #ddb04a;
+  border-radius: 999px;
+  color: #70470a;
+  background: linear-gradient(180deg, #fff5bb, #f4c85d);
+  box-shadow: 0 3px 8px rgba(117, 76, 10, 0.16);
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: 0.03em;
+}
+
+.experienceCardArtifactNote,
+.experienceCardArtifactSeal,
+.experienceCardArtifactClip,
+.experienceCardHoverParticle {
+  position: absolute;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.experienceCardArtifactNote {
+  top: -10px;
+  left: 18px;
+  padding: 5px 9px;
+  border: 1px solid rgba(151, 107, 44, 0.55);
+  border-radius: 3px;
+  color: #684619;
+  background: #fff0b8;
+  box-shadow: 2px 3px 8px rgba(72, 48, 17, 0.15);
+  font: 850 8px ui-monospace, monospace;
+  letter-spacing: 0.05em;
+  opacity: 0;
+  transform: rotate(-3deg);
+}
+
+.experienceCardArtifactSeal {
+  right: -7px;
+  bottom: 48px;
+  display: grid;
+  width: 27px;
+  aspect-ratio: 1;
+  place-items: center;
+  border: 2px solid rgba(255, 255, 255, 0.78);
+  border-radius: 50%;
+  color: white;
+  background: var(--arc-stamp);
+  box-shadow: 0 3px 10px rgba(83, 28, 15, 0.24);
+  font-size: 10px;
+  opacity: 0.56;
+  transform: rotate(9deg);
+}
+
+.experienceCardArtifactClip {
+  top: -8px;
+  right: 52px;
+  width: 13px;
+  height: 29px;
+  border: 2px solid #927b63;
+  border-bottom-color: transparent;
+  border-radius: 8px 8px 2px 2px;
+  opacity: 0;
+  transform: rotate(9deg);
+}
+
+.experienceCard--density-medium .experienceCardArtifactNote { opacity: 0.82; }
+.experienceCard--density-high .experienceCardArtifactNote { opacity: 1; }
+.experienceCard--density-medium .experienceCardArtifactSeal { width: 32px; opacity: 0.78; }
+.experienceCard--density-high .experienceCardArtifactSeal { width: 39px; opacity: 1; box-shadow: 0 3px 10px rgba(83, 28, 15, 0.25), 0 0 16px rgba(244, 193, 80, 0.38); }
+.experienceCard--density-medium .experienceCardArtifactClip,
+.experienceCard--density-high .experienceCardArtifactClip { opacity: 0.72; }
+.experienceCard--density-high .experienceCardArtifactClip { opacity: 1; }
+
+.experienceCard--voxel .experienceCardArtifactNote { color: #07566e; background: #dff7ff; border-color: #7ebfd2; }
+.experienceCard--fighter .experienceCardArtifactNote { color: #8b2822; background: #ffe0bd; border-color: #d88958; }
+.experienceCard--translation .experienceCardArtifactNote { color: #9c3729; background: #ffe7d7; }
+.experienceCard--old-site .experienceCardArtifactNote { color: #6f378d; background: #f7ddff; border-color: #c998dc; transform: rotate(3deg); }
+.experienceCard--forest .experienceCardArtifactSeal { background: #d99b20; }
+.experienceCard--voxel .experienceCardArtifactSeal { background: #1689b1; }
+.experienceCard--fighter .experienceCardArtifactSeal { background: #d84b3f; }
+.experienceCard--translation .experienceCardArtifactSeal { background: #466eb7; }
+.experienceCard--old-site .experienceCardArtifactSeal { background: #e6498e; }
+.experienceCard--drive .experienceCardArtifactSeal { color: #7a4c00; background: #f1bf3d; }
+
+.experienceCardTopline { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
+.experienceArchiveNo { color: #584527; font: 800 12px ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: 0.04em; }
+.experienceCard--archive-1 .experienceArchiveNo { position: relative; padding: 6px 10px 6px 14px; border: 1px solid #c8a66c; border-radius: 4px 12px 12px 4px; background: #fff7df; box-shadow: 2px 2px 0 rgba(111, 75, 25, 0.12); }
+.experienceCard--archive-1 .experienceArchiveNo::before { position: absolute; top: 50%; left: 5px; width: 4px; aspect-ratio: 1; border: 1px solid #9d7a42; border-radius: 50%; content: ""; transform: translateY(-50%); }
+.experienceCategoryChip { padding: 5px 10px; border-radius: 999px; color: #a21d50; background: #ffe3ee; font-size: 11px; font-weight: 900; }
+.experienceCard--tool .experienceCategoryChip { color: #075bbd; background: #dfefff; }
+.experienceCard--3d-ar .experienceCategoryChip { color: #08756e; background: #d6f7ef; }
+.experienceCard--web .experienceCategoryChip { color: #6d3aad; background: #eee2ff; }
+.experienceCard--av .experienceCategoryChip { color: #a44b09; background: #ffead4; }
+.experienceCard--prototype .experienceCategoryChip { color: #4f5f78; background: #e9eef5; }
+
+.experienceThumb {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border: 3px solid white;
+  border-radius: 13px;
+  background: #dcecff;
+  box-shadow: 0 3px 10px rgba(8, 42, 99, 0.2);
+}
+
+.experienceThumb img { object-fit: cover; transition: transform 300ms ease, filter 220ms ease; }
+.experienceCard:hover .experienceThumb img { filter: brightness(1.06) saturate(1.04); transform: scale(1.035); }
+.experienceCardSticker {
+  position: absolute;
+  z-index: 3;
+  top: 9px;
+  right: 9px;
+  display: grid;
+  min-width: 30px;
+  min-height: 30px;
+  padding: 4px 7px;
+  place-items: center;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  border-radius: 4px;
+  color: #855100;
+  background: #ffd65e;
+  box-shadow: 0 3px 9px rgba(45, 30, 7, 0.24);
+  font: 900 8px ui-monospace, monospace;
+  letter-spacing: 0.03em;
+  transform: rotate(5deg);
+}
+.experienceCard--density-low .experienceCardSticker { min-height: 25px; opacity: 0.76; }
+.experienceCard--density-high .experienceCardSticker { box-shadow: 0 3px 9px rgba(45, 30, 7, 0.24), 0 0 14px rgba(255, 219, 91, 0.55); }
+.experienceCard--forest .experienceCardSticker { color: #315f2d; background: #e9f2aa; transform: rotate(-5deg); }
+.experienceCard--voxel .experienceCardSticker { color: #07566e; background: #d8f6ff; transform: rotate(3deg); }
+.experienceCard--fighter .experienceCardSticker { color: white; background: #d95043; transform: rotate(7deg); }
+.experienceCard--translation .experienceCardSticker { color: #9c3729; background: #ffe8d8; transform: rotate(-6deg); }
+.experienceCard--old-site .experienceCardSticker { color: white; background: #e94a91; transform: rotate(8deg); }
+.experienceCard--drive .experienceCardSticker { color: #774114; background: #ffe9b4; transform: rotate(3deg); }
+.experienceCard--default .experienceCardSticker { color: #69448e; background: #eadcff; transform: rotate(-3deg); }
+.experienceThumbSparkles {
+  position: absolute;
+  z-index: 4;
+  top: 10px;
+  left: 10px;
+  color: #fff6aa;
+  font-size: 22px;
+  opacity: 0;
+  text-shadow: 0 0 5px white, 0 0 12px var(--arc-gold);
+  transform: scale(0.55) rotate(-20deg);
+  transition: opacity 180ms ease, transform 220ms ease;
+  pointer-events: none;
+}
+.experienceCard--density-medium .experienceThumbSparkles { opacity: 0.3; }
+.experienceCard--density-high .experienceThumbSparkles { opacity: 0.78; }
+.experienceCard:hover .experienceThumbSparkles { opacity: 1; transform: scale(1) rotate(8deg); }
+.experienceWipBand { position: absolute; inset: auto 0 15px; padding: 7px; color: white; background: rgba(8, 42, 99, 0.8); font-weight: 900; text-align: center; }
+.experienceCard.isWip { opacity: 0.72; }
+
+.experienceCardBody { flex: 1; padding: 14px 3px 8px; }
+.experienceCardBody h2 { display: -webkit-box; margin: 0 0 8px; overflow: hidden; color: var(--navy); font-size: 17px; line-height: 1.45; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+.experienceCardBody p { display: -webkit-box; margin: 0; overflow: hidden; color: #4d5f7c; font-size: 12px; line-height: 1.65; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+.experienceTags { display: flex; gap: 5px; margin-top: 11px; overflow: hidden; }
+.experienceTags span { flex: 0 0 auto; padding: 4px 7px; border: 1px solid #e5c88e; border-radius: 5px; color: #684817; background: #fffaf0; font-size: 9px; font-weight: 700; }
+
+.experienceCardActions { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(105px, 1fr) auto 34px; gap: 6px; align-items: center; }
+.experiencePlayButton { position: relative; display: inline-flex; align-items: center; justify-content: center; min-height: 40px; padding: 0 12px; overflow: hidden; color: white; background: linear-gradient(180deg, #2787ff, #0756df); box-shadow: 0 4px 0 #0042a8; font-size: 12px; }
+.experiencePlayButton::after { position: absolute; inset: -50% auto -50% -35%; width: 24%; content: ""; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.65), transparent); transform: translateX(-180%) rotate(18deg); }
+.experienceCard:hover .experiencePlayButton::after { animation: experienceButtonShine 850ms ease-out; }
+.experiencePlayButton.isDisabled { color: #71809b; background: #d8deea; box-shadow: none; cursor: not-allowed; }
+.experienceLogLink { color: #0a4dba; font-size: 11px; font-weight: 900; white-space: nowrap; }
+.experienceSaveButton { display: grid; width: 34px; aspect-ratio: 1; place-items: center; border: 1px solid #e5c575; border-radius: 50%; color: #d89a00; background: #fffdf7; font-size: 20px; cursor: pointer; transition: transform 180ms ease, box-shadow 180ms ease; }
+.experienceCard:hover .experienceSaveButton { transform: translateY(-1px) scale(1.05); box-shadow: 0 0 12px rgba(244, 193, 80, 0.38); }
+.experienceSaveButton.isSaved { color: #fff; background: linear-gradient(180deg, #ffd85e, #eaa916); box-shadow: 0 0 0 3px rgba(244, 193, 80, 0.2), 0 0 16px rgba(244, 193, 80, 0.58); animation: experienceSavePop 320ms ease-out; }
+
+.experienceCardHoverParticle {
+  left: 39%;
+  bottom: 47px;
+  color: #ffe58b;
+  font-size: 17px;
+  opacity: 0;
+  text-shadow: 0 0 7px white, 0 0 13px var(--arc-gold);
+  transform: translateY(7px) scale(0.55);
+  transition: opacity 180ms ease, transform 220ms ease;
+}
+
+.experienceCard--density-high:hover .experienceCardHoverParticle,
+.experienceCard--density-medium:hover .experienceCardHoverParticle {
+  opacity: 1;
+  transform: translateY(-4px) scale(1);
+}
+
+@keyframes experienceButtonShine {
+  from { transform: translateX(-180%) rotate(18deg); }
+  to { transform: translateX(650%) rotate(18deg); }
+}
+
+@keyframes experienceSavePop {
+  0% { transform: scale(0.78); }
+  58% { transform: scale(1.2) rotate(10deg); }
+  100% { transform: scale(1); }
+}
+
+.experienceEmpty {
+  display: grid;
+  min-height: 300px;
+  place-items: center;
+  align-content: center;
+  padding: 35px;
+  border: 2px dashed #d9b879;
+  border-radius: 24px;
+  color: var(--navy);
+  background: rgba(251, 243, 224, 0.72);
+  text-align: center;
+}
+
+.experienceEmpty span { font-size: 48px; }
+.experienceEmpty h2 { margin: 10px 0 5px; }
+.experienceEmpty p { margin: 0; color: var(--muted); }
+
+.experiencePage button:focus-visible,
+.experiencePage a:focus-visible,
+.experiencePage select:focus-visible {
+  outline: 3px solid #ffe064;
+  outline-offset: 3px;
+}
+
+@media (max-width: 1199px) {
+  .experienceHero { background-position: 58% center; }
+  .experienceHeroCopy { margin-left: 30px; }
+  .experienceGrid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .experienceToolbar { align-items: stretch; flex-direction: column; }
+  .experienceToolbarMeta { justify-content: flex-end; }
+}
+
+@media (max-width: 767px) {
+  .experiencePage { padding: 104px 10px 48px; }
+  .experienceHero { min-height: 760px; border-width: 3px; border-radius: 26px; background-position: 78% center; }
+  .experienceHero::before { background: linear-gradient(180deg, rgba(1, 20, 52, 0.91) 0%, rgba(1, 24, 58, 0.73) 46%, rgba(1, 18, 46, 0.08) 78%); }
+  .experienceHeroCopy { width: auto; align-self: flex-start; margin: 18px 14px 0; padding: 23px 20px; }
+  .experienceHero h1 { font-size: clamp(43px, 12vw, 60px); }
+  .experienceLead { font-size: 14px; line-height: 1.75; }
+  .experienceLead br { display: none; }
+  .experienceHeroActions { align-items: stretch; flex-direction: column; }
+  .experienceToolbar { top: 4px; padding: 10px; }
+  .experienceToolbarMeta { justify-content: space-between; }
+  .experienceGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .experienceCard { min-height: 430px; padding: 11px; }
+  .experienceCardActions { grid-template-columns: 1fr 34px; }
+  .experienceLogLink { grid-row: 2; grid-column: 1 / -1; padding-top: 5px; text-align: center; }
+}
+
+@media (max-width: 479px) {
+  .experienceHero { min-height: 720px; }
+  .experiencePlate { font-size: 10px; }
+  .experienceGrid { grid-template-columns: 1fr; }
+  .experienceCard { min-height: 0; }
+  .experienceToolbarMeta label { font-size: 0; }
+  .experienceToolbarMeta select { font-size: 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .experienceCard,
+  .experienceThumb img,
+  .experienceThumbSparkles,
+  .experienceCardHoverParticle,
+  .experienceSaveButton { transition: none; }
+  .experienceCard:hover { transform: none; }
+  .experienceCard:hover .experienceThumb img { transform: none; }
+  .experienceCard:hover .experienceThumbSparkles { transform: none; }
+  .experienceCard:hover .experienceCardHoverParticle,
+  .experienceCard:hover .experienceSaveButton { transform: none; }
+  .experienceCard:hover .experiencePlayButton::after,
+  .experienceSaveButton.isSaved { animation: none; }
+}
+
+/* Experience v3: TRANSFER ROOM */
+.siteHeader.siteHeader--experience { color: #eaf7ff; }
+.siteHeader--experience .brand { filter: brightness(0) invert(1); }
+.siteHeader.siteHeader--experience nav a.active { color: var(--tr-cyan); }
+.siteHeader.siteHeader--experience nav a.active::after { background: var(--tr-cyan); box-shadow: 0 0 10px var(--tr-glow); }
+
+.experiencePage--transfer {
+  padding-bottom: 72px;
+  color: #eef8ff;
+  background:
+    radial-gradient(circle at 50% 18%, rgba(17, 120, 255, 0.2), transparent 34%),
+    linear-gradient(rgba(63, 154, 222, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(63, 154, 222, 0.035) 1px, transparent 1px),
+    var(--tr-bg);
+  background-size: auto, 34px 34px, 34px 34px, auto;
+}
+
+.experiencePage--transfer .experienceHero {
+  min-height: 520px;
+  border: 2px solid rgba(214, 168, 79, 0.82);
+  border-radius: 26px;
+  background: #07111e url("/assets/experience/transfer-room/hero/hero-transfer-room.png") center right / cover no-repeat;
+  box-shadow: 0 0 0 5px rgba(7, 26, 47, 0.92), 0 22px 55px rgba(0, 0, 0, 0.46), 0 0 34px rgba(17, 120, 255, 0.14);
+}
+
+.experiencePage--transfer .experienceHero::before {
+  background: linear-gradient(90deg, rgba(2, 12, 24, 0.98) 0%, rgba(3, 17, 32, 0.9) 34%, rgba(3, 18, 34, 0.5) 50%, rgba(3, 18, 34, 0.05) 72%);
+}
+
+.experiencePage--transfer .experienceHeroCopy {
+  width: min(48%, 650px);
+  margin: 34px 0 34px clamp(28px, 4vw, 62px);
+  padding: clamp(23px, 2.6vw, 36px);
+  border: 1px solid var(--tr-line);
+  border-radius: 6px 22px 6px 22px;
+  color: #f2f8ff;
+  background:
+    linear-gradient(135deg, rgba(7, 26, 47, 0.88), rgba(4, 17, 31, 0.76)),
+    var(--tr-panel);
+  box-shadow: inset 0 0 0 1px rgba(88, 216, 255, 0.08), 0 0 26px rgba(17, 120, 255, 0.14);
+  backdrop-filter: blur(3px);
+}
+
+.experiencePage--transfer .experienceHeroCopy::before,
+.experiencePage--transfer .experienceHeroCopy::after {
+  position: absolute;
+  width: 42px;
+  height: 42px;
+  border-color: var(--tr-cyan);
+  content: "";
+  pointer-events: none;
+}
+
+.experiencePage--transfer .experienceHeroCopy::before { top: -1px; left: -1px; border-top: 3px solid; border-left: 3px solid; }
+.experiencePage--transfer .experienceHeroCopy::after { right: -1px; bottom: -1px; border-right: 3px solid; border-bottom: 3px solid; }
+
+.experiencePage--transfer .experiencePlate {
+  border-color: rgba(88, 216, 255, 0.38);
+  color: var(--tr-cyan);
+  background: rgba(4, 17, 31, 0.76);
+  box-shadow: 0 0 14px rgba(17, 120, 255, 0.12);
+}
+
+.experiencePage--transfer .experienceHero h1 {
+  color: #fff;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.7), 0 0 25px rgba(88, 216, 255, 0.16);
+}
+
+.experiencePage--transfer .experienceLead { color: #dcecff; font-weight: 650; }
+
+.experiencePage--transfer .experienceHeroActions { align-items: stretch; }
+
+.experiencePage--transfer .experienceHeroPrimary,
+.experiencePage--transfer .experienceHeroSecondary {
+  display: inline-flex;
+  min-height: 50px;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 0 22px;
+  border-radius: 6px;
+  font-weight: 900;
+}
+
+.experiencePage--transfer .experienceHeroPrimary {
+  border: 1px solid #53cfff;
+  background: linear-gradient(180deg, #167fff, #0754cc);
+  box-shadow: 0 0 18px rgba(17, 120, 255, 0.58), inset 0 1px rgba(255, 255, 255, 0.24);
+}
+
+.experiencePage--transfer .experienceHeroSecondary {
+  border: 1px solid rgba(88, 216, 255, 0.55) !important;
+  color: #aeeaff;
+  background: rgba(2, 14, 27, 0.74);
+}
+
+.experienceWarpIcon {
+  position: relative;
+  display: grid;
+  width: 22px;
+  aspect-ratio: 1;
+  place-items: center;
+  border: 2px solid #c6f6ff;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #62ddff, inset 0 0 6px rgba(98, 221, 255, 0.74);
+}
+
+.experienceWarpIcon::before,
+.experienceWarpIcon::after {
+  position: absolute;
+  inset: 3px -4px;
+  border: 1px solid rgba(203, 246, 255, 0.82);
+  border-radius: 50%;
+  content: "";
+  transform: rotate(42deg);
+}
+
+.experienceWarpIcon::after { transform: rotate(-42deg); }
+.experienceWarpIcon span { color: #ffe3a1; font-size: 7px; text-shadow: 0 0 6px #ffe3a1; }
+
+.experienceHeroMessage {
+  margin-top: 24px;
+  padding: 14px 16px;
+  border: 1px solid rgba(71, 174, 255, 0.24);
+  border-radius: 8px;
+  color: #cce7f8;
+  background: rgba(3, 15, 29, 0.58);
+}
+
+.experienceHeroMessage strong { display: block; margin-bottom: 5px; color: var(--tr-cyan); font-size: 12px; }
+.experienceHeroMessage p { margin: 0; font-size: 12px; line-height: 1.65; }
+.experienceHeroMessage--mobile { display: none; }
+
+.experiencePage--transfer .experienceCollection { scroll-margin-top: 18px; }
+
+.experiencePage--transfer .experienceToolbar {
+  border: 1px solid var(--tr-line);
+  border-radius: 12px;
+  background: rgba(4, 17, 31, 0.94);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.32), inset 0 -1px rgba(88, 216, 255, 0.08);
+}
+
+.experiencePage--transfer .experienceFilters button {
+  border-color: rgba(111, 154, 188, 0.36);
+  color: #eaf7ff;
+  background: linear-gradient(180deg, rgba(36, 54, 77, 0.96), rgba(13, 29, 46, 0.96));
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.025);
+}
+
+.experiencePage--transfer .experienceFilters button.active {
+  border-color: var(--tr-cyan);
+  color: white;
+  background: linear-gradient(180deg, #147efc, #0647ae);
+  box-shadow: 0 0 18px var(--tr-glow), inset 0 0 12px rgba(88, 216, 255, 0.26);
+}
+
+.experiencePage--transfer .experienceToolbarMeta { color: #bcd7e9; }
+.experiencePage--transfer .experienceToolbarMeta select { border-color: rgba(71, 174, 255, 0.35); color: #eaf7ff; background: #0b1d30; }
+
+.experienceSavedDestinations {
+  min-height: 38px;
+  padding: 0 12px;
+  border: 1px solid rgba(71, 174, 255, 0.28);
+  border-radius: 6px;
+  color: #ccecff;
+  background: #0a1c2f;
+  font-size: 11px;
+  font-weight: 850;
+  cursor: pointer;
+}
+
+.experienceSavedDestinations.active { border-color: var(--tr-gold); color: #ffe7ad; box-shadow: 0 0 13px rgba(214, 168, 79, 0.22); }
+
+.experiencePage--transfer .experienceGrid { gap: 16px; }
+
+.experienceTransferPanel {
+  --tr-accent: var(--tr-blue);
+  position: relative;
+  display: flex;
+  min-width: 0;
+  min-height: 455px;
+  flex-direction: column;
+  padding: 13px;
+  overflow: hidden;
+  border: 1px solid rgba(95, 151, 193, 0.48);
+  border-radius: var(--tr-card-radius);
+  color: #eef8ff;
+  background:
+    linear-gradient(145deg, rgba(55, 83, 111, 0.18), transparent 36%),
+    linear-gradient(180deg, #0a2035, #061522 78%);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.025), 0 10px 22px rgba(0, 0, 0, 0.34), 0 0 0 rgba(17, 120, 255, 0);
+  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.experienceTransferPanel:hover {
+  z-index: 3;
+  border-color: color-mix(in srgb, var(--tr-accent) 75%, white);
+  box-shadow: inset 0 0 0 1px rgba(88, 216, 255, 0.14), 0 16px 30px rgba(0, 0, 0, 0.46), 0 0 22px color-mix(in srgb, var(--tr-accent) 48%, transparent);
+  transform: translateY(-4px);
+}
+
+.experienceTransferPanel--game { --tr-accent: #ff7e47; }
+.experienceTransferPanel--3d-ar { --tr-accent: #42ddff; }
+.experienceTransferPanel--tool { --tr-accent: #55e5bc; }
+.experienceTransferPanel--web { --tr-accent: #65a9ff; }
+.experienceTransferPanel--av { --tr-accent: #b786ff; }
+.experienceTransferPanel--prototype { --tr-accent: #ffc05c; }
+
+.experienceTransferCorner { position: absolute; z-index: 2; width: 28px; height: 28px; border-color: var(--tr-accent); opacity: 0.62; pointer-events: none; }
+.experienceTransferCorner--tl { top: 5px; left: 5px; border-top: 2px solid; border-left: 2px solid; }
+.experienceTransferCorner--br { right: 5px; bottom: 5px; border-right: 2px solid; border-bottom: 2px solid; }
+
+.experienceTransferMeta { display: flex; position: relative; z-index: 3; align-items: center; justify-content: space-between; gap: 8px; margin: 1px 2px 9px; }
+.experienceTransferCategory { padding: 5px 9px; border: 1px solid color-mix(in srgb, var(--tr-accent) 58%, transparent); border-radius: 4px; color: #eafaff; background: rgba(7, 27, 47, 0.9); font-size: 10px; font-weight: 900; }
+.experienceTransferStatus { padding: 5px 8px; border-radius: 4px; color: white; background: #147b45; box-shadow: 0 0 10px rgba(52, 210, 126, 0.2); font-size: 9px; font-weight: 950; letter-spacing: 0.06em; }
+.experienceTransferStatus--new { background: #eb4543; box-shadow: 0 0 12px rgba(255, 69, 67, 0.4); }
+.experienceTransferStatus--hot { background: #ef632f; box-shadow: 0 0 12px rgba(255, 111, 54, 0.4); }
+.experienceTransferStatus--wip { color: #30220c; background: #ffc25a; }
+
+.experiencePortalWindow {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #020b14;
+  box-shadow: 0 0 22px color-mix(in srgb, var(--tr-accent) 30%, transparent), inset 0 0 18px rgba(0, 0, 0, 0.6);
+}
+
+.experiencePortalWindow > img { z-index: 0; object-fit: cover; transition: filter 220ms ease, transform 280ms ease; }
+.experienceTransferPanel:hover .experiencePortalWindow > img { filter: brightness(1.09) saturate(1.08); transform: scale(1.035); }
+
+.experiencePortalFrame { position: absolute; z-index: 3; inset: -2px; background: url("/assets/experience/transfer-room/frames/transfer-panel-frame-default.png") center / 100% 100% no-repeat; pointer-events: none; }
+.experiencePortalScan { position: absolute; z-index: 2; inset: 0; opacity: 0.24; background: repeating-linear-gradient(180deg, transparent 0 4px, rgba(76, 202, 255, 0.22) 5px, transparent 6px); mix-blend-mode: screen; pointer-events: none; }
+.experiencePortalCode { position: absolute; z-index: 4; right: 12px; bottom: 9px; padding: 3px 6px; border: 1px solid rgba(88, 216, 255, 0.5); border-radius: 3px; color: #b8efff; background: rgba(2, 13, 25, 0.72); font: 700 7px ui-monospace, monospace; letter-spacing: 0.08em; }
+
+.experienceTransferBody { flex: 1; padding: 14px 4px 10px; }
+.experienceTransferBody h2 { display: -webkit-box; margin: 0 0 8px; overflow: hidden; color: white; font-size: 17px; line-height: 1.42; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+.experienceTransferBody p { display: -webkit-box; margin: 0; overflow: hidden; color: #b9cfde; font-size: 12px; line-height: 1.6; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+.experienceTransferTags { display: flex; gap: 5px; margin-top: 10px; overflow: hidden; }
+.experienceTransferTags span { flex: 0 0 auto; padding: 4px 7px; border: 1px solid rgba(102, 153, 188, 0.35); border-radius: 4px; color: #bfd8e8; background: rgba(20, 42, 61, 0.7); font-size: 9px; }
+
+.experienceTransferActions { position: relative; z-index: 3; }
+.experienceTransferButton { position: relative; display: flex; min-height: 42px; align-items: center; justify-content: center; gap: 8px; overflow: hidden; border: 1px solid #3bb9ff; border-radius: 6px; color: white; background: linear-gradient(180deg, #147fff, #0753c7); box-shadow: inset 0 1px rgba(255, 255, 255, 0.22), 0 0 13px rgba(17, 120, 255, 0.24); font-size: 12px; font-weight: 900; }
+.experienceTransferButton::after { position: absolute; inset: -50% auto -50% -30%; width: 22%; content: ""; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.55), transparent); transform: translateX(-180%) rotate(16deg); }
+.experienceTransferPanel:hover .experienceTransferButton::after { animation: transferButtonShine 820ms ease-out; }
+.experienceTransferButton.isDisabled { border-color: #566779; color: #91a2af; background: #24303c; box-shadow: none; }
+.experienceTransferSubActions { display: grid; grid-template-columns: 1fr 36px; gap: 8px; align-items: center; margin-top: 9px; }
+.experienceTransferLog { color: #8edfff; font-size: 10px; font-weight: 800; text-align: center; }
+.experiencePawSave { display: grid; width: 36px; aspect-ratio: 1; place-items: center; border: 1px solid rgba(100, 173, 220, 0.5); border-radius: 50%; background: #0b2034; cursor: pointer; transition: box-shadow 180ms ease, transform 180ms ease; }
+.experiencePawSave img { width: 21px; height: 21px; opacity: 0.34; filter: brightness(0) saturate(100%) invert(77%) sepia(10%) saturate(655%) hue-rotate(164deg) brightness(92%); transition: opacity 180ms ease, filter 180ms ease; }
+.experiencePawSave:hover { border-color: rgba(88, 216, 255, 0.78); box-shadow: 0 0 15px rgba(88, 216, 255, 0.54), inset 0 0 8px rgba(88, 216, 255, 0.12); transform: scale(1.06); }
+.experiencePawSave:hover img { opacity: 0.72; }
+.experiencePawSave.isSaved { border-color: #7be8ff; background: radial-gradient(circle, #167ed5, #073c78); box-shadow: 0 0 0 2px rgba(88, 216, 255, 0.15), 0 0 19px rgba(88, 216, 255, 0.82), inset 0 0 10px rgba(173, 241, 255, 0.28); animation: transferPawSave 300ms ease-out; }
+.experiencePawSave.isSaved img { opacity: 1; filter: brightness(0) saturate(100%) invert(91%) sepia(95%) saturate(1423%) hue-rotate(324deg) brightness(111%); }
+
+.experiencePage--transfer .experienceEmpty { border-color: rgba(71, 174, 255, 0.38); color: #eaf7ff; background: rgba(5, 18, 34, 0.86); }
+.experiencePage--transfer .experienceEmpty span { color: var(--tr-cyan); text-shadow: 0 0 18px var(--tr-glow); }
+.experiencePage--transfer .experienceEmpty p { color: #9db9cb; }
+
+.experiencePage--transfer + .siteFooter { color: #b9cfde; background: #06111f; }
+
+@keyframes transferButtonShine { from { transform: translateX(-180%) rotate(16deg); } to { transform: translateX(650%) rotate(16deg); } }
+@keyframes transferPawSave { 0% { transform: scale(0.78); } 60% { transform: scale(1.18); } 100% { transform: scale(1); } }
+
+@media (max-width: 1199px) {
+  .experiencePage--transfer .experienceHero { background-position: 64% center; }
+  .experiencePage--transfer .experienceHeroCopy { width: min(56%, 620px); }
+  .experiencePage--transfer .experienceToolbarMeta { justify-content: space-between; }
+}
+
+@media (max-width: 767px) {
+  .experiencePage--transfer { padding-top: 104px; }
+  .experiencePage--transfer .experienceHero { min-height: 620px; background-image: url("/assets/experience/transfer-room/hero/hero-transfer-room-mobile.png"); background-position: center top; }
+  .experiencePage--transfer .experienceHero::before { background: linear-gradient(180deg, rgba(2, 12, 24, 0.9) 0%, rgba(3, 17, 32, 0.66) 44%, rgba(3, 18, 34, 0.04) 68%); }
+  .experiencePage--transfer .experienceHeroCopy { width: auto; margin: 10px 11px 0; padding: 15px 16px; background: linear-gradient(135deg, rgba(7, 26, 47, 0.78), rgba(4, 17, 31, 0.58)); }
+  .experiencePage--transfer .experienceHero h1 { margin-bottom: 10px; font-size: clamp(41px, 11vw, 56px); }
+  .experiencePage--transfer .experienceLead { font-size: 13px; line-height: 1.65; }
+  .experiencePage--transfer .experienceLead br { display: none; }
+  .experiencePage--transfer .experienceHeroActions { flex-direction: column; }
+  .experiencePage--transfer .experienceHeroPrimary,
+  .experiencePage--transfer .experienceHeroSecondary { min-height: 44px; }
+  .experienceHeroMessage--desktop { display: none; }
+  .experienceHeroMessage--mobile { display: flex; gap: 10px; align-items: center; margin: -4px auto 14px; padding: 9px 13px; border-color: rgba(71, 174, 255, 0.35); background: rgba(5, 18, 34, 0.92); }
+  .experienceHeroMessage--mobile strong { flex: 0 0 auto; margin: 0; font-size: 9px; }
+  .experienceHeroMessage--mobile p { font-size: 10px; line-height: 1.4; }
+  .experiencePage--transfer .experienceToolbarMeta { flex-wrap: wrap; }
+  .experienceSavedDestinations { order: 3; width: 100%; }
+  .experienceTransferPanel { min-height: 430px; padding: 10px; }
+  .experienceTransferBody h2 { font-size: 15px; }
+  .experienceTransferBody p { font-size: 11px; }
+  .experienceTransferTags span { padding-inline: 5px; font-size: 8px; }
+  .experiencePortalFrame { inset: -1px; }
+}
+
+@media (max-width: 479px) {
+  .experiencePage--transfer .experienceHero { min-height: 600px; background-position: center top; }
+  .experiencePage--transfer .experienceGrid { grid-template-columns: 1fr; }
+  .experienceTransferPanel { min-height: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .experienceTransferPanel,
+  .experiencePortalWindow > img,
+  .experiencePawSave { transition: none; }
+  .experienceTransferPanel:hover,
+  .experienceTransferPanel:hover .experiencePortalWindow > img,
+  .experiencePawSave:hover { transform: none; }
+  .experienceTransferPanel:hover .experienceTransferButton::after,
+  .experiencePawSave.isSaved { animation: none; }
 }
 
 * {

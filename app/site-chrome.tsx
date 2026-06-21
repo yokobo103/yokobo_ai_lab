@@ -8,6 +8,7 @@ import { usePathname } from "next/navigation";
 const navLinks = [
   { href: "/", label: "ホーム", key: "home" },
   { href: "/logs", label: "発見ログ", key: "posts" },
+  { href: "/experience", label: "体験格納庫", key: "experience" },
   { href: "/#themes", label: "遊びのテーマ", key: "themes" },
   { href: "/logs?category=ai-system", label: "ツール・素材", key: "tools" },
   { href: "/about", label: "よこぼについて", key: "about" }
@@ -41,7 +42,7 @@ export function SiteHeader({ active = "home" }: { active?: string }) {
   }
 
   return (
-    <header className="siteHeader">
+    <header className={`siteHeader${active === "experience" ? " siteHeader--experience" : ""}`}>
       <Link className="brand" href="/" aria-label="よこぼのAIラボ ホーム">
         <Image src="/assets/brand/lp-logo.webp" alt="よこぼのAIラボ" width={360} height={118} priority />
       </Link>
