@@ -139,15 +139,15 @@ export default async function Home() {
 
               <section className="newsletterPanel" aria-labelledby="podcast-heading">
                 <Link
-                  className="podcastCard"
+                  className="logLinkCard logLinkCard--podcast"
                   href="https://open.spotify.com/show/033vTuXONCeGCsiffRWoNM"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Spotifyでポッドキャスト よこぼのAIラボ 研究ログ を開く"
                 >
-                  <div className="podcastCopy">
-                    <span className="podcastBadge">
-                      <svg className="podcastBadgeIcon" viewBox="0 0 24 24" aria-hidden="true" fill="none">
+                  <div className="logLinkCard__copy">
+                    <span className="logLinkCard__badge">
+                      <svg className="logLinkCard__badgeIcon" viewBox="0 0 24 24" aria-hidden="true" fill="none">
                         <path d="M12 14.5a4 4 0 0 0 4-4V7a4 4 0 1 0-8 0v3.5a4 4 0 0 0 4 4Z" />
                         <path d="M5.5 10.5a6.5 6.5 0 0 0 13 0M12 17v3.5M8.5 20.5h7" />
                       </svg>
@@ -155,7 +155,7 @@ export default async function Home() {
                     </span>
                     <h2 id="podcast-heading">研究ログを聴く</h2>
                     <p>よこぼの発見や実験、考えていることを音声でお届けします。</p>
-                    <span className="podcastButton">
+                    <span className="logLinkCard__button">
                       <svg viewBox="0 0 24 24" aria-hidden="true" fill="none">
                         <path d="M5 12a7 7 0 0 1 14 0v5a2 2 0 0 1-2 2h-2v-7h4M5 12v5a2 2 0 0 0 2 2h2v-7H5" />
                       </svg>
@@ -163,47 +163,49 @@ export default async function Home() {
                       <span aria-hidden="true">→</span>
                     </span>
                   </div>
-                  <div className="podcastArt" aria-hidden="true">
-                    <span className="soundWave" />
-                    <span className="labDoodle atom">◎</span>
-                    <span className="labDoodle flask">⌬</span>
+                  <div className="logLinkCard__art" aria-hidden="true">
                     <Image
-                      className="podcastDoctor"
-                      src="/assets/characters/yokobo-reference.webp"
+                      className="logLinkCard__artImage"
+                      src="/assets/social/podcast-circle.webp"
                       alt=""
-                      width={300}
-                      height={300}
-                    />
-                    <Image
-                      className="podcastNyabbit"
-                      src="/assets/characters/nyabbit-reference.webp"
-                      alt=""
-                      width={220}
-                      height={220}
+                      width={720}
+                      height={720}
+                      sizes="(max-width: 760px) 158px, 178px"
+                      priority
                     />
                   </div>
                 </Link>
 
                 <Link
-                  className="xAccountCard"
+                  className="logLinkCard logLinkCard--x"
                   href="https://x.com/yokobo_ai"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Xで @yokobo_ai の研究進捗を見る"
                 >
-                  <span className="xAccountIcon" aria-hidden="true">X</span>
-                  <span className="xAccountText">
-                    <strong>@yokobo_ai</strong>
-                    <span>Xで研究の進捗をリアルタイム発信中</span>
-                  </span>
-                  <Image
-                    className="xAccountMascot"
-                    src="/assets/characters/yokobo-reference.webp"
-                    alt=""
-                    width={120}
-                    height={120}
-                  />
-                  <span className="xAccountArrow" aria-hidden="true">→</span>
+                  <div className="logLinkCard__copy">
+                    <span className="logLinkCard__badge">
+                      <span className="logLinkCard__xMark" aria-hidden="true">X</span>
+                      リアルタイム更新
+                    </span>
+                    <h2>@yokobo_ai</h2>
+                    <p>Xで研究の進捗やハプニングをリアルタイム発信中。</p>
+                    <span className="logLinkCard__button">
+                      Xで進捗を見る
+                      <span aria-hidden="true">→</span>
+                    </span>
+                  </div>
+                  <div className="logLinkCard__art" aria-hidden="true">
+                    <Image
+                      className="logLinkCard__artImage"
+                      src="/assets/social/x-circle.webp"
+                      alt=""
+                      width={720}
+                      height={720}
+                      sizes="(max-width: 760px) 158px, 178px"
+                      priority
+                    />
+                  </div>
                 </Link>
               </section>
             </div>
