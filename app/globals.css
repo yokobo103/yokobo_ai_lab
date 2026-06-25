@@ -1504,105 +1504,242 @@ img {
 }
 
 .newsletterPanel {
-  position: relative;
-  min-height: 250px;
-  overflow: hidden;
-  border-radius: 24px;
-  background:
-    radial-gradient(circle at 75% 15%, rgba(255, 255, 255, 0.42), transparent 27%),
-    linear-gradient(135deg, #edf6ff 0%, #dff0ff 58%, #cfe3ff 100%);
-  color: var(--white);
-  box-shadow: 0 14px 28px rgba(20, 88, 170, 0.12);
+  display: grid;
+  gap: 12px;
 }
 
-.newsletterCopy {
+.podcastCard,
+.xAccountCard {
+  text-decoration: none;
+}
+
+.podcastCard {
+  position: relative;
+  display: grid;
+  min-height: 266px;
+  overflow: hidden;
+  border: 1px solid rgba(130, 190, 235, 0.52);
+  border-radius: 28px;
+  background:
+    radial-gradient(circle at 86% 18%, rgba(255, 255, 255, 0.72), transparent 26%),
+    radial-gradient(circle at 68% 92%, rgba(255, 221, 168, 0.36), transparent 24%),
+    linear-gradient(135deg, #f8fcff 0%, #eaf7ff 48%, #d9edff 100%);
+  box-shadow: 0 18px 34px rgba(20, 88, 170, 0.14);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.podcastCard:hover,
+.podcastCard:focus-visible,
+.xAccountCard:hover,
+.xAccountCard:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 38px rgba(20, 88, 170, 0.18);
+}
+
+.podcastCard:focus-visible,
+.xAccountCard:focus-visible {
+  outline: 3px solid rgba(53, 143, 225, 0.34);
+  outline-offset: 4px;
+}
+
+.podcastCopy {
   position: relative;
   z-index: 2;
-  max-width: 260px;
-  padding: 26px 24px 22px;
+  max-width: 280px;
+  padding: 26px 24px 24px;
 }
 
-.newsletterCopy h2 {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin: 0;
-  color: var(--navy);
-  font-size: 20px;
-  font-weight: 950;
-  line-height: 1.3;
-  white-space: nowrap;
-}
-
-.newsletterCopy h2 img {
-  flex: 0 0 auto;
-}
-
-.newsletterCopy p {
-  margin: 10px 0 0;
-  color: #405a86;
-  font-size: 14px;
-  font-weight: 780;
-}
-
-.emailNotice {
+.podcastBadge {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  min-height: 46px;
-  margin-top: 16px;
-  padding: 0 14px;
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.9);
-  color: #8a96a9;
-  font-size: 13px;
-  font-weight: 900;
-  white-space: nowrap;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.62);
+  gap: 8px;
+  min-height: 42px;
+  padding: 0 16px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  color: #194c86;
+  font-size: 14px;
+  font-weight: 950;
+  box-shadow: 0 8px 18px rgba(20, 88, 170, 0.12);
 }
 
-.emailIcon {
+.podcastBadgeIcon,
+.podcastButton svg {
   flex: 0 0 auto;
-  width: 24px;
-  height: 24px;
-  color: #8a96a9;
+  width: 22px;
+  height: 22px;
   stroke: currentColor;
   stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
 
-.xHandleBanner {
-  display: block;
-  width: min(100%, 270px);
-  margin-top: 12px;
-  border-radius: 14px;
-  transition: transform 0.18s ease, filter 0.18s ease;
+.podcastCopy h2 {
+  margin: 22px 0 0;
+  color: var(--navy);
+  font-size: clamp(28px, 4vw, 36px);
+  font-weight: 950;
+  line-height: 1.18;
+  letter-spacing: 0;
+  white-space: nowrap;
 }
 
-.xHandleBanner:hover {
-  transform: translateY(-2px);
-  filter: drop-shadow(0 8px 14px rgba(12, 53, 120, 0.18));
+.podcastCopy p {
+  margin: 14px 0 0;
+  color: #405a86;
+  font-size: 15px;
+  font-weight: 780;
+  line-height: 1.8;
 }
 
-.xHandleBanner img {
-  display: block;
-  width: 100%;
-  height: auto;
+.podcastButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 52px;
+  margin-top: 20px;
+  padding: 0 18px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, #55a8f1 0%, #2d83dc 100%);
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 950;
+  box-shadow: 0 10px 18px rgba(45, 131, 220, 0.28);
 }
 
-.snsLabel {
-  margin-top: 14px !important;
-}
-
-.newsletterCat {
+.podcastArt {
   position: absolute;
-  right: 14px;
-  bottom: 0;
-  width: 140px;
+  inset: 0;
+  pointer-events: none;
+}
+
+.soundWave {
+  position: absolute;
+  top: 38px;
+  right: 96px;
+  width: 126px;
+  height: 38px;
+  opacity: 0.36;
+  background:
+    linear-gradient(90deg, transparent 0 4%, #77b9e9 4% 6%, transparent 6% 12%, #77b9e9 12% 14%, transparent 14% 20%, #77b9e9 20% 22%, transparent 22% 28%, #77b9e9 28% 30%, transparent 30% 36%, #77b9e9 36% 38%, transparent 38% 44%, #77b9e9 44% 46%, transparent 46% 52%, #77b9e9 52% 54%, transparent 54% 60%, #77b9e9 60% 62%, transparent 62% 68%, #77b9e9 68% 70%, transparent 70% 76%, #77b9e9 76% 78%, transparent 78% 84%, #77b9e9 84% 86%, transparent 86%);
+  clip-path: polygon(0 48%, 5% 38%, 10% 64%, 15% 16%, 20% 80%, 25% 42%, 30% 52%, 35% 25%, 40% 70%, 45% 34%, 50% 62%, 55% 18%, 60% 83%, 65% 44%, 70% 57%, 75% 32%, 80% 68%, 85% 46%, 90% 58%, 95% 41%, 100% 50%, 100% 100%, 0 100%);
+}
+
+.labDoodle {
+  position: absolute;
+  color: rgba(67, 139, 194, 0.24);
+  font-weight: 950;
+}
+
+.labDoodle.atom {
+  top: 86px;
+  right: 82px;
+  font-size: 42px;
+}
+
+.labDoodle.flask {
+  top: 24px;
+  right: 26px;
+  font-size: 36px;
+}
+
+.podcastDoctor {
+  position: absolute;
+  right: 88px;
+  bottom: -12px;
+  width: 156px;
   height: auto;
   object-fit: contain;
-  filter: drop-shadow(0 10px 14px rgba(0, 31, 78, 0.12));
+  filter: drop-shadow(0 14px 18px rgba(0, 31, 78, 0.16));
+}
+
+.podcastNyabbit {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  width: 112px;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 16px rgba(0, 31, 78, 0.14));
+}
+
+.xAccountCard {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 14px;
+  align-items: center;
+  min-height: 92px;
+  overflow: hidden;
+  padding: 14px 16px;
+  border: 1px solid rgba(147, 202, 240, 0.54);
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at 82% 45%, rgba(196, 230, 255, 0.62), transparent 28%),
+    linear-gradient(135deg, #f8fcff 0%, #edf8ff 100%);
+  color: var(--navy);
+  box-shadow: 0 12px 24px rgba(20, 88, 170, 0.1);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.xAccountIcon {
+  display: inline-flex;
+  width: 54px;
+  height: 54px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: #050505;
+  color: #ffffff;
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.xAccountText {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.xAccountText strong {
+  color: var(--navy);
+  font-size: 20px;
+  font-weight: 950;
+  line-height: 1.1;
+}
+
+.xAccountText span {
+  color: #405a86;
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+.xAccountMascot {
+  position: absolute;
+  right: 48px;
+  bottom: -18px;
+  width: 76px;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 12px rgba(0, 31, 78, 0.12));
+}
+
+.xAccountArrow {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  width: 38px;
+  height: 38px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #2d83dc;
+  font-size: 21px;
+  font-weight: 950;
+  box-shadow: 0 8px 18px rgba(20, 88, 170, 0.14);
 }
 
 .featuredLabSection {
@@ -2886,30 +3023,38 @@ img {
   }
 
   .newsletterPanel {
-    min-height: 236px;
     border-radius: 24px;
   }
 
-  .newsletterCopy {
-    max-width: calc(100% - 150px);
-    padding: 24px 24px 22px;
+  .podcastCard {
+    min-height: 288px;
   }
 
-  .newsletterCopy h2 {
-    font-size: clamp(18px, 4.6vw, 21px);
-    line-height: 1.35;
+  .podcastCopy {
+    max-width: calc(100% - 134px);
+    padding: 24px 22px 22px;
   }
 
-  .emailNotice {
-    min-height: 50px;
-    padding-inline: 16px;
-    font-size: 15px;
+  .podcastCopy h2 {
+    font-size: clamp(28px, 7.8vw, 36px);
   }
 
-  .newsletterCat {
-    right: 10px;
-    bottom: 0;
-    width: 138px;
+  .podcastDoctor {
+    right: 66px;
+    width: 140px;
+  }
+
+  .podcastNyabbit {
+    right: -2px;
+    width: 104px;
+  }
+
+  .soundWave {
+    right: 68px;
+  }
+
+  .xAccountMascot {
+    width: 72px;
   }
 
   .featuredLabSection {
@@ -3323,36 +3468,103 @@ img {
     min-height: 320px;
   }
 
-  .newsletterCopy {
+  .podcastCard {
+    min-height: 330px;
+  }
+
+  .podcastCopy {
     max-width: 100%;
-    padding: 22px 20px;
+    padding: 22px 20px 150px;
   }
 
-  .newsletterPanel {
-    min-height: 0;
-  }
-
-  .newsletterCopy h2 {
-    display: block;
-    font-size: clamp(18px, 5.1vw, 21px);
-    line-height: 1.35;
-    white-space: nowrap;
-  }
-
-  .emailNotice {
-    min-height: 46px;
-    margin-top: 16px;
+  .podcastBadge {
+    min-height: 40px;
     padding-inline: 14px;
+    font-size: 13px;
+  }
+
+  .podcastCopy h2 {
+    margin-top: 18px;
+    font-size: clamp(30px, 9.5vw, 38px);
+  }
+
+  .podcastCopy p {
+    max-width: 16em;
     font-size: 14px;
+    line-height: 1.75;
   }
 
-  .emailIcon {
-    width: 21px;
-    height: 21px;
+  .podcastButton {
+    min-height: 50px;
+    margin-top: 18px;
+    padding-inline: 16px;
+    border-radius: 16px;
   }
 
-  .newsletterCat {
+  .podcastDoctor {
+    right: 68px;
+    bottom: -18px;
+    width: 132px;
+  }
+
+  .podcastNyabbit {
+    right: 2px;
+    bottom: 8px;
+    width: 98px;
+  }
+
+  .soundWave {
+    top: auto;
+    right: 108px;
+    bottom: 124px;
+    width: 96px;
+  }
+
+  .labDoodle.atom {
+    top: auto;
+    right: 28px;
+    bottom: 144px;
+    font-size: 34px;
+  }
+
+  .labDoodle.flask {
+    top: auto;
+    right: 18px;
+    bottom: 206px;
+    font-size: 29px;
+  }
+
+  .xAccountCard {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 12px;
+    min-height: 88px;
+    padding: 12px 14px;
+    border-radius: 20px;
+  }
+
+  .xAccountIcon {
+    width: 50px;
+    height: 50px;
+    border-radius: 13px;
+    font-size: 26px;
+  }
+
+  .xAccountText strong {
+    font-size: 18px;
+  }
+
+  .xAccountText span {
+    font-size: 12px;
+  }
+
+  .xAccountMascot {
     display: none;
+  }
+
+  .xAccountArrow {
+    width: 34px;
+    height: 34px;
+    font-size: 19px;
   }
 
   .weeklyPickupPanel,
