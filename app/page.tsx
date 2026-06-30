@@ -46,7 +46,7 @@ export default async function Home() {
               <h1 id="hero-title">
                 AIで<span className="blueText">遊び、</span>
                 <br />
-                気づけば自分が<span className="pinkText">変わっていた。</span>
+                <span className="heroTitleKeep">気づけば自分が</span><span className="pinkText">変わっていた。</span>
               </h1>
               <p>
                 画像生成、ゲーム制作、3D、AIツールの実験まで。

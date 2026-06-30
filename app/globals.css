@@ -1229,6 +1229,10 @@ img {
   white-space: nowrap;
 }
 
+.heroTitleKeep {
+  white-space: nowrap;
+}
+
 .lpHeroCopy p {
   margin: 20px 0 0;
   color: var(--navy);
@@ -3271,7 +3275,7 @@ img {
   }
 
   .lpHero {
-    height: 665px;
+    height: 708px;
     padding: 144px 30px 28px;
   }
 
@@ -3296,6 +3300,15 @@ img {
 
   .lpHeroActions {
     width: min(300px, calc(100vw - 60px));
+  }
+
+  .lpButton {
+    width: 100%;
+  }
+
+  .lpButton.secondary {
+    min-height: 76px;
+    padding: 10px 24px;
   }
 
   .themeSection,
