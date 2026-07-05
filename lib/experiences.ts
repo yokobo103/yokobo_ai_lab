@@ -14,6 +14,7 @@ export type Experience = {
   tags: string[];
   playUrl: string;
   relatedPostId?: string;
+  relatedPostIds?: string[];
   localSource?: string;
   status: "live" | "wip";
   featured?: boolean;

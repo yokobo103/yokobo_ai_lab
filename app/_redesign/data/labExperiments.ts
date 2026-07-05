@@ -11,6 +11,7 @@ export type LabExperiment = {
   tags: string[];
   featured?: boolean;
   relatedPostId?: string;
+  relatedPostIds?: string[];
 };
 
 type SourceExperience = {
@@ -22,6 +23,7 @@ type SourceExperience = {
   tags?: string[];
   playUrl?: string;
   relatedPostId?: string;
+  relatedPostIds?: string[];
   status?: "live" | "wip";
   featured?: boolean;
 };
@@ -57,6 +59,7 @@ export const labExperiments: LabExperiment[] = (experiences as SourceExperience[
     tags: Array.isArray(experience.tags) ? experience.tags.slice(0, 5) : [],
     featured: Boolean(experience.featured),
     relatedPostId: experience.relatedPostId,
+    relatedPostIds: experience.relatedPostIds,
   };
 });
 
