@@ -3,7 +3,6 @@
 import { useMemo, useState } from "react";
 import { assets } from "../data/assets";
 import { labCategories, labExperiments } from "../data/labExperiments";
-import { routes } from "../data/routes";
 import { LabExperimentCard } from "./LabExperimentCard";
 import type { CSSProperties } from "react";
 
@@ -135,16 +134,6 @@ export function LabExperimentPage() {
           </section>
         ) : null}
 
-        <section className="lab-explore" aria-label="探索モード">
-          <img className="lab-explore__doctor" src={assets.characters.drYokobo} alt="" aria-hidden="true" />
-          <div className="lab-explore__panel">
-            <p>もっと奥へ、ラボの奥深くへ行ってみよう</p>
-            <h2>探索モード</h2>
-            <span>開発中の実験装置や、アーカイブされた実験など、ラボのすべてを自由に探索できます。</span>
-            <a href={routes.experimentsExplore}>探索モードへ進む →</a>
-          </div>
-          <img className="lab-explore__nyabit" src={assets.characters.nyabit} alt="" aria-hidden="true" />
-        </section>
       </main>
     </div>
   );

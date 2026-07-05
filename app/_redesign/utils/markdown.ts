@@ -18,6 +18,24 @@ function safeUrl(value: string) {
   }
 }
 
+function splitTrailingPunctuation(value: string) {
+  const match = value.match(/^(.*?)([.,;:、。！？；：）］】」』]+)?$/);
+  return {
+    url: match?.[1] ?? value,
+    trailing: match?.[2] ?? "",
+  };
+}
+
+function autoLinkUrls(value: string) {
+  return value.replace(/(^|[\s(（])((?:https?:\/\/|www\.)[^\s<]+)/g, (match, prefix: string, rawUrl: string) => {
+    const { url, trailing } = splitTrailingPunctuation(rawUrl);
+    const href = safeUrl(url.startsWith("www.") ? `https://${url}` : url);
+    if (!href) return match;
+
+    return `${prefix}<a href="${escapeAttribute(href)}" target="_blank" rel="noreferrer">${url}</a>${trailing}`;
+  });
+}
+
 function inlineMarkdown(value: string) {
   const protectedHtml: string[] = [];
   const protect = (html: string) => {
@@ -40,9 +58,11 @@ function inlineMarkdown(value: string) {
     })
     .replace(/\*\*([^*]+)\*\*/g, (_, text: string) => protect(`<strong>${escapeHtml(text)}</strong>`));
 
+  const html = autoLinkUrls(escapeHtml(prepared));
+
   return protectedHtml.reduce((html, protectedValue, index) => {
     return html.replace(`@@INLINE_${index}@@`, protectedValue);
-  }, escapeHtml(prepared));
+  }, html);
 }
 
 export function markdownToHtml(markdown: string) {
