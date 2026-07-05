@@ -5,7 +5,7 @@ import { useMemo, useState } from "react";
 import { archiveArticles } from "../data/archiveArticles";
 import type { ArchiveArticle } from "../data/archiveArticles";
 import { getExperimentLaunchHref, getRelatedExperiment, getRelatedExperimentId } from "../data/experimentRelations";
-import { logCategories, researchLogs, statusLabel } from "../data/researchLogs";
+import { logCategories, statusLabel } from "../data/researchLogs";
 import type { LogFilter, ResearchLog } from "../data/researchLogs";
 import { plannedRoutes, routes } from "../data/routes";
 
@@ -20,7 +20,7 @@ function articleToResearchLog(article: ArchiveArticle, index: number): ResearchL
   const status = article.resultStatus === "success" ? "success" : article.resultStatus === "failed" ? "fail" : "tuning";
 
   return {
-    id: `LOG-${String(researchLogs.length + index + 1).padStart(3, "0")}`,
+    id: `LOG-${String(index + 1).padStart(3, "0")}`,
     date: formatLogDate(article.publishedAt || article.createdAt || article.updatedAt),
     status,
     category: "開発ログ",
@@ -34,7 +34,7 @@ function articleToResearchLog(article: ArchiveArticle, index: number): ResearchL
 }
 
 const articleLogEntries = archiveArticles.map(articleToResearchLog);
-const allResearchLogs = [...researchLogs, ...articleLogEntries].sort((a, b) => b.date.localeCompare(a.date));
+const allResearchLogs = articleLogEntries.sort((a, b) => b.date.localeCompare(a.date));
 const totalLogCount = allResearchLogs.length;
 const latestLog = allResearchLogs[0];
 const readStatusCounts = allResearchLogs.reduce(
