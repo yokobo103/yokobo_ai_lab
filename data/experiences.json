@@ -106,5 +106,20 @@
     "addedAt": "2026-05-02",
     "visualVariant": "old-site",
     "visualDensity": "high"
+  },
+  {
+    "archiveNo": 8,
+    "title": "コロコロニャビット",
+    "category": "game",
+    "summary": "スマホを傾けてニャビットを転がし、コインを集めながらゴールを目指すモーションセンサー対応ゲーム。",
+    "thumbnail": "/uploads/20260630-korokoro-nyabitto-public-draft/thumbnail.webp",
+    "tags": ["コロコロニャビット", "スマホゲーム", "Canvas", "モーションセンサー", "マップ生成"],
+    "playUrl": "https://korokoro-nyabitto-publish.vercel.app/",
+    "relatedPostId": "20260630-korokoro-nyabitto-public-draft",
+    "localSource": "korokoro-nyabitto-publish",
+    "status": "live",
+    "addedAt": "2026-06-30",
+    "visualVariant": "default",
+    "visualDensity": "medium"
   }
 ]
