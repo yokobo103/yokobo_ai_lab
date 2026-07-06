@@ -24,25 +24,25 @@ const story = [
   {
     speaker: "Dr.よこぼ",
     side: "doctor",
-    avatar: "/illustrations/shiryoshitsu/dr-yokobo-smile.webp",
+    avatar: "/assets/characters/dr-yokobo-face.png",
     text: "AIに出会って、世界がガラッと広がったんだよね。",
   },
   {
     speaker: "ニャビット",
     side: "nyabit",
-    avatar: "/illustrations/shiryoshitsu/nyabit-question.webp",
+    avatar: "/design-reference/reference_nyabitto.png",
     text: "そんなに変わるものなの？",
   },
   {
     speaker: "Dr.よこぼ",
     side: "doctor",
-    avatar: "/illustrations/shiryoshitsu/dr-yokobo-smile.webp",
+    avatar: "/assets/characters/dr-yokobo-face.png",
     text: "うん。できることが一気に増えて、毎日がちょっとずつ楽しくなっていった。",
   },
   {
     speaker: "ニャビット",
     side: "nyabit",
-    avatar: "/illustrations/shiryoshitsu/nyabit-sleepy.webp",
+    avatar: "/design-reference/reference_nyabitto.png",
     text: "へえ。このラボを作った理由、ちょっと分かった気がする。",
   },
 ] as const;
