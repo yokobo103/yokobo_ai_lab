@@ -7,7 +7,7 @@ import "./_redesign/styles/globals.css";
 import "./_redesign/styles/top-page.css";
 import "./_redesign/styles/lab-page.css";
 import "./_redesign/styles/read-page.css";
-import "./_redesign/styles/about-page.css";
+import "./_redesign/styles/about-booklet.css";
 
 export const metadata: Metadata = {
   title: "よこぼのAIラボ",

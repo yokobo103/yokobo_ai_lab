@@ -6,12 +6,14 @@ import { LabButton } from "./LabButton";
 const rooms = [
   {
     key: "experiment",
+    mark: "ROOM 1",
     title: "実験室",
     text: "AIと一緒に作ったゲームやツールを、実際に触って試せる場所です。",
     icon: assets.icons.flask,
   },
   {
     key: "archive",
+    mark: "ROOM 2",
     title: "資料室",
     text: "考えたこと、失敗したこと、気づいたことを記録している場所です。",
     icon: assets.icons.book,
@@ -46,25 +48,21 @@ const principles = [
     number: "1",
     title: "思ったことを、いちばん先に。",
     text: "まずは触ってみる。楽しいところから始めます。",
-    icon: assets.icons.flask,
   },
   {
     number: "2",
     title: "失敗も、いい発見。",
     text: "うまくいかなかったことも、大事な実験ログです。",
-    icon: "/assets/play/icons/icon-log.svg",
   },
   {
     number: "3",
     title: "小さく試して、つくっていく。",
     text: "アイデアを形にして、少しずつ育てます。",
-    icon: assets.icons.transfer,
   },
   {
     number: "4",
     title: "みんなで、ワクワクをシェア。",
     text: "学んだことや変化を、自由に分かち合います。",
-    icon: "/assets/play/icons/icon-share.svg",
   },
 ] as const;
 
@@ -101,133 +99,178 @@ const topics = [
   },
 ] as const;
 
+function SheetMasthead({ page }: { page: string }) {
+  return (
+    <div className="about-booklet__masthead">
+      <span>よこぼのAIラボ 館内案内</span>
+      <span>{page}</span>
+    </div>
+  );
+}
+
+function PageFoot({ page }: { page: string }) {
+  return (
+    <footer className="about-booklet__pagefoot">
+      <span>発行：よこぼのAIラボ</span>
+      <span>{page}</span>
+    </footer>
+  );
+}
+
 export function AboutLabPage() {
   return (
-    <div className="about-page">
-      <main className="about-page__main">
-        <section className="about-hero" aria-labelledby="about-title">
-          <div className="about-hero__copy">
-            <p className="about-eyebrow">LAB GUIDE</p>
-            <h1 id="about-title">
-              <span>よこぼのAIラボ</span>
-              <span>ってなに？</span>
-            </h1>
-            <p className="about-hero__lead">
-              AIで遊んで、気づいたことや作ったものを実験に置いていく、よこぼの小さな研究フィールドです。
+    <div className="about-booklet">
+      <main className="about-booklet__main">
+        <article className="about-booklet__sheet" aria-labelledby="about-title">
+          <SheetMasthead page="ご自由にお持ちください" />
+
+          <header className="about-booklet__cover">
+            <p className="about-booklet__eyebrow">LAB GUIDE BOOKLET</p>
+            <h1 id="about-title">よこぼのAIラボ ってなに？</h1>
+            <p className="about-booklet__cover-sub">館内のご案内</p>
+            <span className="about-booklet__stamp" aria-hidden="true">
+              来館記念
+              <b>にゃ</b>
+              YOKOBO AI LAB
+            </span>
+          </header>
+
+          <section className="about-booklet__chapter" aria-labelledby="about-ch1">
+            <h2 id="about-ch1">
+              <span>1</span>ごあいさつ
+            </h2>
+            <p>ここは、AIで遊んで、気づいたことや作ったものを実験に置いていく、よこぼの小さな研究フィールドです。</p>
+            <p>
+              つくること、試すこと、うまくいかないことも全部ふくめて、変化や発見をそっと記録しています。AIと
+              <em>遊ぶこと</em>と<em>記録すること</em>を、行ったり来たりする場所です。
             </p>
-            <p className="about-hero__text">
-              つくること、試すこと、うまくいかないことも全部ふくめて、変化や発見をそっと記録しています。
-            </p>
-            <p className="about-hero__text">ここは、AIと遊ぶことと記録することを、行ったり来たりする場所です。</p>
-            <div className="about-hero__tag guide-card">
-              <img src={assets.icons.flask} alt="" aria-hidden="true" />
+            <div className="about-booklet__motto">
               <span>遊ぶ</span>
               <b aria-hidden="true">⇄</b>
               <span>記録する</span>
               <small>をくり返すラボです。</small>
             </div>
-          </div>
+          </section>
 
-          <div className="about-map" aria-label="よこぼのAIラボ 館内案内">
-            <div className="about-map__frame booklet-card">
-              <img className="about-map__image" src={assets.about.guideMap} alt="" />
-              <div className="about-map__label">よこぼのAIラボ 館内案内</div>
-              <div className="about-map__rooms">
-                {rooms.map((room) => (
-                  <article className={`about-room about-room--${room.key} guide-card`} key={room.key}>
-                    <img src={room.icon} alt="" aria-hidden="true" />
-                    <div>
-                      <h2>{room.title}</h2>
-                      <p>{room.text}</p>
-                    </div>
-                  </article>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="about-origin booklet-card" aria-labelledby="about-origin-title">
-          <div className="about-origin__intro">
-            <p>はじまりの頃</p>
-            <h2 id="about-origin-title">このラボが生まれたきっかけ</h2>
-            <img src={assets.characters.drYokobo} alt="" aria-hidden="true" />
-          </div>
-          <div className="about-origin__log" aria-label="Dr.よこぼとニャビットの会話">
-            {story.map((item, index) => (
-              <div className={`about-talk about-talk--${item.side}`} key={`${item.speaker}-${index}`}>
-                <img src={item.side === "doctor" ? assets.characters.drYokobo : assets.characters.nyabit} alt="" aria-hidden="true" />
-                <p>
-                  <b>{item.speaker}</b>
-                  {item.text}
-                </p>
-              </div>
-            ))}
-          </div>
-          <aside className="about-origin__quote guide-card">
-            <p>AIに出会って、できることが一気に広がった。</p>
-            <p>その体験が、このラボの始まりです。</p>
-            <img src={assets.characters.nyabit} alt="" aria-hidden="true" />
-          </aside>
-        </section>
-
-        <section className="about-principles booklet-card" aria-labelledby="about-principles-title">
-          <div className="about-section-heading">
-            <img src="/assets/decor/atom.svg" alt="" aria-hidden="true" />
-            <h2 id="about-principles-title">このラボで大切にしていること</h2>
-          </div>
-          <div className="about-principles__grid">
-            {principles.map((principle) => (
-              <article className={`about-principle about-principle--${principle.number} guide-card`} key={principle.number}>
-                <span>{principle.number}</span>
-                <div>
-                  <h3>{principle.title}</h3>
-                  <p>{principle.text}</p>
+          <section className="about-booklet__chapter" aria-labelledby="about-ch2">
+            <h2 id="about-ch2">
+              <span>2</span>館内のご案内
+            </h2>
+            <figure className="about-booklet__figure">
+              <img src={assets.about.guideMap} alt="よこぼのAIラボの見取り図。左に実験室、右に資料室が描かれている。" />
+              <figcaption>図1｜よこぼのAIラボ 見取り図</figcaption>
+            </figure>
+            <dl className="about-booklet__legend">
+              {rooms.map((room) => (
+                <div key={room.key}>
+                  <img src={room.icon} alt="" aria-hidden="true" />
+                  <dt>
+                    <small>{room.mark}</small>
+                    {room.title}
+                  </dt>
+                  <dd>{room.text}</dd>
                 </div>
-                <img src={principle.icon} alt="" aria-hidden="true" />
-              </article>
-            ))}
-          </div>
-        </section>
+              ))}
+            </dl>
+          </section>
 
-        <section className="about-topics booklet-card" aria-labelledby="about-topics-title">
-          <div className="about-section-heading">
-            <h2 id="about-topics-title">ラボの中では、こんなことを扱っています</h2>
-          </div>
-          <div className="about-topics__grid">
-            {topics.map((topic) => (
-              <article className="about-topic guide-card" key={topic.title}>
-                <img src={topic.image} alt="" aria-hidden="true" />
-                <h3>{topic.title}</h3>
-                <p>{topic.text}</p>
-              </article>
-            ))}
-          </div>
-        </section>
+          <p className="about-booklet__tobecontinued">- 次のページへつづく -</p>
+          <PageFoot page="p. 1" />
+        </article>
 
-        <section className="about-closing booklet-card" aria-labelledby="about-closing-title">
-          <img className="about-closing__doctor" src={assets.characters.drYokobo} alt="" aria-hidden="true" />
-          <div>
-            <p>それでは、ラボの中へ。</p>
-            <h2 id="about-closing-title">好きな部屋から、のぞいてみてください。</h2>
-            <div className="about-closing__actions">
-              <LabButton
-                href={routes.experiments}
-                label="実験室へ"
-                icon={assets.icons.flask}
-                sprite={assets.ctaSprites.playFlaskHover}
-                variant="primary"
-              />
-              <LabButton
-                href={routes.read}
-                label="資料室へ"
-                icon={assets.icons.book}
-                sprite={assets.ctaSprites.readBookHover}
-                variant="log"
-              />
+        <article className="about-booklet__sheet" aria-labelledby="about-ch3">
+          <SheetMasthead page="はじまりの記録" />
+
+          <section className="about-booklet__chapter about-booklet__chapter--first" aria-labelledby="about-ch3">
+            <h2 id="about-ch3">
+              <span>3</span>このラボが生まれたきっかけ
+            </h2>
+            <div className="about-booklet__dialogue" aria-label="Dr.よこぼとニャビットの会話">
+              {story.map((item, index) => (
+                <div className="about-booklet__dialogue-row" key={`${item.speaker}-${index}`}>
+                  <img src={item.side === "doctor" ? assets.characters.drYokobo : assets.characters.nyabit} alt="" aria-hidden="true" />
+                  <p>
+                    <b>{item.speaker}</b>
+                    {item.text}
+                  </p>
+                </div>
+              ))}
             </div>
+            <blockquote className="about-booklet__quote">
+              <p>AIに出会って、できることが一気に広がった。</p>
+              <p>その体験が、このラボの始まりです。</p>
+            </blockquote>
+          </section>
+
+          <section className="about-booklet__chapter" aria-labelledby="about-ch4">
+            <h2 id="about-ch4">
+              <span>4</span>ラボのきまり
+            </h2>
+            <ol className="about-booklet__principles">
+              {principles.map((principle) => (
+                <li key={principle.number}>
+                  <span>{principle.number}</span>
+                  <div>
+                    <h3>{principle.title}</h3>
+                    <p>{principle.text}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </section>
+
+          <PageFoot page="p. 2" />
+        </article>
+
+        <article className="about-booklet__sheet" aria-labelledby="about-ch5">
+          <SheetMasthead page="扱っていること" />
+
+          <section className="about-booklet__chapter about-booklet__chapter--first" aria-labelledby="about-ch5">
+            <h2 id="about-ch5">
+              <span>5</span>ラボで扱っていること
+            </h2>
+            <div className="about-booklet__catalog">
+              {topics.map((topic, index) => (
+                <article className="about-booklet__topic" key={topic.title}>
+                  <figure>
+                    <img src={topic.image} alt="" aria-hidden="true" />
+                    <figcaption>項目 {String(index + 1).padStart(2, "0")}</figcaption>
+                  </figure>
+                  <h3>{topic.title}</h3>
+                  <p>{topic.text}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section className="about-booklet__afterword" aria-label="案内係からの一言">
+            <p>よこぼのAIラボ 館内案内</p>
+            <p>発行：よこぼのAIラボ</p>
+            <p>案内係：Dr.よこぼ ・ ニャビット</p>
+          </section>
+
+          <PageFoot page="p. 3" />
+        </article>
+
+        <section className="about-booklet__outside-cta" aria-labelledby="about-cta-title">
+          <p>それでは、ラボの中へ。</p>
+          <h2 id="about-cta-title">好きな部屋から、のぞいてみてください。</h2>
+          <div className="about-booklet__actions">
+            <LabButton
+              href={routes.experiments}
+              label="実験室へ"
+              icon={assets.icons.flask}
+              sprite={assets.ctaSprites.playFlaskHover}
+              variant="primary"
+            />
+            <LabButton
+              href={routes.read}
+              label="資料室へ"
+              icon={assets.icons.book}
+              sprite={assets.ctaSprites.readBookHover}
+              variant="log"
+            />
           </div>
-          <img className="about-closing__nyabit" src={assets.characters.nyabit} alt="" aria-hidden="true" />
         </section>
       </main>
       <Footer />
