@@ -74,32 +74,32 @@ const topics = [
   {
     title: "画像・動画あそび",
     text: "アイデアをカタチにして、世界観やイメージをつくる。",
-    image: "/assets/play/play-image-generation.webp",
+    image: "/assets/about/topics/topic-image-video.png",
   },
   {
     title: "AIしくみあそび",
     text: "AIツールを試して、仕組みを体験してみる。",
-    image: "/assets/play/play-ai-tool.webp",
+    image: "/assets/about/topics/topic-ai-mechanism.png",
   },
   {
     title: "3D・空間あそび",
     text: "3Dモデルや空間をつくって、新しい表現にチャレンジ。",
-    image: "/assets/play/play-3d.webp",
+    image: "/assets/about/topics/topic-3d-space.png",
   },
   {
     title: "ゲームあそび",
     text: "小さなアイデアから、遊べるゲームをつくる。",
-    image: "/assets/play/play-game.webp",
+    image: "/assets/about/topics/topic-game.png",
   },
   {
     title: "Webあそび",
     text: "Webサイトやアプリをつくって公開してみる。",
-    image: "/assets/play/icons/icon-web.svg",
+    image: "/assets/about/topics/topic-web.png",
   },
   {
     title: "気づき・ログ",
     text: "気づいたことや悩んだことを、ログとして残していく。",
-    image: assets.icons.book,
+    image: "/assets/about/topics/topic-log.png",
   },
 ] as const;
 

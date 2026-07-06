@@ -408,16 +408,25 @@
 
 .about-booklet__topic figure {
   margin: 0;
+  padding: 4px;
+  border: 1px solid var(--bk-rule-faint);
+  background:
+    linear-gradient(180deg, rgba(255, 252, 242, 0.74), rgba(238, 224, 193, 0.46)),
+    var(--bk-paper);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.58),
+    0 4px 10px rgba(42, 53, 80, 0.06);
 }
 
 .about-booklet__topic img {
   display: block;
   width: 100%;
-  height: 116px;
-  padding: 6px;
-  border: 1px solid var(--bk-rule);
-  object-fit: contain;
-  background: #fff;
+  height: auto;
+  aspect-ratio: 8 / 3;
+  padding: 0;
+  border: 1px solid rgba(42, 53, 80, 0.2);
+  object-fit: cover;
+  background: #f4ead3;
 }
 
 .about-booklet__topic h3 {
@@ -599,7 +608,7 @@
   }
 
   .about-booklet__topic img {
-    height: 100px;
+    height: auto;
   }
 }
 
