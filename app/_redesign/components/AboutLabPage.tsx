@@ -24,21 +24,25 @@ const story = [
   {
     speaker: "Dr.よこぼ",
     side: "doctor",
+    avatar: "/illustrations/shiryoshitsu/dr-yokobo-smile.webp",
     text: "AIに出会って、世界がガラッと広がったんだよね。",
   },
   {
     speaker: "ニャビット",
     side: "nyabit",
+    avatar: "/illustrations/shiryoshitsu/nyabit-question.webp",
     text: "そんなに変わるものなの？",
   },
   {
     speaker: "Dr.よこぼ",
     side: "doctor",
+    avatar: "/illustrations/shiryoshitsu/dr-yokobo-smile.webp",
     text: "うん。できることが一気に増えて、毎日がちょっとずつ楽しくなっていった。",
   },
   {
     speaker: "ニャビット",
     side: "nyabit",
+    avatar: "/illustrations/shiryoshitsu/nyabit-sleepy.webp",
     text: "へえ。このラボを作った理由、ちょっと分かった気がする。",
   },
 ] as const;
@@ -188,7 +192,7 @@ export function AboutLabPage() {
             <div className="about-booklet__dialogue" aria-label="Dr.よこぼとニャビットの会話">
               {story.map((item, index) => (
                 <div className="about-booklet__dialogue-row" key={`${item.speaker}-${index}`}>
-                  <img src={item.side === "doctor" ? assets.characters.drYokobo : assets.characters.nyabit} alt="" aria-hidden="true" />
+                  <img src={item.avatar} alt="" aria-hidden="true" />
                   <p>
                     <b>{item.speaker}</b>
                     {item.text}
