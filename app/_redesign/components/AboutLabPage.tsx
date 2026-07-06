@@ -119,7 +119,7 @@ export function AboutLabPage() {
               つくること、試すこと、うまくいかないことも全部ふくめて、変化や発見をそっと記録しています。
             </p>
             <p className="about-hero__text">ここは、AIと遊ぶことと記録することを、行ったり来たりする場所です。</p>
-            <div className="about-hero__tag">
+            <div className="about-hero__tag guide-card">
               <img src={assets.icons.flask} alt="" aria-hidden="true" />
               <span>遊ぶ</span>
               <b aria-hidden="true">⇄</b>
@@ -129,12 +129,12 @@ export function AboutLabPage() {
           </div>
 
           <div className="about-map" aria-label="よこぼのAIラボ 館内案内">
-            <div className="about-map__frame">
+            <div className="about-map__frame booklet-card">
               <img className="about-map__image" src={assets.about.guideMap} alt="" />
               <div className="about-map__label">よこぼのAIラボ 館内案内</div>
               <div className="about-map__rooms">
                 {rooms.map((room) => (
-                  <article className={`about-room about-room--${room.key}`} key={room.key}>
+                  <article className={`about-room about-room--${room.key} guide-card`} key={room.key}>
                     <img src={room.icon} alt="" aria-hidden="true" />
                     <div>
                       <h2>{room.title}</h2>
@@ -147,7 +147,7 @@ export function AboutLabPage() {
           </div>
         </section>
 
-        <section className="about-origin" aria-labelledby="about-origin-title">
+        <section className="about-origin booklet-card" aria-labelledby="about-origin-title">
           <div className="about-origin__intro">
             <p>はじまりの頃</p>
             <h2 id="about-origin-title">このラボが生まれたきっかけ</h2>
@@ -164,21 +164,21 @@ export function AboutLabPage() {
               </div>
             ))}
           </div>
-          <aside className="about-origin__quote">
+          <aside className="about-origin__quote guide-card">
             <p>AIに出会って、できることが一気に広がった。</p>
             <p>その体験が、このラボの始まりです。</p>
             <img src={assets.characters.nyabit} alt="" aria-hidden="true" />
           </aside>
         </section>
 
-        <section className="about-principles" aria-labelledby="about-principles-title">
+        <section className="about-principles booklet-card" aria-labelledby="about-principles-title">
           <div className="about-section-heading">
             <img src="/assets/decor/atom.svg" alt="" aria-hidden="true" />
             <h2 id="about-principles-title">このラボで大切にしていること</h2>
           </div>
           <div className="about-principles__grid">
             {principles.map((principle) => (
-              <article className="about-principle" key={principle.number}>
+              <article className={`about-principle about-principle--${principle.number} guide-card`} key={principle.number}>
                 <span>{principle.number}</span>
                 <div>
                   <h3>{principle.title}</h3>
@@ -190,13 +190,13 @@ export function AboutLabPage() {
           </div>
         </section>
 
-        <section className="about-topics" aria-labelledby="about-topics-title">
+        <section className="about-topics booklet-card" aria-labelledby="about-topics-title">
           <div className="about-section-heading">
             <h2 id="about-topics-title">ラボの中では、こんなことを扱っています</h2>
           </div>
           <div className="about-topics__grid">
             {topics.map((topic) => (
-              <article className="about-topic" key={topic.title}>
+              <article className="about-topic guide-card" key={topic.title}>
                 <img src={topic.image} alt="" aria-hidden="true" />
                 <h3>{topic.title}</h3>
                 <p>{topic.text}</p>
@@ -205,7 +205,7 @@ export function AboutLabPage() {
           </div>
         </section>
 
-        <section className="about-closing" aria-labelledby="about-closing-title">
+        <section className="about-closing booklet-card" aria-labelledby="about-closing-title">
           <img className="about-closing__doctor" src={assets.characters.drYokobo} alt="" aria-hidden="true" />
           <div>
             <p>それでは、ラボの中へ。</p>
