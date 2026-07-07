@@ -1,6 +1,15 @@
 import { externalRoutes, routes } from "../data/routes";
 
-const footerGroups = [
+type FooterLink =
+  | { label: string; href: string; external?: boolean }
+  | { label: string; disabled: true };
+
+type FooterGroup = {
+  title: string;
+  links: FooterLink[];
+};
+
+const footerGroups: FooterGroup[] = [
   {
     title: "メインエリア",
     links: [
@@ -19,11 +28,11 @@ const footerGroups = [
     title: "外部活動",
     links: [
       { label: "ポッドキャスト ↗", href: externalRoutes.podcast, external: true },
-      { label: "note ↗", disabled: true },
+      { label: "note ↗", href: externalRoutes.note, external: true },
       { label: "X ↗", href: externalRoutes.x, external: true },
     ],
   },
-] as const;
+];
 
 export function Footer() {
   return (

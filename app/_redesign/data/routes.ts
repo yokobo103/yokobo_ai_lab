@@ -24,6 +24,7 @@ export const externalRoutes = {
   contact:
     "https://docs.google.com/forms/d/e/1FAIpQLScgKOrGgMR1S_TlSgRCCjsGQVZpK1PjqJvrX3E2ZdnpjqGC2w/viewform?usp=dialog",
   podcast: "https://open.spotify.com/show/033vTuXONCeGCsiffRWoNM",
+  note: "https://note.com/ykv_yocovooo",
   x: "https://x.com/yokobo_ai",
 } as const;
 
