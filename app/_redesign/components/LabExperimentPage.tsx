@@ -110,22 +110,23 @@ export function LabExperimentPage() {
         {visibleExperiments.length === 0 ? <LabEmptyState /> : null}
 
         {visibleFeaturedExperiment ? (
+          <div className="lab-standard__heading lab-featured-heading">
+            <img src={assets.characters.drYokobo} alt="" aria-hidden="true" />
+            <div>
+              <p>Dr.よこぼのおすすめ</p>
+              <h2>今週の実験装置</h2>
+            </div>
+          </div>
+        ) : null}
+
+        {visibleFeaturedExperiment ? (
           <section className="lab-featured-grid" aria-label="注目の実験装置">
             <LabExperimentCard experiment={visibleFeaturedExperiment} featured />
           </section>
         ) : null}
 
         {standardExperiments.length > 0 ? (
-          <section className="lab-standard" aria-labelledby="recommended-title">
-            <div className="lab-standard__heading">
-              <img src={assets.characters.drYokobo} alt="" aria-hidden="true" />
-              <div>
-                <p>Dr.よこぼのおすすめ</p>
-                <h2 id="recommended-title">
-                  {activeCategory === "すべて" ? "今週の実験装置" : `${activeCategory}の実験装置`}
-                </h2>
-              </div>
-            </div>
+          <section className="lab-standard" aria-label={activeCategory === "すべて" ? "その他の実験装置" : `${activeCategory}の実験装置`}>
             <div className="lab-standard-grid">
               {standardExperiments.map((experiment) => (
                 <LabExperimentCard key={experiment.id} experiment={experiment} />

@@ -1,4 +1,5 @@
 import experiences from "@/data/experiences.json";
+import posts from "@/data/posts.json";
 
 export type LabExperiment = {
   id: string;
@@ -20,12 +21,19 @@ type SourceExperience = {
   category?: string;
   summary?: string;
   thumbnail?: string;
+  labThumbnail?: string;
   tags?: string[];
   playUrl?: string;
   relatedPostId?: string;
   relatedPostIds?: string[];
   status?: "live" | "wip";
   featured?: boolean;
+};
+
+type SourcePost = {
+  id?: string;
+  thumbnail?: string;
+  status?: string;
 };
 
 const categoryLabels: Record<string, string> = {
@@ -44,6 +52,20 @@ function toStatus(experience: SourceExperience, index: number): LabExperiment["s
   return "LIVE";
 }
 
+function resolveExperimentImage(experience: SourceExperience) {
+  if (experience.labThumbnail) return experience.labThumbnail;
+
+  const relatedIds = [
+    ...(Array.isArray(experience.relatedPostIds) ? experience.relatedPostIds : []),
+    experience.relatedPostId,
+  ].filter(Boolean);
+  const relatedPost = relatedIds
+    .map((id) => (posts as SourcePost[]).find((post) => post.id === id && post.thumbnail))
+    .find(Boolean);
+
+  return relatedPost?.thumbnail || experience.thumbnail || "/assets/entrances/play.webp";
+}
+
 export const labExperiments: LabExperiment[] = (experiences as SourceExperience[]).map((experience, index) => {
   const archiveNo = experience.archiveNo ?? index + 1;
   const category = categoryLabels[experience.category ?? ""] ?? experience.category ?? "その他";
@@ -53,7 +75,7 @@ export const labExperiments: LabExperiment[] = (experiences as SourceExperience[
     title: experience.title ?? "",
     summary: experience.summary ?? "",
     href: experience.playUrl ?? "#",
-    image: experience.thumbnail || "/assets/entrances/play.webp",
+    image: resolveExperimentImage(experience),
     status: toStatus(experience, index),
     category,
     tags: Array.isArray(experience.tags) ? experience.tags.slice(0, 5) : [],

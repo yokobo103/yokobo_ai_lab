@@ -10,7 +10,6 @@
     "relatedPostId": "323c30ae-d25a-4ef8-b647-117e2b17f933",
     "localSource": "20260425_猫スクロールゲームをつくってみる",
     "status": "live",
-    "featured": true,
     "addedAt": "2026-04-25",
     "visualVariant": "forest",
     "visualDensity": "medium"
@@ -57,7 +56,6 @@
     "relatedPostId": "20260522-lab-fighters",
     "localSource": "20260515_よこぼファイターズ改",
     "status": "live",
-    "featured": true,
     "addedAt": "2026-05-15",
     "visualVariant": "fighter",
     "visualDensity": "high"
@@ -88,7 +86,6 @@
     "relatedPostId": "20260618-claude-fable-open-world",
     "localSource": "20260612_fableで最強3Dゲームを作る",
     "status": "live",
-    "featured": true,
     "addedAt": "2026-06-12",
     "visualVariant": "default",
     "visualDensity": "low"
@@ -120,6 +117,7 @@
     "relatedPostIds": ["20260630-korokoro-nyabitto-public-draft", "20260530-nyabbit-roll-mobile-game"],
     "localSource": "korokoro-nyabitto-publish",
     "status": "live",
+    "featured": true,
     "addedAt": "2026-06-30",
     "visualVariant": "default",
     "visualDensity": "medium"

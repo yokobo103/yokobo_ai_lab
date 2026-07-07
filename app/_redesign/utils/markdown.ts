@@ -71,8 +71,10 @@ export function markdownToHtml(markdown: string) {
   let inList = false;
   let inQuote = false;
   let inCodeBlock = false;
+  let inNote = false;
   let codeLanguage = "";
   let codeLines: string[] = [];
+  let noteLines: string[] = [];
 
   const closeList = () => {
     if (!inList) return;
@@ -86,7 +88,23 @@ export function markdownToHtml(markdown: string) {
     inQuote = false;
   };
 
+  const closeNote = () => {
+    if (!inNote) return;
+    html.push(`<aside class="archive-note">${markdownToHtml(noteLines.join("\n"))}</aside>`);
+    inNote = false;
+    noteLines = [];
+  };
+
   for (const line of lines) {
+    if (inNote) {
+      if (line.trim() === ":::") {
+        closeNote();
+      } else {
+        noteLines.push(line);
+      }
+      continue;
+    }
+
     if (line.startsWith("```")) {
       if (inCodeBlock) {
         const languageClass = codeLanguage ? ` class="language-${escapeAttribute(codeLanguage)}"` : "";
@@ -100,6 +118,14 @@ export function markdownToHtml(markdown: string) {
         inCodeBlock = true;
         codeLanguage = line.slice(3).trim().split(/\s+/)[0] ?? "";
       }
+      continue;
+    }
+
+    if (line.trim() === ":::note") {
+      closeList();
+      closeQuote();
+      inNote = true;
+      noteLines = [];
       continue;
     }
 
@@ -149,6 +175,7 @@ export function markdownToHtml(markdown: string) {
 
   closeList();
   closeQuote();
+  closeNote();
 
   if (inCodeBlock) {
     const languageClass = codeLanguage ? ` class="language-${escapeAttribute(codeLanguage)}"` : "";

@@ -647,6 +647,12 @@
   font-size: 1rem;
 }
 
+.lab-featured-heading {
+  position: relative;
+  z-index: 2;
+  margin: 10px 0 12px;
+}
+
 .lab-standard-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -730,7 +736,8 @@
   z-index: 1;
   display: block;
   flex: 0 0 auto;
-  height: 192px;
+  aspect-ratio: 16 / 9;
+  height: auto;
   margin: 8px 8px 0;
   overflow: hidden;
   border-radius: 6px;
@@ -944,9 +951,10 @@
 }
 
 .lab-experiment-card--featured .lab-experiment-card__surface {
-  display: flex;
-  flex-direction: column;
-  min-height: 400px;
+  display: grid;
+  grid-template-columns: minmax(300px, 0.95fr) minmax(0, 1.05fr);
+  align-items: center;
+  min-height: 278px;
   border: 2px solid var(--color-cyan);
 }
 
@@ -984,14 +992,18 @@
 }
 
 .lab-experiment-card--featured .lab-experiment-card__media {
-  height: 214px;
+  grid-column: 1;
+  width: calc(100% - 28px);
+  height: auto;
+  margin: 14px 0 14px 14px;
   opacity: 0.86;
 }
 
 .lab-experiment-card--featured .lab-experiment-card__body {
-  flex: 1 1 auto;
+  grid-column: 2;
   min-width: 0;
-  padding: 20px 22px 22px;
+  align-self: stretch;
+  padding: 28px 26px 26px;
 }
 
 .lab-experiment-card__current,
@@ -1449,6 +1461,7 @@
 
   .lab-experiment-card--featured .lab-experiment-card__surface {
     display: flex;
+    flex-direction: column;
     min-height: 376px;
   }
 
@@ -1458,7 +1471,9 @@
 
   .lab-experiment-card--featured .lab-experiment-card__media {
     left: auto;
-    height: 188px;
+    width: auto;
+    height: auto;
+    margin: 8px 8px 0;
   }
 
   .lab-experiment-card__surface {
@@ -1478,7 +1493,7 @@
   }
 
   .lab-experiment-card__media {
-    height: 178px;
+    height: auto;
   }
 
   .lab-experiment-card__actions {

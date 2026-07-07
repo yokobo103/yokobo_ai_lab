@@ -23,7 +23,7 @@ function articleToResearchLog(article: ArchiveArticle, index: number): ResearchL
     id: `LOG-${String(index + 1).padStart(3, "0")}`,
     date: formatLogDate(article.publishedAt || article.createdAt || article.updatedAt),
     status,
-    category: "開発ログ",
+    category: article.logCategory ?? "開発ログ",
     title: article.title,
     excerpt: article.summary,
     tags: article.tags.slice(0, 4),

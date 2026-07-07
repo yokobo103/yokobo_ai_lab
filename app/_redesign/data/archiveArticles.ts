@@ -9,6 +9,7 @@ export type ArchiveArticle = {
   resultStatus: string;
   category: string;
   categories: string[];
+  logCategory?: "開発ログ" | "考えたこと" | "失敗の記録" | "お知らせ";
   status: "draft" | "public";
   tags: string[];
   thumbnail: string;
@@ -37,6 +38,7 @@ function normalizeArticle(post: SourcePost): ArchiveArticle {
     resultStatus: post.resultStatus ?? "researching",
     category: post.category ?? "",
     categories: Array.isArray(post.categories) ? post.categories : [],
+    logCategory: post.logCategory ?? "開発ログ",
     status: post.status === "public" ? "public" : "draft",
     tags: Array.isArray(post.tags) ? post.tags : [],
     thumbnail: post.thumbnail ?? "",
