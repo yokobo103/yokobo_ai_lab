@@ -3,9 +3,9 @@ import path from "path";
 import { defaultAuthorId, inferAuthorIdFromText, normalizeAuthorId } from "./authors";
 import { isGitHubStorageEnabled, readTextFromGitHub, writeTextToGitHub } from "./github-storage";
 import { inferResultStatusId, normalizeResultStatusId } from "./result-statuses";
-import { categories, type Category, type Post } from "./schema";
+import { categories, researchLogCategories, type Category, type Post, type ResearchLogCategory } from "./schema";
 
-export { categories, type Category, type Post };
+export { categories, researchLogCategories, type Category, type Post, type ResearchLogCategory };
 
 const dataPath = path.join(process.cwd(), "data", "posts.json");
 
@@ -41,6 +41,10 @@ function normalizeCategories(input: Partial<Post>, previous?: Post): Category[] 
     .forEach((category) => next.push(category));
 
   return [...new Set(next)].slice(0, 2);
+}
+
+function normalizeResearchLogCategory(value: unknown): ResearchLogCategory | null {
+  return researchLogCategories.includes(value as ResearchLogCategory) ? (value as ResearchLogCategory) : null;
 }
 
 function extractExperimentResult(value?: string) {
@@ -163,8 +167,7 @@ export function normalizePost(input: Partial<Post>, previous?: Post): Post {
     categories: postCategories,
     status: nextStatus,
     pinned: Boolean(input.pinned ?? previous?.pinned),
-    weeklyPickup: Boolean(input.weeklyPickup ?? previous?.weeklyPickup),
-    archivePickup: Boolean(input.archivePickup ?? previous?.archivePickup),
+    logCategory: normalizeResearchLogCategory(input.logCategory) ?? normalizeResearchLogCategory(previous?.logCategory) ?? "開発ログ",
     tags: [...new Set(tags)].slice(0, 12),
     thumbnail: input.thumbnail || "",
     images: Array.isArray(input.images) ? input.images.filter(Boolean) : [],

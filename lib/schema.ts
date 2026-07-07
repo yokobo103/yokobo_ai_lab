@@ -12,6 +12,10 @@ export const categories = [
 
 export type Category = (typeof categories)[number];
 
+export const researchLogCategories = ["開発ログ", "考えたこと", "失敗の記録", "お知らせ"] as const;
+
+export type ResearchLogCategory = (typeof researchLogCategories)[number];
+
 export type Post = {
   id: string;
   title: string;
@@ -23,8 +27,7 @@ export type Post = {
   categories: Category[];
   status: "draft" | "public";
   pinned?: boolean;
-  weeklyPickup?: boolean;
-  archivePickup?: boolean;
+  logCategory?: ResearchLogCategory;
   tags: string[];
   thumbnail: string;
   images: string[];
