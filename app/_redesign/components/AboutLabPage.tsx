@@ -1,5 +1,6 @@
 import { assets } from "../data/assets";
 import { routes } from "../data/routes";
+import { AboutGuideMap } from "./AboutGuideMap";
 import { Footer } from "./Footer";
 import { LabButton } from "./LabButton";
 
@@ -25,25 +26,25 @@ const story = [
     speaker: "Dr.よこぼ",
     side: "doctor",
     avatar: "/assets/characters/dr-yokobo-face.png",
-    text: "AIに出会って、世界がガラッと広がったんだよね。",
+    text: "AIに出会って、できることの幅が一気に広がったんだ。",
   },
   {
     speaker: "ニャビット",
     side: "nyabit",
     avatar: "/design-reference/reference_nyabitto.png",
-    text: "そんなに変わるものなの？",
+    text: "そんなに変わるものなんですね。",
   },
   {
     speaker: "Dr.よこぼ",
     side: "doctor",
     avatar: "/assets/characters/dr-yokobo-face.png",
-    text: "うん。できることが一気に増えて、毎日がちょっとずつ楽しくなっていった。",
+    text: "うん。小さく試すたびに、毎日が少しずつ面白くなっていった。",
   },
   {
     speaker: "ニャビット",
     side: "nyabit",
     avatar: "/design-reference/reference_nyabitto.png",
-    text: "へえ。このラボを作った理由、ちょっと分かった気がする。",
+    text: "なるほどです。このラボを作った理由、少しわかった気がします。",
   },
 ] as const;
 
@@ -160,22 +161,7 @@ export function AboutLabPage() {
             <h2 id="about-ch2">
               <span>2</span>館内のご案内
             </h2>
-            <figure className="about-booklet__figure">
-              <img src={assets.about.guideMap} alt="よこぼのAIラボの見取り図。左に実験室、右に資料室が描かれている。" />
-              <figcaption>図1｜よこぼのAIラボ 見取り図</figcaption>
-            </figure>
-            <dl className="about-booklet__legend">
-              {rooms.map((room) => (
-                <div key={room.key}>
-                  <img src={room.icon} alt="" aria-hidden="true" />
-                  <dt>
-                    <small>{room.mark}</small>
-                    {room.title}
-                  </dt>
-                  <dd>{room.text}</dd>
-                </div>
-              ))}
-            </dl>
+            <AboutGuideMap mapSrc={assets.about.guideMap} rooms={rooms} />
           </section>
 
           <p className="about-booklet__tobecontinued">- 次のページへつづく -</p>
