@@ -1030,6 +1030,17 @@
   line-height: 1.55;
 }
 
+.update-item a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.update-item a:hover {
+  color: var(--color-cyan);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
 .closing-cta {
   position: relative;
   padding: 88px 0 96px;
