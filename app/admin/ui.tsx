@@ -35,6 +35,13 @@ type AdminExperience = {
   addedAt?: string;
 };
 
+type SiteUpdate = {
+  id: string;
+  date: string;
+  title: string;
+  href: string;
+};
+
 const experimentCategories = [
   ["game", "ゲーム"],
   ["tool", "ツール"],
@@ -144,6 +151,14 @@ function parseLinkText(value: string) {
     .filter((link) => link.label && link.url);
 }
 
+function todayInputDate() {
+  return new Date().toISOString().slice(0, 10);
+}
+
+function displayDateToInputDate(value: string) {
+  return value.replaceAll(".", "-");
+}
+
 type AdminAppProps = {
   initialView?: AdminView;
   initialPostId?: string;
@@ -157,12 +172,20 @@ export default function AdminApp({ initialView = "home", initialPostId }: AdminA
   const [authed, setAuthed] = useState(false);
   const [posts, setPosts] = useState<Post[]>([]);
   const [experiences, setExperiences] = useState<AdminExperience[]>([]);
+  const [siteUpdates, setSiteUpdates] = useState<SiteUpdate[]>([]);
+  const [siteUpdateDraft, setSiteUpdateDraft] = useState<SiteUpdate>(() => ({
+    id: "",
+    date: todayInputDate(),
+    title: "",
+    href: "/",
+  }));
   const [current, setCurrent] = useState<Post>(() => emptyPost());
   const [tagDraft, setTagDraft] = useState("");
   const [linkDraft, setLinkDraft] = useState("");
   const [message, setMessage] = useState("");
   const [saving, setSaving] = useState(false);
   const [savingExperienceArchiveNo, setSavingExperienceArchiveNo] = useState<number | null>(null);
+  const [savingSiteUpdate, setSavingSiteUpdate] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [publicPath, setPublicPath] = useState("");
   const [view, setView] = useState<AdminView>(initialView);
@@ -307,8 +330,10 @@ export default function AdminApp({ initialView = "home", initialPostId }: AdminA
 
       const data = (await response.json()) as Post[];
       const experienceData = await reloadExperiences(pass);
+      const siteUpdateData = await reloadSiteUpdates(pass);
       setPosts(data);
       setExperiences(experienceData);
+      setSiteUpdates(siteUpdateData);
       setAuthed(true);
       setAuthPassword(pass);
       sessionStorage.setItem(STORAGE_KEY, pass);
@@ -327,6 +352,7 @@ export default function AdminApp({ initialView = "home", initialPostId }: AdminA
     setAuthPassword("");
     setPosts([]);
     setExperiences([]);
+    setSiteUpdates([]);
     const nextCurrent = emptyPost();
     setCurrent(nextCurrent);
     setTagDraft(formatTagText(nextCurrent));
@@ -358,6 +384,16 @@ export default function AdminApp({ initialView = "home", initialPostId }: AdminA
     });
     if (!response.ok) return [];
     return (await response.json()) as AdminExperience[];
+  }
+
+  async function reloadSiteUpdates(pass = authPassword) {
+    const response = await fetch("/api/site-updates", {
+      headers: { "x-admin-password": pass, "ngrok-skip-browser-warning": "true" }
+    });
+    if (!response.ok) return [];
+    const data = (await response.json()) as SiteUpdate[];
+    setSiteUpdates(data);
+    return data;
   }
 
   function update<K extends keyof Post>(key: K, value: Post[K]) {
@@ -664,6 +700,52 @@ export default function AdminApp({ initialView = "home", initialPostId }: AdminA
 
   function duplicateRelationOwner(experience: AdminExperience, postId: string) {
     return experiences.find((item) => item.archiveNo !== experience.archiveNo && relatedPostIdsForExperience(item).includes(postId));
+  }
+
+  function updateSiteUpdateDraft(patch: Partial<SiteUpdate>) {
+    setSiteUpdateDraft((draft) => ({ ...draft, ...patch }));
+  }
+
+  async function saveSiteUpdate() {
+    setSavingSiteUpdate(true);
+    setMessage("");
+    const response = await fetch("/api/site-updates", {
+      method: "POST",
+      headers: jsonHeaders,
+      body: JSON.stringify(siteUpdateDraft)
+    });
+    const data = await response.json();
+    setSavingSiteUpdate(false);
+
+    if (!response.ok) {
+      setMessage(data.message || "更新履歴を保存できませんでした。");
+      return;
+    }
+
+    setSiteUpdates((items) => [data, ...items].sort((a, b) => b.date.localeCompare(a.date) || b.id.localeCompare(a.id)));
+    setSiteUpdateDraft({ id: "", date: todayInputDate(), title: "", href: "/" });
+    setMessage("更新履歴を追加しました。");
+  }
+
+  async function deleteSiteUpdate(update: SiteUpdate) {
+    if (!window.confirm(`「${update.title}」を更新履歴から削除します。よろしいですか？`)) return;
+    setSavingSiteUpdate(true);
+    setMessage("");
+    const response = await fetch("/api/site-updates", {
+      method: "DELETE",
+      headers: jsonHeaders,
+      body: JSON.stringify({ id: update.id })
+    });
+    const data = await response.json();
+    setSavingSiteUpdate(false);
+
+    if (!response.ok) {
+      setMessage(data.message || "更新履歴を削除できませんでした。");
+      return;
+    }
+
+    setSiteUpdates((items) => items.filter((item) => item.id !== update.id));
+    setMessage("更新履歴を削除しました。");
   }
 
   function selectedCategories(post = current) {
@@ -1063,6 +1145,89 @@ export default function AdminApp({ initialView = "home", initialPostId }: AdminA
               </article>
             );
           })}
+        </div>
+      </section>
+    );
+  }
+
+  function renderSiteUpdateSettings() {
+    const linkOptions = [
+      { label: "トップページ", href: "/" },
+      { label: "実験室", href: "/experiments" },
+      { label: "資料室", href: "/read" },
+      { label: "ラボ案内", href: "/about" },
+      ...experiences.map((experience) => ({
+        label: `実験: ${experience.title}`,
+        href: `/experiments#DEST-${String(experience.archiveNo).padStart(3, "0")}`
+      })),
+      ...posts
+        .filter((post) => post.status === "public")
+        .slice(0, 24)
+        .map((post) => ({
+          label: `記事: ${postTitle(post)}`,
+          href: `/read/${post.id}`
+        }))
+    ];
+
+    return (
+      <section className="siteUpdateSettings">
+        <div className="settingsSectionHeader">
+          <h2>トップページ更新情報</h2>
+          <p>記事公開や実験追加など、トップに載せたい更新だけを登録します。トップページには直近5件だけ表示されます。</p>
+        </div>
+        <div className="siteUpdateForm">
+          <label>
+            日付
+            <input
+              type="date"
+              value={displayDateToInputDate(siteUpdateDraft.date)}
+              onChange={(event) => updateSiteUpdateDraft({ date: event.target.value })}
+            />
+          </label>
+          <label>
+            タイトル
+            <input
+              value={siteUpdateDraft.title}
+              onChange={(event) => updateSiteUpdateDraft({ title: event.target.value })}
+              placeholder="例：実験室に新しい実験を追加しました。"
+            />
+          </label>
+          <label>
+            リンク候補
+            <select value="" onChange={(event) => updateSiteUpdateDraft({ href: event.target.value })}>
+              <option value="">候補から選ぶ</option>
+              {linkOptions.map((option) => (
+                <option key={`${option.href}-${option.label}`} value={option.href}>{option.label}</option>
+              ))}
+            </select>
+          </label>
+          <label>
+            リンク先
+            <input
+              value={siteUpdateDraft.href}
+              onChange={(event) => updateSiteUpdateDraft({ href: event.target.value })}
+              placeholder="/read/article-id"
+            />
+          </label>
+          <button className="primaryButton" type="button" disabled={savingSiteUpdate} onClick={() => void saveSiteUpdate()}>
+            更新履歴に追加
+          </button>
+        </div>
+        <div className="siteUpdateList">
+          {siteUpdates.map((update, index) => (
+            <article className="siteUpdateRow" key={update.id}>
+              <time dateTime={update.date.replaceAll(".", "-")}>{update.date}</time>
+              <div>
+                <strong>{update.title}</strong>
+                <a href={update.href} target="_blank" rel="noreferrer">{update.href}</a>
+                {index < 5 ? <small>トップ表示中</small> : null}
+              </div>
+              <button className="deleteButton" type="button" disabled={savingSiteUpdate} onClick={() => void deleteSiteUpdate(update)}>
+                削除
+              </button>
+            </article>
+          ))}
+          {!siteUpdates.length ? <p className="emptyState">更新履歴はまだありません。</p> : null}
         </div>
       </section>
     );
@@ -1496,7 +1661,9 @@ export default function AdminApp({ initialView = "home", initialPostId }: AdminA
             <span>下書き: {stats.drafts.length}</span>
             <span>公開済み: {stats.publicPosts.length}</span>
             <span>ピン留め: {stats.pinned.length}</span>
+            <span>更新履歴: {siteUpdates.length}</span>
           </div>
+          {renderSiteUpdateSettings()}
           <button className="secondaryButton" type="button" onClick={logout}>ログアウト</button>
         </section>
       </div>

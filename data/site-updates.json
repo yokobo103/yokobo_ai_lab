@@ -1,0 +1,92 @@
+[
+  {
+    "id": "20260708-redesign-complete",
+    "date": "2026.07.08",
+    "title": "サイトの大規模改修が完了しました。",
+    "href": "/"
+  },
+  {
+    "id": "20260703-top-entrance",
+    "date": "2026.07.03",
+    "title": "トップページの入口まわりを整理しました。",
+    "href": "/"
+  },
+  {
+    "id": "20260702-korokoro-nyabitto",
+    "date": "2026.07.02",
+    "title": "実験室に「コロコロニャビット」を追加しました。",
+    "href": "/experiments#DEST-008"
+  },
+  {
+    "id": "20260622-taiken-kakunouko",
+    "date": "2026.06.22",
+    "title": "発見ログ「体験格納庫をつくってみた」を追加しました。",
+    "href": "/read/20260620-taiken-kakunouko"
+  },
+  {
+    "id": "20260619-short-video-generation-pipeline",
+    "date": "2026.06.19",
+    "title": "ショート動画生成パイプラインの実験ログを追加しました。",
+    "href": "/read/20260619-short-video-generation-pipeline"
+  },
+  {
+    "id": "20260619-hq-log-workflow-migration",
+    "date": "2026.06.19",
+    "title": "実験ログ制作フローの見直しを記録しました。",
+    "href": "/read/20260619-hq-log-workflow-migration"
+  },
+  {
+    "id": "20260618-claude-fable-open-world",
+    "date": "2026.06.18",
+    "title": "Claude Fableの3Dオープンワールド実験を追加しました。",
+    "href": "/read/20260618-claude-fable-open-world"
+  },
+  {
+    "id": "20260618-minimum-memo-app",
+    "date": "2026.06.18",
+    "title": "超ミニマムなメモアプリの実験ログを追加しました。",
+    "href": "/read/20260614-minimum-memo-app"
+  },
+  {
+    "id": "20260607-nyabbit-roll-mobile-game",
+    "date": "2026.06.07",
+    "title": "コロコロニャビット開発プロジェクトの記録を追加しました。",
+    "href": "/read/20260530-nyabbit-roll-mobile-game"
+  },
+  {
+    "id": "20260530-voxel-world",
+    "date": "2026.05.30",
+    "title": "3Dボクセル研究施設ワールドを追加しました。",
+    "href": "/experiments#DEST-005"
+  },
+  {
+    "id": "20260523-lab-fighters",
+    "date": "2026.05.23",
+    "title": "よこぼラボファイターズの実験ログを追加しました。",
+    "href": "/read/20260522-lab-fighters"
+  },
+  {
+    "id": "20260517-1mb-html-game",
+    "date": "2026.05.17",
+    "title": "1MB HTMLゲームの実験成果を追加しました。",
+    "href": "/experiments#DEST-009"
+  },
+  {
+    "id": "20260508-realtime-translation",
+    "date": "2026.05.08",
+    "title": "リアルタイム翻訳アプリの実験を追加しました。",
+    "href": "/experiments#DEST-003"
+  },
+  {
+    "id": "20260505-cat-forest-run",
+    "date": "2026.05.05",
+    "title": "猫の森ランの実験ログを追加しました。",
+    "href": "/read/323c30ae-d25a-4ef8-b647-117e2b17f933"
+  },
+  {
+    "id": "20260428-lab-open",
+    "date": "2026.04.28",
+    "title": "よこぼのAIラボを仮オープンしました。",
+    "href": "/read/welcome-lab"
+  }
+]

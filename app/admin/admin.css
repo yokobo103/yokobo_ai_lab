@@ -1424,6 +1424,80 @@
   justify-self: start;
 }
 
+.siteUpdateSettings {
+  display: grid;
+  gap: 14px;
+  padding: 16px;
+  border: 1px solid var(--ad-line);
+  border-radius: var(--ad-radius);
+  background: var(--ad-panel-soft);
+}
+
+.siteUpdateForm {
+  display: grid;
+  grid-template-columns: 160px minmax(220px, 1fr);
+  gap: 10px;
+}
+
+.siteUpdateForm label {
+  display: grid;
+  gap: 6px;
+  color: var(--ad-ink-soft);
+  font-size: 0.78rem;
+}
+
+.siteUpdateForm label:nth-of-type(2),
+.siteUpdateForm label:nth-of-type(4),
+.siteUpdateForm .primaryButton {
+  grid-column: 1 / -1;
+}
+
+.siteUpdateList {
+  display: grid;
+  gap: 8px;
+}
+
+.siteUpdateRow {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid var(--ad-line);
+  border-radius: var(--ad-radius-sm);
+  background: rgba(7, 20, 33, 0.24);
+}
+
+.siteUpdateRow time {
+  color: var(--ad-cyan);
+  font-family: var(--ad-mono);
+  font-size: 0.76rem;
+}
+
+.siteUpdateRow div {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.siteUpdateRow strong,
+.siteUpdateRow a {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.siteUpdateRow strong {
+  color: var(--ad-ink);
+  font-size: 0.86rem;
+}
+
+.siteUpdateRow a,
+.siteUpdateRow small {
+  color: var(--ad-ink-soft);
+  font-size: 0.72rem;
+}
+
 /* ============================================================
    レスポンシブ
    - 1280px以上: エディタ2ペイン(編集|実プレビュー)
@@ -1513,6 +1587,11 @@
 
   .experimentSettingThumb {
     max-width: 220px;
+  }
+
+  .siteUpdateForm,
+  .siteUpdateRow {
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .previewBox {
