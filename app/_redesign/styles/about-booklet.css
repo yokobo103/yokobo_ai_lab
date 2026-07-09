@@ -853,12 +853,6 @@
 }
 
 @media (max-width: 520px) {
-  .about-booklet__sheet,
-  .about-booklet__outside-cta {
-    width: min(280px, calc(100vw - 32px));
-    max-width: min(280px, calc(100vw - 32px));
-  }
-
   .about-booklet__sheet {
     padding: 32px 14px 26px;
   }
