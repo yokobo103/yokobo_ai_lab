@@ -4,7 +4,7 @@
 `hero-mug-ykb`
 
 ## 2. Intended file path
-`public/assets/hero/mug-ykb.png`
+`public/assets/hero/mug-ykb.webp`
 
 ## 3. Purpose
 ヒーロー机上の白いYKBマグカップ。

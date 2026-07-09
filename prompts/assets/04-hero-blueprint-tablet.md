@@ -4,7 +4,7 @@
 `hero-blueprint-tablet`
 
 ## 2. Intended file path
-`public/assets/hero/blueprint-tablet.png`
+`public/assets/hero/blueprint-tablet.webp`
 
 ## 3. Purpose
 ヒーロー机上で猫博士が操作する青い設計タブレット。

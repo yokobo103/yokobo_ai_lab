@@ -4,7 +4,7 @@
 `hero-hologram-panel`
 
 ## 2. Intended file path
-`public/assets/hero/hologram-panel.png`
+`public/assets/hero/hologram-panel.webp`
 
 ## 3. Purpose
 ヒーロー背景右上の水色ホログラムUI。

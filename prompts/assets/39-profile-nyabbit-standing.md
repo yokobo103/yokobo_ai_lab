@@ -4,7 +4,7 @@
 `profile-nyabbit-standing`
 
 ## 2. Intended file path
-`public/assets/characters/nyabbit-profile.png`
+`public/assets/characters/nyabbit-profile.webp`
 
 ## 3. Purpose
 研究員プロフィール欄に置くニャビット単体。

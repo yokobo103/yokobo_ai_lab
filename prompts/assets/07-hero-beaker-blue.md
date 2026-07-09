@@ -4,7 +4,7 @@
 `hero-beaker-blue`
 
 ## 2. Intended file path
-`public/assets/hero/beaker-blue.png`
+`public/assets/hero/beaker-blue.webp`
 
 ## 3. Purpose
 ヒーロー右側に置く青い液体入りの背高いビーカー/フラスコ。

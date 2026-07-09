@@ -4,7 +4,7 @@
 `profile-dr-yokobo-standing`
 
 ## 2. Intended file path
-`public/assets/characters/dr-yokobo-profile.png`
+`public/assets/characters/dr-yokobo-profile.webp`
 
 ## 3. Purpose
 研究員プロフィール欄に置くDr.よこぼの立ち/座りキャラクター。

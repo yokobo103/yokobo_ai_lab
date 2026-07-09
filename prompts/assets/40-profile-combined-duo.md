@@ -4,7 +4,7 @@
 `profile-combined-duo`
 
 ## 2. Intended file path
-`public/assets/characters/dr-yokobo-nyabbit-duo.png`
+`public/assets/characters/dr-yokobo-nyabbit-duo.webp`
 
 ## 3. Purpose
 レスポンシブやプロフィールカード用のDr.よこぼ＋ニャビットのセット。

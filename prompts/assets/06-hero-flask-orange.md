@@ -4,7 +4,7 @@
 `hero-flask-orange`
 
 ## 2. Intended file path
-`public/assets/hero/flask-orange.png`
+`public/assets/hero/flask-orange.webp`
 
 ## 3. Purpose
 ヒーローとCTAで使えるオレンジ液体の小型フラスコ。

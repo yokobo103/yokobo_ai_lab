@@ -25,25 +25,25 @@ const story = [
   {
     speaker: "Dr.よこぼ",
     side: "doctor",
-    avatar: "/assets/characters/dr-yokobo-face.png",
+    avatar: "/assets/characters/dr-yokobo-face.webp",
     text: "AIに出会って、できることの幅が一気に広がったんだ。",
   },
   {
     speaker: "ニャビット",
     side: "nyabit",
-    avatar: "/design-reference/reference_nyabitto.png",
+    avatar: "/assets/characters/nyabit.webp",
     text: "そんなに変わるものなんですね。",
   },
   {
     speaker: "Dr.よこぼ",
     side: "doctor",
-    avatar: "/assets/characters/dr-yokobo-face.png",
+    avatar: "/assets/characters/dr-yokobo-face.webp",
     text: "うん。小さく試すたびに、毎日が少しずつ面白くなっていった。",
   },
   {
     speaker: "ニャビット",
     side: "nyabit",
-    avatar: "/design-reference/reference_nyabitto.png",
+    avatar: "/assets/characters/nyabit.webp",
     text: "なるほどです。このラボを作った理由、少しわかった気がします。",
   },
 ] as const;
@@ -75,32 +75,32 @@ const topics = [
   {
     title: "画像・動画あそび",
     text: "アイデアをカタチにして、世界観やイメージをつくる。",
-    image: "/assets/about/topics/topic-image-video.png",
+    image: "/assets/about/topics/topic-image-video.webp",
   },
   {
     title: "AIしくみあそび",
     text: "AIツールを試して、仕組みを体験してみる。",
-    image: "/assets/about/topics/topic-ai-mechanism.png",
+    image: "/assets/about/topics/topic-ai-mechanism.webp",
   },
   {
     title: "3D・空間あそび",
     text: "3Dモデルや空間をつくって、新しい表現にチャレンジ。",
-    image: "/assets/about/topics/topic-3d-space.png",
+    image: "/assets/about/topics/topic-3d-space.webp",
   },
   {
     title: "ゲームあそび",
     text: "小さなアイデアから、遊べるゲームをつくる。",
-    image: "/assets/about/topics/topic-game.png",
+    image: "/assets/about/topics/topic-game.webp",
   },
   {
     title: "Webあそび",
     text: "Webサイトやアプリをつくって公開してみる。",
-    image: "/assets/about/topics/topic-web.png",
+    image: "/assets/about/topics/topic-web.webp",
   },
   {
     title: "気づき・ログ",
     text: "気づいたことや悩んだことを、ログとして残していく。",
-    image: "/assets/about/topics/topic-log.png",
+    image: "/assets/about/topics/topic-log.webp",
   },
 ] as const;
 

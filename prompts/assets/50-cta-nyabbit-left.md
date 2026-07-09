@@ -4,7 +4,7 @@
 `cta-nyabbit-left`
 
 ## 2. Intended file path
-`public/assets/cta/nyabbit-banner.png`
+`public/assets/cta/nyabbit-banner.webp`
 
 ## 3. Purpose
 CTAバナー左側のニャビット。

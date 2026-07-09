@@ -4,7 +4,7 @@
 `cta-dr-yokobo-right`
 
 ## 2. Intended file path
-`public/assets/cta/dr-yokobo-waving.png`
+`public/assets/cta/dr-yokobo-waving.webp`
 
 ## 3. Purpose
 CTAバナー右側で手を上げるDr.よこぼ。

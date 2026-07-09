@@ -4,7 +4,7 @@
 `hero-nyabbit`
 
 ## 2. Intended file path
-`public/assets/characters/nyabbit-hero.png`
+`public/assets/characters/nyabbit-hero.webp`
 
 ## 3. Purpose
 ヒーローでDr.よこぼの隣に置く小型ロボット相棒。

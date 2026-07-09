@@ -1,6 +1,6 @@
 import type { Post } from "./schema";
 
-export const defaultOgpImagePath = "/ogp-default.png";
+export const defaultOgpImagePath = "/ogp-default.webp";
 
 export function getSiteUrl() {
   const configuredUrl = process.env.NEXT_PUBLIC_SITE_URL || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "");

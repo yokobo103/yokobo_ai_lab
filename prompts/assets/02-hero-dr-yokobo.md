@@ -4,7 +4,7 @@
 `hero-dr-yokobo`
 
 ## 2. Intended file path
-`public/assets/characters/dr-yokobo-hero.png`
+`public/assets/characters/dr-yokobo-hero.webp`
 
 ## 3. Purpose
 ヒーローの主役キャラクター、Dr.よこぼ。
