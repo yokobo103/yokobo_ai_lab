@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(taskkill /PID 19156 /F)",
+      "Bash(node -e ' *)",
+      "Bash(mv -f public/assets/about/lab-guide-map-centered.webp public/assets/about/lab-guide-map.webp)",
+      "Bash(node -e \"require\\('sharp'\\)\\('public/assets/about/lab-guide-map.webp'\\).metadata\\(\\).then\\(m => console.log\\(m.width, m.height\\)\\)\")",
+      "Bash(node -e \"const p=require\\('./data/posts.json'\\); console.log\\('posts:', p.length\\)\")",
+      "Bash(node -e \"const r=require\\('./lib/result-statuses.ts'\\)\")",
+      "Bash(node -e \"const p=require\\('./data/posts.json'\\); console.log\\('posts with :::note =', p.filter\\(x=>\\(x.body||''\\).includes\\(':::'\\)\\).length\\)\")"
+    ]
+  }
+}
