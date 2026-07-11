@@ -7,7 +7,7 @@ import type { ArchiveArticle } from "../data/archiveArticles";
 import { getExperimentLaunchHref, getRelatedExperiment, getRelatedExperimentId } from "../data/experimentRelations";
 import { logCategories, statusLabel } from "../data/researchLogs";
 import type { LogFilter, ResearchLog } from "../data/researchLogs";
-import { plannedRoutes, routes } from "../data/routes";
+import { externalRoutes, plannedRoutes, routes } from "../data/routes";
 
 function formatLogDate(value?: string) {
   if (!value) return "";
@@ -281,17 +281,26 @@ function ResearchLogSection() {
 function LinkStrip() {
   return (
     <section className="read-strip" aria-label="読むための入口">
-      <article className="read-strip__item read-strip__item--pending">
-        <span className="read-strip__icon" aria-hidden="true">
-          ♪
-        </span>
+      <a
+        className="read-strip__item read-strip__item--podcast"
+        href={externalRoutes.podcast}
+        target="_blank"
+        rel="noreferrer"
+        aria-label="よこぼのAIラボ 研究ログをSpotifyで聴く（新しいタブで開きます）"
+      >
+        <img
+          className="read-strip__podcast-art"
+          src="/illustrations/shiryoshitsu/ai-lab-podcast.webp"
+          alt=""
+          aria-hidden="true"
+        />
         <span>
           <small>PODCAST ┃ 聴く</small>
-          <strong>よこぼラジオ</strong>
-          <em>Dr.よこぼとニャビットが、その週にじっていた実験をゆるく振り返る音声記録。</em>
-          <b>準備中</b>
+          <strong>よこぼのAIラボ　研究ログ（podcast）</strong>
+          <em>AIラボで試したこと、気づいたこと、考えたことを、音声でも残していく研究ログ。</em>
+          <b>Spotifyで聴く ↗</b>
         </span>
-      </article>
+      </a>
       <article className="read-strip__item read-strip__item--pending" data-planned-route={plannedRoutes.tags}>
         <span className="read-strip__icon" aria-hidden="true">
           #
