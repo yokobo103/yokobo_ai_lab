@@ -21,6 +21,7 @@ const footerGroups: FooterGroup[] = [
     title: "ラボのこと",
     links: [
       { label: "ラボ案内", href: routes.about },
+      { label: "歴史資料館", href: routes.history },
       { label: "感想・お問い合わせ", href: externalRoutes.contact, external: true },
     ],
   },

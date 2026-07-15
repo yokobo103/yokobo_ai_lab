@@ -155,6 +155,20 @@ function ReceptionBand() {
   );
 }
 
+function HistoryEntrance() {
+  return (
+    <a className="history-entrance" href={routes.history}>
+      <span className="history-entrance__mark" aria-hidden="true">⌛</span>
+      <span>
+        <small>SPECIAL COLLECTION ┃ 歴史をたどる</small>
+        <strong>よこぼのAIラボ 歴史資料館</strong>
+        <em>初代から現在まで。歴代サイトを、スクロールできる展示窓で見比べる。</em>
+      </span>
+      <b aria-hidden="true">入館する →</b>
+    </a>
+  );
+}
+
 type LogEntryProps = {
   log: ResearchLog;
   featured?: boolean;
@@ -353,6 +367,7 @@ export function ReadArchivePage() {
         <BreadcrumbBar />
         <Hero />
         <ReceptionBand />
+        <HistoryEntrance />
         <ResearchLogSection />
         <LinkStrip />
       </main>

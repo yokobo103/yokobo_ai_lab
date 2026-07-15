@@ -5,6 +5,7 @@ export const routes = {
   experiments: "/experiments", // current site: public works / experience area
   experimentsExplore: "/experiments/explore", // current site: no direct equivalent yet
   read: "/read", // current site: /posts
+  history: "/history", // site design archive / museum
   about: "/about", // current site: /about
   readArticle(slug: string) {
     return `/read/${encodeURIComponent(slug)}`; // current site: /posts/[slug]
