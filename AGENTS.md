@@ -16,6 +16,17 @@
 - pull後に `data/posts.json` をJSON parseする。管理画面保存とローカル編集の両方で更新され得るため、特に競合へ注意する。
 - コンフリクトは自動解決せず、停止して報告する。
 
+## GitHub delivery and draft handling
+
+- このセクションは「よこぼのAIラボ」Webサイトに限定した運用ルールであり、HQの一般的なmain反映停止ルールより優先する。
+- ユーザーが「プッシュして」と依頼した場合は、作業ブランチへのcommit・push、Pull Request作成、必要なチェックの確認、mainへのmergeまでを依頼範囲に含める。Pull Request作成だけで停止しない。
+- ユーザーが「下書きとしてプッシュ」と依頼した場合、「記事の状態を `status: draft` のままmainへmergeする」という意味で扱う。GitHubのDraft PRを作る指示とは解釈しない。
+- Draft PRで停止するのは、ユーザーが「Draft PR」「PRだけ」「レビュー前で止める」「mergeしない」など、停止地点を明示した場合だけとする。
+- 記事の `status: draft` とGitHubのDraft PRは別物として扱う。下書き記事をmainへmergeしても、`status` を `public` に変更しない限り公開指示とはみなさない。
+- 「公開して」「`status` を `public` にして」などの明示がない限り、下書き記事を公開状態へ変更しない。
+- merge前に利用可能なCI・Vercel等のチェックを確認する。失敗、競合、保護ルール、判断が必要な差分がある場合は、無理に回避せず停止して報告する。
+- 「常にforce push」は使用しない。rebaseやamend後など通常pushできない場合に限り、Codex自身が作成した共有されていない作業ブランチへ `--force-with-lease` を使用できる。mainや共有ブランチにはforce pushしない。
+
 ## Project concept
 
 This project is “よこぼのAIラボ”, a playful personal AI lab website.
