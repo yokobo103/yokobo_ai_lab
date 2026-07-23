@@ -11,10 +11,9 @@
       "3D・空間あそび",
       "ゲームあそび"
     ],
-    "status": "draft",
+    "status": "public",
     "pinned": false,
-    "weeklyPickup": false,
-    "archivePickup": false,
+    "logCategory": "開発ログ",
     "tags": [
       "よこぼカート3D",
       "Blender",
@@ -39,10 +38,16 @@
       "/uploads/20260719-yokobo-kart-3d-enhancement/gallery-8.webp",
       "/uploads/20260719-yokobo-kart-3d-enhancement/gallery-9.webp"
     ],
-    "body": "担当：Dr.よこぼ\n実験結果：3Dモデル、地形、コース、BGMの生成パイプラインがつながり、よこぼカート3Dを強化できた\n-------\n\n# AIにBlenderを動かしてもらったら、よこぼカート3Dが進化した\n\n今回やりたかったのは、**Blenderという3Dモデリングソフトを、AIエージェントに動かしてもらうこと**だった。\n\n私自身が一つずつモデルを作るのではなく、CodexやClaudeに「こんな木がほしい」「こんな乗り物がほしい」と頼む。するとAIがBlenderを動かし、ゲームで使える3Dモデルまで作ってくれる。\n\nその橋渡しになるのが、Blender MCPなどの連携である。難しく聞こえるが、要するにAIへBlenderの操作を任せるための入口だ。\n\nまずは、そのための共通パイプラインを作るところから実験を始めた。\n\n## 最初は、3Dモデルを作る仕組みだった\n\n最初に作ったものの一つが、ローポリの木である。\n\n![AIエージェントがBlenderで広葉樹を生成した記録](/uploads/20260719-yokobo-kart-3d-enhancement/gallery-1.webp)\n\n大事なのは木そのものより、同じ仕組みを使えば別の3Dモデルも作れるようになったことだ。AIへ形を伝えると、Blenderでモデルを作り、ゲームへ持ち込める形で書き出してくれる。\n\nここから「木が作れるなら、地面も作れるのでは？」と考えた。\n\n実際に地形生成のパイプラインを作り始めると、草原、岩場、街の土台まで作れるようになった。\n\n![地形やコースが並ぶアセットカタログ](/uploads/20260719-yokobo-kart-3d-enhancement/gallery-9.webp)\n\nそして地形を眺めているうちに、次の疑問が出てきた。\n\n**これ、レースのコースも作れるのでは？**\n\n## 地形から、コース生成へ\n\nそこでFableに相談したところ、地形生成とレースコースはかなり相性がよいという話になった。\n\n地面を作り、その上へ道路を引き、周囲へ木や岩や建物を置く。考えてみれば、すでに作っていた仕組みの延長である。\n\nこうしてコース生成のパイプラインまで作り、もともとのラボサーキットに、草原、渓谷、街のコースを追加した。\n\n![4つのコースを選べるようになった画面](/uploads/20260719-yokobo-kart-3d-enhancement/gallery-2.webp)\n\n別々の場所で作っていた3Dモデルと地形が、ここで初めて一つのゲームへ集まり始めた。\n\n## AIがバイクと新しいカートまで作った\n\nコースを増やしている間、3Dモデル生成側でも実験を続けた。\n\n今度はAIエージェントに、バイクと、元のラボカートとは違う形のカートを依頼した。\n\n![AIエージェントがバイクとカートを作った記録](/uploads/20260719-yokobo-kart-3d-enhancement/gallery-8.webp)\n\nするとAIが乗り物の設計を考え、Blenderを動かし、二つのモデルを完成させた。\n\n![Blender上に並んだローポリバイクとローポリカート](/uploads/20260719-yokobo-kart-3d-enhancement/gallery-3.webp)\n\nもちろん細かな調整は必要だったが、私がBlender上で一からモデリングしたわけではない。「バイクを作って」と頼むところから、ゲーム用モデルが出てくるところまでをAIエージェントが進めてくれた。\n\nさらに、Dr.よこぼとニャビット、3種類のマシン、色違いを自由に組み合わせられるようにした。\n\n![キャラクター、マシン、色を選べる画面](/uploads/20260719-yokobo-kart-3d-enhancement/gallery-4.webp)\n\n作ったモデルが展示物で終わらず、実際に選んで走れる乗り物になったのである。\n\n## 別々のパイプラインが、一つのゲームになった\n\n草原ではバイクに乗り、木や草の間を走る。\n\n![草原コースをバイクで走るDr.よこぼ](/uploads/20260719-yokobo-kart-3d-enhancement/gallery-5.webp)\n\n渓谷では新しいカートに乗り換え、岩場を走る。\n\n![渓谷コースを走るローポリカート](/uploads/20260719-yokobo-kart-3d-enhancement/gallery-6.webp)\n\n街では建物や街路樹の間を、バイクとカートが一緒に走る。\n\n![街コースでバイクとカートが競う場面](/uploads/20260719-yokobo-kart-3d-enhancement/gallery-7.webp)\n\n見た目だけでなく、音もコースごとに変えた。草原、渓谷、街のBGMは、音楽生成モデルの**ACE-Step 1.0**をローカルPCで動かして生成している。\n\n今回の強化は、カートを一台増やした、コースを一つ増やした、という話ではない。\n\n- 3Dモデルを作るパイプライン\n- 地形を作るパイプライン\n- コースを作るパイプライン\n- BGMを作るパイプライン\n\nそれぞれ別の実験として始めた仕組みが、最後によこぼカート3Dへつながった。\n\nAIにBlenderを動かしてもらえるか試したかっただけなのに、気づけば世界も、道も、乗り物も、音楽もAIと一緒に増やせるゲームになっていた。\n\n一つの完成品を作ったというより、**これから何度でもゲームを強化できる流れを作れた**ことが、今回いちばん大きな成果である。\n\n研究継続。（Dr.よこぼ）\n",
-    "links": [],
+    "body": "担当：Dr.よこぼ\n実験結果：3Dモデル、地形、コース、BGMの生成パイプラインがつながり、よこぼカート3Dを強化できた\n-------\n\nよこぼカート3Dはこちらで遊べます！\nhttps://yokobo103.github.io/3D_cart_game/\n\n\n# AIにBlenderを動かしてもらったら、よこぼカート3Dが進化した\n\n今回やりたかったのは、**Blenderという3Dモデリングソフトを、AIエージェントに動かしてもらうこと**だった。\n\n私自身が一つずつモデルを作るのではなく、CodexやClaudeに「こんな木がほしい」「こんな乗り物がほしい」と頼む。するとAIがBlenderを動かし、ゲームで使える3Dモデルまで作ってくれる。\n\nその橋渡しになるのが、Blender MCPなどの連携である。難しく聞こえるが、要するにAIへBlenderの操作を任せるための入口だ。\n\nまずは、そのための共通パイプラインを作るところから実験を始めた。\n\n## 最初は、3Dモデルを作る仕組みだった\n\n最初に作ったものの一つが、ローポリの木である。\n\n![AIエージェントがBlenderで広葉樹を生成した記録](/uploads/20260719-yokobo-kart-3d-enhancement/gallery-1.webp)\n\n大事なのは木そのものより、同じ仕組みを使えば別の3Dモデルも作れるようになったことだ。AIへ形を伝えると、Blenderでモデルを作り、ゲームへ持ち込める形で書き出してくれる。\n\nここから「木が作れるなら、地面も作れるのでは？」と考えた。\n\n実際に地形生成のパイプラインを作り始めると、草原、岩場、街の土台まで作れるようになった。\n\n![地形やコースが並ぶアセットカタログ](/uploads/20260719-yokobo-kart-3d-enhancement/gallery-9.webp)\n\nそして地形を眺めているうちに、次の疑問が出てきた。\n\n**これ、レースのコースも作れるのでは？**\n\n## 地形から、コース生成へ\n\nそこでFableに相談したところ、地形生成とレースコースはかなり相性がよいという話になった。\n\n地面を作り、その上へ道路を引き、周囲へ木や岩や建物を置く。考えてみれば、すでに作っていた仕組みの延長である。\n\nこうしてコース生成のパイプラインまで作り、もともとのラボサーキットに、草原、渓谷、街のコースを追加した。\n\n![4つのコースを選べるようになった画面](/uploads/20260719-yokobo-kart-3d-enhancement/gallery-2.webp)\n\n別々の場所で作っていた3Dモデルと地形が、ここで初めて一つのゲームへ集まり始めた。\n\n## AIがバイクと新しいカートまで作った\n\nコースを増やしている間、3Dモデル生成側でも実験を続けた。\n\n今度はAIエージェントに、バイクと、元のラボカートとは違う形のカートを依頼した。\n\n![AIエージェントがバイクとカートを作った記録](/uploads/20260719-yokobo-kart-3d-enhancement/gallery-8.webp)\n\nするとAIが乗り物の設計を考え、Blenderを動かし、二つのモデルを完成させた。\n\n![Blender上に並んだローポリバイクとローポリカート](/uploads/20260719-yokobo-kart-3d-enhancement/gallery-3.webp)\n\nもちろん細かな調整は必要だったが、私がBlender上で一からモデリングしたわけではない。「バイクを作って」と頼むところから、ゲーム用モデルが出てくるところまでをAIエージェントが進めてくれた。\n\nさらに、Dr.よこぼとニャビット、3種類のマシン、色違いを自由に組み合わせられるようにした。\n\n![キャラクター、マシン、色を選べる画面](/uploads/20260719-yokobo-kart-3d-enhancement/gallery-4.webp)\n\n作ったモデルが展示物で終わらず、実際に選んで走れる乗り物になったのである。\n\n## 別々のパイプラインが、一つのゲームになった\n\n草原ではバイクに乗り、木や草の間を走る。\n\n![草原コースをバイクで走るDr.よこぼ](/uploads/20260719-yokobo-kart-3d-enhancement/gallery-5.webp)\n\n渓谷では新しいカートに乗り換え、岩場を走る。\n\n![渓谷コースを走るローポリカート](/uploads/20260719-yokobo-kart-3d-enhancement/gallery-6.webp)\n\n街では建物や街路樹の間を、バイクとカートが一緒に走る。\n\n![街コースでバイクとカートが競う場面](/uploads/20260719-yokobo-kart-3d-enhancement/gallery-7.webp)\n\n見た目だけでなく、音もコースごとに変えた。草原、渓谷、街のBGMは、音楽生成モデルの**ACE-Step 1.0**をローカルPCで動かして生成している。\n\n今回の強化は、カートを一台増やした、コースを一つ増やした、という話ではない。\n\n- 3Dモデルを作るパイプライン\n- 地形を作るパイプライン\n- コースを作るパイプライン\n- BGMを作るパイプライン\n\nそれぞれ別の実験として始めた仕組みが、最後によこぼカート3Dへつながった。\n\nAIにBlenderを動かしてもらえるか試したかっただけなのに、気づけば世界も、道も、乗り物も、音楽もAIと一緒に増やせるゲームになっていた。\n\n一つの完成品を作ったというより、**これから何度でもゲームを強化できる流れを作れた**ことが、今回いちばん大きな成果である。\n\n研究継続。（Dr.よこぼ）\n",
+    "links": [
+      {
+        "label": "よこぼカート3D",
+        "url": "https://yokobo103.github.io/3D_cart_game/"
+      }
+    ],
     "createdAt": "2026-07-19T00:00:00.000+09:00",
-    "updatedAt": "2026-07-19T11:33:40.969Z"
+    "publishedAt": "2026-07-23T12:00:20.533Z",
+    "updatedAt": "2026-07-23T12:00:20.533Z"
   },
   {
     "id": "20260712-ai-lab-major-renewal",
@@ -58,8 +63,7 @@
     ],
     "status": "public",
     "pinned": false,
-    "weeklyPickup": false,
-    "archivePickup": false,
+    "logCategory": "開発ログ",
     "tags": [
       "よこぼのAIラボ",
       "サイト大改修",
@@ -111,8 +115,7 @@
     ],
     "status": "public",
     "pinned": false,
-    "weeklyPickup": false,
-    "archivePickup": false,
+    "logCategory": "開発ログ",
     "tags": [
       "サイト刷新",
       "実験室",
@@ -152,8 +155,7 @@
     ],
     "status": "public",
     "pinned": false,
-    "weeklyPickup": false,
-    "archivePickup": false,
+    "logCategory": "開発ログ",
     "tags": [
       "コロコロニャビット",
       "スマホゲーム",
@@ -199,8 +201,7 @@
     ],
     "status": "public",
     "pinned": false,
-    "weeklyPickup": false,
-    "archivePickup": false,
+    "logCategory": "開発ログ",
     "tags": [
       "体験格納庫",
       "転送室",
@@ -243,8 +244,7 @@
     ],
     "status": "public",
     "pinned": false,
-    "weeklyPickup": false,
-    "archivePickup": false,
+    "logCategory": "開発ログ",
     "tags": [
       "ショート動画",
       "動画生成パイプライン",
@@ -290,8 +290,7 @@
     ],
     "status": "public",
     "pinned": false,
-    "weeklyPickup": false,
-    "archivePickup": false,
+    "logCategory": "開発ログ",
     "tags": [
       "HQ",
       "Daily Log Memo",
@@ -326,8 +325,7 @@
     ],
     "status": "public",
     "pinned": false,
-    "weeklyPickup": false,
-    "archivePickup": false,
+    "logCategory": "開発ログ",
     "tags": [
       "メモアプリ",
       "Codex",
@@ -360,8 +358,7 @@
     ],
     "status": "public",
     "pinned": false,
-    "weeklyPickup": false,
-    "archivePickup": false,
+    "logCategory": "開発ログ",
     "tags": [
       "Claude Fable",
       "3Dゲーム",
@@ -421,8 +418,7 @@
     ],
     "status": "public",
     "pinned": false,
-    "weeklyPickup": false,
-    "archivePickup": false,
+    "logCategory": "開発ログ",
     "tags": [
       "コロコロニャビット",
       "スマホ操作",
@@ -476,8 +472,7 @@
     ],
     "status": "public",
     "pinned": false,
-    "weeklyPickup": true,
-    "archivePickup": false,
+    "logCategory": "開発ログ",
     "tags": [
       "blender"
     ],
@@ -519,8 +514,7 @@
     ],
     "status": "public",
     "pinned": false,
-    "weeklyPickup": false,
-    "archivePickup": false,
+    "logCategory": "開発ログ",
     "tags": [
       "Three.js",
       "ローポリ",
@@ -577,8 +571,7 @@
     ],
     "status": "public",
     "pinned": false,
-    "weeklyPickup": false,
-    "archivePickup": false,
+    "logCategory": "開発ログ",
     "tags": [
       "ニャビロット",
       "ゲーム制作",
@@ -622,8 +615,7 @@
     ],
     "status": "public",
     "pinned": false,
-    "weeklyPickup": false,
-    "archivePickup": false,
+    "logCategory": "開発ログ",
     "tags": [
       "Blender",
       "3Dモデル",
@@ -670,8 +662,7 @@
     ],
     "status": "public",
     "pinned": false,
-    "weeklyPickup": false,
-    "archivePickup": false,
+    "logCategory": "開発ログ",
     "tags": [
       "格闘ゲーム",
       "Codex",
@@ -721,8 +712,7 @@
     ],
     "status": "public",
     "pinned": false,
-    "weeklyPickup": false,
-    "archivePickup": false,
+    "logCategory": "開発ログ",
     "tags": [],
     "thumbnail": "/uploads/dc2b464b-63ee-41a0-986b-fb84b8f06f48/thumbnail-f53fb550-a025-4dcb-8c98-d6e75b9588e2.webp",
     "images": [
@@ -756,8 +746,7 @@
     ],
     "status": "public",
     "pinned": false,
-    "weeklyPickup": false,
-    "archivePickup": false,
+    "logCategory": "開発ログ",
     "tags": [],
     "thumbnail": "/uploads/20260517-dq-style-small-game/thumbnail-0500dd6b-5350-4bed-ade0-1866c8901181.webp",
     "images": [
@@ -794,8 +783,7 @@
     ],
     "status": "public",
     "pinned": false,
-    "weeklyPickup": false,
-    "archivePickup": false,
+    "logCategory": "開発ログ",
     "tags": [],
     "thumbnail": "/uploads/03cdcc5a-6c54-4fff-842d-1ef2bbddf055/thumbnail-8006ec2d-8473-44eb-85b2-94d74436bf41.webp",
     "images": [
@@ -833,8 +821,7 @@
     ],
     "status": "public",
     "pinned": false,
-    "weeklyPickup": false,
-    "archivePickup": false,
+    "logCategory": "開発ログ",
     "tags": [],
     "thumbnail": "/uploads/1d868e67-d4a2-4309-9f1b-5edb9f5f115a/thumbnail-7445f733-c336-42b8-9a99-766a7221d36e.webp",
     "images": [
@@ -862,8 +849,7 @@
     ],
     "status": "public",
     "pinned": false,
-    "weeklyPickup": false,
-    "archivePickup": false,
+    "logCategory": "開発ログ",
     "tags": [],
     "thumbnail": "/uploads/2b237510-0f6c-4d24-bf2c-77ab0b07869d/thumbnail-6791fa5c-5d9f-4688-b4ff-d791b3c25e6b.webp",
     "images": [
@@ -896,8 +882,7 @@
     ],
     "status": "public",
     "pinned": false,
-    "weeklyPickup": false,
-    "archivePickup": false,
+    "logCategory": "開発ログ",
     "tags": [],
     "thumbnail": "/uploads/1c58dd2f-5ce3-4615-a2a8-399d2cdc1a99/thumbnail-08c5f7d4-ea65-449d-b689-82bdd5a3934d.webp",
     "images": [
@@ -930,8 +915,7 @@
     ],
     "status": "public",
     "pinned": false,
-    "weeklyPickup": false,
-    "archivePickup": false,
+    "logCategory": "開発ログ",
     "tags": [],
     "thumbnail": "/uploads/323c30ae-d25a-4ef8-b647-117e2b17f933/thumbnail-3bca667d-00ab-4b42-9424-d30dd8a46e3b.webp",
     "images": [
@@ -967,8 +951,7 @@
     ],
     "status": "public",
     "pinned": false,
-    "weeklyPickup": false,
-    "archivePickup": false,
+    "logCategory": "開発ログ",
     "tags": [],
     "thumbnail": "/assets/posts/lp-reference.webp",
     "images": [
@@ -995,8 +978,7 @@
     ],
     "status": "public",
     "pinned": false,
-    "weeklyPickup": false,
-    "archivePickup": false,
+    "logCategory": "開発ログ",
     "tags": [
       "ffmpeg",
       "軽量化",
@@ -1031,8 +1013,7 @@
     ],
     "status": "public",
     "pinned": false,
-    "weeklyPickup": false,
-    "archivePickup": true,
+    "logCategory": "開発ログ",
     "tags": [],
     "thumbnail": "/uploads/2025-ai-asobi-summary-draft/thumbnail-1a4afc75-676d-4a30-97a8-6264c4a3d25f.webp",
     "images": [
@@ -1080,8 +1061,7 @@
     ],
     "status": "public",
     "pinned": false,
-    "weeklyPickup": false,
-    "archivePickup": false,
+    "logCategory": "開発ログ",
     "tags": [],
     "thumbnail": "/uploads/f5e0a374-44e9-4f89-beec-b53e62bc9a1f/thumbnail-aa655919-7cf9-4611-ad3c-177728cbdc21.webp",
     "images": [
