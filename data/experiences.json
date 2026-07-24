@@ -5,7 +5,12 @@
     "category": "game",
     "summary": "猫のよこぼと森を駆け抜ける、カジュアルな横スクロールアクション。",
     "thumbnail": "/uploads/323c30ae-d25a-4ef8-b647-117e2b17f933/thumbnail-3bca667d-00ab-4b42-9424-d30dd8a46e3b.webp",
-    "tags": ["アクション", "猫", "画像生成", "Codex"],
+    "tags": [
+      "アクション",
+      "猫",
+      "画像生成",
+      "Codex"
+    ],
     "playUrl": "https://yokobo103.github.io/yokobo-cat-forest-run/",
     "relatedPostId": "323c30ae-d25a-4ef8-b647-117e2b17f933",
     "localSource": "20260425_猫スクロールゲームをつくってみる",
@@ -20,15 +25,24 @@
     "category": "game",
     "summary": "スマホでも遊べる軽快な3Dカートレース。AIとの試行錯誤から生まれました。",
     "thumbnail": "/uploads/dc2b464b-63ee-41a0-986b-fb84b8f06f48/thumbnail-f53fb550-a025-4dcb-8c98-d6e75b9588e2.webp",
-    "tags": ["3D", "レース", "ゲーム", "軽量化"],
+    "tags": [
+      "3D",
+      "レース",
+      "ゲーム",
+      "軽量化"
+    ],
     "playUrl": "https://yokobo103.github.io/3D_cart_game/",
-    "relatedPostId": "dc2b464b-63ee-41a0-986b-fb84b8f06f48",
-    "relatedPostIds": ["dc2b464b-63ee-41a0-986b-fb84b8f06f48", "f6a3450e-f7c5-49f8-afbc-9688e7d74e41"],
+    "relatedPostIds": [
+      "dc2b464b-63ee-41a0-986b-fb84b8f06f48",
+      "f6a3450e-f7c5-49f8-afbc-9688e7d74e41",
+      "20260719-yokobo-kart-3d-enhancement"
+    ],
     "localSource": "20260502_マリオカート風ゲームを作ってみる",
     "status": "live",
     "addedAt": "2026-05-02",
     "visualVariant": "drive",
-    "visualDensity": "low"
+    "visualDensity": "low",
+    "featured": false
   },
   {
     "archiveNo": 3,
@@ -36,7 +50,12 @@
     "category": "tool",
     "summary": "ことばの壁を越える未来道具、「ほんやくコンニャク」の試作品。",
     "thumbnail": "/uploads/2b237510-0f6c-4d24-bf2c-77ab0b07869d/thumbnail-6791fa5c-5d9f-4688-b4ff-d791b3c25e6b.webp",
-    "tags": ["GPT", "翻訳", "音声", "AIツール"],
+    "tags": [
+      "GPT",
+      "翻訳",
+      "音声",
+      "AIツール"
+    ],
     "playUrl": "https://gpt-rt-translate-app.vercel.app/",
     "relatedPostId": "2b237510-0f6c-4d24-bf2c-77ab0b07869d",
     "localSource": "20260508_gpt_RT_translate_app",
@@ -51,7 +70,12 @@
     "category": "game",
     "summary": "Dr.よこぼたちが研究室で激突。失敗を重ねて完成した格闘ゲーム実験。",
     "thumbnail": "/uploads/20260522-lab-fighters/thumbnail-11.webp",
-    "tags": ["格闘ゲーム", "Codex", "スプライト", "AI実験"],
+    "tags": [
+      "格闘ゲーム",
+      "Codex",
+      "スプライト",
+      "AI実験"
+    ],
     "playUrl": "https://yokobo103.github.io/yokobo-lab-fighters/",
     "relatedPostId": "20260522-lab-fighters",
     "localSource": "20260515_よこぼファイターズ改",
@@ -66,7 +90,12 @@
     "category": "3d-ar",
     "summary": "ローポリの研究施設を歩いて探検する、RPG風3Dワールド。",
     "thumbnail": "/uploads/20260530-rpg-style-3d-research-facility/thumbnail-0.webp",
-    "tags": ["Three.js", "ローポリ", "3D", "研究施設"],
+    "tags": [
+      "Three.js",
+      "ローポリ",
+      "3D",
+      "研究施設"
+    ],
     "playUrl": "https://yokobo103.github.io/yokobo_ai_lab_3d_boxel_world/",
     "relatedPostId": "20260530-rpg-style-3d-research-facility",
     "localSource": "20260526_RPG風の研究施設をつくる",
@@ -81,7 +110,12 @@
     "category": "3d-ar",
     "summary": "雑なプロンプトから一気に立ち上がった、自由に歩ける3D世界モデル実験。",
     "thumbnail": "/uploads/20260618-claude-fable-open-world/thumbnail-3.webp",
-    "tags": ["Claude Fable", "3Dゲーム", "AI生成", "世界モデル"],
+    "tags": [
+      "Claude Fable",
+      "3Dゲーム",
+      "AI生成",
+      "世界モデル"
+    ],
     "playUrl": "https://yokobo103.github.io/3D_yokobo_open_world_fable/",
     "relatedPostId": "20260618-claude-fable-open-world",
     "localSource": "20260612_fableで最強3Dゲームを作る",
@@ -96,7 +130,12 @@
     "category": "web",
     "summary": "よこぼのAIラボ旧サイトと、これまでに作ったARデモを集めたWebアーカイブ。",
     "thumbnail": "/uploads/f5e0a374-44e9-4f89-beec-b53e62bc9a1f/thumbnail-aa655919-7cf9-4611-ad3c-177728cbdc21.webp",
-    "tags": ["Web", "AR", "旧サイト", "デモ集"],
+    "tags": [
+      "Web",
+      "AR",
+      "旧サイト",
+      "デモ集"
+    ],
     "playUrl": "https://yokobo103.github.io/AI-Lab-Site/",
     "relatedPostId": "f5e0a374-44e9-4f89-beec-b53e62bc9a1f",
     "localSource": "old-ai-lab",
@@ -111,10 +150,19 @@
     "category": "game",
     "summary": "スマホを傾けてニャビットを転がし、コインを集めながらゴールを目指すモーションセンサー対応ゲーム。",
     "thumbnail": "/uploads/20260630-korokoro-nyabitto-public-draft/thumbnail.webp",
-    "tags": ["コロコロニャビット", "スマホゲーム", "Canvas", "モーションセンサー", "マップ生成"],
+    "tags": [
+      "コロコロニャビット",
+      "スマホゲーム",
+      "Canvas",
+      "モーションセンサー",
+      "マップ生成"
+    ],
     "playUrl": "https://korokoro-nyabitto-publish.vercel.app/",
     "relatedPostId": "20260630-korokoro-nyabitto-public-draft",
-    "relatedPostIds": ["20260630-korokoro-nyabitto-public-draft", "20260530-nyabbit-roll-mobile-game"],
+    "relatedPostIds": [
+      "20260630-korokoro-nyabitto-public-draft",
+      "20260530-nyabbit-roll-mobile-game"
+    ],
     "localSource": "korokoro-nyabitto-publish",
     "status": "live",
     "featured": true,
@@ -128,7 +176,13 @@
     "category": "game",
     "summary": "CraftNovaの1MB・HTML単体制約に合わせて作った、低容量ブラウザゲーム実験の成果物。",
     "thumbnail": "/uploads/03cdcc5a-6c54-4fff-842d-1ef2bbddf055/thumbnail-8006ec2d-8473-44eb-85b2-94d74436bf41.webp",
-    "tags": ["1MB", "HTMLゲーム", "CraftNova", "軽量化", "ブラウザゲーム"],
+    "tags": [
+      "1MB",
+      "HTMLゲーム",
+      "CraftNova",
+      "軽量化",
+      "ブラウザゲーム"
+    ],
     "playUrl": "https://www.craftnovagame.com/game/35",
     "relatedPostId": "03cdcc5a-6c54-4fff-842d-1ef2bbddf055",
     "localSource": "craftnova-game-35",
