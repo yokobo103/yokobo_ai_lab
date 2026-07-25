@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { isAdminPassword, normalizePost, readPosts, validatePost, writePosts } from "@/lib/posts";
+import { isAdminPassword, nextResearchLogNumber, normalizePost, readPosts, validatePost, writePosts } from "@/lib/posts";
 
 export const runtime = "nodejs";
 
@@ -18,7 +18,7 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
   }
 
   const input = await request.json();
-  const post = normalizePost({ ...input, id }, posts[index]);
+  const post = normalizePost({ ...input, id }, posts[index], nextResearchLogNumber(posts));
   const error = validatePost(post);
   if (error) return NextResponse.json({ message: error }, { status: 400 });
 

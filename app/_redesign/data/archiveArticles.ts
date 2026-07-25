@@ -2,6 +2,7 @@ import posts from "@/data/posts.json";
 
 export type ArchiveArticle = {
   id: string;
+  logNumber: number;
   title: string;
   summary: string;
   author: string;
@@ -31,6 +32,7 @@ type SourcePost = Partial<ArchiveArticle> & {
 function normalizeArticle(post: SourcePost): ArchiveArticle {
   return {
     id: post.id ?? "",
+    logNumber: post.logNumber ?? 0,
     title: post.title ?? "",
     summary: post.summary ?? "",
     author: post.author ?? "dr-yokobo",

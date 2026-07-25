@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { isAdminPassword, normalizePost, readPosts, validatePost, writePosts } from "@/lib/posts";
+import { isAdminPassword, nextResearchLogNumber, normalizePost, readPosts, validatePost, writePosts } from "@/lib/posts";
 
 export const runtime = "nodejs";
 
@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
 
   const input = await request.json();
   const posts = await readPosts();
-  const post = normalizePost(input);
+  const post = normalizePost(input, undefined, nextResearchLogNumber(posts));
   const error = validatePost(post);
   if (error) return NextResponse.json({ message: error }, { status: 400 });
   if (posts.some((item) => item.id === post.id)) {

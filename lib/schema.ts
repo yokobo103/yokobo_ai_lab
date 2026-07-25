@@ -18,6 +18,7 @@ export type ResearchLogCategory = (typeof researchLogCategories)[number];
 
 export type Post = {
   id: string;
+  logNumber?: number;
   title: string;
   summary: string;
   author: AuthorId;

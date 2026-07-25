@@ -16,11 +16,11 @@ function formatLogDate(value?: string) {
   return `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, "0")}.${String(date.getDate()).padStart(2, "0")}`;
 }
 
-function articleToResearchLog(article: ArchiveArticle, index: number): ResearchLog {
+function articleToResearchLog(article: ArchiveArticle): ResearchLog {
   const status = article.resultStatus === "success" ? "success" : article.resultStatus === "failed" ? "fail" : "tuning";
 
   return {
-    id: `LOG-${String(index + 1).padStart(3, "0")}`,
+    id: `LOG-${String(article.logNumber).padStart(3, "0")}`,
     date: formatLogDate(article.publishedAt || article.createdAt || article.updatedAt),
     status,
     category: article.logCategory ?? "開発ログ",
@@ -36,6 +36,7 @@ function articleToResearchLog(article: ArchiveArticle, index: number): ResearchL
 const articleLogEntries = archiveArticles.map(articleToResearchLog);
 const allResearchLogs = articleLogEntries.sort((a, b) => b.date.localeCompare(a.date));
 const totalLogCount = allResearchLogs.length;
+const latestLogNumber = Math.max(...archiveArticles.map((article) => article.logNumber));
 const latestLog = allResearchLogs[0];
 const readStatusCounts = allResearchLogs.reduce(
   (counts, log) => {
@@ -256,7 +257,7 @@ function ResearchLogSection() {
       <div className="research-section__paper">
         <header className="research-section__header">
           <h2 id="research-title">研究記録</h2>
-          <span>LOG-001 〜 LOG-{String(totalLogCount).padStart(3, "0")}</span>
+          <span>LOG-001 〜 LOG-{String(latestLogNumber).padStart(3, "0")}</span>
         </header>
         <div className="filter-chips" aria-label="研究記録フィルタ">
           {logCategories.map((category) => (
