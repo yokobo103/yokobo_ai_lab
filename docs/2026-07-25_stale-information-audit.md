@@ -117,13 +117,13 @@ GitHub公開サイト `main` の確認開始時HEADは `d6e67b6` でした。
 - 恒久的な入口として `docs/current-site-map.md` を追加。
 - 移行元リポジトリへ「公開作業先ではない」警告を追加。
 
-## 影響があるため今回変更しなかったもの
+## 監査コミット時点では変更しなかったもの
 
 1. 旧 `/experience`、`/logs`、`/posts*` の削除。
-2. 旧URLから現行URLへの301リダイレクト。
+2. 旧URLから現行URLへの恒久リダイレクト。後続コミットで308対応済み。
 3. 旧 `site-chrome.tsx` と旧CSSの削除。
 4. 公開済み記事本文内の旧 `/posts/*` URL置換。
-5. canonicalホストと現行 `/read/[slug]` metadataの修正。
+5. canonicalホストと現行 `/read/[slug]` metadataの修正。後続コミットで対応済み。
 6. `data/experiences.json` の改名。
 7. 未コミット変更があるHQの `STATE.md` / `CODEX_QUEUE.md` 整理。
 
@@ -131,11 +131,9 @@ URL、SEO、過去リンク、管理画面保存へ影響するため、これ�
 
 ## 推奨する次工程
 
-1. `/experience` → `/experiments`、`/logs`・`/posts` → `/read` の301対応表を確定する。
-2. `/read/[slug]` に現行metadataとcanonicalを実装する。
-3. 旧記事URLのcanonicalを現行URLへ向けるか、ページ自体を301にする。
-4. リダイレクト検証後に旧UI・旧CSSを削除する。
-5. HQの未コミット作業が整理された時点で、体験格納庫タスクとSTATEを現状へ合わせる。
+1. 公開済み記事本文内の旧 `/posts/*` URLを現行URLへ移す。
+2. 308の背後に残る旧UI・旧CSSを、参照調査後に削除する。
+3. HQの未コミット作業が整理された時点で、体験格納庫タスクとSTATEを現状へ合わせる。
 
 ## 検証結果
 
@@ -144,4 +142,6 @@ URL、SEO、過去リンク、管理画面保存へ影響するため、これ�
 - `npm run typecheck`: 成功
 - `npm run build`: 成功
 - Next.jsの生成ルート一覧で、現行ルートと旧 `/experience`、`/logs`、`/posts*` の同居を再確認
+
+後続対応では、4系統の旧URLがクエリ文字列を保ったまま308になることと、現行記事が個別titleおよび `https://yokobo-ai-lab.vercel.app/read/[slug]` のcanonicalを出力することをHTTP応答で確認した。
 - `git diff --check`: 成功
