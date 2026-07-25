@@ -1,3 +1,6 @@
+// LEGACY ROUTE: "体験格納庫" was replaced by the current /experiments "実験室".
+// Kept temporarily for direct-link compatibility; do not extend this page.
+
 import type { Metadata } from "next";
 import { filterExperiences, isExperienceCategory, readExperiences } from "@/lib/experiences";
 import { SiteFooter, SiteHeader } from "../site-chrome";

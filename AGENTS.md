@@ -1,11 +1,24 @@
 # AGENTS.md
 
+## Current site source of truth（最優先）
+
+- このリポジトリ `20260428_webサイト刷新`（GitHub: `yokobo103/yokobo_ai_lab`）が、公開サイトの唯一の実装正本である。
+- 作業前に必ず [`docs/current-site-map.md`](docs/current-site-map.md) を読む。ルート、UI、データ正本、旧実装の区別はこの文書を優先する。
+- 現行の主要公開導線は `/`、`/experiments`（実験室）、`/read`・`/read/[slug]`（資料室）、`/about`、`/history`。
+- 「体験格納庫」`/experience`、`/logs`、`/posts`、`/posts/[id]` は退役した旧サイト実装である。互換コードが残り直接アクセスもできるが、新機能・新リンク・新ページの土台にしない。
+- `app/site-chrome.tsx`、`app/experience/`、`app/posts/` は旧UI系統。新規公開UIでは `app/_redesign/` と現行ルートを使う。
+- `data/experiences.json` はファイル名にかかわらず、現行 `/experiments` と管理画面が使う実験データ正本である。旧実装と誤認して削除・改名しない。
+- `20260628_webサイト大改修`（GitHub: `AI-lab-rebuild-tmp`）は移行元の作業リポジトリであり、公開サイトの作業先ではない。
+- HQの `NOW.md` は退役済み。HQを確認するときは `_LAB_HQ/STATE.md` と関連する決裁・レポートを参照する。ただし、サイトの現行ルートと実装状態はこのリポジトリを正とする。
+- 歴史資料館、公開済み記事、更新履歴に現れる「体験格納庫」等は歴史記録である。旧語の一括置換や一括削除をしない。
+
 ## HQ and repository relationship
 
 - 上流のHQリポジトリは `C:\Users\Yokob\playground\_LAB_HQ` にあり、企画・原稿・素材所在・判断待ちを管理する。
 - このリポジトリは公開Webサイト本体であり、HQの配下ではない独立した兄弟リポジトリである。
-- HQ由来の作業では、最初に `docs/codex_start_here.md` と `docs/hq_web_contract.md` を確認する。
+- HQ由来の作業では、最初に `docs/current-site-map.md`、`docs/codex_start_here.md`、`docs/hq_web_contract.md` を確認する。
 - `data/posts.json` は危険ファイルである。編集時は `docs/posts_json_rule.md` を確認する。
+- `data/experiences.json` と `data/site-updates.json` も管理画面とローカルの両方から更新される正本として扱う。
 - GitHub/Vercel保存に関わる作業では `docs/github_storage_guide.md` を確認する。
 
 ## Mandatory pre-work pull
@@ -13,7 +26,7 @@
 - このリポジトリを触る前に、必ず `git status --short` で未コミット変更がないことを確認し、最新状態をpullする。
 - 未コミット変更がある場合はpullも作業も行わず、停止して変更状況を報告する。
 - 可能なら `C:\Users\Yokob\playground\tools\git\` の共通PowerShellスクリプトを使う。未実装の場合は `docs/codex_start_here.md` の暫定コマンドを実行する。
-- pull後に `data/posts.json` をJSON parseする。管理画面保存とローカル編集の両方で更新され得るため、特に競合へ注意する。
+- pull後に `data/posts.json`、`data/experiences.json`、`data/site-updates.json` をJSON parseする。管理画面保存とローカル編集の両方で更新され得るため、特に競合へ注意する。
 - コンフリクトは自動解決せず、停止して報告する。
 
 ## GitHub delivery and draft handling
@@ -55,7 +68,8 @@ The owner should be able to post from a browser, ideally from iPhone Chrome, wit
 
 ## Design direction
 
-Use the provided reference images in `/public/design-reference/`.
+現行デザインは `app/_redesign/components/`、`app/_redesign/styles/`、`app/_redesign/data/` と本番表示を正とする。
+`/public/design-reference/` や過去のデザイン仕様書だけから現行UIを推測しない。
 
 Visual direction:
 - Cute but not childish.
@@ -80,12 +94,18 @@ Avoid:
 - Complex authentication
 - Overly abstract component structures
 
-## Required pages
+## Current pages
 
-- `/` landing page
-- `/posts` public post list
-- `/posts/[id]` public post detail
-- `/admin` simple admin dashboard
+- `/` — トップページ
+- `/experiments` — 実験室
+- `/experiments/explore` — 実験室の互換エイリアス（新規導線には原則 `/experiments` を使う）
+- `/read` — 資料室
+- `/read/[slug]` — 現行の研究記録詳細
+- `/about` — ラボ案内
+- `/history` — 歴史資料館
+- `/admin`、`/admin/logs/*`、`/admin/experiments`、`/admin/settings` — 管理画面
+
+`/experience`、`/logs`、`/posts`、`/posts/[id]` は現行ページ一覧へ含めない。既存URL互換の扱いは `docs/current-site-map.md` を参照する。
 
 ## Admin requirements
 
@@ -101,6 +121,8 @@ The admin page must support:
 - Insert uploaded image into Markdown
 - Image-first post creation
 - Empty body is allowed if title or image exists
+- Edit experiment cards and related research logs
+- Edit top-page update history
 - iPhone Chrome usable layout
 
 ## Image requirements
@@ -121,28 +143,9 @@ The admin page must support:
 
 ## Post schema
 
-```ts
-type Post = {
-  id: string;
-  title: string;
-  summary: string;
-  category:
-    | "画像生成"
-    | "ゲーム制作"
-    | "3D"
-    | "AIツール"
-    | "失敗ログ"
-    | "気づき"
-    | "メモ";
-  status: "draft" | "public";
-  tags: string[];
-  thumbnail: string;
-  images: string[];
-  body: string;
-  links: { label: string; url: string }[];
-  createdAt: string;
-  updatedAt: string;
-};
+投稿型の正本は `lib/schema.ts` の `Post` とする。
+この文書へ型定義を複製せず、カテゴリ、担当、実験結果、公開状態などの変更時は実装正本を確認する。
+
 Validation
 
 After implementation:

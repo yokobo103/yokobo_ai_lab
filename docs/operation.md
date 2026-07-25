@@ -4,11 +4,11 @@
 
 1. `/admin` を開く
 2. `ADMIN_PASSWORD` を入力する
-3. 「新しいあそび」を押す
+3. 「新しく書く」を押す
 4. タイトル、ひとこと、カテゴリを入れる
 5. 画像を選ぶ
 6. 必要なら「Markdownに挿入」を押す
-7. `Save Draft` または `Publish` を押す
+7. 「下書き保存」または「公開する」を押す
 
 画像だけの投稿もできます。本文は空で問題ありません。
 
@@ -23,6 +23,8 @@ HEIC/HEIFはMVPでは未対応です。アップロード時にエラーが出�
 ローカル運用では以下を定期的にGit管理してください。
 
 - `data/posts.json`
+- `data/experiences.json`
+- `data/site-updates.json`
 - `public/uploads/`
 
 ただし、元の大きな画像は保存せず、アップロード時に最適化された画像だけを使う前提です。
@@ -32,7 +34,7 @@ HEIC/HEIFはMVPでは未対応です。アップロード時にエラーが出�
 Vercelで運用する場合、ファイルシステム保存は永続化されません。このリポジトリでは、Vercel上でGitHub用の環境変数が設定されている場合、GitHub API保存方式で動きます。
 
 - 管理画面から投稿を保存
-- API RouteがGitHub Contents APIへJSONをコミット
+- API RouteがGitHub Contents APIへ投稿・実験室・更新履歴のJSONをコミット
 - 画像も最適化後に `public/uploads/` へコミット
 - GitHubへのコミットをきっかけにVercelが再デプロイ
 - 再デプロイ後に公開ページへ反映

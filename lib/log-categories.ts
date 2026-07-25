@@ -1,3 +1,6 @@
+// LEGACY NAVIGATION DATA: href values here support retired /logs and /posts* UI.
+// Current public research navigation is defined under app/_redesign/ and uses /read.
+
 import type { Category, Post } from "./schema";
 
 export const logCategoryLinks = [

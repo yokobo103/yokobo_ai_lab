@@ -1,11 +1,17 @@
 # 体験格納庫（LAB ARCHIVE）デザイン仕様書
 
+> [!WARNING]
+> **退役済みの歴史資料です。現行サイトの実装仕様ではありません。**
+> 「体験格納庫」`/experience` は2026年7月のサイト刷新で「実験室」`/experiments` に置き換えられました。
+> 新規実装・新規導線の根拠には使わず、[`current-site-map.md`](./current-site-map.md) を参照してください。
+> `data/experiences.json` は現行実験室でも使うデータ正本なので、旧仕様書と一緒に削除しないでください。
+
 - 作成日：2026-06-20（v2：ルート/名称/初版対象/研究メモを確定）
 - 対象サイト：`20260428_webサイト刷新`（Next.js 16 App Router / React 19 / CSS変数テーマ）
 - 実装担当：Codex
 - 参考モックアップ：`_LAB_HQ/inbox/pic/ChatGPT Image 2026年6月20日 20_23_53.png`
 - 関連台帳：`_LAB_HQ/outputs/published_index.json`（公開物の正本。格納庫の供給ライン）
-- ステータス：**確定**（着手可）。Codexは10章のタスクAから開始
+- ステータス：**退役済み**（歴史資料として保存）
 
 ### 確定事項（よこぼ判断・2026-06-20）
 1. ルートは **`/experience`**（experience で始める）

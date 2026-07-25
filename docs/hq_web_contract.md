@@ -22,7 +22,7 @@ HQは意図と素材を整理する上流、Webサイトリポジトリは公開
 ## Web側が行うこと
 
 - ページ・UIを実装する
-- `data/posts.json` の更新が必要か判断し、指定された範囲を守る
+- `data/posts.json`、`data/experiences.json`、`data/site-updates.json` の更新が必要か判断し、指定された範囲を守る
 - 指定素材と画像パスを接続する
 - レスポンシブ表示を確認する
 - 可能な範囲で `npm run build`、`npm run lint`、`npm run typecheck` を実行する
@@ -35,4 +35,4 @@ HQは意図と素材を整理する上流、Webサイトリポジトリは公開
 - 不明点は推測で大きく進めません。影響を限定した小さい仮説として扱い、仮説・変更範囲・要確認事項を報告します。
 - 既存URL、slug、公開済み投稿IDは不用意に変更しません。
 - HQの指示とWeb側の既存仕様が衝突する場合は、公開影響のある変更を止め、差異をHQへ返します。
-- `data/posts.json` を扱う場合は [posts_json_rule.md](./posts_json_rule.md) に従います。
+- `data/posts.json` を扱う場合は [posts_json_rule.md](./posts_json_rule.md) に従います。`data/experiences.json` と `data/site-updates.json` にも同じ競合回避原則を適用します。

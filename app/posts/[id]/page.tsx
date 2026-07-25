@@ -1,3 +1,6 @@
+// LEGACY ROUTE: the current research article route is /read/[slug].
+// Kept temporarily for direct-link compatibility; do not extend this page.
+
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";

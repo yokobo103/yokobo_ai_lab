@@ -1,3 +1,6 @@
+// LEGACY ROUTE: the current research archive is /read.
+// Kept temporarily for direct-link compatibility; do not extend this page.
+
 import { PostListPage } from "../posts/post-list-page";
 
 export const dynamic = "force-dynamic";

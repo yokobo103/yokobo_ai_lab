@@ -1,6 +1,10 @@
 # LP Asset Inventory
 
-Visual source of truth: local reference captures in `public/design-reference/` are intentionally ignored by Git.  
+> [!WARNING]
+> This is a historical inventory for the pre-redesign landing page. It is not the current visual source of truth.
+> For current work, start with [`current-site-map.md`](./current-site-map.md), `app/_redesign/`, and the production site.
+
+Historical visual reference: local captures in `public/design-reference/` are intentionally ignored by Git.
 Reference size: approximately `862 x 1824px`.
 
 ## Inferred Layout And Asset Count

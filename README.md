@@ -2,6 +2,8 @@
 
 AI実験、画像生成、ゲーム制作、3D、失敗ログ、気づきメモを気軽に置くための個人サイトです。
 
+公開サイトの実装正本はこのリポジトリです。現行ルート、データ正本、退役済み旧ルートの区別は [docs/current-site-map.md](docs/current-site-map.md) を参照してください。
+
 メインコピー:
 
 > AIで遊び、気づけば自分が変わっていた。
@@ -26,7 +28,10 @@ npm run dev
 ```
 
 - LP: `http://localhost:3000/`
-- 投稿一覧: `http://localhost:3000/posts`
+- 実験室: `http://localhost:3000/experiments`
+- 資料室: `http://localhost:3000/read`
+- ラボ案内: `http://localhost:3000/about`
+- 歴史資料館: `http://localhost:3000/history`
 - 管理画面: `http://localhost:3000/admin`
 
 ## フォルダ構成
@@ -36,11 +41,18 @@ npm run dev
 ├─ app/                         Next.js App Router のページ、API、共通UI
 │  ├─ admin/                    管理画面
 │  ├─ api/                      投稿保存、画像アップロード、リアクションAPI
-│  ├─ posts/                    投稿一覧、投稿詳細
+│  ├─ _redesign/                現行公開UI、ルート定義、表示用データ変換
+│  ├─ experiments/              現行の実験室
+│  ├─ read/                     現行の資料室、研究記録詳細
 │  ├─ about/                    Aboutページ
-│  └─ logs/                     ログ系ページ
+│  ├─ history/                  歴史資料館
+│  ├─ experience/               退役済み体験格納庫（直接到達可能な旧実装）
+│  ├─ posts/                    退役済み記事UI（互換用旧実装）
+│  └─ logs/                     退役済み一覧UI（互換用旧実装）
 ├─ data/
-│  └─ posts.json                投稿データ本体
+│  ├─ posts.json                資料室・管理画面の研究記録データ正本
+│  ├─ experiences.json          実験室・管理画面の実験データ正本
+│  └─ site-updates.json         トップ更新情報のデータ正本
 ├─ lib/                         投稿、Markdown、GitHub保存などの共通処理
 ├─ public/
 │  ├─ assets/                   LPやUIで使う固定アセット
@@ -55,7 +67,7 @@ npm run dev
 
 ## 投稿データ
 
-投稿データは `data/posts.json` に保存します。DBは使っていません。
+研究記録は `data/posts.json`、実験室は `data/experiences.json`、トップ更新情報は `data/site-updates.json` に保存します。DBは使っていません。
 
 画像はブラウザからアップロードでき、`public/uploads/{postId}/` に保存されます。`sharp` が利用できる環境では WebP 変換とリサイズを行います。
 
@@ -76,9 +88,9 @@ npm run dev
 
 ## Vercel運用時の制限
 
-Vercel 本番では、実行時に `data/posts.json` や `public/uploads/` へ直接保存しても永続化されません。
+Vercel 本番では、実行時に `data/*.json` や `public/uploads/` へ直接保存しても永続化されません。
 
-このリポジトリでは、Vercel 上で `GITHUB_TOKEN` などの環境変数が設定されている場合、管理画面の保存処理は GitHub Contents API 経由で `data/posts.json` と `public/uploads/` にコミットします。
+このリポジトリでは、Vercel 上で `GITHUB_TOKEN` などの環境変数が設定されている場合、管理画面の保存処理は GitHub Contents API 経由で `data/posts.json`、`data/experiences.json`、`data/site-updates.json` と `public/uploads/` にコミットします。
 
 Vercel の Environment Variables に以下を設定してください。
 

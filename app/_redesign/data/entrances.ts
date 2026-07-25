@@ -1,3 +1,6 @@
+// MIGRATION ARTIFACT: EntranceSection is not rendered by the current app/page.tsx.
+// Copy in this file, including the old "体験格納庫へ" label, is not current navigation.
+
 import { plannedRoutes, routes } from "./routes";
 
 export type Entrance = {

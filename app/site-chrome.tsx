@@ -1,5 +1,8 @@
 "use client";
 
+// LEGACY UI SHELL: used only by retired /experience, /logs, and /posts* routes.
+// New public pages must use app/_redesign/components/Header and Footer.
+
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";

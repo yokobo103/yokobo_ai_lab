@@ -1,13 +1,17 @@
 # ラボ案内「館内案内冊子」デザイン仕様書
 
+> [!NOTE]
+> これは現行 `/about` を制作した時点の過去仕様です。`/about-proto` は現行ルートではありません。
+> 新しい変更では `app/about/page.tsx`、`app/_redesign/components/AboutLabPage.tsx`、本番表示を正としてください。
+
 - 作成日：2026-07-06
 - 対象サイト：`20260428_webサイト刷新`（Next.js 16 App Router / React 19）
 - 対象ページ：`/about`（ラボ案内）の全面リデザイン
 - 実装担当：Codex
-- **承認済み試作：`/about-proto`**（`app/_redesign/components/AboutBookletProto.tsx` + `app/_redesign/styles/about-booklet-proto.css`）
-- ステータス：**確定**（着手可）。よこぼ承認済み（2026-07-06）
+- 当時の承認済み試作：`/about-proto`
+- ステータス：**実装済みの過去仕様**。よこぼ承認済み（2026-07-06）
 
-> **最重要**：`/about-proto` が「正解の見た目」です。迷ったら必ず試作を見て、その質感・密度に合わせること。本仕様書は試作を全セクションに拡張するための指示です。
+> 当時は `/about-proto` を基準に実装しました。現在は現行 `/about` と実装コードを基準にします。
 
 ---
 

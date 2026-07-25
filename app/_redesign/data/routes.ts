@@ -1,23 +1,24 @@
-// Route map for the redesign repo and migration notes for the current Next.js site.
-// These comments double as the first draft of the 301 redirect table.
+// Canonical route map for the current public site.
+// Retired routes (/experience, /logs, /posts*) still exist as legacy code,
+// but new navigation and features must use the routes below.
 export const routes = {
-  home: "/", // current site: /
-  experiments: "/experiments", // current site: public works / experience area
-  experimentsExplore: "/experiments/explore", // current site: no direct equivalent yet
-  read: "/read", // current site: /posts
-  history: "/history", // site design archive / museum
-  about: "/about", // current site: /about
+  home: "/",
+  experiments: "/experiments",
+  experimentsExplore: "/experiments/explore",
+  read: "/read",
+  history: "/history",
+  about: "/about",
   readArticle(slug: string) {
-    return `/read/${encodeURIComponent(slug)}`; // current site: /posts/[slug]
+    return `/read/${encodeURIComponent(slug)}`;
   },
   readExperimentFilter(experimentId: string) {
-    return `/read?experiment=${encodeURIComponent(experimentId)}`; // current site: no direct equivalent yet
+    return `/read?experiment=${encodeURIComponent(experimentId)}`;
   },
   experimentDetail(slug: string) {
-    return `/experiments/${slug}`; // current site: individual public work URL, mapping TBD
+    return `/experiments/${slug}`; // Reserved; individual detail routes are not implemented yet.
   },
   experimentAnchor(dest: string) {
-    return `/experiments#${encodeURIComponent(dest)}`; // current site: no direct equivalent yet
+    return `/experiments#${encodeURIComponent(dest)}`;
   },
 } as const;
 
