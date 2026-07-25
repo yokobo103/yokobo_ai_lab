@@ -130,7 +130,11 @@ export function makeSlug(input: string) {
   return base || `post-${Date.now()}`;
 }
 
-export function normalizePost(input: Partial<Post>, previous?: Post): Post {
+export function nextResearchLogNumber(posts: Post[]) {
+  return Math.max(0, ...posts.map((post) => post.logNumber ?? 0)) + 1;
+}
+
+export function normalizePost(input: Partial<Post>, previous?: Post, nextLogNumber?: number): Post {
   const now = new Date().toISOString();
   const nextStatus = input.status === "public" ? "public" : "draft";
   const publishedAt =
@@ -158,6 +162,10 @@ export function normalizePost(input: Partial<Post>, previous?: Post): Post {
 
   return {
     id: input.id || previous?.id || makeSlug(input.title || ""),
+    logNumber:
+      previous?.logNumber ??
+      input.logNumber ??
+      (nextStatus === "public" ? nextLogNumber : undefined),
     title: input.title?.trim() || previous?.title || "",
     summary: input.summary?.trim() || "",
     author,

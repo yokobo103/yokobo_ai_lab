@@ -1,6 +1,7 @@
 [
   {
     "id": "20260719-yokobo-kart-3d-enhancement",
+    "logNumber": 26,
     "title": "AIにBlenderを動かしてもらったら、よこぼカート3Dが進化した",
     "summary": "AIエージェントにBlenderを操作して3Dモデルを作ってもらう実験から、地形、コース、車両、BGMの生成へ発展した。別々に育てていたパイプラインが、最後によこぼカート3Dへ集まった流れを、技術に詳しくない読者にも分かる言葉で記録する。",
     "author": "dr-yokobo",
@@ -51,6 +52,7 @@
   },
   {
     "id": "20260712-ai-lab-major-renewal",
+    "logNumber": 25,
     "title": "よこぼのAIラボを大改修したら、最後に残ったのは「遊ぶ？読む？」だった",
     "summary": "トップ、実験室、資料室、ラボ案内を大幅リニューアル。試作を重ねた末、情報を足すより削ること、ページごとの役割からデザインを分けることが効いた。その変化を15点の画像でたどる。",
     "author": "dr-yokobo",
@@ -103,6 +105,7 @@
   },
   {
     "id": "20260630-yokobo-ai-lab-rebuild-project",
+    "logNumber": 24,
     "title": "よこぼのAIラボ建て替えプロジェクト",
     "summary": "「AIラボをもっと良くするには？」と考え始め、遊ぶ側を「実験室」、読む側を「資料室」として分け直し、ラボ全体の導線を再構築している途中。",
     "author": "dr-yokobo",
@@ -143,6 +146,7 @@
   },
   {
     "id": "20260630-korokoro-nyabitto-public-draft",
+    "logNumber": 23,
     "title": "コロコロニャビットのマップ作りをエージェントに任せてみた",
     "summary": "コロコロニャビットのマップ作りをエージェントに任せて、そして初回盤リリースへ！！",
     "author": "nyabitto",
@@ -189,6 +193,7 @@
   },
   {
     "id": "20260620-taiken-kakunouko",
+    "logNumber": 22,
     "title": "体験格納庫をつくってみた",
     "summary": "遊べる実験への入口をつくる中で、ランダムな派手さではなく、意図的な密度と体験へ踏み出したくなる物語が必要だと気づいた制作実験。",
     "author": "dr-yokobo",
@@ -232,6 +237,7 @@
   },
   {
     "id": "20260619-short-video-generation-pipeline",
+    "logNumber": 21,
     "title": "ショート動画生成パイプラインを作ってみた",
     "summary": "ポッドキャストの文字起こしから、図解・キャラクター・字幕つきの宣伝ショート動画を作るパイプラインをClaude Opus 4.8で構築した実験ログ。",
     "author": "dr-yokobo",
@@ -278,6 +284,7 @@
   },
   {
     "id": "20260619-hq-log-workflow-migration",
+    "logNumber": 20,
     "title": "当ラボ、実験ログ制作工場を拡張！",
     "summary": "Webサイトの一部であった実験ログ制作工場を、ラボ全体で回すように拡張した。",
     "author": "dr-yokobo",
@@ -314,6 +321,7 @@
   },
   {
     "id": "20260614-minimum-memo-app",
+    "logNumber": 18,
     "title": "超ミニマムなメモアプリを作ってみた！",
     "summary": "忘れる前に書ける、超シンプルなMarkdownメモアプリをGPTさんとCodexさんで作ってみた実験ログ。",
     "author": "nyabitto",
@@ -346,6 +354,7 @@
   },
   {
     "id": "20260618-claude-fable-open-world",
+    "logNumber": 19,
     "title": "Claude Fableで3Dオープンワールド風ゲームを作ってみた",
     "summary": "雑なプロンプトから3Dオープンワールド風ゲームがほぼ一発で立ち上がった、Claude Fable実験ログ。",
     "author": "dr-yokobo",
@@ -406,6 +415,7 @@
   },
   {
     "id": "20260530-nyabbit-roll-mobile-game",
+    "logNumber": 17,
     "title": "スマホの上でニャビットを転がしたい（コロコロニャビット開発PJ始動）",
     "summary": "ニャビットを転がしたかっただけなんだが、思った以上に困難な道のりとなった。",
     "author": "dr-yokobo",
@@ -460,6 +470,7 @@
   },
   {
     "id": "f6a3450e-f7c5-49f8-afbc-9688e7d74e41",
+    "logNumber": 6,
     "title": "当ラボ、某配管工レースゲームの再現を試みる",
     "summary": "2Dよりも遥かに複雑だったが、3D空間内をキャラクターが走行した瞬間、当ラボのテンションは爆発した。引き続き研究を継続する。（Dr.よこぼ）",
     "author": "dr-yokobo",
@@ -502,6 +513,7 @@
   },
   {
     "id": "20260530-rpg-style-3d-research-facility",
+    "logNumber": 16,
     "title": "RPG風の3D研究施設を作る実験",
     "summary": "壮大で詳細なイメージは時に研究の妨げになるのかもしれない（Dr.よこぼ）",
     "author": "dr-yokobo",
@@ -559,6 +571,7 @@
   },
   {
     "id": "20260526-nyavilot-robot-game",
+    "logNumber": 15,
     "title": "ボクが活躍するロボットゲームを作りたかった",
     "summary": "ニャビロットを作ろうとして、素体、接続規格、パーツ位置調整ツールまで作ることになった実験ログです。",
     "author": "nyabitto",
@@ -603,6 +616,7 @@
   },
   {
     "id": "20260522-dr-yokobo-nyabitto-3d-model",
+    "logNumber": 14,
     "title": "ドクターとニャビットの3Dモデルを作りました",
     "summary": "Blender初心者のボクが、GPTのイメージをもとに3Dモデルとテクスチャ貼りに挑戦した実験ログです。",
     "author": "nyabitto",
@@ -650,6 +664,7 @@
   },
   {
     "id": "20260522-lab-fighters",
+    "logNumber": 13,
     "title": "ラボで激しいバトルをしようじゃないか！",
     "summary": "格闘ゲーム生成実験は失敗も多かったが、実験は見事成功し、当ラボはまた一段進化した（Dr.よこぼ）",
     "author": "dr-yokobo",
@@ -700,6 +715,7 @@
   },
   {
     "id": "dc2b464b-63ee-41a0-986b-fb84b8f06f48",
+    "logNumber": 12,
     "title": "3Dレーシングゲームのスマホ対応が思った以上にハードだった",
     "summary": "ボクなら軽量化できる気がしたんですが・・・夢でした。",
     "author": "nyabitto",
@@ -734,6 +750,7 @@
   },
   {
     "id": "20260517-dq-style-small-game",
+    "logNumber": 11,
     "title": "ドラクエ風しょぼしょぼゲームをつくりました(´・ω・`)",
     "summary": "いっぱい準備したのに、縛りすぎてしょぼくなったRPG生成実験ログです。（ニャビット）",
     "author": "nyabitto",
@@ -771,6 +788,7 @@
   },
   {
     "id": "03cdcc5a-6c54-4fff-842d-1ef2bbddf055",
+    "logNumber": 10,
     "title": "\"縛りプレイ\"ならぬ\"縛り実験\"（1MBゲーム生成実験）",
     "summary": "1MBのhtmlのみでゲームをつくる。これ結構おもしろい。",
     "author": "dr-yokobo",
@@ -810,6 +828,7 @@
   },
   {
     "id": "1d868e67-d4a2-4309-9f1b-5edb9f5f115a",
+    "logNumber": 5,
     "title": "Codexであまり面白くないパズルゲームを生成した",
     "summary": "AIでゲーム生成が簡単になりすぎた結果、「苦労した記憶」まで消え始めているのかもしれない。（Dr.よこぼ）",
     "author": "dr-yokobo",
@@ -837,6 +856,7 @@
   },
   {
     "id": "2b237510-0f6c-4d24-bf2c-77ab0b07869d",
+    "logNumber": 7,
     "title": "\"ほんやくコンニャク\" 錬成実験を開始した",
     "summary": "これは翻訳アプリではない、よこぼのAIラボで観測された未来道具の試作品である。（Dr.よこぼ）",
     "author": "dr-yokobo",
@@ -870,6 +890,7 @@
   },
   {
     "id": "1c58dd2f-5ce3-4615-a2a8-399d2cdc1a99",
+    "logNumber": 8,
     "title": "よこぼのAIラボは、日々改良を重ねております！",
     "summary": "当ラボは継続的な改良を実施中、快適に実験できる環境を目指しております！（所長よこぼ）",
     "author": "chief",
@@ -903,6 +924,7 @@
   },
   {
     "id": "323c30ae-d25a-4ef8-b647-117e2b17f933",
+    "logNumber": 4,
     "title": "ChatGPT-Images-2.0とCodexで、猫アクションゲーム構築実験を行った",
     "summary": "「イメージを先に見る」だけで、ゲーム開発の速度とテンションがここまで変わるのは想定外だった。（Dr.よこぼ）",
     "author": "dr-yokobo",
@@ -940,6 +962,7 @@
   },
   {
     "id": "welcome-lab",
+    "logNumber": 1,
     "title": "TEST:よこぼのAIラボ、仮オープン",
     "summary": "準備中；テスト投稿（所長よこぼ）",
     "author": "chief",
@@ -966,6 +989,7 @@
   },
   {
     "id": "e7862082-5d7d-4b33-9002-9eeeb7313268",
+    "logNumber": 9,
     "title": "当ラボ、軽量化の重要性を再認識",
     "summary": "軽量化は重要技術であることが判明した。今後も実験を継続する。（Dr.よこぼ）",
     "author": "dr-yokobo",
@@ -1001,6 +1025,7 @@
   },
   {
     "id": "2025-ai-asobi-summary-draft",
+    "logNumber": 2,
     "title": "2025年のAIあそびまとめ：よこぼのAIラボができるまで",
     "summary": "旧AIラボに残っていた2025年のWeb、画像、音楽、3D、AR、ゲーム的な実験を、活動の流れとして再構成してみました",
     "author": "dr-yokobo",
@@ -1049,6 +1074,7 @@
   },
   {
     "id": "f5e0a374-44e9-4f89-beec-b53e62bc9a1f",
+    "logNumber": 3,
     "title": "GPT-Image-2とGPT-5.5でよこぼのAIラボをリニューアルしました！",
     "summary": "祝！！新サイトオープン！！",
     "author": "dr-yokobo",
