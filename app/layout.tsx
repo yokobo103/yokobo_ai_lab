@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { GoogleAnalytics, GoogleAnalyticsScripts } from "./google-analytics";
-import "./globals.css";
 import "./_redesign/styles/tokens.css";
 import "./_redesign/styles/globals.css";
 import "./_redesign/styles/top-page.css";

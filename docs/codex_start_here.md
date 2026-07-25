@@ -2,7 +2,7 @@
 
 このリポジトリは「よこぼのAIラボ」の公開Webサイト本体です。Next.jsによる公開実装を管理し、UI、ページ、ルーティング、3つの `data/*.json` 正本、画像参照、管理画面、表示確認を担当します。
 
-最初に [current-site-map.md](./current-site-map.md) を読み、現行ルートと退役済み旧ルートを区別してください。旧 `/experience`、`/logs`、`/posts*` はコードが残っていても現行UIではありません。
+最初に [current-site-map.md](./current-site-map.md) を読み、現行ルートと退役済み旧ルートを区別してください。旧 `/experience`、`/logs`、`/posts*` はページ実装が削除され、308恒久リダイレクトだけが残る互換入口です。
 
 上流のHQリポジトリは `C:\Users\Yokob\playground\_LAB_HQ` にあります。HQは企画、inbox、原稿、素材所在、Codexキュー、判断待ちの置き場です。2つは `C:\Users\Yokob\playground\` 直下の独立した兄弟リポジトリで、それぞれ別のGitHubリポジトリへ同期します。
 

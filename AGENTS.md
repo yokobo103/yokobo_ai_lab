@@ -5,8 +5,8 @@
 - このリポジトリ `20260428_webサイト刷新`（GitHub: `yokobo103/yokobo_ai_lab`）が、公開サイトの唯一の実装正本である。
 - 作業前に必ず [`docs/current-site-map.md`](docs/current-site-map.md) を読む。ルート、UI、データ正本、旧実装の区別はこの文書を優先する。
 - 現行の主要公開導線は `/`、`/experiments`（実験室）、`/read`・`/read/[slug]`（資料室）、`/about`、`/history`。
-- 「体験格納庫」`/experience`、`/logs`、`/posts`、`/posts/[id]` は退役した旧サイト実装である。互換コードが残り直接アクセスもできるが、新機能・新リンク・新ページの土台にしない。
-- `app/site-chrome.tsx`、`app/experience/`、`app/posts/` は旧UI系統。新規公開UIでは `app/_redesign/` と現行ルートを使う。
+- 「体験格納庫」`/experience`、`/logs`、`/posts`、`/posts/[id]` は退役済みで、`next.config.ts` の308恒久リダイレクトだけを互換入口として残している。旧ページ実装は削除済みで、新機能・新リンク・新ページの土台にしない。
+- 旧 `app/site-chrome.tsx`、`app/experience/`、`app/logs/`、`app/posts/`、旧公開UI用 `app/globals.css` は削除済み。新規公開UIでは `app/_redesign/` と現行ルートを使う。
 - `data/experiences.json` はファイル名にかかわらず、現行 `/experiments` と管理画面が使う実験データ正本である。旧実装と誤認して削除・改名しない。
 - `20260628_webサイト大改修`（GitHub: `AI-lab-rebuild-tmp`）は移行元の作業リポジトリであり、公開サイトの作業先ではない。
 - HQの `NOW.md` は退役済み。HQを確認するときは `_LAB_HQ/STATE.md` と関連する決裁・レポートを参照する。ただし、サイトの現行ルートと実装状態はこのリポジトリを正とする。

@@ -46,9 +46,7 @@ npm run dev
 │  ├─ read/                     現行の資料室、研究記録詳細
 │  ├─ about/                    Aboutページ
 │  ├─ history/                  歴史資料館
-│  ├─ experience/               退役済み体験格納庫（直接到達可能な旧実装）
-│  ├─ posts/                    退役済み記事UI（互換用旧実装）
-│  └─ logs/                     退役済み一覧UI（互換用旧実装）
+│  └─ layout.tsx                全ページ共通レイアウト
 ├─ data/
 │  ├─ posts.json                資料室・管理画面の研究記録データ正本
 │  ├─ experiences.json          実験室・管理画面の実験データ正本
@@ -64,6 +62,8 @@ npm run dev
 ├─ AGENTS.md                    開発方針、要件、デザイン方針
 └─ README.md                    このファイル
 ```
+
+旧 `/experience`、`/logs`、`/posts*` はページ実装を持たず、`next.config.ts` の308恒久リダイレクトで現行ルートへ転送します。
 
 ## 投稿データ
 

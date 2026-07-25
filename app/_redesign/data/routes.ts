@@ -1,6 +1,6 @@
 // Canonical route map for the current public site.
-// Retired routes (/experience, /logs, /posts*) still exist as legacy code,
-// but new navigation and features must use the routes below.
+// Retired routes (/experience, /logs, /posts*) are handled by permanent
+// redirects in next.config.ts; their page implementations have been removed.
 export const routes = {
   home: "/",
   experiments: "/experiments",
