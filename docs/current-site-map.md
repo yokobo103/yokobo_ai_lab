@@ -100,7 +100,6 @@ node -e "for (const f of ['data/posts.json','data/experiences.json','data/site-u
 
 ## 既知の未整理事項
 
-- 公開データ本文に旧 `/posts/*` URLが一部残る。
 - 308の背後に旧ページ実装・旧ヘッダー・旧CSSが残る。
 - 旧実装を物理削除する前に、外部リンクと管理機能から参照されていないか最終確認が必要。
 
