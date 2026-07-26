@@ -47,6 +47,11 @@ export function normalizePreset(input: unknown): PromoPreset | { message: string
   };
 }
 
+function isMissingFile(error: unknown) {
+  if (error instanceof Error && error.message.includes("GitHub API error 404")) return true;
+  return typeof error === "object" && error !== null && (error as { code?: string }).code === "ENOENT";
+}
+
 export async function readPresets(): Promise<PromoPreset[]> {
   try {
     if (isGitHubStorageEnabled()) {
@@ -56,9 +61,11 @@ export async function readPresets(): Promise<PromoPreset[]> {
 
     const raw = await fs.readFile(dataPath, "utf8");
     return sortPresets(JSON.parse(raw) as PromoPreset[]);
-  } catch {
-    // まだ1件も保存していないときはファイルがない。
-    return [];
+  } catch (error) {
+    // まだ1件も保存していないときはファイルがない。それ以外の失敗は握りつぶさない。
+    // 空扱いにすると、直後の保存で既存のプリセットを丸ごと上書きしてしまう。
+    if (isMissingFile(error)) return [];
+    throw error;
   }
 }
 

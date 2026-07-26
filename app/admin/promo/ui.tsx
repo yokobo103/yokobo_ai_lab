@@ -128,7 +128,11 @@ export default function PromoRoom({ siteUrl }: { siteUrl: string }) {
     setExperiences(loadedExperiences.filter((item) => item.status === "live" && item.playUrl));
     setPromoImages(Array.isArray(loadedImages.images) ? loadedImages.images : []);
     setPresets(presetsResponse.ok ? await presetsResponse.json() : []);
-  }, []);
+    if (!presetsResponse.ok) {
+      // プリセットが読めなくても宣伝はできるので、止めずに知らせるだけにする。
+      notify("error", "保存済みのプリセットを読み込めませんでした。新しく保存するのは避けてください。");
+    }
+  }, [notify]);
 
   const signIn = useCallback(
     async (password: string, fromStorage: boolean) => {
