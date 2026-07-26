@@ -407,6 +407,11 @@
   cursor: default;
 }
 
+.promoWideButton {
+  width: 100%;
+  min-height: 48px;
+}
+
 .promoMessage {
   font-size: 12px;
   line-height: 1.7;

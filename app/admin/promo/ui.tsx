@@ -8,6 +8,7 @@ import "./promo.css";
 // 設計は docs/2026-07-26_promo-room-plan.md を参照。
 
 const STORAGE_KEY = "admin-password";
+const LINK_IN_REPLY_KEY = "promo-link-in-reply";
 const MAX_IMAGES = 4;
 const TWEET_LIMIT = 280;
 
@@ -98,6 +99,9 @@ export default function PromoRoom({ siteUrl }: { siteUrl: string }) {
 
   const [templateIndex, setTemplateIndex] = useState(0);
   const [text, setText] = useState("");
+  // 本文にリンクを入れると初速のリーチが落ちると言われているので、既定ではリプに回す。
+  const [linkInReply, setLinkInReply] = useState(true);
+  const [sharedOnce, setSharedOnce] = useState(false);
   const [message, setMessage] = useState("");
   const [messageTone, setMessageTone] = useState<"info" | "ok" | "error">("info");
   const [rawFallback, setRawFallback] = useState("");
@@ -167,6 +171,8 @@ export default function PromoRoom({ siteUrl }: { siteUrl: string }) {
 
   // 管理画面と同じパスワードを使い回すので、ログイン済みならそのまま入れる。
   useEffect(() => {
+    setLinkInReply(window.localStorage.getItem(LINK_IN_REPLY_KEY) !== "off");
+
     const stored = window.localStorage.getItem(STORAGE_KEY) || "";
     if (!stored) {
       setBooting(false);
@@ -375,8 +381,26 @@ export default function PromoRoom({ siteUrl }: { siteUrl: string }) {
     setText(templates[index] || "");
   }
 
-  const shareBody = subject ? `${text.trim()}\n\n${subject.url}` : text;
+  // リプに回すときは本文にURLを入れない。投稿後に②でコピーして自分の投稿へ返信する。
+  const shareBody = subject && !linkInReply ? `${text.trim()}\n\n${subject.url}` : text.trim();
   const used = tweetWeight(shareBody);
+
+  function toggleLinkInReply(next: boolean) {
+    setLinkInReply(next);
+    setSharedOnce(false);
+    window.localStorage.setItem(LINK_IN_REPLY_KEY, next ? "on" : "off");
+  }
+
+  async function copyLink() {
+    if (!subject) return;
+    try {
+      await navigator.clipboard.writeText(subject.url);
+      notify("ok", "リンクをコピーしました。さっきの投稿に返信して貼り付けてください。");
+    } catch {
+      setRawFallback(subject.url);
+      notify("info", "自動コピーできませんでした。下の枠のリンクを手でコピーしてください。");
+    }
+  }
 
   async function share() {
     if (!subject) return;
@@ -396,7 +420,13 @@ export default function PromoRoom({ siteUrl }: { siteUrl: string }) {
 
     try {
       await navigator.share(payload);
-      notify("ok", "共有メニューを開きました。Xを選んで投稿してください。");
+      setSharedOnce(true);
+      notify(
+        "ok",
+        linkInReply
+          ? "共有メニューを開きました。投稿したら、下の②でリンクを貼りに戻ってきてください。"
+          : "共有メニューを開きました。Xを選んで投稿してください。"
+      );
     } catch (error) {
       if (error instanceof DOMException && error.name === "AbortError") {
         notify("info", "共有をやめました。");
@@ -667,7 +697,8 @@ export default function PromoRoom({ siteUrl }: { siteUrl: string }) {
             placeholder="ここを直せば自由に書けます"
           />
           <p className="promoCount" data-over={used > TWEET_LIMIT}>
-            {used} / {TWEET_LIMIT}（URLぶんを含む）
+            {used} / {TWEET_LIMIT}
+            {linkInReply ? "（リンクは含めず数えています）" : "（URLぶんを含む）"}
           </p>
         </section>
 
@@ -676,14 +707,51 @@ export default function PromoRoom({ siteUrl }: { siteUrl: string }) {
             <span className="promoStepNo">STEP 4</span>
             <h2 className="promoStepTitle">Xに渡す</h2>
           </div>
+          <div className="promoTagRow">
+            <button
+              type="button"
+              className="promoTag"
+              aria-pressed={linkInReply}
+              onClick={() => toggleLinkInReply(true)}
+            >
+              リンクはリプ欄に
+            </button>
+            <button
+              type="button"
+              className="promoTag"
+              aria-pressed={!linkInReply}
+              onClick={() => toggleLinkInReply(false)}
+            >
+              本文に入れる
+            </button>
+          </div>
+          <p className="promoStepNote">
+            {linkInReply
+              ? "本文にリンクを入れると伸びにくいと言われているので、投稿してからリプで貼ります。①のあと②の順で。"
+              : "本文の最後にリンクが入ります。1回で終わりますが、リーチは落ちるかもしれません。"}
+          </p>
+
           <button
             type="button"
             className="promoShareButton"
             disabled={!subject || !text.trim() || !filesReady}
             onClick={() => void share()}
           >
-            {filesReady ? `共有する${selected.length ? `（画像${selected.length}枚）` : ""}` : "画像を準備中…"}
+            {!filesReady
+              ? "画像を準備中…"
+              : `${linkInReply ? "① " : ""}共有する${selected.length ? `（画像${selected.length}枚）` : ""}`}
           </button>
+
+          {linkInReply ? (
+            <button
+              type="button"
+              className={sharedOnce ? "promoShareButton" : "promoGhostButton promoWideButton"}
+              disabled={!subject}
+              onClick={() => void copyLink()}
+            >
+              ② リンクをコピー（リプに貼る用）
+            </button>
+          ) : null}
           {message ? (
             <p className="promoMessage" data-tone={messageTone}>
               {message}
