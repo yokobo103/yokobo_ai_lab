@@ -1,0 +1,659 @@
+"use client";
+
+import { useCallback, useEffect, useMemo, useState } from "react";
+import "./promo.css";
+
+// 宣伝室: サイト内のwebpを添えてXに投稿するための画面。
+// スマホの共有メニュー経由で画像と文章を渡す（実機で確認済みの方式）。
+// 設計は docs/2026-07-26_promo-room-plan.md を参照。
+
+const STORAGE_KEY = "admin-password";
+const MAX_IMAGES = 4;
+const TWEET_LIMIT = 280;
+
+type Post = {
+  id: string;
+  title: string;
+  summary?: string;
+  status?: string;
+  thumbnail?: string;
+  images?: string[];
+  createdAt?: string;
+  updatedAt?: string;
+};
+
+type Experience = {
+  title: string;
+  summary?: string;
+  thumbnail?: string;
+  playUrl?: string;
+  relatedPostId?: string;
+  status?: string;
+};
+
+type PromoImage = { path: string; group: string; subgroup: string };
+
+type Topic = "site" | "latest" | "random" | "pick";
+
+type Subject = {
+  kind: "site" | "article" | "play";
+  label: string;
+  title: string;
+  summary: string;
+  url: string;
+  pool: string[];
+};
+
+const TOPICS: { key: Topic; label: string; note: string }[] = [
+  { key: "site", label: "サイト全体", note: "ラボそのものを宣伝する" },
+  { key: "latest", label: "最新記事", note: "いちばん新しい記事" },
+  { key: "random", label: "発掘", note: "過去の記事や遊べるものから1つ" },
+  { key: "pick", label: "記事を選ぶ", note: "一覧から自分で選ぶ" },
+];
+
+// サイト全体の宣伝に使える画像だけを候補にする。
+// アイコン・枠・スプライトなど画面部品は絵として成立しないので入れない。
+const SITE_ASSET_SUBGROUPS = ["", "characters", "hero", "about", "featured", "read", "play", "logs", "posts"];
+const SITE_IMAGE_GROUPS = ["root", "illustrations", "images", "history"];
+
+function isSitePromoImage(image: PromoImage) {
+  // 枠・スプライト・背景・素材の生データは、単体だと絵にならない。
+  if (/frame|sprite|-raw|-bg\b/i.test(image.path)) return false;
+  if (image.group === "assets") return SITE_ASSET_SUBGROUPS.includes(image.subgroup);
+  return SITE_IMAGE_GROUPS.includes(image.group);
+}
+
+export default function PromoRoom({ siteUrl }: { siteUrl: string }) {
+  const [passwordInput, setPasswordInput] = useState("");
+  const [authed, setAuthed] = useState(false);
+  const [gateMessage, setGateMessage] = useState("");
+  const [booting, setBooting] = useState(true);
+
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [experiences, setExperiences] = useState<Experience[]>([]);
+  const [promoImages, setPromoImages] = useState<PromoImage[]>([]);
+
+  const [topic, setTopic] = useState<Topic>("site");
+  const [pickedPostId, setPickedPostId] = useState("");
+  const [discovered, setDiscovered] = useState<Subject | null>(null);
+
+  const [candidates, setCandidates] = useState<string[]>([]);
+  const [selected, setSelected] = useState<string[]>([]);
+  const [files, setFiles] = useState<File[]>([]);
+  const [filesReady, setFilesReady] = useState(true);
+
+  const [templateIndex, setTemplateIndex] = useState(0);
+  const [text, setText] = useState("");
+  const [message, setMessage] = useState("");
+  const [messageTone, setMessageTone] = useState<"info" | "ok" | "error">("info");
+  const [rawFallback, setRawFallback] = useState("");
+
+  const notify = useCallback((tone: "info" | "ok" | "error", body: string) => {
+    setMessageTone(tone);
+    setMessage(body);
+  }, []);
+
+  const loadAll = useCallback(async (password: string) => {
+    const headers = { "x-admin-password": password, "ngrok-skip-browser-warning": "true" };
+    const [postsResponse, experiencesResponse, imagesResponse] = await Promise.all([
+      fetch("/api/posts", { headers }),
+      fetch("/api/experiences", { headers }),
+      fetch("/promo-images.json"),
+    ]);
+
+    if (postsResponse.status === 401 || experiencesResponse.status === 401) {
+      throw new Error("unauthorized");
+    }
+
+    const loadedPosts: Post[] = postsResponse.ok ? await postsResponse.json() : [];
+    const loadedExperiences: Experience[] = experiencesResponse.ok ? await experiencesResponse.json() : [];
+    const loadedImages = imagesResponse.ok ? await imagesResponse.json() : { images: [] };
+
+    setPosts(loadedPosts.filter((post) => post.status === "public" && post.id));
+    setExperiences(loadedExperiences.filter((item) => item.status === "live" && item.playUrl));
+    setPromoImages(Array.isArray(loadedImages.images) ? loadedImages.images : []);
+  }, []);
+
+  const signIn = useCallback(
+    async (password: string, fromStorage: boolean) => {
+      const trimmed = password.trim();
+      if (!trimmed) {
+        setGateMessage("パスワードを入れてください。");
+        return false;
+      }
+
+      try {
+        await loadAll(trimmed);
+      } catch (error) {
+        if (error instanceof Error && error.message === "unauthorized") {
+          // パスワード自体が違うときだけ保存を消す。通信の失敗で消すと、
+          // 電波が一瞬切れただけで入力し直しになってしまう。
+          setGateMessage(fromStorage ? "保存されたパスワードが使えませんでした。" : "パスワードが違います。");
+          window.localStorage.removeItem(STORAGE_KEY);
+        } else {
+          setGateMessage("読み込みに失敗しました。通信を確認して、もう一度お試しください。");
+        }
+        return false;
+      }
+
+      window.localStorage.setItem(STORAGE_KEY, trimmed);
+      setAuthed(true);
+      setGateMessage("");
+      return true;
+    },
+    [loadAll]
+  );
+
+  // 管理画面と同じパスワードを使い回すので、ログイン済みならそのまま入れる。
+  useEffect(() => {
+    const stored = window.localStorage.getItem(STORAGE_KEY) || "";
+    if (!stored) {
+      setBooting(false);
+      return;
+    }
+    // 自動ログインに失敗しても入れ直さずに済むよう、入力欄には残しておく。
+    setPasswordInput(stored);
+    void signIn(stored, true).finally(() => setBooting(false));
+  }, [signIn]);
+
+  const siteImagePool = useMemo(
+    () => promoImages.filter(isSitePromoImage).map((image) => image.path),
+    [promoImages]
+  );
+
+  const sortedPosts = useMemo(
+    () => [...posts].sort((a, b) => dateValue(b) - dateValue(a)),
+    [posts]
+  );
+
+  const subject = useMemo<Subject | null>(() => {
+    if (topic === "site") {
+      return {
+        kind: "site",
+        label: "サイト全体",
+        title: "よこぼのAIラボ",
+        summary: "AIと遊んだ記録を置いているラボ",
+        url: siteUrl,
+        pool: siteImagePool,
+      };
+    }
+
+    if (topic === "latest") {
+      const latest = sortedPosts[0];
+      return latest ? postSubject(latest, siteUrl, "最新記事") : null;
+    }
+
+    if (topic === "pick") {
+      const picked = sortedPosts.find((post) => post.id === pickedPostId);
+      return picked ? postSubject(picked, siteUrl, "選んだ記事") : null;
+    }
+
+    return discovered;
+  }, [topic, siteUrl, siteImagePool, sortedPosts, pickedPostId, discovered]);
+
+  const templates = useMemo(() => (subject ? buildTemplates(subject, topic) : []), [subject, topic]);
+
+  const rollCandidates = useCallback((pool: string[], keep: string[]) => {
+    const rest = pool.filter((path) => !keep.includes(path));
+    setCandidates(shuffle(rest).slice(0, MAX_IMAGES));
+  }, []);
+
+  // ネタが変わったら画像候補と文章を組み直す。
+  useEffect(() => {
+    if (!subject) {
+      setCandidates([]);
+      setSelected([]);
+      setText("");
+      return;
+    }
+    setSelected([]);
+    rollCandidates(subject.pool, []);
+    setTemplateIndex(0);
+    setText(buildTemplates(subject, topic)[0] || "");
+    setRawFallback("");
+  }, [subject, topic, rollCandidates]);
+
+  // 共有の直前に読み込むとiOSで弾かれることがあるので、選んだ時点でファイルにしておく。
+  useEffect(() => {
+    let cancelled = false;
+    if (selected.length === 0) {
+      setFiles([]);
+      setFilesReady(true);
+      return;
+    }
+
+    setFilesReady(false);
+    (async () => {
+      try {
+        const prepared = await Promise.all(selected.map(toImageFile));
+        if (cancelled) return;
+        setFiles(prepared);
+        setFilesReady(true);
+      } catch {
+        if (cancelled) return;
+        setFiles([]);
+        setFilesReady(true);
+        notify("error", "画像の読み込みに失敗しました。別の画像を選んでください。");
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [selected, notify]);
+
+  function discover() {
+    const candidatesForDiscovery: Subject[] = [
+      ...sortedPosts.map((post) => postSubject(post, siteUrl, "発掘した記事")),
+      ...experiences.map((item) => playSubject(item, siteUrl, posts)),
+    ];
+    const next = pickRandom(candidatesForDiscovery);
+    if (next) setDiscovered(next);
+  }
+
+  function selectTopic(next: Topic) {
+    setTopic(next);
+    setMessage("");
+    if (next === "random") discover();
+    if (next === "pick" && !pickedPostId && sortedPosts[0]) setPickedPostId(sortedPosts[0].id);
+  }
+
+  function toggleImage(path: string) {
+    setSelected((prev) => {
+      if (prev.includes(path)) return prev.filter((item) => item !== path);
+      if (prev.length >= MAX_IMAGES) {
+        notify("info", `画像は${MAX_IMAGES}枚までです。`);
+        return prev;
+      }
+      return [...prev, path];
+    });
+  }
+
+  function applyTemplate(index: number) {
+    setTemplateIndex(index);
+    setText(templates[index] || "");
+  }
+
+  const shareBody = subject ? `${text.trim()}\n\n${subject.url}` : text;
+  const used = tweetWeight(shareBody);
+
+  async function share() {
+    if (!subject) return;
+    setRawFallback("");
+
+    const payload: ShareData = { text: shareBody };
+    if (files.length > 0) payload.files = files;
+
+    const canUseShare =
+      typeof navigator.share === "function" &&
+      (files.length === 0 || typeof navigator.canShare !== "function" || navigator.canShare(payload));
+
+    if (!canUseShare) {
+      await fallbackShare();
+      return;
+    }
+
+    try {
+      await navigator.share(payload);
+      notify("ok", "共有メニューを開きました。Xを選んで投稿してください。");
+    } catch (error) {
+      if (error instanceof DOMException && error.name === "AbortError") {
+        notify("info", "共有をやめました。");
+        return;
+      }
+      await fallbackShare();
+    }
+  }
+
+  async function fallbackShare() {
+    try {
+      await navigator.clipboard.writeText(shareBody);
+      notify("ok", "この端末では共有メニューが使えないので、文章をコピーして画像を保存しました。");
+    } catch {
+      setRawFallback(shareBody);
+      notify("info", "文章は下の枠から手でコピーしてください。画像は保存します。");
+    }
+
+    for (const path of selected) {
+      const link = document.createElement("a");
+      link.href = path;
+      link.download = path.split("/").pop() || "image.webp";
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    }
+  }
+
+  if (booting) {
+    return (
+      <main className="promoPage">
+        <div className="promoShell">
+          <p className="promoLead">読み込み中…</p>
+        </div>
+      </main>
+    );
+  }
+
+  if (!authed) {
+    return (
+      <main className="promoPage">
+        <div className="promoGate">
+          <p className="promoEyebrow">PROMO ROOM</p>
+          <h1 className="promoTitle">宣伝室</h1>
+          <p className="promoLead">管理画面と同じパスワードで入れます。</p>
+          <input
+            type="password"
+            placeholder="ADMIN_PASSWORD"
+            value={passwordInput}
+            onChange={(event) => setPasswordInput(event.target.value)}
+            onKeyDown={(event) => {
+              if (event.key === "Enter") void signIn(passwordInput, false);
+            }}
+          />
+          <button type="button" className="promoShareButton" onClick={() => void signIn(passwordInput, false)}>
+            入る
+          </button>
+          {gateMessage ? (
+            <p className="promoMessage" data-tone="error">
+              {gateMessage}
+            </p>
+          ) : null}
+          <a className="promoBackLink" href="/admin">
+            ← 管理画面へ
+          </a>
+        </div>
+      </main>
+    );
+  }
+
+  return (
+    <main className="promoPage">
+      <div className="promoShell">
+        <header className="promoHeader">
+          <p className="promoEyebrow">PROMO ROOM</p>
+          <h1 className="promoTitle">宣伝室</h1>
+          <p className="promoLead">
+            ネタと画像と文章を選んで、最後に共有ボタン。Xアプリに画像つきで渡ります。投稿ボタンを押すのは自分で。
+          </p>
+          <a className="promoBackLink" href="/admin">
+            ← 管理画面へ
+          </a>
+        </header>
+
+        <section className="promoStep">
+          <div className="promoStepHead">
+            <span className="promoStepNo">STEP 1</span>
+            <h2 className="promoStepTitle">何を宣伝する？</h2>
+          </div>
+          <div className="promoChoices">
+            {TOPICS.map((item) => (
+              <button
+                key={item.key}
+                type="button"
+                className="promoChoice"
+                aria-pressed={topic === item.key}
+                onClick={() => selectTopic(item.key)}
+              >
+                <span className="promoChoiceLabel">{item.label}</span>
+                <span className="promoChoiceNote">{item.note}</span>
+              </button>
+            ))}
+          </div>
+
+          {topic === "pick" ? (
+            <select
+              className="promoSelect"
+              value={pickedPostId}
+              onChange={(event) => setPickedPostId(event.target.value)}
+            >
+              {sortedPosts.map((post) => (
+                <option key={post.id} value={post.id}>
+                  {post.title}
+                </option>
+              ))}
+            </select>
+          ) : null}
+
+          {topic === "random" ? (
+            <div className="promoRowActions">
+              <button type="button" className="promoGhostButton" onClick={discover}>
+                別のを掘る
+              </button>
+            </div>
+          ) : null}
+
+          {subject ? (
+            <div className="promoSubject">
+              <span className="promoSubjectLabel">{subject.label}</span>
+              <span className="promoSubjectTitle">{subject.title}</span>
+              <span className="promoSubjectUrl">{subject.url}</span>
+            </div>
+          ) : (
+            <p className="promoStepNote">宣伝できるものが見つかりませんでした。</p>
+          )}
+        </section>
+
+        <section className="promoStep">
+          <div className="promoStepHead">
+            <span className="promoStepNo">STEP 2</span>
+            <h2 className="promoStepTitle">画像を選ぶ</h2>
+          </div>
+          <p className="promoStepNote">
+            候補から選んでください（{MAX_IMAGES}枚まで、なしでも投稿できます）。ピンとこなければ引き直せます。
+          </p>
+
+          {selected.length > 0 ? (
+            <div className="promoSelected">
+              {selected.map((path) => (
+                <button key={path} type="button" className="promoSelectedItem" onClick={() => toggleImage(path)}>
+                  <img src={path} alt="選んだ画像" />
+                  <span className="promoSelectedRemove">外す</span>
+                </button>
+              ))}
+            </div>
+          ) : null}
+
+          <div className="promoCandidates">
+            {candidates.map((path) => (
+              <button
+                key={path}
+                type="button"
+                className="promoCandidate"
+                aria-pressed={selected.includes(path)}
+                onClick={() => toggleImage(path)}
+              >
+                <img src={path} alt="画像の候補" loading="lazy" />
+              </button>
+            ))}
+          </div>
+
+          <div className="promoRowActions">
+            <button
+              type="button"
+              className="promoGhostButton"
+              disabled={!subject || subject.pool.length <= MAX_IMAGES}
+              onClick={() => subject && rollCandidates(subject.pool, selected)}
+            >
+              別の候補を見る
+            </button>
+            <button
+              type="button"
+              className="promoGhostButton"
+              disabled={selected.length === 0}
+              onClick={() => setSelected([])}
+            >
+              選択を消す
+            </button>
+          </div>
+        </section>
+
+        <section className="promoStep">
+          <div className="promoStepHead">
+            <span className="promoStepNo">STEP 3</span>
+            <h2 className="promoStepTitle">文章を決める</h2>
+          </div>
+          <div className="promoTemplates">
+            {templates.map((template, index) => (
+              <button
+                key={template}
+                type="button"
+                className="promoTemplate"
+                aria-pressed={templateIndex === index && text === template}
+                onClick={() => applyTemplate(index)}
+              >
+                {template}
+              </button>
+            ))}
+          </div>
+          <textarea
+            className="promoTextarea"
+            value={text}
+            onChange={(event) => setText(event.target.value)}
+            placeholder="ここを直せば自由に書けます"
+          />
+          <p className="promoCount" data-over={used > TWEET_LIMIT}>
+            {used} / {TWEET_LIMIT}（URLぶんを含む）
+          </p>
+        </section>
+
+        <section className="promoStep">
+          <div className="promoStepHead">
+            <span className="promoStepNo">STEP 4</span>
+            <h2 className="promoStepTitle">Xに渡す</h2>
+          </div>
+          <button
+            type="button"
+            className="promoShareButton"
+            disabled={!subject || !text.trim() || !filesReady}
+            onClick={() => void share()}
+          >
+            {filesReady ? `共有する${selected.length ? `（画像${selected.length}枚）` : ""}` : "画像を準備中…"}
+          </button>
+          {message ? (
+            <p className="promoMessage" data-tone={messageTone}>
+              {message}
+            </p>
+          ) : null}
+          {rawFallback ? (
+            <textarea
+              className="promoTextarea"
+              readOnly
+              value={rawFallback}
+              onFocus={(event) => event.currentTarget.select()}
+            />
+          ) : null}
+        </section>
+      </div>
+    </main>
+  );
+}
+
+function dateValue(post: Post) {
+  return Date.parse(post.updatedAt || post.createdAt || "") || 0;
+}
+
+function postSubject(post: Post, siteUrl: string, label: string): Subject {
+  const pool = [post.thumbnail, ...(post.images || [])].filter((path): path is string => Boolean(path));
+  return {
+    kind: "article",
+    label,
+    title: post.title,
+    summary: truncate(post.summary || "", 70),
+    url: `${siteUrl}/read/${post.id}`,
+    pool: unique(pool),
+  };
+}
+
+function playSubject(experience: Experience, siteUrl: string, posts: Post[]): Subject {
+  const related = posts.find((post) => post.id === experience.relatedPostId && post.status === "public");
+  const pool = [experience.thumbnail, related?.thumbnail, ...(related?.images || [])].filter(
+    (path): path is string => Boolean(path)
+  );
+  return {
+    kind: "play",
+    label: "遊べるもの",
+    title: experience.title,
+    summary: truncate(experience.summary || "", 70),
+    url: related ? `${siteUrl}/read/${related.id}` : `${siteUrl}/experiments`,
+    pool: unique(pool),
+  };
+}
+
+function buildTemplates(subject: Subject, topic: Topic): string[] {
+  const { title, summary } = subject;
+
+  if (subject.kind === "site") {
+    return [
+      "よこぼのAIラボ、今日も実験中です。\nAIと遊んだ記録を、うまくいかなかったぶんも含めて置いてあります。",
+      "非エンジニアがAIと作ったゲーム・3D・動画を並べたラボです。\nのぞいていってもらえたら嬉しいです。",
+      "AIと遊んでいたら、作ったものがけっこう溜まっていました。\nよこぼのAIラボ、公開中です。",
+    ];
+  }
+
+  if (subject.kind === "play") {
+    return [
+      `【ブラウザで遊べます】${title}${summary ? `\n\n${summary}` : ""}`,
+      `${title}\nAIと一緒に作りました。よかったら遊んでみてください。`,
+      `そういえばこんなの作ってました。\n${title}`,
+    ];
+  }
+
+  if (topic === "random") {
+    return [
+      `【発掘】${title}${summary ? `\n\n${summary}` : ""}`,
+      `そういえば、こんな実験もしてました。\n${title}`,
+      `過去の実験ログを掘り返してみました。\n${title}${summary ? `\n\n${summary}` : ""}`,
+    ];
+  }
+
+  return [
+    `【新記事】${title}${summary ? `\n\n${summary}` : ""}`,
+    `${title}${summary ? `\n\n${summary}` : ""}\n\n途中でつまずいたところも、そのまま書いてます。`,
+    `新しい実験ログを書きました。\n${title}`,
+  ];
+}
+
+function unique(values: string[]) {
+  return [...new Set(values)];
+}
+
+function pickRandom<T>(values: T[]): T | null {
+  if (values.length === 0) return null;
+  return values[Math.floor(Math.random() * values.length)];
+}
+
+function shuffle<T>(values: T[]) {
+  const copy = [...values];
+  for (let index = copy.length - 1; index > 0; index -= 1) {
+    const swap = Math.floor(Math.random() * (index + 1));
+    [copy[index], copy[swap]] = [copy[swap], copy[index]];
+  }
+  return copy;
+}
+
+function truncate(value: string, limit: number) {
+  const trimmed = value.trim();
+  return trimmed.length > limit ? `${trimmed.slice(0, limit)}…` : trimmed;
+}
+
+async function toImageFile(path: string) {
+  const response = await fetch(path);
+  if (!response.ok) throw new Error(`画像を読めませんでした: ${path}`);
+  const blob = await response.blob();
+  const name = path.split("/").pop() || "image.webp";
+  return new File([blob], name, { type: blob.type || "image/webp" });
+}
+
+// Xの文字数の数え方に寄せる: 日本語などの全角は2、URLは長さに関係なく23。
+const WIDE_CHARACTER =
+  /[ᄀ-ᇿ⺀-꓏ꥠ-꥿가-퟿豈-﫿︐-︙︰-﹯＀-｠￠-￦]/;
+
+function tweetWeight(text: string) {
+  const urls = text.match(/https?:\/\/\S+/g) || [];
+  const withoutUrls = text.replace(/https?:\/\/\S+/g, "");
+  let weight = urls.length * 23;
+  for (const character of withoutUrls) {
+    weight += WIDE_CHARACTER.test(character) ? 2 : 1;
+  }
+  return weight;
+}
