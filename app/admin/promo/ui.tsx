@@ -31,7 +31,17 @@ type Experience = {
   status?: string;
 };
 
-type PromoImage = { path: string; group: string; subgroup: string };
+type PromoImage = { path: string; group: string; subgroup: string; tag?: string };
+
+type Preset = {
+  id: string;
+  name: string;
+  topic: string;
+  postId: string;
+  images: string[];
+  text: string;
+  savedAt: string;
+};
 
 type Topic = "site" | "latest" | "random" | "pick";
 
@@ -51,29 +61,33 @@ const TOPICS: { key: Topic; label: string; note: string }[] = [
   { key: "pick", label: "記事を選ぶ", note: "一覧から自分で選ぶ" },
 ];
 
-// サイト全体の宣伝に使える画像だけを候補にする。
-// アイコン・枠・スプライトなど画面部品は絵として成立しないので入れない。
-const SITE_ASSET_SUBGROUPS = ["", "characters", "hero", "about", "featured", "read", "play", "logs", "posts"];
-const SITE_IMAGE_GROUPS = ["root", "illustrations", "images", "history"];
-
-function isSitePromoImage(image: PromoImage) {
-  // 枠・スプライト・背景・素材の生データは、単体だと絵にならない。
-  if (/frame|sprite|-raw|-bg\b/i.test(image.path)) return false;
-  if (image.group === "assets") return SITE_ASSET_SUBGROUPS.includes(image.subgroup);
-  return SITE_IMAGE_GROUPS.includes(image.group);
-}
+// 候補に出す画像は data/promo-curation.json で選んである（tagが付いているものだけ）。
+// フォルダ名から機械的に決めていた頃は、開発中のスクショや日付入りの古い素材が混ざっていた。
+const IMAGE_TAGS: { key: string; label: string }[] = [
+  { key: "character", label: "キャラクター" },
+  { key: "world", label: "ラボの世界" },
+  { key: "play", label: "遊べるもの" },
+  { key: "experiment", label: "実験の記録" },
+  { key: "history", label: "歴代サイト" },
+  { key: "sign", label: "看板" },
+];
 
 export default function PromoRoom({ siteUrl }: { siteUrl: string }) {
   const [passwordInput, setPasswordInput] = useState("");
   const [authed, setAuthed] = useState(false);
+  const [authPassword, setAuthPassword] = useState("");
   const [gateMessage, setGateMessage] = useState("");
   const [booting, setBooting] = useState(true);
 
   const [posts, setPosts] = useState<Post[]>([]);
   const [experiences, setExperiences] = useState<Experience[]>([]);
   const [promoImages, setPromoImages] = useState<PromoImage[]>([]);
+  const [presets, setPresets] = useState<Preset[]>([]);
+  const [presetName, setPresetName] = useState("");
+  const [savingPreset, setSavingPreset] = useState(false);
 
   const [topic, setTopic] = useState<Topic>("site");
+  const [imageTag, setImageTag] = useState("all");
   const [pickedPostId, setPickedPostId] = useState("");
   const [discovered, setDiscovered] = useState<Subject | null>(null);
 
@@ -95,10 +109,11 @@ export default function PromoRoom({ siteUrl }: { siteUrl: string }) {
 
   const loadAll = useCallback(async (password: string) => {
     const headers = { "x-admin-password": password, "ngrok-skip-browser-warning": "true" };
-    const [postsResponse, experiencesResponse, imagesResponse] = await Promise.all([
+    const [postsResponse, experiencesResponse, imagesResponse, presetsResponse] = await Promise.all([
       fetch("/api/posts", { headers }),
       fetch("/api/experiences", { headers }),
       fetch("/promo-images.json"),
+      fetch("/api/promo-presets", { headers }),
     ]);
 
     if (postsResponse.status === 401 || experiencesResponse.status === 401) {
@@ -112,6 +127,7 @@ export default function PromoRoom({ siteUrl }: { siteUrl: string }) {
     setPosts(loadedPosts.filter((post) => post.status === "public" && post.id));
     setExperiences(loadedExperiences.filter((item) => item.status === "live" && item.playUrl));
     setPromoImages(Array.isArray(loadedImages.images) ? loadedImages.images : []);
+    setPresets(presetsResponse.ok ? await presetsResponse.json() : []);
   }, []);
 
   const signIn = useCallback(
@@ -137,6 +153,7 @@ export default function PromoRoom({ siteUrl }: { siteUrl: string }) {
       }
 
       window.localStorage.setItem(STORAGE_KEY, trimmed);
+      setAuthPassword(trimmed);
       setAuthed(true);
       setGateMessage("");
       return true;
@@ -157,9 +174,17 @@ export default function PromoRoom({ siteUrl }: { siteUrl: string }) {
   }, [signIn]);
 
   const siteImagePool = useMemo(
-    () => promoImages.filter(isSitePromoImage).map((image) => image.path),
-    [promoImages]
+    () =>
+      promoImages
+        .filter((image) => image.tag && (imageTag === "all" || image.tag === imageTag))
+        .map((image) => image.path),
+    [promoImages, imageTag]
   );
+
+  const availableTags = useMemo(() => {
+    const present = new Set(promoImages.map((image) => image.tag).filter(Boolean));
+    return IMAGE_TAGS.filter((tag) => present.has(tag.key));
+  }, [promoImages]);
 
   const sortedPosts = useMemo(
     () => [...posts].sort((a, b) => dateValue(b) - dateValue(a)),
@@ -198,20 +223,36 @@ export default function PromoRoom({ siteUrl }: { siteUrl: string }) {
     setCandidates(shuffle(rest).slice(0, MAX_IMAGES));
   }, []);
 
-  // ネタが変わったら画像候補と文章を組み直す。
+  // 宣伝する対象そのものが変わったときだけ、選び直しとして全部組み直す。
+  // subjectはタグを切り替えるだけでも作り直されるので、中身の識別子で見る。
+  const subjectKey = subject ? `${topic}:${subject.kind}:${subject.url}` : "";
+
   useEffect(() => {
     if (!subject) {
-      setCandidates([]);
       setSelected([]);
       setText("");
       return;
     }
     setSelected([]);
-    rollCandidates(subject.pool, []);
     setTemplateIndex(0);
     setText(buildTemplates(subject, topic)[0] || "");
     setRawFallback("");
-  }, [subject, topic, rollCandidates]);
+    // subjectKeyが変わったときだけ走らせたいので、subject本体は依存に入れない。
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [subjectKey]);
+
+  // 候補の引き直し。読み込み完了・絞り込みの変更・ネタの変更のいずれでも走る。
+  // 選んだ画像は消さないので、絞り込みをまたいで組み合わせられる。
+  const poolKey = subject ? subject.pool.join("|") : "";
+
+  useEffect(() => {
+    if (!subject) {
+      setCandidates([]);
+      return;
+    }
+    rollCandidates(subject.pool, selected);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [poolKey, rollCandidates]);
 
   // 共有の直前に読み込むとiOSで弾かれることがあるので、選んだ時点でファイルにしておく。
   useEffect(() => {
@@ -241,6 +282,62 @@ export default function PromoRoom({ siteUrl }: { siteUrl: string }) {
       cancelled = true;
     };
   }, [selected, notify]);
+
+  async function savePreset() {
+    if (!subject || !text.trim()) return;
+    const name = presetName.trim() || subject.title;
+
+    setSavingPreset(true);
+    try {
+      const response = await fetch("/api/promo-presets", {
+        method: "POST",
+        headers: { "content-type": "application/json", "x-admin-password": authPassword },
+        body: JSON.stringify({ name, topic, postId: topic === "pick" ? pickedPostId : "", images: selected, text }),
+      });
+      const body = await response.json();
+      if (!response.ok) {
+        notify("error", body.message || "保存できませんでした。");
+        return;
+      }
+      setPresets(body);
+      setPresetName("");
+      notify("ok", `「${name}」を保存しました。`);
+    } catch {
+      notify("error", "保存できませんでした。通信を確認してください。");
+    } finally {
+      setSavingPreset(false);
+    }
+  }
+
+  function loadPreset(preset: Preset) {
+    setTopic(preset.topic as Topic);
+    if (preset.postId) setPickedPostId(preset.postId);
+    // ネタを戻すと組み直しの処理が走るので、そのあとに保存内容を上書きする。
+    window.setTimeout(() => {
+      setSelected(preset.images);
+      setText(preset.text);
+      setTemplateIndex(-1);
+    }, 0);
+    notify("ok", `「${preset.name}」を読み込みました。`);
+  }
+
+  async function deletePreset(preset: Preset) {
+    try {
+      const response = await fetch("/api/promo-presets", {
+        method: "DELETE",
+        headers: { "content-type": "application/json", "x-admin-password": authPassword },
+        body: JSON.stringify({ id: preset.id }),
+      });
+      if (!response.ok) {
+        notify("error", "消せませんでした。");
+        return;
+      }
+      setPresets(await response.json());
+      notify("info", `「${preset.name}」を消しました。`);
+    } catch {
+      notify("error", "消せませんでした。通信を確認してください。");
+    }
+  }
 
   function discover() {
     const candidatesForDiscovery: Subject[] = [
@@ -380,6 +477,36 @@ export default function PromoRoom({ siteUrl }: { siteUrl: string }) {
           </a>
         </header>
 
+        {presets.length > 0 ? (
+          <section className="promoStep">
+            <div className="promoStepHead">
+              <span className="promoStepNo">保存ずみ</span>
+              <h2 className="promoStepTitle">プリセット</h2>
+            </div>
+            <div className="promoPresetList">
+              {presets.map((preset) => (
+                <div key={preset.id} className="promoPresetRow">
+                  <button type="button" className="promoPresetLoad" onClick={() => loadPreset(preset)}>
+                    <span className="promoPresetName">{preset.name}</span>
+                    <span className="promoPresetNote">
+                      {preset.images.length > 0 ? `画像${preset.images.length}枚・` : ""}
+                      {preset.text.replace(/\s+/g, " ").slice(0, 24)}…
+                    </span>
+                  </button>
+                  <button
+                    type="button"
+                    className="promoPresetDelete"
+                    aria-label={`${preset.name}を消す`}
+                    onClick={() => void deletePreset(preset)}
+                  >
+                    消す
+                  </button>
+                </div>
+              ))}
+            </div>
+          </section>
+        ) : null}
+
         <section className="promoStep">
           <div className="promoStepHead">
             <span className="promoStepNo">STEP 1</span>
@@ -441,6 +568,30 @@ export default function PromoRoom({ siteUrl }: { siteUrl: string }) {
           <p className="promoStepNote">
             候補から選んでください（{MAX_IMAGES}枚まで、なしでも投稿できます）。ピンとこなければ引き直せます。
           </p>
+
+          {topic === "site" && availableTags.length > 0 ? (
+            <div className="promoTagRow">
+              <button
+                type="button"
+                className="promoTag"
+                aria-pressed={imageTag === "all"}
+                onClick={() => setImageTag("all")}
+              >
+                すべて
+              </button>
+              {availableTags.map((tag) => (
+                <button
+                  key={tag.key}
+                  type="button"
+                  className="promoTag"
+                  aria-pressed={imageTag === tag.key}
+                  onClick={() => setImageTag(tag.key)}
+                >
+                  {tag.label}
+                </button>
+              ))}
+            </div>
+          ) : null}
 
           {selected.length > 0 ? (
             <div className="promoSelected">
@@ -542,6 +693,27 @@ export default function PromoRoom({ siteUrl }: { siteUrl: string }) {
               onFocus={(event) => event.currentTarget.select()}
             />
           ) : null}
+
+          <p className="promoStepNote">
+            気に入った組み合わせは保存しておくと、次からプリセットを押すだけで同じものが出せます。
+          </p>
+          <div className="promoSaveRow">
+            <input
+              className="promoNameInput"
+              type="text"
+              placeholder={subject ? `名前（既定: ${subject.title.slice(0, 12)}）` : "名前"}
+              value={presetName}
+              onChange={(event) => setPresetName(event.target.value)}
+            />
+            <button
+              type="button"
+              className="promoGhostButton"
+              disabled={!subject || !text.trim() || savingPreset}
+              onClick={() => void savePreset()}
+            >
+              {savingPreset ? "保存中…" : "保存"}
+            </button>
+          </div>
         </section>
       </div>
     </main>

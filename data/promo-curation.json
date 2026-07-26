@@ -1,0 +1,143 @@
+{
+  "_note": "宣伝室（/admin/promo）の「サイト全体」で使う画像の選別リスト。ここに載っている画像だけが候補になる。新しい画像を足したら、実物を見てから追記すること（フォルダ名だけで機械的に決めると、開発途中のスクショや日付入りの古い素材が混ざる）。tagは宣伝室の絞り込みに使う。",
+  "_tags": {
+    "character": "Dr.よこぼ / ニャビットのキャラクター画像",
+    "world": "ラボの部屋や世界観のイラスト",
+    "play": "遊べるもの・カテゴリのイラスト",
+    "experiment": "実験の結果そのものが写っているもの",
+    "history": "歴代サイトの見た目",
+    "sign": "看板がわりの1枚"
+  },
+  "picks": [
+    { "path": "/ogp-default.webp", "tag": "sign" },
+
+    { "path": "/assets/characters/dr-yokobo-face.webp", "tag": "character" },
+    { "path": "/assets/characters/dr-yokobo-hero.webp", "tag": "character" },
+    { "path": "/assets/characters/dr-yokobo-nyabbit-duo.webp", "tag": "character" },
+    { "path": "/assets/characters/dr-yokobo-profile.webp", "tag": "character" },
+    { "path": "/assets/characters/dr-yokobo.webp", "tag": "character" },
+    { "path": "/assets/characters/nyabbit-hero.webp", "tag": "character" },
+    { "path": "/assets/characters/nyabbit-profile.webp", "tag": "character" },
+    { "path": "/assets/characters/nyabbit-reference.webp", "tag": "character" },
+    { "path": "/assets/characters/nyabit.webp", "tag": "character" },
+    { "path": "/assets/characters/yokobo-reference.webp", "tag": "character" },
+    { "path": "/assets/dr-yokobo.webp", "tag": "character" },
+    { "path": "/assets/nyabbit.webp", "tag": "character" },
+    { "path": "/assets/featured/dr-yokobo-pickup.webp", "tag": "character" },
+    { "path": "/assets/featured/nyabbit-archive.webp", "tag": "character" },
+    { "path": "/assets/posts/character-reference.webp", "tag": "character" },
+    { "path": "/assets/read/dr-yokobo-bust.webp", "tag": "character" },
+    { "path": "/assets/read/nyabit-doodle.webp", "tag": "character" },
+    { "path": "/illustrations/shiryoshitsu/ai-lab-podcast.webp", "tag": "character" },
+    { "path": "/assets/about/ex-page.webp", "tag": "character" },
+    { "path": "/assets/social/podcast-circle.webp", "tag": "character" },
+    { "path": "/assets/social/x-circle.webp", "tag": "character" },
+
+    { "path": "/assets/about/lab-guide-map.webp", "tag": "world" },
+    { "path": "/assets/about/topics/topic-3d-space.webp", "tag": "world" },
+    { "path": "/assets/about/topics/topic-ai-mechanism.webp", "tag": "world" },
+    { "path": "/assets/about/topics/topic-game.webp", "tag": "world" },
+    { "path": "/assets/about/topics/topic-image-video.webp", "tag": "world" },
+    { "path": "/assets/about/topics/topic-log.webp", "tag": "world" },
+    { "path": "/assets/about/topics/topic-web.webp", "tag": "world" },
+    { "path": "/assets/hero/hero-archive-world-pc.webp", "tag": "world" },
+    { "path": "/assets/hero/hero-archive-world.webp", "tag": "world" },
+    { "path": "/assets/hero/hero-lab-world.webp", "tag": "world" },
+    { "path": "/assets/experience/transfer-room/hero/hero-transfer-room.webp", "tag": "world" },
+
+    { "path": "/assets/play/play-3d.webp", "tag": "play" },
+    { "path": "/assets/play/play-ai-tool.webp", "tag": "play" },
+    { "path": "/assets/play/play-experiment-share.webp", "tag": "play" },
+    { "path": "/assets/play/play-failure.webp", "tag": "play" },
+    { "path": "/assets/play/play-game.webp", "tag": "play" },
+    { "path": "/assets/play/play-image-generation.webp", "tag": "play" },
+
+    { "path": "/assets/hero/blueprint-tablet.webp", "tag": "experiment" },
+    { "path": "/images/2025/first_cat_ar_on_floor.webp", "tag": "experiment" },
+    { "path": "/images/2025/interactive_magic_ar_result.webp", "tag": "experiment" },
+    { "path": "/images/2025/mediapipe_hand_count_success.webp", "tag": "experiment" },
+    { "path": "/images/2025/probanana_manga_comparison.webp", "tag": "experiment" },
+    { "path": "/images/2025/probanana_site_header_result.webp", "tag": "experiment" },
+
+    { "path": "/history/2_2nd_yokobo-ai-lab_top.webp", "tag": "history" },
+    { "path": "/history/5_2nd_lab_experience.webp", "tag": "history" },
+    { "path": "/history/6_3rd_lab_top.webp", "tag": "history" },
+    { "path": "/history/7_3rd_lab_experiment.webp", "tag": "history" }
+  ],
+  "rejected": {
+    "_note": "候補から外した理由。同じものを何度も見直さずに済むよう残す。",
+    "日付が焼き込まれている": [
+      "/assets/logs/thumb-3d-nyabbit.webp",
+      "/assets/logs/thumb-chatgpt-prompt.webp",
+      "/assets/logs/thumb-comfyui-cat.webp",
+      "/assets/logs/thumb-future-lab.webp",
+      "/assets/logs/thumb-rpg-game.webp"
+    ],
+    "制作途中の資料・案出し": [
+      "/assets/posts/character-design-sheet.webp",
+      "/assets/posts/logo-reference.webp",
+      "/assets/posts/lp-reference.webp"
+    ],
+    "開発中のスクリーンショット": [
+      "/images/2025/antigravity_generated_site_top.webp",
+      "/images/2025/codex_after_image_fit.webp",
+      "/images/2025/codex_before_image_overflow.webp",
+      "/images/2025/genie_cat_3d_attempt.webp",
+      "/images/2025/spar3d_cat_model_result.webp"
+    ],
+    "背景・UI部品で絵にならない": [
+      "/assets/hero/entrance-pc.webp",
+      "/assets/hero/entrance-sp.webp",
+      "/assets/hero/experience-hero.webp",
+      "/assets/hero/experiment-header-nyabit.webp",
+      "/assets/hero/holo-cylinder.webp",
+      "/assets/hero/holo-nyabit-clean.webp",
+      "/assets/hero/holo-nyabit.webp",
+      "/assets/hero/hologram-panel.webp",
+      "/assets/cta/cta-blue-lab-bg.webp",
+      "/assets/entrances/door-frame-mobile.webp",
+      "/assets/entrances/door-frame-pc.webp",
+      "/assets/entrances/play.webp",
+      "/assets/entrances/random.webp",
+      "/assets/entrances/read.webp",
+      "/assets/experience/transfer-room/frames/transfer-panel-frame-default.webp",
+      "/assets/hero-lab-bg.webp",
+      "/assets/hero/hero-lab-bg.webp",
+      "/assets/hero/lab-ambient-bg.webp",
+      "/assets/hero/lab-room-bg-new.webp",
+      "/assets/hero/lab-room-bg.webp",
+      "/assets/hero/mobile-hero-bg.webp",
+      "/assets/lab/status-frame.webp"
+    ],
+    "ロゴ・アイコン・スプライトで単体では絵にならない": [
+      "/assets/brand/lp-logo.webp",
+      "/assets/brand/lp_logo_dark.webp",
+      "/assets/brand/lp_logo_light.webp",
+      "/assets/cta-sprites/play-flask-hover-sprite.webp",
+      "/assets/cta-sprites/random-dice-hover-sprite.webp",
+      "/assets/cta-sprites/read-book-hover-sprite.webp",
+      "/assets/icons/book.webp",
+      "/assets/icons/flask.webp",
+      "/assets/icons/paw.webp",
+      "/assets/icons/transfer.webp",
+      "/assets/hero/holo-cylinder-raw.webp",
+      "/assets/hero/holo-nyabit-raw.webp",
+      "/images/2025/fireball_sprite_sheet.webp"
+    ],
+    "文字を載せる前提で余白だらけ": [
+      "/assets/hero/hero-mobile-full.webp",
+      "/assets/hero/hero-pc-full.webp",
+      "/assets/hero/hero-lab-world-pc.webp"
+    ],
+    "縦長のスマホ向けで、横長版を採用済み": [
+      "/assets/experience/transfer-room/hero/hero-transfer-room-mobile.webp"
+    ],
+    "縦に長すぎてXでは潰れる": [
+      "/history/1_1st_yokobo-ai-lab_top.webp",
+      "/history/3_2nd_lab_log.webp",
+      "/history/4_2nd_lab_setsumei.webp",
+      "/history/8_3rd_lab_read.webp",
+      "/history/9_3rd_lab_info.webp"
+    ]
+  }
+}

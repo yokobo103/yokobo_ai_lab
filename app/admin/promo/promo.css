@@ -183,6 +183,28 @@
   cursor: default;
 }
 
+.promoTagRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.promoTag {
+  padding: 6px 12px;
+  border: 1px solid var(--pr-line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--pr-ink-soft);
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.promoTag[aria-pressed="true"] {
+  border: 1px solid var(--pr-line-strong);
+  background: rgba(79, 209, 232, 0.16);
+  color: var(--pr-ink);
+}
+
 .promoSelected {
   display: flex;
   flex-wrap: wrap;
@@ -301,6 +323,68 @@
 
 .promoCount[data-over="true"] {
   color: var(--pr-danger);
+}
+
+.promoPresetList {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.promoPresetRow {
+  display: flex;
+  gap: 6px;
+}
+
+.promoPresetLoad {
+  flex: 1;
+  min-height: 52px;
+  padding: 8px 12px;
+  border: 1px solid var(--pr-line);
+  border-radius: 8px;
+  background: var(--pr-panel-soft);
+  color: var(--pr-ink);
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.promoPresetName {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.promoPresetNote {
+  font-size: 11px;
+  color: var(--pr-ink-soft);
+}
+
+.promoPresetDelete {
+  padding: 0 12px;
+  border: 1px solid var(--pr-line);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--pr-ink-soft);
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.promoSaveRow {
+  display: flex;
+  gap: 8px;
+}
+
+.promoNameInput {
+  flex: 1;
+  min-width: 0;
+  padding: 10px;
+  border: 1px solid var(--pr-line-strong);
+  border-radius: 8px;
+  background: #fff7eb;
+  color: #253550;
+  font-size: 14px;
 }
 
 .promoShareButton {

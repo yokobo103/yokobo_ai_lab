@@ -6,7 +6,8 @@
       "subgroup": "about",
       "width": 1400,
       "height": 747,
-      "bytes": 53796
+      "bytes": 53796,
+      "tag": "character"
     },
     {
       "path": "/assets/about/lab-guide-map.webp",
@@ -14,7 +15,8 @@
       "subgroup": "about",
       "width": 1332,
       "height": 861,
-      "bytes": 289244
+      "bytes": 289244,
+      "tag": "world"
     },
     {
       "path": "/assets/about/topics/topic-3d-space.webp",
@@ -22,7 +24,8 @@
       "subgroup": "about",
       "width": 1200,
       "height": 450,
-      "bytes": 758726
+      "bytes": 758726,
+      "tag": "world"
     },
     {
       "path": "/assets/about/topics/topic-ai-mechanism.webp",
@@ -30,7 +33,8 @@
       "subgroup": "about",
       "width": 1200,
       "height": 450,
-      "bytes": 726860
+      "bytes": 726860,
+      "tag": "world"
     },
     {
       "path": "/assets/about/topics/topic-game.webp",
@@ -38,7 +42,8 @@
       "subgroup": "about",
       "width": 1200,
       "height": 450,
-      "bytes": 760948
+      "bytes": 760948,
+      "tag": "world"
     },
     {
       "path": "/assets/about/topics/topic-image-video.webp",
@@ -46,7 +51,8 @@
       "subgroup": "about",
       "width": 1200,
       "height": 450,
-      "bytes": 695428
+      "bytes": 695428,
+      "tag": "world"
     },
     {
       "path": "/assets/about/topics/topic-log.webp",
@@ -54,7 +60,8 @@
       "subgroup": "about",
       "width": 1200,
       "height": 450,
-      "bytes": 719854
+      "bytes": 719854,
+      "tag": "world"
     },
     {
       "path": "/assets/about/topics/topic-web.webp",
@@ -62,7 +69,8 @@
       "subgroup": "about",
       "width": 1200,
       "height": 450,
-      "bytes": 695426
+      "bytes": 695426,
+      "tag": "world"
     },
     {
       "path": "/assets/brand/lp_logo_dark.webp",
@@ -70,7 +78,8 @@
       "subgroup": "brand",
       "width": 982,
       "height": 281,
-      "bytes": 48320
+      "bytes": 48320,
+      "tag": ""
     },
     {
       "path": "/assets/brand/lp_logo_light.webp",
@@ -78,7 +87,8 @@
       "subgroup": "brand",
       "width": 967,
       "height": 268,
-      "bytes": 28478
+      "bytes": 28478,
+      "tag": ""
     },
     {
       "path": "/assets/brand/lp-logo.webp",
@@ -86,7 +96,8 @@
       "subgroup": "brand",
       "width": 720,
       "height": 480,
-      "bytes": 29934
+      "bytes": 29934,
+      "tag": ""
     },
     {
       "path": "/assets/characters/dr-yokobo-face.webp",
@@ -94,7 +105,8 @@
       "subgroup": "characters",
       "width": 720,
       "height": 720,
-      "bytes": 411802
+      "bytes": 411802,
+      "tag": "character"
     },
     {
       "path": "/assets/characters/dr-yokobo-hero.webp",
@@ -102,7 +114,8 @@
       "subgroup": "characters",
       "width": 900,
       "height": 1000,
-      "bytes": 650908
+      "bytes": 650908,
+      "tag": "character"
     },
     {
       "path": "/assets/characters/dr-yokobo-nyabbit-duo.webp",
@@ -110,7 +123,8 @@
       "subgroup": "characters",
       "width": 900,
       "height": 620,
-      "bytes": 499586
+      "bytes": 499586,
+      "tag": "character"
     },
     {
       "path": "/assets/characters/dr-yokobo-profile.webp",
@@ -118,7 +132,8 @@
       "subgroup": "characters",
       "width": 620,
       "height": 760,
-      "bytes": 387548
+      "bytes": 387548,
+      "tag": "character"
     },
     {
       "path": "/assets/characters/dr-yokobo.webp",
@@ -126,7 +141,8 @@
       "subgroup": "characters",
       "width": 1086,
       "height": 1448,
-      "bytes": 74214
+      "bytes": 74214,
+      "tag": "character"
     },
     {
       "path": "/assets/characters/nyabbit-hero.webp",
@@ -134,7 +150,8 @@
       "subgroup": "characters",
       "width": 520,
       "height": 520,
-      "bytes": 198680
+      "bytes": 198680,
+      "tag": "character"
     },
     {
       "path": "/assets/characters/nyabbit-profile.webp",
@@ -142,7 +159,8 @@
       "subgroup": "characters",
       "width": 520,
       "height": 620,
-      "bytes": 270152
+      "bytes": 270152,
+      "tag": "character"
     },
     {
       "path": "/assets/characters/nyabbit-reference.webp",
@@ -150,7 +168,8 @@
       "subgroup": "characters",
       "width": 558,
       "height": 558,
-      "bytes": 24434
+      "bytes": 24434,
+      "tag": "character"
     },
     {
       "path": "/assets/characters/nyabit.webp",
@@ -158,7 +177,8 @@
       "subgroup": "characters",
       "width": 558,
       "height": 558,
-      "bytes": 22706
+      "bytes": 22706,
+      "tag": "character"
     },
     {
       "path": "/assets/characters/yokobo-reference.webp",
@@ -166,7 +186,8 @@
       "subgroup": "characters",
       "width": 600,
       "height": 600,
-      "bytes": 36632
+      "bytes": 36632,
+      "tag": "character"
     },
     {
       "path": "/assets/cta-sprites/play-flask-hover-sprite.webp",
@@ -174,7 +195,8 @@
       "subgroup": "cta-sprites",
       "width": 1024,
       "height": 128,
-      "bytes": 27468
+      "bytes": 27468,
+      "tag": ""
     },
     {
       "path": "/assets/cta-sprites/random-dice-hover-sprite.webp",
@@ -182,7 +204,8 @@
       "subgroup": "cta-sprites",
       "width": 1024,
       "height": 128,
-      "bytes": 25076
+      "bytes": 25076,
+      "tag": ""
     },
     {
       "path": "/assets/cta-sprites/read-book-hover-sprite.webp",
@@ -190,7 +213,8 @@
       "subgroup": "cta-sprites",
       "width": 1024,
       "height": 128,
-      "bytes": 30328
+      "bytes": 30328,
+      "tag": ""
     },
     {
       "path": "/assets/cta/cta-blue-lab-bg.webp",
@@ -198,7 +222,8 @@
       "subgroup": "cta",
       "width": 1400,
       "height": 320,
-      "bytes": 49078
+      "bytes": 49078,
+      "tag": ""
     },
     {
       "path": "/assets/dr-yokobo.webp",
@@ -206,7 +231,8 @@
       "subgroup": "",
       "width": 760,
       "height": 1040,
-      "bytes": 508088
+      "bytes": 508088,
+      "tag": "character"
     },
     {
       "path": "/assets/entrances/door-frame-mobile.webp",
@@ -214,7 +240,8 @@
       "subgroup": "entrances",
       "width": 1448,
       "height": 1086,
-      "bytes": 48416
+      "bytes": 48416,
+      "tag": ""
     },
     {
       "path": "/assets/entrances/door-frame-pc.webp",
@@ -222,7 +249,8 @@
       "subgroup": "entrances",
       "width": 1448,
       "height": 1086,
-      "bytes": 62296
+      "bytes": 62296,
+      "tag": ""
     },
     {
       "path": "/assets/entrances/play.webp",
@@ -230,7 +258,8 @@
       "subgroup": "entrances",
       "width": 1536,
       "height": 864,
-      "bytes": 160818
+      "bytes": 160818,
+      "tag": ""
     },
     {
       "path": "/assets/entrances/random.webp",
@@ -238,7 +267,8 @@
       "subgroup": "entrances",
       "width": 1536,
       "height": 864,
-      "bytes": 177708
+      "bytes": 177708,
+      "tag": ""
     },
     {
       "path": "/assets/entrances/read.webp",
@@ -246,7 +276,8 @@
       "subgroup": "entrances",
       "width": 1536,
       "height": 864,
-      "bytes": 146442
+      "bytes": 146442,
+      "tag": ""
     },
     {
       "path": "/assets/experience/transfer-room/frames/transfer-panel-frame-default.webp",
@@ -254,7 +285,8 @@
       "subgroup": "experience",
       "width": 1586,
       "height": 992,
-      "bytes": 73450
+      "bytes": 73450,
+      "tag": ""
     },
     {
       "path": "/assets/experience/transfer-room/hero/hero-transfer-room-mobile.webp",
@@ -262,7 +294,8 @@
       "subgroup": "experience",
       "width": 941,
       "height": 1672,
-      "bytes": 247780
+      "bytes": 247780,
+      "tag": ""
     },
     {
       "path": "/assets/experience/transfer-room/hero/hero-transfer-room.webp",
@@ -270,7 +303,8 @@
       "subgroup": "experience",
       "width": 1916,
       "height": 821,
-      "bytes": 318284
+      "bytes": 318284,
+      "tag": "world"
     },
     {
       "path": "/assets/featured/dr-yokobo-pickup.webp",
@@ -278,7 +312,8 @@
       "subgroup": "featured",
       "width": 720,
       "height": 480,
-      "bytes": 45512
+      "bytes": 45512,
+      "tag": "character"
     },
     {
       "path": "/assets/featured/nyabbit-archive.webp",
@@ -286,7 +321,8 @@
       "subgroup": "featured",
       "width": 720,
       "height": 720,
-      "bytes": 145612
+      "bytes": 145612,
+      "tag": "character"
     },
     {
       "path": "/assets/hero-lab-bg.webp",
@@ -294,7 +330,8 @@
       "subgroup": "",
       "width": 1200,
       "height": 780,
-      "bytes": 412514
+      "bytes": 412514,
+      "tag": ""
     },
     {
       "path": "/assets/hero/blueprint-tablet.webp",
@@ -302,7 +339,8 @@
       "subgroup": "hero",
       "width": 720,
       "height": 360,
-      "bytes": 176536
+      "bytes": 176536,
+      "tag": "experiment"
     },
     {
       "path": "/assets/hero/entrance-pc.webp",
@@ -310,7 +348,8 @@
       "subgroup": "hero",
       "width": 1672,
       "height": 941,
-      "bytes": 207188
+      "bytes": 207188,
+      "tag": ""
     },
     {
       "path": "/assets/hero/entrance-sp.webp",
@@ -318,7 +357,8 @@
       "subgroup": "hero",
       "width": 941,
       "height": 1672,
-      "bytes": 183878
+      "bytes": 183878,
+      "tag": ""
     },
     {
       "path": "/assets/hero/experience-hero.webp",
@@ -326,7 +366,8 @@
       "subgroup": "hero",
       "width": 1672,
       "height": 941,
-      "bytes": 115488
+      "bytes": 115488,
+      "tag": ""
     },
     {
       "path": "/assets/hero/experiment-header-nyabit.webp",
@@ -334,7 +375,8 @@
       "subgroup": "hero",
       "width": 1672,
       "height": 941,
-      "bytes": 112780
+      "bytes": 112780,
+      "tag": ""
     },
     {
       "path": "/assets/hero/hero-archive-world-pc.webp",
@@ -342,7 +384,8 @@
       "subgroup": "hero",
       "width": 1161,
       "height": 1355,
-      "bytes": 256166
+      "bytes": 256166,
+      "tag": "world"
     },
     {
       "path": "/assets/hero/hero-archive-world.webp",
@@ -350,7 +393,8 @@
       "subgroup": "hero",
       "width": 1024,
       "height": 1280,
-      "bytes": 205270
+      "bytes": 205270,
+      "tag": "world"
     },
     {
       "path": "/assets/hero/hero-lab-bg.webp",
@@ -358,7 +402,8 @@
       "subgroup": "hero",
       "width": 1600,
       "height": 900,
-      "bytes": 143658
+      "bytes": 143658,
+      "tag": ""
     },
     {
       "path": "/assets/hero/hero-lab-world-pc.webp",
@@ -366,7 +411,8 @@
       "subgroup": "hero",
       "width": 1161,
       "height": 1355,
-      "bytes": 165748
+      "bytes": 165748,
+      "tag": ""
     },
     {
       "path": "/assets/hero/hero-lab-world.webp",
@@ -374,7 +420,8 @@
       "subgroup": "hero",
       "width": 1024,
       "height": 1280,
-      "bytes": 206420
+      "bytes": 206420,
+      "tag": "world"
     },
     {
       "path": "/assets/hero/hero-mobile-full.webp",
@@ -382,7 +429,8 @@
       "subgroup": "hero",
       "width": 1080,
       "height": 1500,
-      "bytes": 93714
+      "bytes": 93714,
+      "tag": ""
     },
     {
       "path": "/assets/hero/hero-pc-full.webp",
@@ -390,7 +438,8 @@
       "subgroup": "hero",
       "width": 1536,
       "height": 506,
-      "bytes": 67392
+      "bytes": 67392,
+      "tag": ""
     },
     {
       "path": "/assets/hero/holo-cylinder-raw.webp",
@@ -398,7 +447,8 @@
       "subgroup": "hero",
       "width": 1122,
       "height": 1402,
-      "bytes": 90958
+      "bytes": 90958,
+      "tag": ""
     },
     {
       "path": "/assets/hero/holo-cylinder.webp",
@@ -406,7 +456,8 @@
       "subgroup": "hero",
       "width": 1050,
       "height": 1277,
-      "bytes": 93204
+      "bytes": 93204,
+      "tag": ""
     },
     {
       "path": "/assets/hero/holo-nyabit-clean.webp",
@@ -414,7 +465,8 @@
       "subgroup": "hero",
       "width": 1122,
       "height": 1402,
-      "bytes": 96560
+      "bytes": 96560,
+      "tag": ""
     },
     {
       "path": "/assets/hero/holo-nyabit-raw.webp",
@@ -422,7 +474,8 @@
       "subgroup": "hero",
       "width": 1122,
       "height": 1402,
-      "bytes": 66036
+      "bytes": 66036,
+      "tag": ""
     },
     {
       "path": "/assets/hero/holo-nyabit.webp",
@@ -430,7 +483,8 @@
       "subgroup": "hero",
       "width": 1122,
       "height": 1402,
-      "bytes": 109688
+      "bytes": 109688,
+      "tag": ""
     },
     {
       "path": "/assets/hero/hologram-panel.webp",
@@ -438,7 +492,8 @@
       "subgroup": "hero",
       "width": 520,
       "height": 420,
-      "bytes": 113772
+      "bytes": 113772,
+      "tag": ""
     },
     {
       "path": "/assets/hero/lab-ambient-bg.webp",
@@ -446,7 +501,8 @@
       "subgroup": "hero",
       "width": 1280,
       "height": 720,
-      "bytes": 26708
+      "bytes": 26708,
+      "tag": ""
     },
     {
       "path": "/assets/hero/lab-room-bg-new.webp",
@@ -454,7 +510,8 @@
       "subgroup": "hero",
       "width": 1280,
       "height": 426,
-      "bytes": 78606
+      "bytes": 78606,
+      "tag": ""
     },
     {
       "path": "/assets/hero/lab-room-bg.webp",
@@ -462,7 +519,8 @@
       "subgroup": "hero",
       "width": 1672,
       "height": 941,
-      "bytes": 135674
+      "bytes": 135674,
+      "tag": ""
     },
     {
       "path": "/assets/hero/mobile-hero-bg.webp",
@@ -470,7 +528,8 @@
       "subgroup": "hero",
       "width": 720,
       "height": 1280,
-      "bytes": 81170
+      "bytes": 81170,
+      "tag": ""
     },
     {
       "path": "/assets/icons/book.webp",
@@ -478,7 +537,8 @@
       "subgroup": "icons",
       "width": 521,
       "height": 521,
-      "bytes": 13940
+      "bytes": 13940,
+      "tag": ""
     },
     {
       "path": "/assets/icons/flask.webp",
@@ -486,7 +546,8 @@
       "subgroup": "icons",
       "width": 596,
       "height": 596,
-      "bytes": 19598
+      "bytes": 19598,
+      "tag": ""
     },
     {
       "path": "/assets/icons/paw.webp",
@@ -494,7 +555,8 @@
       "subgroup": "icons",
       "width": 494,
       "height": 494,
-      "bytes": 27618
+      "bytes": 27618,
+      "tag": ""
     },
     {
       "path": "/assets/icons/transfer.webp",
@@ -502,7 +564,8 @@
       "subgroup": "icons",
       "width": 526,
       "height": 526,
-      "bytes": 38170
+      "bytes": 38170,
+      "tag": ""
     },
     {
       "path": "/assets/lab/status-frame.webp",
@@ -510,7 +573,8 @@
       "subgroup": "lab",
       "width": 1159,
       "height": 499,
-      "bytes": 26154
+      "bytes": 26154,
+      "tag": ""
     },
     {
       "path": "/assets/logs/thumb-3d-nyabbit.webp",
@@ -518,7 +582,8 @@
       "subgroup": "logs",
       "width": 640,
       "height": 420,
-      "bytes": 14232
+      "bytes": 14232,
+      "tag": ""
     },
     {
       "path": "/assets/logs/thumb-chatgpt-prompt.webp",
@@ -526,7 +591,8 @@
       "subgroup": "logs",
       "width": 640,
       "height": 420,
-      "bytes": 16512
+      "bytes": 16512,
+      "tag": ""
     },
     {
       "path": "/assets/logs/thumb-comfyui-cat.webp",
@@ -534,7 +600,8 @@
       "subgroup": "logs",
       "width": 640,
       "height": 420,
-      "bytes": 19642
+      "bytes": 19642,
+      "tag": ""
     },
     {
       "path": "/assets/logs/thumb-future-lab.webp",
@@ -542,7 +609,8 @@
       "subgroup": "logs",
       "width": 640,
       "height": 420,
-      "bytes": 21570
+      "bytes": 21570,
+      "tag": ""
     },
     {
       "path": "/assets/logs/thumb-rpg-game.webp",
@@ -550,7 +618,8 @@
       "subgroup": "logs",
       "width": 640,
       "height": 420,
-      "bytes": 22546
+      "bytes": 22546,
+      "tag": ""
     },
     {
       "path": "/assets/nyabbit.webp",
@@ -558,7 +627,8 @@
       "subgroup": "",
       "width": 520,
       "height": 640,
-      "bytes": 193558
+      "bytes": 193558,
+      "tag": "character"
     },
     {
       "path": "/assets/play/play-3d.webp",
@@ -566,7 +636,8 @@
       "subgroup": "play",
       "width": 520,
       "height": 420,
-      "bytes": 17116
+      "bytes": 17116,
+      "tag": "play"
     },
     {
       "path": "/assets/play/play-ai-tool.webp",
@@ -574,7 +645,8 @@
       "subgroup": "play",
       "width": 520,
       "height": 420,
-      "bytes": 15958
+      "bytes": 15958,
+      "tag": "play"
     },
     {
       "path": "/assets/play/play-experiment-share.webp",
@@ -582,7 +654,8 @@
       "subgroup": "play",
       "width": 520,
       "height": 420,
-      "bytes": 15268
+      "bytes": 15268,
+      "tag": "play"
     },
     {
       "path": "/assets/play/play-failure.webp",
@@ -590,7 +663,8 @@
       "subgroup": "play",
       "width": 520,
       "height": 420,
-      "bytes": 19084
+      "bytes": 19084,
+      "tag": "play"
     },
     {
       "path": "/assets/play/play-game.webp",
@@ -598,7 +672,8 @@
       "subgroup": "play",
       "width": 520,
       "height": 420,
-      "bytes": 22382
+      "bytes": 22382,
+      "tag": "play"
     },
     {
       "path": "/assets/play/play-image-generation.webp",
@@ -606,7 +681,8 @@
       "subgroup": "play",
       "width": 520,
       "height": 420,
-      "bytes": 18712
+      "bytes": 18712,
+      "tag": "play"
     },
     {
       "path": "/assets/posts/character-design-sheet.webp",
@@ -614,7 +690,8 @@
       "subgroup": "posts",
       "width": 1000,
       "height": 1088,
-      "bytes": 169960
+      "bytes": 169960,
+      "tag": ""
     },
     {
       "path": "/assets/posts/character-reference.webp",
@@ -622,7 +699,8 @@
       "subgroup": "posts",
       "width": 900,
       "height": 900,
-      "bytes": 58792
+      "bytes": 58792,
+      "tag": "character"
     },
     {
       "path": "/assets/posts/logo-reference.webp",
@@ -630,7 +708,8 @@
       "subgroup": "posts",
       "width": 900,
       "height": 600,
-      "bytes": 81426
+      "bytes": 81426,
+      "tag": ""
     },
     {
       "path": "/assets/posts/lp-reference.webp",
@@ -638,7 +717,8 @@
       "subgroup": "posts",
       "width": 760,
       "height": 1608,
-      "bytes": 172108
+      "bytes": 172108,
+      "tag": ""
     },
     {
       "path": "/assets/read/dr-yokobo-bust.webp",
@@ -646,7 +726,8 @@
       "subgroup": "read",
       "width": 912,
       "height": 1213,
-      "bytes": 215220
+      "bytes": 215220,
+      "tag": "character"
     },
     {
       "path": "/assets/read/nyabit-doodle.webp",
@@ -654,7 +735,8 @@
       "subgroup": "read",
       "width": 766,
       "height": 1108,
-      "bytes": 173822
+      "bytes": 173822,
+      "tag": "character"
     },
     {
       "path": "/assets/social/podcast-circle.webp",
@@ -662,7 +744,8 @@
       "subgroup": "social",
       "width": 720,
       "height": 720,
-      "bytes": 132316
+      "bytes": 132316,
+      "tag": "character"
     },
     {
       "path": "/assets/social/x-circle.webp",
@@ -670,7 +753,8 @@
       "subgroup": "social",
       "width": 720,
       "height": 720,
-      "bytes": 169732
+      "bytes": 169732,
+      "tag": "character"
     },
     {
       "path": "/history/1_1st_yokobo-ai-lab_top.webp",
@@ -678,7 +762,8 @@
       "subgroup": "",
       "width": 1200,
       "height": 3650,
-      "bytes": 205000
+      "bytes": 205000,
+      "tag": ""
     },
     {
       "path": "/history/2_2nd_yokobo-ai-lab_top.webp",
@@ -686,7 +771,8 @@
       "subgroup": "",
       "width": 1200,
       "height": 1354,
-      "bytes": 164972
+      "bytes": 164972,
+      "tag": "history"
     },
     {
       "path": "/history/3_2nd_lab_log.webp",
@@ -694,7 +780,8 @@
       "subgroup": "",
       "width": 1200,
       "height": 3495,
-      "bytes": 423886
+      "bytes": 423886,
+      "tag": ""
     },
     {
       "path": "/history/4_2nd_lab_setsumei.webp",
@@ -702,7 +789,8 @@
       "subgroup": "",
       "width": 1200,
       "height": 2029,
-      "bytes": 116686
+      "bytes": 116686,
+      "tag": ""
     },
     {
       "path": "/history/5_2nd_lab_experience.webp",
@@ -710,7 +798,8 @@
       "subgroup": "",
       "width": 1200,
       "height": 1414,
-      "bytes": 172370
+      "bytes": 172370,
+      "tag": "history"
     },
     {
       "path": "/history/6_3rd_lab_top.webp",
@@ -718,7 +807,8 @@
       "subgroup": "",
       "width": 1200,
       "height": 1154,
-      "bytes": 112992
+      "bytes": 112992,
+      "tag": "history"
     },
     {
       "path": "/history/7_3rd_lab_experiment.webp",
@@ -726,7 +816,8 @@
       "subgroup": "",
       "width": 1200,
       "height": 1523,
-      "bytes": 141892
+      "bytes": 141892,
+      "tag": "history"
     },
     {
       "path": "/history/8_3rd_lab_read.webp",
@@ -734,7 +825,8 @@
       "subgroup": "",
       "width": 1200,
       "height": 4424,
-      "bytes": 280658
+      "bytes": 280658,
+      "tag": ""
     },
     {
       "path": "/history/9_3rd_lab_info.webp",
@@ -742,7 +834,8 @@
       "subgroup": "",
       "width": 1200,
       "height": 3358,
-      "bytes": 134566
+      "bytes": 134566,
+      "tag": ""
     },
     {
       "path": "/illustrations/shiryoshitsu/ai-lab-podcast.webp",
@@ -750,7 +843,8 @@
       "subgroup": "shiryoshitsu",
       "width": 1254,
       "height": 1254,
-      "bytes": 177902
+      "bytes": 177902,
+      "tag": "character"
     },
     {
       "path": "/images/2025/antigravity_generated_site_top.webp",
@@ -758,7 +852,8 @@
       "subgroup": "2025",
       "width": 1135,
       "height": 715,
-      "bytes": 28338
+      "bytes": 28338,
+      "tag": ""
     },
     {
       "path": "/images/2025/codex_after_image_fit.webp",
@@ -766,7 +861,8 @@
       "subgroup": "2025",
       "width": 714,
       "height": 589,
-      "bytes": 26896
+      "bytes": 26896,
+      "tag": ""
     },
     {
       "path": "/images/2025/codex_before_image_overflow.webp",
@@ -774,7 +870,8 @@
       "subgroup": "2025",
       "width": 832,
       "height": 556,
-      "bytes": 31162
+      "bytes": 31162,
+      "tag": ""
     },
     {
       "path": "/images/2025/fireball_sprite_sheet.webp",
@@ -782,7 +879,8 @@
       "subgroup": "2025",
       "width": 3996,
       "height": 376,
-      "bytes": 164878
+      "bytes": 164878,
+      "tag": ""
     },
     {
       "path": "/images/2025/first_cat_ar_on_floor.webp",
@@ -790,7 +888,8 @@
       "subgroup": "2025",
       "width": 1179,
       "height": 1880,
-      "bytes": 43678
+      "bytes": 43678,
+      "tag": "experiment"
     },
     {
       "path": "/images/2025/genie_cat_3d_attempt.webp",
@@ -798,7 +897,8 @@
       "subgroup": "2025",
       "width": 1031,
       "height": 668,
-      "bytes": 32202
+      "bytes": 32202,
+      "tag": ""
     },
     {
       "path": "/images/2025/interactive_magic_ar_result.webp",
@@ -806,7 +906,8 @@
       "subgroup": "2025",
       "width": 854,
       "height": 616,
-      "bytes": 17324
+      "bytes": 17324,
+      "tag": "experiment"
     },
     {
       "path": "/images/2025/mediapipe_hand_count_success.webp",
@@ -814,7 +915,8 @@
       "subgroup": "2025",
       "width": 551,
       "height": 345,
-      "bytes": 10404
+      "bytes": 10404,
+      "tag": "experiment"
     },
     {
       "path": "/images/2025/probanana_manga_comparison.webp",
@@ -822,7 +924,8 @@
       "subgroup": "2025",
       "width": 2816,
       "height": 1536,
-      "bytes": 462818
+      "bytes": 462818,
+      "tag": "experiment"
     },
     {
       "path": "/images/2025/probanana_site_header_result.webp",
@@ -830,7 +933,8 @@
       "subgroup": "2025",
       "width": 977,
       "height": 667,
-      "bytes": 40452
+      "bytes": 40452,
+      "tag": "experiment"
     },
     {
       "path": "/images/2025/spar3d_cat_model_result.webp",
@@ -838,7 +942,8 @@
       "subgroup": "2025",
       "width": 785,
       "height": 833,
-      "bytes": 58522
+      "bytes": 58522,
+      "tag": ""
     },
     {
       "path": "/ogp-default.webp",
@@ -846,7 +951,8 @@
       "subgroup": "",
       "width": 1200,
       "height": 630,
-      "bytes": 345160
+      "bytes": 345160,
+      "tag": "sign"
     }
   ]
 }
