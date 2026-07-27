@@ -92,7 +92,7 @@ export function HeroSection() {
             <LabButton
               href={externalRoutes.walkWorld}
               label="歩く（β版）"
-              subtitle="3DのAIラボを自由に歩いてみる。"
+              subtitle="3Dワールドへ移動"
               icon={assets.icons.paw}
               variant="walk"
             />
