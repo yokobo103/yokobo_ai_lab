@@ -8,7 +8,7 @@ type LabButtonProps = {
   subtitle?: string;
   icon: string;
   sprite?: string;
-  variant?: "primary" | "log" | "random";
+  variant?: "primary" | "log" | "walk" | "random";
 };
 
 export function LabButton({ href, label, subtitle, icon, sprite, variant = "primary" }: LabButtonProps) {

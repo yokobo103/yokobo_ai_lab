@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { assets } from "../data/assets";
-import { routes } from "../data/routes";
+import { externalRoutes, routes } from "../data/routes";
 import { LabButton } from "./LabButton";
 import { RandomTransferDock } from "./RandomTransferDock";
 
@@ -79,6 +79,24 @@ export function HeroSection() {
               />
             </span>
           </div>
+          <span
+            className="hero-section__walk-action motion-fade-up motion-delay-5"
+            onBlur={() => setActiveWorld(null)}
+            onFocus={() => setActiveWorld("lab")}
+            onMouseEnter={() => setActiveWorld("lab")}
+            onMouseLeave={() => setActiveWorld(null)}
+            onPointerDown={() => setActiveWorld("lab")}
+            onPointerEnter={() => setActiveWorld("lab")}
+            onPointerLeave={() => setActiveWorld(null)}
+          >
+            <LabButton
+              href={externalRoutes.walkWorld}
+              label="歩く（β版）"
+              subtitle="3DのAIラボを自由に歩いてみる。"
+              icon={assets.icons.paw}
+              variant="walk"
+            />
+          </span>
           <div className="hero-section__random-transfer motion-fade-up motion-delay-5">
             <RandomTransferDock />
           </div>
