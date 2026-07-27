@@ -64,7 +64,11 @@ const TOPICS: { key: Topic; label: string; note: string }[] = [
 
 // 候補に出す画像は data/promo-curation.json で選んである（tagが付いているものだけ）。
 // フォルダ名から機械的に決めていた頃は、開発中のスクショや日付入りの古い素材が混ざっていた。
+// 記事のサムネは記事を書くときによこぼが選んだ絵なので、選別なしでそのまま候補にできる。
+const POST_THUMB_TAG = "post";
+
 const IMAGE_TAGS: { key: string; label: string }[] = [
+  { key: POST_THUMB_TAG, label: "記事のサムネ" },
   { key: "character", label: "キャラクター" },
   { key: "world", label: "ラボの世界" },
   { key: "play", label: "遊べるもの" },
@@ -183,23 +187,41 @@ export default function PromoRoom({ siteUrl }: { siteUrl: string }) {
     void signIn(stored, true).finally(() => setBooting(false));
   }, [signIn]);
 
-  const siteImagePool = useMemo(
-    () =>
-      promoImages
-        .filter((image) => image.tag && (imageTag === "all" || image.tag === imageTag))
-        .map((image) => image.path),
-    [promoImages, imageTag]
-  );
-
-  const availableTags = useMemo(() => {
-    const present = new Set(promoImages.map((image) => image.tag).filter(Boolean));
-    return IMAGE_TAGS.filter((tag) => present.has(tag.key));
-  }, [promoImages]);
-
   const sortedPosts = useMemo(
     () => [...posts].sort((a, b) => dateValue(b) - dateValue(a)),
     [posts]
   );
+
+  // サイト全体の宣伝で選べる画像。選別ずみの共通素材に、公開記事のサムネを足す。
+  const sitePromoImages = useMemo(() => {
+    const curated = promoImages
+      .filter((image) => image.tag)
+      .map((image) => ({ path: image.path, tag: image.tag as string }));
+    const thumbnails = sortedPosts
+      .map((post) => post.thumbnail)
+      .filter((path): path is string => Boolean(path))
+      .map((path) => ({ path, tag: POST_THUMB_TAG }));
+
+    const seen = new Set<string>();
+    return [...curated, ...thumbnails].filter((image) => {
+      if (seen.has(image.path)) return false;
+      seen.add(image.path);
+      return true;
+    });
+  }, [promoImages, sortedPosts]);
+
+  const siteImagePool = useMemo(
+    () =>
+      sitePromoImages
+        .filter((image) => imageTag === "all" || image.tag === imageTag)
+        .map((image) => image.path),
+    [sitePromoImages, imageTag]
+  );
+
+  const availableTags = useMemo(() => {
+    const present = new Set(sitePromoImages.map((image) => image.tag));
+    return IMAGE_TAGS.filter((tag) => present.has(tag.key));
+  }, [sitePromoImages]);
 
   const subject = useMemo<Subject | null>(() => {
     if (topic === "site") {
