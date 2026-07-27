@@ -390,7 +390,7 @@
 }
 
 .hero-section__walk-action .lab-button {
-  width: 154px;
+  width: 168px;
   min-height: 56px;
   justify-content: flex-start;
   gap: 9px;
@@ -425,6 +425,7 @@
   font-size: 0.72rem;
   font-weight: 900;
   line-height: 1;
+  white-space: nowrap;
 }
 
 .hero-section__walk-action .lab-button__arrow {
@@ -637,6 +638,7 @@
   font-size: 0.72rem;
   font-weight: 800;
   line-height: 1;
+  white-space: nowrap;
 }
 
 @keyframes walk-sprite-cycle {
@@ -1222,7 +1224,7 @@
 .random-transfer-dock {
   position: relative;
   display: inline-flex;
-  width: 154px;
+  width: 168px;
   min-height: 56px;
   align-items: center;
   gap: 9px;
@@ -1277,6 +1279,7 @@
 .random-transfer-dock strong {
   display: block;
   line-height: 1;
+  white-space: nowrap;
 }
 
 .random-transfer-dock small {
