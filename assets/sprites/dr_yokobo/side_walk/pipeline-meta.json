@@ -3,9 +3,9 @@
   "mode": "walk",
   "prompt": "",
   "role": "",
-  "input": "C:\\Users\\Yokob\\.codex\\generated_images\\019f9817-85ae-7341-90f0-5dbf3825ec34\\call_SlRICXOEQDXNOYo51kY5OKfJ.png",
-  "threshold": 180,
-  "edge_threshold": 230,
+  "input": "assets\\sprites\\dr_yokobo\\side_walk\\raw-sheet.png",
+  "threshold": 120,
+  "edge_threshold": 180,
   "duration": 180,
   "rows": 2,
   "cols": 2,
@@ -38,8 +38,8 @@
         627
       ],
       "component_mode": "largest",
-      "component_count": 55,
-      "selected_component_area": 105625,
+      "component_count": 1,
+      "selected_component_area": 113439,
       "selected_component_bbox": [
         113,
         73,
@@ -74,18 +74,18 @@
         627
       ],
       "component_mode": "largest",
-      "component_count": 115,
-      "selected_component_area": 96295,
+      "component_count": 1,
+      "selected_component_area": 112520,
       "selected_component_bbox": [
         14,
         73,
-        432,
+        433,
         562
       ],
       "crop_bbox": [
         10,
         69,
-        436,
+        437,
         566
       ],
       "edge_touch": false,
@@ -110,28 +110,28 @@
         1254
       ],
       "component_mode": "largest",
-      "component_count": 90,
-      "selected_component_area": 52235,
+      "component_count": 1,
+      "selected_component_area": 110494,
       "selected_component_bbox": [
-        272,
+        117,
         45,
         534,
-        481
+        537
       ],
       "crop_bbox": [
-        268,
+        113,
         41,
         538,
-        485
+        541
       ],
       "edge_touch": false,
       "output_size": [
-        56,
-        93
+        89,
+        104
       ],
       "paste_position": [
-        36,
-        24
+        19,
+        13
       ]
     },
     {
@@ -146,19 +146,19 @@
         1254
       ],
       "component_mode": "largest",
-      "component_count": 72,
-      "selected_component_area": 104344,
+      "component_count": 1,
+      "selected_component_area": 113387,
       "selected_component_bbox": [
         14,
         45,
-        430,
-        536
+        431,
+        537
       ],
       "crop_bbox": [
         10,
         41,
-        434,
-        540
+        435,
+        541
       ],
       "edge_touch": false,
       "output_size": [
