@@ -390,8 +390,9 @@
 }
 
 .hero-section__walk-action .lab-button {
-  width: auto;
+  width: 154px;
   min-height: 56px;
+  justify-content: flex-start;
   gap: 9px;
   padding: 9px 18px 9px 14px;
   border-radius: 999px;
@@ -403,10 +404,12 @@
   transition: opacity 180ms var(--ease-out), transform 180ms var(--ease-out), box-shadow 180ms var(--ease-out), border-color 180ms var(--ease-out);
 }
 
-.hero-section__walk-action .lab-button__icon {
+.hero-section__walk-action .lab-button__sprite {
   width: 32px;
   height: 32px;
   flex: 0 0 32px;
+  background-size: 400% 100%;
+  image-rendering: pixelated;
   filter:
     drop-shadow(0 1px 3px rgba(0, 0, 0, 0.36))
     drop-shadow(0 0 4px rgba(255, 255, 255, 0.18));
@@ -622,12 +625,28 @@
   filter: none;
 }
 
+.lab-button--walk.lab-button--with-sprite:hover .lab-button__sprite,
+.lab-button--walk.lab-button--with-sprite:focus-visible .lab-button__sprite,
+.lab-button--walk.lab-button--with-sprite.is-sprite-playing .lab-button__sprite {
+  animation: walk-sprite-cycle 720ms steps(3, end) infinite both;
+}
+
 .hero-section__walk-action .lab-button__subtitle {
   display: block;
   color: rgba(255, 247, 235, 0.68);
   font-size: 0.72rem;
   font-weight: 800;
   line-height: 1;
+}
+
+@keyframes walk-sprite-cycle {
+  from {
+    background-position: 0 0;
+  }
+
+  to {
+    background-position: 100% 0;
+  }
 }
 
 .lab-button--random {
@@ -1203,7 +1222,7 @@
 .random-transfer-dock {
   position: relative;
   display: inline-flex;
-  width: auto;
+  width: 154px;
   min-height: 56px;
   align-items: center;
   gap: 9px;
@@ -1694,7 +1713,7 @@
     text-align: left;
   }
 
-  .hero-section__walk-action .lab-button__icon {
+  .hero-section__walk-action .lab-button__sprite {
     width: 26px;
     height: 26px;
     flex-basis: 26px;
@@ -1862,6 +1881,12 @@
   .hero-section__visual,
   .random-transfer-dock {
     transition: none;
+  }
+
+  .lab-button--walk.lab-button--with-sprite:hover .lab-button__sprite,
+  .lab-button--walk.lab-button--with-sprite:focus-visible .lab-button__sprite,
+  .lab-button--walk.lab-button--with-sprite.is-sprite-playing .lab-button__sprite {
+    animation: none;
   }
 
   .random-transfer-flash.is-active {

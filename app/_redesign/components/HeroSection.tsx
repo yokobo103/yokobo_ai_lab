@@ -92,8 +92,9 @@ export function HeroSection() {
             <LabButton
               href={externalRoutes.walkWorld}
               label="歩く（β版）"
-              subtitle="3Dワールドへ移動"
+              subtitle="3Dラボへ移動"
               icon={assets.icons.paw}
+              sprite={assets.ctaSprites.drYokoboWalk}
               variant="walk"
             />
           </span>

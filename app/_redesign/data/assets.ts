@@ -29,5 +29,6 @@ export const assets = {
     playFlaskHover: "/assets/cta-sprites/play-flask-hover-sprite.webp",
     readBookHover: "/assets/cta-sprites/read-book-hover-sprite.webp",
     randomDiceHover: "/assets/cta-sprites/random-dice-hover-sprite.webp",
+    drYokoboWalk: "/assets/cta-sprites/dr-yokobo-walk-sprite.webp",
   },
 } as const;

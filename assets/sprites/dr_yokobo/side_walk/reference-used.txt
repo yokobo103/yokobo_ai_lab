@@ -1,0 +1,9 @@
+Authoritative design reference:
+public/design-reference/character_design_sheet.png
+
+SHA-256:
+061523212933CF5FDEF29AC89BFC4BFEC06075EDBBDCD2DA47C2D185400EACC7
+
+The design sheet was visually inspected before image generation.
+Identity markers preserved: golden-brown long-haired tabby cat, round black glasses,
+olive yellow-green eyes, white lab coat, dark-brown YKB pocket mark, fluffy striped tail.
