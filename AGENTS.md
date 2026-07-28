@@ -33,6 +33,7 @@
 
 - このセクションは「よこぼのAIラボ」Webサイトに限定した運用ルールであり、HQの一般的なmain反映停止ルールより優先する。
 - ユーザーが「プッシュして」と依頼した場合は、作業ブランチへのcommit・push、Pull Request作成、必要なチェックの確認、mainへのmergeまでを依頼範囲に含める。Pull Request作成だけで停止しない。
+- `gh auth status` の失敗だけを理由にpushを止めない。まず通常の `git push` を試し、Pull Request作成・チェック確認・mergeは接続済みGitHubアプリを使う。ユーザーへGitHub再認証を依頼するのは、実際の `git push` とGitHubアプリの両方が利用できない場合だけとする。
 - ユーザーが「下書きとしてプッシュ」と依頼した場合、「記事の状態を `status: draft` のままmainへmergeする」という意味で扱う。GitHubのDraft PRを作る指示とは解釈しない。
 - Draft PRで停止するのは、ユーザーが「Draft PR」「PRだけ」「レビュー前で止める」「mergeしない」など、停止地点を明示した場合だけとする。
 - 記事の `status: draft` とGitHubのDraft PRは別物として扱う。下書き記事をmainへmergeしても、`status` を `public` に変更しない限り公開指示とはみなさない。
