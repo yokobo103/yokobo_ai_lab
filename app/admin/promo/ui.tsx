@@ -79,7 +79,7 @@ const IMAGE_TAGS: { key: string; label: string }[] = [
   { key: "sign", label: "看板" },
 ];
 
-export default function PromoRoom({ siteUrl }: { siteUrl: string }) {
+export default function PromoRoom({ siteUrl, initialPostId = "" }: { siteUrl: string; initialPostId?: string }) {
   const [passwordInput, setPasswordInput] = useState("");
   const [authed, setAuthed] = useState(false);
   const [authPassword, setAuthPassword] = useState("");
@@ -193,6 +193,15 @@ export default function PromoRoom({ siteUrl }: { siteUrl: string }) {
     () => [...posts].sort((a, b) => dateValue(b) - dateValue(a)),
     [posts]
   );
+
+  // 管理画面から ?post=<記事ID> で来たときは、その記事を選んだ状態にしておく。
+  // 記事が読み込まれるのはログインのあとなので、揃うのを待ってから1回だけ効かせる。
+  useEffect(() => {
+    if (!initialPostId || pickedPostId) return;
+    if (!posts.some((post) => post.id === initialPostId)) return;
+    setPickedPostId(initialPostId);
+    setTopic("pick");
+  }, [initialPostId, pickedPostId, posts]);
 
   // サイト全体の宣伝で選べる画像。選別ずみの共通素材に、公開記事のサムネを足す。
   const sitePromoImages = useMemo(() => {

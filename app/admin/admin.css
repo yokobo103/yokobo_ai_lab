@@ -361,7 +361,25 @@
   font-weight: 700;
 }
 
-.adminSidebar nav button span {
+/* 宣伝室は別ページなのでリンク。見た目はnavのボタンに揃える。 */
+.adminSidebar nav .navLink {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 9px 12px;
+  border-radius: var(--ad-radius-sm);
+  color: var(--ad-ink-soft);
+  font-size: 0.88rem;
+  text-decoration: none;
+}
+
+.adminSidebar nav .navLink:hover {
+  color: var(--ad-ink);
+  background: rgba(79, 209, 232, 0.08);
+}
+
+.adminSidebar nav button span,
+.adminSidebar nav .navLink span {
   padding: 1px 9px;
   border: 1px solid var(--ad-line);
   border-radius: 999px;
@@ -445,20 +463,27 @@
   position: fixed;
   inset: auto 0 0;
   z-index: 30;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   border-top: 1px solid var(--ad-line);
   background: rgba(7, 20, 33, 0.94);
   backdrop-filter: blur(10px);
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
-.bottomNav button {
+.bottomNav button,
+.bottomNav a {
   padding: 13px 4px 12px;
   border: none;
   border-radius: 0;
   border-top: 2px solid transparent;
   color: var(--ad-ink-soft);
   font-size: 0.74rem;
+}
+
+.bottomNav a {
+  display: grid;
+  place-items: center;
+  text-decoration: none;
 }
 
 .bottomNav button.active {
@@ -497,6 +522,21 @@
 
 .homeHero button {
   margin: 16px 10px 0 0;
+}
+
+.homeHero .heroLink {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 9px 16px;
+  border: 1px solid var(--ad-line-strong);
+  border-radius: var(--ad-radius-sm);
+  color: var(--ad-ink);
+  font-size: 0.88rem;
+  text-decoration: none;
+}
+
+.homeHero .heroLink:hover {
+  background: rgba(79, 209, 232, 0.08);
 }
 
 .adminHome > section {
@@ -1148,23 +1188,24 @@
   font-size: 0.78rem;
 }
 
-.tweetPreview pre {
-  margin: 0;
-  padding: 14px;
-  border-radius: var(--ad-radius-sm);
-  background: var(--ad-paper);
-  color: var(--ad-paper-ink);
-  font-family: var(--ad-mono);
-  font-size: 0.8rem;
-  line-height: 1.8;
-  white-space: pre-wrap;
-  overflow-wrap: anywhere;
-}
-
 .tweetActions {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+}
+
+/* 宣伝室への入口。ボタンと同じ見た目のリンク。 */
+a.tweetButton {
+  padding: 9px 16px;
+  border: 1px solid var(--ad-line-strong);
+  border-radius: var(--ad-radius-sm);
+  color: var(--ad-ink);
+  font-size: 0.88rem;
+  text-decoration: none;
+}
+
+a.tweetButton:hover {
+  background: rgba(79, 209, 232, 0.08);
 }
 
 /* 保存アクションバー(1本化・追従) */

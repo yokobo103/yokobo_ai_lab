@@ -97,11 +97,6 @@ function postResultStatus(post: Post) {
   return getResultStatus(post.resultStatus);
 }
 
-function truncateText(value: string, maxLength = 80) {
-  const normalized = value.replace(/\s+/g, " ").trim();
-  return normalized.length > maxLength ? `${normalized.slice(0, maxLength)}...` : normalized;
-}
-
 function postCategories(post: Post) {
   return post.categories?.length ? post.categories : [post.category].filter(Boolean);
 }
@@ -245,7 +240,6 @@ export default function AdminApp({ initialView = "home", initialPostId }: AdminA
   const recentPosts = useMemo(() => [...posts].sort((a, b) => Date.parse(b.updatedAt) - Date.parse(a.updatedAt)).slice(0, 5), [posts]);
   const recentDrafts = useMemo(() => stats.drafts.slice(0, 4), [stats.drafts]);
   const currentExists = posts.some((post) => post.id === current.id);
-  const currentCopyText = makeTweetCopyText(current);
   const currentCanShare = canSharePost(current);
   const thumbnailOptions = useMemo(() => posts.filter((post) => post.thumbnail), [posts]);
 
@@ -267,47 +261,14 @@ export default function AdminApp({ initialView = "home", initialPostId }: AdminA
     if (post) selectPost(post);
   }, [authed, initialPostId, posts]);
 
-  function getPublicPostUrl(post: Post) {
-    if (!siteOrigin || post.status !== "public" || !post.id) return "";
-    return `${siteOrigin}/read/${post.id}`;
-  }
-
   function canSharePost(post: Post) {
     return Boolean(siteOrigin && post.status === "public" && post.id);
   }
 
-  function makeTweetText(post: Post) {
-    const lines = ["【新記事】", "", postTitle(post)];
-    const summary = truncateText(post.summary || "");
-    if (summary) lines.push("", summary);
-    lines.push("", "試行錯誤をまとめました👇");
-    return lines.join("\n");
-  }
-
-  function makeTweetCopyText(post: Post) {
-    const url = getPublicPostUrl(post);
-    return url ? `${makeTweetText(post)}\n\n${url}` : makeTweetText(post);
-  }
-
-  async function copyTweet(post = current) {
-    const text = makeTweetCopyText(post);
-    try {
-      await navigator.clipboard.writeText(text);
-      setMessage("投稿文をコピーしました。");
-    } catch {
-      setMessage("コピーできませんでした。投稿文を選択してコピーしてください。");
-    }
-  }
-
-  function openTweetIntent(post = current) {
-    const url = getPublicPostUrl(post);
-    if (!url) {
-      setMessage("公開済みの記事URLがないため、X投稿を作成できません。");
-      return;
-    }
-
-    const intentUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(makeTweetText(post))}&url=${encodeURIComponent(url)}`;
-    window.open(intentUrl, "_blank", "noopener,noreferrer");
+  // 宣伝は宣伝室に一本化した。ここにあった intent 方式のX投稿ボタンは
+  // 仕様上どうやっても画像を添付できないので、記事を選んだ状態で宣伝室を開くだけにする。
+  function promoLink(post: Post) {
+    return `/admin/promo?post=${encodeURIComponent(post.id)}`;
   }
 
   async function login() {
@@ -968,8 +929,7 @@ export default function AdminApp({ initialView = "home", initialPostId }: AdminA
           <div>
             <button type="button" onClick={() => selectPost(post)}>編集</button>
             <a href={`/read/${post.id}`} target="_blank" rel="noreferrer" aria-disabled={post.status !== "public"}>プレビュー</a>
-            <button type="button" disabled={shareDisabled} onClick={() => openTweetIntent(post)}>X投稿を作成</button>
-            <button type="button" disabled={shareDisabled} onClick={() => void copyTweet(post)}>コピー</button>
+            <a href={promoLink(post)} aria-disabled={shareDisabled}>宣伝室で宣伝する</a>
           </div>
         </details>
       </article>
@@ -980,17 +940,19 @@ export default function AdminApp({ initialView = "home", initialPostId }: AdminA
     return (
       <section className="tweetPreview">
         <div>
-          <h3>X投稿プレビュー</h3>
-          <p>{currentCanShare ? "公開ページURLを添えて投稿を作成できます。" : "公開済みの記事で使えます。"}</p>
+          <h3>Xで宣伝する</h3>
+          <p>
+            {currentCanShare
+              ? "画像を選んで宣伝室から投稿します。この記事を選んだ状態で開きます。"
+              : "公開済みの記事で使えます。"}
+          </p>
         </div>
-        <pre>{currentCopyText}</pre>
         <div className="tweetActions">
-          <button className="tweetButton" type="button" disabled={!currentCanShare} onClick={() => openTweetIntent()}>
-            X投稿を作成
-          </button>
-          <button className="copyButton" type="button" disabled={!currentCanShare} onClick={() => void copyTweet()}>
-            投稿文をコピー
-          </button>
+          {currentCanShare ? (
+            <a className="tweetButton" href={promoLink(current)}>宣伝室で宣伝する</a>
+          ) : (
+            <button className="tweetButton" type="button" disabled>宣伝室で宣伝する</button>
+          )}
         </div>
       </section>
     );
@@ -1553,6 +1515,7 @@ export default function AdminApp({ initialView = "home", initialPostId }: AdminA
             <button className={view === "home" ? "active" : ""} type="button" onClick={() => setView("home")}>ホーム</button>
             <button className={view === "logs" ? "active" : ""} type="button" onClick={() => setView("logs")}>ログ一覧</button>
             <button className={view === "experiments" ? "active" : ""} type="button" onClick={() => setView("experiments")}>実験室 <span>{experiences.length}</span></button>
+            <a className="navLink" href="/admin/promo">宣伝室 <span>X</span></a>
             <button className={view === "settings" ? "active" : ""} type="button" onClick={() => setView("settings")}>設定</button>
             <button type="button" onClick={showDrafts}>下書き <span>{stats.drafts.length}</span></button>
             <button type="button" onClick={() => { setStatusFilter("all"); setCategoryFilter("all"); setTagFilter("all"); setPinnedOnly(true); setView("logs"); }}>ピン留め <span>{stats.pinned.length}</span></button>
@@ -1589,6 +1552,8 @@ export default function AdminApp({ initialView = "home", initialPostId }: AdminA
             <p>新規投稿、下書きの続き、最近編集したログにすぐ戻れます。</p>
             <button className="primaryButton" type="button" onClick={startNewPost}>新しく書く</button>
             <button className="secondaryButton" type="button" onClick={showDrafts}>下書きを続ける（{stats.drafts.length}件）</button>
+            {/* 書くこと以外の入口。宣伝室は別ページなのでリンクで出す。 */}
+            <a className="heroLink" href="/admin/promo">Xに宣伝する</a>
           </div>
 
           <section className="mobileOnly">
@@ -1674,6 +1639,7 @@ export default function AdminApp({ initialView = "home", initialPostId }: AdminA
         <button className={view === "logs" ? "active" : ""} type="button" onClick={() => setView("logs")}>ログ一覧</button>
         <button className={view === "editor" ? "active" : ""} type="button" onClick={startNewPost}>書く</button>
         <button className={view === "experiments" ? "active" : ""} type="button" onClick={() => setView("experiments")}>実験室</button>
+        <a href="/admin/promo">宣伝</a>
         <button className={view === "settings" ? "active" : ""} type="button" onClick={() => setView("settings")}>設定</button>
       </nav>
     </main>
