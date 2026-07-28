@@ -1,5 +1,44 @@
 [
   {
+    "id": "20260714-ai-lab-history-museum",
+    "title": "よこぼのAIラボに、歴史資料館をつくった",
+    "summary": "新しくなるのは楽しい。でも前の姿が消えるのは少し寂しい。そこで歴代サイトを展示する部屋をつくった。",
+    "author": "dr-yokobo",
+    "experimentResult": "歴代サイトを展示室として残し、リニューアル前の姿をいつでも振り返れる場所を作った",
+    "resultStatus": "success",
+    "category": "Webあそび",
+    "categories": [
+      "Webあそび",
+      "気づき・ログ"
+    ],
+    "status": "draft",
+    "pinned": false,
+    "weeklyPickup": false,
+    "archivePickup": false,
+    "tags": [
+      "よこぼのAIラボ",
+      "歴史資料館",
+      "Webサイト",
+      "リニューアル",
+      "アーカイブ",
+      "UI設計"
+    ],
+    "thumbnail": "/uploads/20260714-ai-lab-history-museum/thumbnail.webp",
+    "images": [
+      "/uploads/20260714-ai-lab-history-museum/gallery-1.webp",
+      "/uploads/20260714-ai-lab-history-museum/gallery-2.webp"
+    ],
+    "body": "# よこぼのAIラボに、歴史資料館をつくった\n\nよこぼのAIラボに、新しく「歴史資料館」を設置した。\n\n![資料室に設置した歴史資料館への入口](/uploads/20260714-ai-lab-history-museum/gallery-1.webp)\n\n当ラボのWebサイトは、これまで何度かリニューアルを重ねている。\n\nより伝わりやすく、より楽しいWebサイトを目指して、作っては直し、また作り直してきた。\n\n新しい姿になっていくのは楽しい。しかし、そのたびに以前の姿が見られなくなってしまうのは、少し寂しい。\n\nそこで、その時その瞬間のラボを残しておく場所として、歴史資料館をつくることにした。\n\n## 歴代のAIラボを展示\n\n歴史資料館では、初代から現在までのWebサイトを、3つの展示室に分けて紹介している。\n\n![歴代サイトを展示室として並べた歴史資料館](/uploads/20260714-ai-lab-history-museum/gallery-2.webp)\n\nただ画像を並べるだけでは、少し味気ない。\n\nそこで、それぞれの時代をひとつの展示室として見られる形にした。縦に長いページも、展示の中をスクロールしながら、当時のサイトを眺めるように見ることができる。\n\n並べて観測してみると、デザインだけでなく、そのころ何を見せたかったのか、どんなラボにしようとしていたのかも、少しずつ変わっていることが分かる。\n\n## これからも増えていく場所\n\nこれからAIラボがまたリニューアルしたら、現在の姿もいつか歴史資料館に並ぶことになる。\n\n過去のラボを懐かしみながら、変化していく様子そのものも楽しんでもらえたらうれしい。\n\n[よこぼのAIラボ歴史資料館を見る](https://yokobo-ai-lab.vercel.app/history)\n\n今後も展示は増えていく予定である。\n\n研究継続。（Dr.よこぼ）\n",
+    "links": [
+      {
+        "label": "よこぼのAIラボ歴史資料館",
+        "url": "https://yokobo-ai-lab.vercel.app/history"
+      }
+    ],
+    "createdAt": "2026-07-14T00:00:00.000+09:00",
+    "updatedAt": "2026-07-28T03:08:16.633Z"
+  },
+  {
     "id": "20260702-cm-video-generation-pipeline",
     "logNumber": 28,
     "title": "プレイ動画を投げるだけでCMを作るパイプラインを作った",
