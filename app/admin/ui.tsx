@@ -5,6 +5,7 @@ import { type MouseEvent, useEffect, useMemo, useRef, useState } from "react";
 import { authorProfiles, defaultAuthorId, getAuthorProfile, type AuthorId } from "@/lib/authors";
 import { defaultResultStatusId, getResultStatus, resultStatuses, type ResultStatusId } from "@/lib/result-statuses";
 import { categories, researchLogCategories, type Post, type ResearchLogCategory } from "@/lib/schema";
+import { EmbeddedMarkdown } from "../_redesign/components/EmbeddedMarkdown";
 import { markdownToHtml } from "../_redesign/utils/markdown";
 import "./admin.css";
 
@@ -1273,7 +1274,7 @@ export default function AdminApp({ initialView = "home", initialPostId }: AdminA
           <img src={status.image} alt="" />
           <span>{postExperimentResult(current)}</span>
         </div>
-        <article className="archive-markdown" dangerouslySetInnerHTML={{ __html: markdownToHtml(current.body || "本文なし。画像だけの投稿もOKです。") }} />
+        <EmbeddedMarkdown html={markdownToHtml(current.body || "本文なし。画像だけの投稿もOKです。")} />
         {current.tags?.length ? <div className="tagLine">{current.tags.map((tag) => <em key={tag}>#{tag}</em>)}</div> : null}
         {current.links.length ? (
           <div className="archive-links__items">

@@ -2,6 +2,7 @@ import { archiveArticles, getArchiveArticle } from "../data/archiveArticles";
 import type { ArchiveArticle } from "../data/archiveArticles";
 import { routes } from "../data/routes";
 import { markdownToHtml } from "../utils/markdown";
+import { EmbeddedMarkdown } from "./EmbeddedMarkdown";
 
 type ArchiveArticlePageProps = {
   slug: string;
@@ -148,7 +149,7 @@ export function ArchiveArticlePage({ slug }: ArchiveArticlePageProps) {
           </aside>
         </section>
 
-        <article className="archive-markdown" dangerouslySetInnerHTML={{ __html: markdownToHtml(article.body) }} />
+        <EmbeddedMarkdown html={markdownToHtml(article.body)} />
 
         <ArticleGallery article={article} />
         <RelatedLinks article={article} />

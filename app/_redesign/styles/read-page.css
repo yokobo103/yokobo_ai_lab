@@ -1265,6 +1265,42 @@ body:has(.read-page)::after {
   margin: 0.9em 0;
 }
 
+.archive-embed {
+  margin: 24px auto;
+}
+
+.archive-embed--youtube {
+  width: min(100%, 880px);
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #0b0b0b;
+  box-shadow: 0 14px 34px -24px rgba(39, 34, 24, 0.7);
+}
+
+.archive-embed--youtube.archive-embed--short {
+  width: min(100%, 400px);
+  aspect-ratio: 9 / 16;
+}
+
+.archive-embed--youtube iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.archive-embed--x {
+  width: min(100%, 550px);
+  min-height: 96px;
+}
+
+.archive-embed--x .twitter-tweet {
+  margin-right: auto;
+  margin-left: auto;
+}
+
 .archive-markdown blockquote {
   margin: 22px 0;
   border-left: 4px solid var(--tune);

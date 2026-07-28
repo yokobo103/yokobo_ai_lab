@@ -18,6 +18,82 @@ function safeUrl(value: string) {
   }
 }
 
+function xPostEmbedUrl(value: string) {
+  try {
+    const parsed = new URL(value);
+    const host = parsed.hostname.toLowerCase().replace(/^www\./, "");
+    if (host !== "x.com" && host !== "twitter.com") return "";
+
+    const match = parsed.pathname.match(/^\/([^/]+)\/status\/(\d+)(?:\/.*)?$/);
+    if (!match) return "";
+
+    return `https://x.com/${match[1]}/status/${match[2]}`;
+  } catch {
+    return "";
+  }
+}
+
+function youtubeEmbed(value: string) {
+  try {
+    const parsed = new URL(value);
+    const host = parsed.hostname.toLowerCase().replace(/^www\./, "");
+    let videoId = "";
+    let isShort = false;
+
+    if (host === "youtu.be") {
+      videoId = parsed.pathname.split("/").filter(Boolean)[0] ?? "";
+    } else if (host === "youtube.com" || host === "m.youtube.com") {
+      if (parsed.pathname === "/watch") {
+        videoId = parsed.searchParams.get("v") ?? "";
+      } else {
+        const match = parsed.pathname.match(/^\/(shorts|embed|live)\/([^/]+)/);
+        videoId = match?.[2] ?? "";
+        isShort = match?.[1] === "shorts";
+      }
+    }
+
+    if (!/^[A-Za-z0-9_-]{6,20}$/.test(videoId)) return null;
+
+    return {
+      src: `https://www.youtube-nocookie.com/embed/${videoId}`,
+      isShort,
+    };
+  } catch {
+    return null;
+  }
+}
+
+function embeddedMediaHtml(line: string) {
+  const url = line.trim();
+  if (url !== line || !/^https?:\/\/\S+$/.test(url)) return "";
+
+  const xUrl = xPostEmbedUrl(url);
+  if (xUrl) {
+    const safeXUrl = escapeAttribute(xUrl);
+    return [
+      '<div class="archive-embed archive-embed--x">',
+      '<blockquote class="twitter-tweet" data-dnt="true">',
+      `<a href="${safeXUrl}" target="_blank" rel="noreferrer">Xで投稿を見る</a>`,
+      "</blockquote>",
+      "</div>",
+    ].join("");
+  }
+
+  const youtube = youtubeEmbed(url);
+  if (youtube) {
+    const orientationClass = youtube.isShort ? " archive-embed--short" : "";
+    return [
+      `<div class="archive-embed archive-embed--youtube${orientationClass}">`,
+      `<iframe src="${escapeAttribute(youtube.src)}" title="YouTube動画プレーヤー" loading="lazy" `,
+      'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" ',
+      'referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
+      "</div>",
+    ].join("");
+  }
+
+  return "";
+}
+
 function splitTrailingPunctuation(value: string) {
   const match = value.match(/^(.*?)([.,;:、。！？；：）］】」』]+)?$/);
   return {
@@ -152,7 +228,11 @@ export function markdownToHtml(markdown: string) {
 
     closeQuote();
 
-    if (line.startsWith("### ")) {
+    const embeddedMedia = embeddedMediaHtml(line);
+    if (embeddedMedia) {
+      closeList();
+      html.push(embeddedMedia);
+    } else if (line.startsWith("### ")) {
       closeList();
       html.push(`<h3>${inlineMarkdown(line.slice(4))}</h3>`);
     } else if (line.startsWith("## ")) {
