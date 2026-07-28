@@ -9,6 +9,8 @@ import "./promo.css";
 
 const STORAGE_KEY = "admin-password";
 const LINK_IN_REPLY_KEY = "promo-link-in-reply";
+const HASHTAGS_KEY = "promo-hashtags";
+const REPLY_DETAIL_KEY = "promo-reply-detail";
 const MAX_IMAGES = 4;
 const TWEET_LIMIT = 280;
 
@@ -39,6 +41,27 @@ type PromoImage = { path: string; group: string; subgroup: string; tag?: string 
 type PromoVideo = { key: string; poster?: string; title: string; seconds?: number; sizeMB?: number };
 
 type MediaMode = "image" | "video";
+
+type LogEntry = {
+  kind: "share" | "day";
+  id: string;
+  at?: string;
+  date?: string;
+  topic?: string;
+  title?: string;
+  textType?: string;
+  media?: "video" | "images" | "none";
+  imageCount?: number;
+  replies?: number;
+};
+
+// Grokの分析で挙がった「毎日やること」。記録しなくても、目に入るだけで意味がある。
+const ROUTINE = [
+  "大きめのAI・ゲーム・3D系アカウントに、早めのリプライを8〜15件",
+  "1日1本、動画か画像つきで投稿する",
+  "投稿してから30分は、返信に反応できる状態でいる",
+  "週に1回、うまくいかなかった実験のまとめを出す",
+];
 
 type Preset = {
   id: string;
@@ -117,6 +140,13 @@ export default function PromoRoom({ siteUrl, initialPostId = "" }: { siteUrl: st
   const [files, setFiles] = useState<File[]>([]);
   const [filesReady, setFilesReady] = useState(true);
 
+  const [log, setLog] = useState<LogEntry[]>([]);
+  const [replyDraft, setReplyDraft] = useState("");
+  const [savingDay, setSavingDay] = useState(false);
+  const [useHashtags, setUseHashtags] = useState(false);
+  // リプに回す文章に、リンクだけでなく詳細も入れる（フック→スレッドの形）。
+  const [replyDetail, setReplyDetail] = useState(false);
+
   const [templateIndex, setTemplateIndex] = useState(0);
   const [text, setText] = useState("");
   // 本文にリンクを入れると初速のリーチが落ちると言われているので、既定ではリプに回す。
@@ -163,6 +193,14 @@ export default function PromoRoom({ siteUrl, initialPostId = "" }: { siteUrl: st
     setPosts(loadedPosts.filter((post) => post.status === "public" && post.id));
     setExperiences(loadedExperiences.filter((item) => item.status === "live" && item.playUrl));
     setPromoImages(Array.isArray(loadedImages.images) ? loadedImages.images : []);
+    // 記録は読めなくても宣伝はできるので、失敗しても止めない。
+    try {
+      const logResponse = await fetch("/api/promo-log", { headers });
+      if (logResponse.ok) setLog(await logResponse.json());
+    } catch {
+      setLog([]);
+    }
+
     setPresets(presetsResponse.ok ? await presetsResponse.json() : []);
     if (!presetsResponse.ok) {
       // プリセットが読めなくても宣伝はできるので、止めずに知らせるだけにする。
@@ -204,6 +242,8 @@ export default function PromoRoom({ siteUrl, initialPostId = "" }: { siteUrl: st
   // 管理画面と同じパスワードを使い回すので、ログイン済みならそのまま入れる。
   useEffect(() => {
     setLinkInReply(window.localStorage.getItem(LINK_IN_REPLY_KEY) !== "off");
+    setUseHashtags(window.localStorage.getItem(HASHTAGS_KEY) === "on");
+    setReplyDetail(window.localStorage.getItem(REPLY_DETAIL_KEY) === "on");
 
     const stored = window.localStorage.getItem(STORAGE_KEY) || "";
     if (!stored) {
@@ -285,7 +325,15 @@ export default function PromoRoom({ siteUrl, initialPostId = "" }: { siteUrl: st
     return discovered;
   }, [topic, siteUrl, siteImagePool, sortedPosts, pickedPostId, discovered]);
 
-  const templates = useMemo(() => (subject ? buildTemplates(subject, topic) : []), [subject, topic]);
+  const templateStats = useMemo(
+    () => ({ posts: posts.length, plays: experiences.length }),
+    [posts.length, experiences.length]
+  );
+
+  const templates = useMemo(
+    () => (subject ? buildTemplates(subject, topic, templateStats) : []),
+    [subject, topic, templateStats]
+  );
 
   const rollCandidates = useCallback((pool: string[], keep: string[]) => {
     const rest = pool.filter((path) => !keep.includes(path));
@@ -304,7 +352,7 @@ export default function PromoRoom({ siteUrl, initialPostId = "" }: { siteUrl: st
     }
     setSelected([]);
     setTemplateIndex(0);
-    setText(buildTemplates(subject, topic)[0]?.text || "");
+    setText(buildTemplates(subject, topic, templateStats)[0]?.text || "");
     setRawFallback("");
     // subjectKeyが変わったときだけ走らせたいので、subject本体は依存に入れない。
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -487,9 +535,27 @@ export default function PromoRoom({ siteUrl, initialPostId = "" }: { siteUrl: st
   const shareFiles = mediaMode === "video" ? (videoFile ? [videoFile] : []) : files;
   const mediaReady = mediaMode === "video" ? videoReady : filesReady;
 
+  const shareLog = useMemo(() => log.filter((entry) => entry.kind === "share"), [log]);
+  const todayReplies = useMemo(() => {
+    const found = log.find((entry) => entry.kind === "day" && entry.date === today());
+    return found?.replies ?? null;
+  }, [log]);
+
+  const tags = useHashtags ? hashtagsFor(subject).join(" ") : "";
+
   // リプに回すときは本文にURLを入れない。投稿後に②でコピーして自分の投稿へ返信する。
-  const shareBody = subject && !linkInReply ? `${text.trim()}\n\n${subject.url}` : text.trim();
+  const shareBody = [text.trim(), subject && !linkInReply ? subject.url : "", tags]
+    .filter(Boolean)
+    .join("\n\n");
   const used = tweetWeight(shareBody);
+
+  // ②で貼る文章。詳細を入れる設定なら、要約を添えてスレッドの2枚目にする。
+  const replyText = useMemo(() => {
+    if (!subject) return "";
+    if (!replyDetail) return subject.url;
+    const detail = subject.summary?.trim();
+    return detail ? `${detail}\n\n${subject.url}` : subject.url;
+  }, [subject, replyDetail]);
 
   function toggleLinkInReply(next: boolean) {
     setLinkInReply(next);
@@ -497,14 +563,77 @@ export default function PromoRoom({ siteUrl, initialPostId = "" }: { siteUrl: st
     window.localStorage.setItem(LINK_IN_REPLY_KEY, next ? "on" : "off");
   }
 
+  function toggleHashtags(next: boolean) {
+    setUseHashtags(next);
+    window.localStorage.setItem(HASHTAGS_KEY, next ? "on" : "off");
+  }
+
+  function toggleReplyDetail(next: boolean) {
+    setReplyDetail(next);
+    window.localStorage.setItem(REPLY_DETAIL_KEY, next ? "on" : "off");
+  }
+
   async function copyLink() {
     if (!subject) return;
     try {
-      await navigator.clipboard.writeText(subject.url);
-      notify("ok", "リンクをコピーしました。さっきの投稿に返信して貼り付けてください。");
+      await navigator.clipboard.writeText(replyText);
+      notify("ok", "コピーしました。さっきの投稿に返信して貼り付けてください。");
     } catch {
-      setRawFallback(subject.url);
-      notify("info", "自動コピーできませんでした。下の枠のリンクを手でコピーしてください。");
+      setRawFallback(replyText);
+      notify("info", "自動コピーできませんでした。下の枠の文章を手でコピーしてください。");
+    }
+  }
+
+  // 何をいつ出したかを残す。数字は取れないので、型と中身だけ記録する。
+  async function recordShare() {
+    if (!subject) return;
+    try {
+      const response = await fetch("/api/promo-log", {
+        method: "POST",
+        headers: { "content-type": "application/json", "x-admin-password": authPassword },
+        body: JSON.stringify({
+          kind: "share",
+          topic,
+          title: subject.title,
+          textType: templates[templateIndex]?.label ?? "自作",
+          media: mediaMode === "video" ? (videoFile ? "video" : "none") : selected.length ? "images" : "none",
+          imageCount: mediaMode === "video" ? 0 : selected.length,
+          linkInReply,
+          hashtags: useHashtags,
+        }),
+      });
+      if (response.ok) setLog(await response.json());
+    } catch {
+      // 記録に失敗しても共有そのものは終わっているので、邪魔しない。
+    }
+  }
+
+  async function recordDay() {
+    const replies = Number(replyDraft);
+    if (!Number.isFinite(replies) || replies < 0) {
+      notify("error", "件数は0以上の数字で入れてください。");
+      return;
+    }
+
+    setSavingDay(true);
+    try {
+      const response = await fetch("/api/promo-log", {
+        method: "POST",
+        headers: { "content-type": "application/json", "x-admin-password": authPassword },
+        body: JSON.stringify({ kind: "day", date: today(), replies }),
+      });
+      const body = await response.json();
+      if (!response.ok) {
+        notify("error", body.message || "記録できませんでした。");
+        return;
+      }
+      setLog(body);
+      setReplyDraft("");
+      notify("ok", `今日のリプライ ${replies}件を記録しました。`);
+    } catch {
+      notify("error", "記録できませんでした。通信を確認してください。");
+    } finally {
+      setSavingDay(false);
     }
   }
 
@@ -527,6 +656,7 @@ export default function PromoRoom({ siteUrl, initialPostId = "" }: { siteUrl: st
     try {
       await navigator.share(payload);
       setSharedOnce(true);
+      void recordShare();
       notify(
         "ok",
         linkInReply
@@ -886,6 +1016,18 @@ export default function PromoRoom({ siteUrl, initialPostId = "" }: { siteUrl: st
             onChange={(event) => setText(event.target.value)}
             placeholder="ここを直せば自由に書けます"
           />
+          <div className="promoTagRow">
+            <button
+              type="button"
+              className="promoTag"
+              aria-pressed={useHashtags}
+              onClick={() => toggleHashtags(!useHashtags)}
+            >
+              タグを付ける
+            </button>
+            {useHashtags ? <span className="promoTagPreview">{hashtagsFor(subject).join(" ")}</span> : null}
+          </div>
+
           <p className="promoCount" data-over={used > TWEET_LIMIT}>
             {used} / {TWEET_LIMIT}
             {linkInReply ? "（リンクは含めず数えています）" : "（URLぶんを含む）"}
@@ -943,14 +1085,31 @@ export default function PromoRoom({ siteUrl, initialPostId = "" }: { siteUrl: st
           </button>
 
           {linkInReply ? (
-            <button
-              type="button"
-              className={sharedOnce ? "promoShareButton" : "promoGhostButton promoWideButton"}
-              disabled={!subject}
-              onClick={() => void copyLink()}
-            >
-              ② リンクをコピー（リプに貼る用）
-            </button>
+            <>
+              <div className="promoTagRow">
+                <button
+                  type="button"
+                  className="promoTag"
+                  aria-pressed={replyDetail}
+                  onClick={() => toggleReplyDetail(!replyDetail)}
+                >
+                  リプに詳細も書く
+                </button>
+              </div>
+              <p className="promoStepNote">
+                {replyDetail
+                  ? "1枚目はフックだけにして、リプに要約とリンクを置きます（スレッドの形）。"
+                  : "リプにはリンクだけ置きます。"}
+              </p>
+              <button
+                type="button"
+                className={sharedOnce ? "promoShareButton" : "promoGhostButton promoWideButton"}
+                disabled={!subject}
+                onClick={() => void copyLink()}
+              >
+                {replyDetail ? "② リプ用の文章をコピー" : "② リンクをコピー（リプに貼る用）"}
+              </button>
+            </>
           ) : null}
           {message ? (
             <p className="promoMessage" data-tone={messageTone}>
@@ -987,9 +1146,81 @@ export default function PromoRoom({ siteUrl, initialPostId = "" }: { siteUrl: st
             </button>
           </div>
         </section>
+
+        <section className="promoStep">
+          <div className="promoStepHead">
+            <span className="promoStepNo">毎日</span>
+            <h2 className="promoStepTitle">今日やること</h2>
+          </div>
+          <p className="promoStepNote">
+            投稿そのものより、この4つのほうが効くと言われています。できた日だけ数を入れれば残ります。
+          </p>
+          <ul className="promoRoutine">
+            {ROUTINE.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+          <div className="promoSaveRow">
+            <input
+              className="promoNameInput"
+              type="number"
+              inputMode="numeric"
+              min={0}
+              placeholder={todayReplies === null ? "今日のリプライ件数" : `今日は${todayReplies}件と記録済み`}
+              value={replyDraft}
+              onChange={(event) => setReplyDraft(event.target.value)}
+            />
+            <button
+              type="button"
+              className="promoGhostButton"
+              disabled={!replyDraft.trim() || savingDay}
+              onClick={() => void recordDay()}
+            >
+              {savingDay ? "記録中…" : "記録"}
+            </button>
+          </div>
+        </section>
+
+        {shareLog.length > 0 ? (
+          <section className="promoStep">
+            <div className="promoStepHead">
+              <span className="promoStepNo">記録</span>
+              <h2 className="promoStepTitle">最近の宣伝</h2>
+            </div>
+            <p className="promoStepNote">
+              どの型でどれだけ出したかが残ります。伸び方の違いは、ここと突き合わせて見てください。
+            </p>
+            <ul className="promoHistory">
+              {shareLog.slice(0, 8).map((entry) => (
+                <li key={entry.id}>
+                  <span className="promoHistoryDate">{formatLogDate(entry.at)}</span>
+                  <span className="promoHistoryType">{entry.textType}</span>
+                  <span className="promoHistoryTitle">{entry.title}</span>
+                  <span className="promoHistoryMedia">
+                    {entry.media === "video" ? "動画" : entry.media === "images" ? `画像${entry.imageCount}` : "文章のみ"}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ) : null}
       </div>
     </main>
   );
+}
+
+// 日付は手元の時間で数える。UTCで切ると、夜に記録したぶんが前日扱いになる。
+function today() {
+  const now = new Date();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
+  return `${now.getFullYear()}-${month}-${day}`;
+}
+
+function formatLogDate(at?: string) {
+  if (!at) return "";
+  const date = new Date(at);
+  return `${date.getMonth() + 1}/${date.getDate()}`;
 }
 
 function dateValue(post: Post) {
@@ -1028,23 +1259,24 @@ function playSubject(experience: Experience, siteUrl: string, posts: Post[]): Su
 //   質問   = 返信を誘う締め。返信は「いいね」より重いシグナルとされる
 //   報告   = 従来の告知型。落ち着いて出したいときのために残してある
 // いずれも出典はマーケティング系の解説でX公式の仕様ではないので、型は選べるままにしてある。
-function buildTemplates(subject: Subject, topic: Topic): Template[] {
+function buildTemplates(subject: Subject, topic: Topic, stats: { posts: number; plays: number }): Template[] {
   const { title, summary } = subject;
   const body = summary ? `\n\n${summary}` : "";
 
   if (subject.kind === "site") {
+    // 数字は実物から入れる（記事数・遊べるものの数）。具体的な数字があるほど強い。
     return [
       {
         label: "フック",
-        text: "非エンジニアがAIと遊び続けたら、ゲームも3Dも動画も置いてある場所ができました。\nうまくいかなかった実験も、そのまま残してあります。",
+        text: `コードは書けません。全部AIにやらせた実験が${stats.posts}本たまりました。\nゲームも3Dも動画も、ぜんぶ置いてあります。`,
       },
       {
         label: "フック",
-        text: "AIにどこまで任せられるのか、ひたすら試した記録が溜まってきました。\n成功も失敗も全部出しています。",
+        text: `非エンジニアがAIと遊び倒したら、ブラウザで遊べるものが${stats.plays}個できていました。\n失敗した実験もそのまま残してあります。`,
       },
       {
         label: "質問",
-        text: "AIと遊んだ記録を置いているラボです。\n次は何を作らせたら面白いと思いますか？",
+        text: "AIにどこまで任せられるか、ひたすら試して記録しているラボです。\n次は何を作らせたら面白いと思いますか？",
       },
       {
         label: "報告",
@@ -1059,8 +1291,8 @@ function buildTemplates(subject: Subject, topic: Topic): Template[] {
 
   if (subject.kind === "play") {
     return [
-      { label: "フック", text: `AIと一緒に作ったゲーム、ブラウザで遊べるところまで来ました。\n${title}` },
-      { label: "フック", text: `インストール不要、開いたらすぐ遊べます。\n${title}${body}` },
+      { label: "フック", text: `コードを書かずにAIと作ったゲームが、ブラウザでそのまま遊べます。\n${title}` },
+      { label: "フック", text: `インストールなし、開いた瞬間に遊べます。スマホでもどうぞ。\n${title}${body}` },
       { label: "質問", text: `${title}\n遊べる形にはなったんですが、次に何を足すと面白くなりますか？` },
       { label: "報告", text: `${title}\nAIと一緒に作りました。よかったら遊んでみてください。` },
     ];
@@ -1068,19 +1300,27 @@ function buildTemplates(subject: Subject, topic: Topic): Template[] {
 
   if (topic === "random") {
     return [
-      { label: "フック", text: `昔の実験を掘り返したら、こんなものが出てきました。\n${title}${body}` },
-      { label: "フック", text: `当時これで力尽きた実験です。今のAIならもっといけた気がします。\n${title}` },
+      { label: "フック", text: `昔の実験を掘り返したら、力尽きた跡が出てきました。\n${title}${body}` },
+      { label: "フック", text: `当時はこれが限界でした。今のAIなら違う結果になった気がします。\n${title}` },
       { label: "質問", text: `${title}\nここで止まったままなんですが、続きをやるなら何から手をつけますか？` },
       { label: "報告", text: `そういえば、こんな実験もしてました。\n${title}${body}` },
     ];
   }
 
   return [
-    { label: "フック", text: `AIにやらせてみたら、こうなりました。\n${title}${body}` },
-    { label: "フック", text: `${title}${body}\n\nうまくいったところも、詰まったところも全部書いています。` },
+    { label: "フック", text: `非エンジニアがAIに丸投げしたら、ここまで来ました。\n${title}${body}` },
+    { label: "フック", text: `${title}${body}\n\nうまくいった話より、詰まって直した話のほうが長くなりました。` },
     { label: "質問", text: `${title}${body}\n\n同じことを試している人いますか？やり方の意見ももらえると嬉しいです。` },
     { label: "報告", text: `【新記事】${title}${body}` },
   ];
+}
+
+// ネタごとの固定タグ。詰め込むと逆効果と言われているので2〜3個まで。
+function hashtagsFor(subject: Subject | null): string[] {
+  if (!subject) return [];
+  if (subject.kind === "play") return ["#個人開発", "#ゲーム制作", "#AI"];
+  if (subject.kind === "site") return ["#AI", "#個人開発", "#非エンジニア"];
+  return ["#AI", "#AI開発日誌"];
 }
 
 function unique(values: string[]) {

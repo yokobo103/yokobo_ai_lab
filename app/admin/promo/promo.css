@@ -268,6 +268,58 @@
   display: block;
 }
 
+.promoTagPreview {
+  align-self: center;
+  color: var(--pr-ink-soft);
+  font-size: 11px;
+}
+
+/* 毎日やること。記録しなくても、目に入るだけで意味がある。 */
+.promoRoutine {
+  display: grid;
+  gap: 6px;
+  margin: 0 0 10px;
+  padding-left: 18px;
+  color: var(--pr-ink);
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.promoHistory {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.promoHistory li {
+  display: grid;
+  grid-template-columns: 36px 40px 1fr auto;
+  gap: 8px;
+  align-items: center;
+  padding: 7px 8px;
+  border: 1px solid var(--pr-line);
+  border-radius: 8px;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.promoHistoryDate,
+.promoHistoryMedia {
+  color: var(--pr-ink-soft);
+}
+
+.promoHistoryType {
+  color: var(--pr-cyan, #4fd1e8);
+}
+
+.promoHistoryTitle {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 /* 動画の候補。画像と違って本数が少ないので、横並びの札にして題名も出す。 */
 .promoVideos {
   display: grid;
