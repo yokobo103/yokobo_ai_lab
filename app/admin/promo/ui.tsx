@@ -34,6 +34,12 @@ type Experience = {
 
 type PromoImage = { path: string; group: string; subgroup: string; tag?: string };
 
+// 動画はGitHubに置かず、R2から取ってくる（public/promo-videos.json が置き場所の一覧）。
+// 増やすときはR2にアップして、このJSONに1件足すだけ。
+type PromoVideo = { key: string; poster?: string; title: string; seconds?: number; sizeMB?: number };
+
+type MediaMode = "image" | "video";
+
 type Preset = {
   id: string;
   name: string;
@@ -98,6 +104,14 @@ export default function PromoRoom({ siteUrl, initialPostId = "" }: { siteUrl: st
   const [pickedPostId, setPickedPostId] = useState("");
   const [discovered, setDiscovered] = useState<Subject | null>(null);
 
+  // Xは動画と画像を同じ投稿に入れられないので、どちらか一方だけを選ぶ。
+  const [mediaMode, setMediaMode] = useState<MediaMode>("image");
+  const [videos, setVideos] = useState<PromoVideo[]>([]);
+  const [videoBase, setVideoBase] = useState("");
+  const [pickedVideo, setPickedVideo] = useState("");
+  const [videoFile, setVideoFile] = useState<File | null>(null);
+  const [videoReady, setVideoReady] = useState(true);
+
   const [candidates, setCandidates] = useState<string[]>([]);
   const [selected, setSelected] = useState<string[]>([]);
   const [files, setFiles] = useState<File[]>([]);
@@ -125,6 +139,18 @@ export default function PromoRoom({ siteUrl, initialPostId = "" }: { siteUrl: st
       fetch("/promo-images.json"),
       fetch("/api/promo-presets", { headers }),
     ]);
+
+    // 動画の一覧は無くても宣伝はできるので、失敗しても止めない。
+    try {
+      const videosResponse = await fetch("/promo-videos.json");
+      if (videosResponse.ok) {
+        const loadedVideos = await videosResponse.json();
+        setVideoBase(typeof loadedVideos.base === "string" ? loadedVideos.base : "");
+        setVideos(Array.isArray(loadedVideos.videos) ? loadedVideos.videos : []);
+      }
+    } catch {
+      setVideos([]);
+    }
 
     if (postsResponse.status === 401 || experiencesResponse.status === 401) {
       throw new Error("unauthorized");
@@ -326,6 +352,49 @@ export default function PromoRoom({ siteUrl, initialPostId = "" }: { siteUrl: st
     };
   }, [selected, notify]);
 
+  // 動画も画像と同じで、共有ボタンを押してから読み込むとiOSで弾かれる。選んだ時点で用意する。
+  useEffect(() => {
+    let cancelled = false;
+    if (!pickedVideo || !videoBase) {
+      setVideoFile(null);
+      setVideoReady(true);
+      return;
+    }
+
+    setVideoReady(false);
+    (async () => {
+      try {
+        const response = await fetch(`${videoBase}/${pickedVideo}`);
+        if (!response.ok) throw new Error(String(response.status));
+        const blob = await response.blob();
+        if (cancelled) return;
+        const name = pickedVideo.split("/").pop() || "movie.mp4";
+        setVideoFile(new File([blob], name, { type: blob.type || "video/mp4" }));
+        setVideoReady(true);
+      } catch {
+        if (cancelled) return;
+        setVideoFile(null);
+        setVideoReady(true);
+        notify("error", "動画を読み込めませんでした。電波を確認して選び直してください。");
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [pickedVideo, videoBase, notify]);
+
+  function selectMediaMode(next: MediaMode) {
+    setMediaMode(next);
+    // 混ざらないように、切り替えたら反対側の選択を捨てる。
+    if (next === "video") setSelected([]);
+    else setPickedVideo("");
+  }
+
+  function toggleVideo(key: string) {
+    setPickedVideo((prev) => (prev === key ? "" : key));
+  }
+
   async function savePreset() {
     if (!subject || !text.trim()) return;
     const name = presetName.trim() || subject.title;
@@ -414,6 +483,10 @@ export default function PromoRoom({ siteUrl, initialPostId = "" }: { siteUrl: st
     setText(templates[index]?.text || "");
   }
 
+  // 共有に載せるのは、動画モードなら動画1本、そうでなければ選んだ画像。
+  const shareFiles = mediaMode === "video" ? (videoFile ? [videoFile] : []) : files;
+  const mediaReady = mediaMode === "video" ? videoReady : filesReady;
+
   // リプに回すときは本文にURLを入れない。投稿後に②でコピーして自分の投稿へ返信する。
   const shareBody = subject && !linkInReply ? `${text.trim()}\n\n${subject.url}` : text.trim();
   const used = tweetWeight(shareBody);
@@ -440,11 +513,11 @@ export default function PromoRoom({ siteUrl, initialPostId = "" }: { siteUrl: st
     setRawFallback("");
 
     const payload: ShareData = { text: shareBody };
-    if (files.length > 0) payload.files = files;
+    if (shareFiles.length > 0) payload.files = shareFiles;
 
     const canUseShare =
       typeof navigator.share === "function" &&
-      (files.length === 0 || typeof navigator.canShare !== "function" || navigator.canShare(payload));
+      (shareFiles.length === 0 || typeof navigator.canShare !== "function" || navigator.canShare(payload));
 
     if (!canUseShare) {
       await fallbackShare();
@@ -470,12 +543,27 @@ export default function PromoRoom({ siteUrl, initialPostId = "" }: { siteUrl: st
   }
 
   async function fallbackShare() {
+    const noun = mediaMode === "video" ? "動画" : "画像";
     try {
       await navigator.clipboard.writeText(shareBody);
-      notify("ok", "この端末では共有メニューが使えないので、文章をコピーして画像を保存しました。");
+      notify("ok", `この端末では共有メニューが使えないので、文章をコピーして${noun}を保存しました。`);
     } catch {
       setRawFallback(shareBody);
-      notify("info", "文章は下の枠から手でコピーしてください。画像は保存します。");
+      notify("info", `文章は下の枠から手でコピーしてください。${noun}は保存します。`);
+    }
+
+    // 動画は手元に落として、Xアプリで自分で添付してもらう。
+    if (mediaMode === "video") {
+      if (!videoFile) return;
+      const objectUrl = URL.createObjectURL(videoFile);
+      const link = document.createElement("a");
+      link.href = objectUrl;
+      link.download = videoFile.name;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(objectUrl);
+      return;
     }
 
     for (const path of selected) {
@@ -630,13 +718,74 @@ export default function PromoRoom({ siteUrl, initialPostId = "" }: { siteUrl: st
         <section className="promoStep">
           <div className="promoStepHead">
             <span className="promoStepNo">STEP 2</span>
-            <h2 className="promoStepTitle">画像を選ぶ</h2>
+            <h2 className="promoStepTitle">{videos.length > 0 ? "画像か動画を選ぶ" : "画像を選ぶ"}</h2>
           </div>
+
+          {videos.length > 0 ? (
+            <div className="promoTagRow">
+              <button
+                type="button"
+                className="promoTag"
+                aria-pressed={mediaMode === "image"}
+                onClick={() => selectMediaMode("image")}
+              >
+                画像
+              </button>
+              <button
+                type="button"
+                className="promoTag"
+                aria-pressed={mediaMode === "video"}
+                onClick={() => selectMediaMode("video")}
+              >
+                動画
+              </button>
+            </div>
+          ) : null}
+
           <p className="promoStepNote">
-            候補から選んでください（{MAX_IMAGES}枚まで、なしでも投稿できます）。ピンとこなければ引き直せます。
+            {mediaMode === "video"
+              ? "動画は1本だけ入ります。Xは動画と画像を同じ投稿に混ぜられないので、切り替えると反対側の選択は外れます。"
+              : `候補から選んでください（${MAX_IMAGES}枚まで、なしでも投稿できます）。ピンとこなければ引き直せます。`}
           </p>
 
-          {topic === "site" && availableTags.length > 0 ? (
+          {mediaMode === "video" ? (
+            <div className="promoVideos">
+              {videos.map((video) => (
+                <button
+                  key={video.key}
+                  type="button"
+                  className="promoVideo"
+                  aria-pressed={pickedVideo === video.key}
+                  onClick={() => toggleVideo(video.key)}
+                >
+                  {video.poster ? (
+                    <img src={`${videoBase}/${video.poster}`} alt="" loading="lazy" />
+                  ) : (
+                    <span className="promoVideoNoPoster">動画</span>
+                  )}
+                  <span className="promoVideoMeta">
+                    <span className="promoVideoTitle">{video.title}</span>
+                    <span className="promoVideoSize">
+                      {[video.seconds ? `${video.seconds}秒` : "", video.sizeMB ? `${video.sizeMB}MB` : ""]
+                        .filter(Boolean)
+                        .join(" / ")}
+                    </span>
+                  </span>
+                </button>
+              ))}
+              {pickedVideo ? (
+                <p className="promoStepNote">
+                  {videoReady
+                    ? videoFile
+                      ? `動画の用意ができました（${(videoFile.size / (1024 * 1024)).toFixed(1)}MB）。`
+                      : "動画を用意できませんでした。選び直してください。"
+                    : "動画を読み込んでいます…（電波によっては少しかかります）"}
+                </p>
+              ) : null}
+            </div>
+          ) : null}
+
+          {mediaMode === "image" && topic === "site" && availableTags.length > 0 ? (
             <div className="promoTagRow">
               <button
                 type="button"
@@ -660,7 +809,7 @@ export default function PromoRoom({ siteUrl, initialPostId = "" }: { siteUrl: st
             </div>
           ) : null}
 
-          {selected.length > 0 ? (
+          {mediaMode === "image" && selected.length > 0 ? (
             <div className="promoSelected">
               {selected.map((path) => (
                 <button key={path} type="button" className="promoSelectedItem" onClick={() => toggleImage(path)}>
@@ -671,25 +820,27 @@ export default function PromoRoom({ siteUrl, initialPostId = "" }: { siteUrl: st
             </div>
           ) : null}
 
-          <div className="promoCandidates">
-            {candidates.map((path) => (
-              <button
-                key={path}
-                type="button"
-                className="promoCandidate"
-                aria-pressed={selected.includes(path)}
-                onClick={() => toggleImage(path)}
-              >
-                <img src={path} alt="画像の候補" loading="lazy" />
-              </button>
-            ))}
-          </div>
+          {mediaMode === "image" ? (
+            <div className="promoCandidates">
+              {candidates.map((path) => (
+                <button
+                  key={path}
+                  type="button"
+                  className="promoCandidate"
+                  aria-pressed={selected.includes(path)}
+                  onClick={() => toggleImage(path)}
+                >
+                  <img src={path} alt="画像の候補" loading="lazy" />
+                </button>
+              ))}
+            </div>
+          ) : null}
 
           <div className="promoRowActions">
             <button
               type="button"
               className="promoGhostButton"
-              disabled={!subject || subject.pool.length <= MAX_IMAGES}
+              disabled={mediaMode === "video" || !subject || subject.pool.length <= MAX_IMAGES}
               onClick={() => subject && rollCandidates(subject.pool, selected)}
             >
               別の候補を見る
@@ -697,8 +848,8 @@ export default function PromoRoom({ siteUrl, initialPostId = "" }: { siteUrl: st
             <button
               type="button"
               className="promoGhostButton"
-              disabled={selected.length === 0}
-              onClick={() => setSelected([])}
+              disabled={mediaMode === "video" ? !pickedVideo : selected.length === 0}
+              onClick={() => (mediaMode === "video" ? setPickedVideo("") : setSelected([]))}
             >
               選択を消す
             </button>
@@ -772,12 +923,22 @@ export default function PromoRoom({ siteUrl, initialPostId = "" }: { siteUrl: st
           <button
             type="button"
             className="promoShareButton"
-            disabled={!subject || !text.trim() || !filesReady}
+            disabled={!subject || !text.trim() || !mediaReady}
             onClick={() => void share()}
           >
-            {!filesReady
-              ? "画像を準備中…"
-              : `${linkInReply ? "① " : ""}共有する${selected.length ? `（画像${selected.length}枚）` : ""}`}
+            {!mediaReady
+              ? mediaMode === "video"
+                ? "動画を準備中…"
+                : "画像を準備中…"
+              : `${linkInReply ? "① " : ""}共有する${
+                  mediaMode === "video"
+                    ? videoFile
+                      ? "（動画1本）"
+                      : ""
+                    : selected.length
+                      ? `（画像${selected.length}枚）`
+                      : ""
+                }`}
           </button>
 
           {linkInReply ? (

@@ -1,0 +1,12 @@
+{
+  "base": "https://pub-b41150828c6b4ba281393f859abc6865.r2.dev",
+  "videos": [
+    {
+      "key": "promo/cm-15s-crf23.mp4",
+      "poster": "promo/cm-15s-crf23.jpg",
+      "title": "コロコロニャビット 15秒CM",
+      "seconds": 15,
+      "sizeMB": 7.3
+    }
+  ]
+}

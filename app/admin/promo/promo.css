@@ -268,6 +268,65 @@
   display: block;
 }
 
+/* 動画の候補。画像と違って本数が少ないので、横並びの札にして題名も出す。 */
+.promoVideos {
+  display: grid;
+  gap: 8px;
+}
+
+.promoVideo {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 8px;
+  border: 1px solid var(--pr-line);
+  border-radius: 10px;
+  background: var(--pr-panel-soft);
+  color: var(--pr-ink);
+  text-align: left;
+  cursor: pointer;
+}
+
+.promoVideo[aria-pressed="true"] {
+  border-color: var(--pr-line-strong);
+  background: rgba(79, 209, 232, 0.14);
+}
+
+.promoVideo img {
+  width: 64px;
+  height: 64px;
+  border-radius: 8px;
+  object-fit: cover;
+  flex: none;
+}
+
+.promoVideoNoPoster {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 8px;
+  background: var(--pr-panel);
+  font-size: 11px;
+  flex: none;
+}
+
+.promoVideoMeta {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.promoVideoTitle {
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.promoVideoSize {
+  color: var(--pr-ink-soft);
+  font-size: 11px;
+}
+
 .promoTemplates {
   display: flex;
   flex-direction: column;
