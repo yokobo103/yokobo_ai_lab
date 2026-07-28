@@ -46,6 +46,8 @@ type Preset = {
 
 type Topic = "site" | "latest" | "random" | "pick";
 
+type Template = { label: string; text: string };
+
 type Subject = {
   kind: "site" | "article" | "play";
   label: string;
@@ -267,7 +269,7 @@ export default function PromoRoom({ siteUrl }: { siteUrl: string }) {
     }
     setSelected([]);
     setTemplateIndex(0);
-    setText(buildTemplates(subject, topic)[0] || "");
+    setText(buildTemplates(subject, topic)[0]?.text || "");
     setRawFallback("");
     // subjectKeyが変わったときだけ走らせたいので、subject本体は依存に入れない。
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -400,7 +402,7 @@ export default function PromoRoom({ siteUrl }: { siteUrl: string }) {
 
   function applyTemplate(index: number) {
     setTemplateIndex(index);
-    setText(templates[index] || "");
+    setText(templates[index]?.text || "");
   }
 
   // リプに回すときは本文にURLを入れない。投稿後に②でコピーして自分の投稿へ返信する。
@@ -699,16 +701,21 @@ export default function PromoRoom({ siteUrl }: { siteUrl: string }) {
             <span className="promoStepNo">STEP 3</span>
             <h2 className="promoStepTitle">文章を決める</h2>
           </div>
+          <p className="promoStepNote">
+            1行目で結果を言う「フック」と、意見を求めて終わる「質問」が伸びやすいと言われています。
+            そのまま使っても、直してもかまいません。
+          </p>
           <div className="promoTemplates">
             {templates.map((template, index) => (
               <button
-                key={template}
+                key={template.text}
                 type="button"
                 className="promoTemplate"
-                aria-pressed={templateIndex === index && text === template}
+                aria-pressed={templateIndex === index && text === template.text}
                 onClick={() => applyTemplate(index)}
               >
-                {template}
+                <span className="promoTemplateLabel">{template.label}</span>
+                {template.text}
               </button>
             ))}
           </div>
@@ -845,37 +852,63 @@ function playSubject(experience: Experience, siteUrl: string, posts: Post[]): Su
   };
 }
 
-function buildTemplates(subject: Subject, topic: Topic): string[] {
+// 文章の型は3種類。上から順に伸びやすいと言われている順に並べる。
+//   フック = 1行目で結果や意外性を言う（「【新記事】〜」のような告知型は素通りされやすい）
+//   質問   = 返信を誘う締め。返信は「いいね」より重いシグナルとされる
+//   報告   = 従来の告知型。落ち着いて出したいときのために残してある
+// いずれも出典はマーケティング系の解説でX公式の仕様ではないので、型は選べるままにしてある。
+function buildTemplates(subject: Subject, topic: Topic): Template[] {
   const { title, summary } = subject;
+  const body = summary ? `\n\n${summary}` : "";
 
   if (subject.kind === "site") {
     return [
-      "よこぼのAIラボ、今日も実験中です。\nAIと遊んだ記録を、うまくいかなかったぶんも含めて置いてあります。",
-      "非エンジニアがAIと作ったゲーム・3D・動画を並べたラボです。\nのぞいていってもらえたら嬉しいです。",
-      "AIと遊んでいたら、作ったものがけっこう溜まっていました。\nよこぼのAIラボ、公開中です。",
+      {
+        label: "フック",
+        text: "非エンジニアがAIと遊び続けたら、ゲームも3Dも動画も置いてある場所ができました。\nうまくいかなかった実験も、そのまま残してあります。",
+      },
+      {
+        label: "フック",
+        text: "AIにどこまで任せられるのか、ひたすら試した記録が溜まってきました。\n成功も失敗も全部出しています。",
+      },
+      {
+        label: "質問",
+        text: "AIと遊んだ記録を置いているラボです。\n次は何を作らせたら面白いと思いますか？",
+      },
+      {
+        label: "報告",
+        text: "よこぼのAIラボ、今日も実験中です。\nAIと遊んだ記録を、うまくいかなかったぶんも含めて置いてあります。",
+      },
+      {
+        label: "報告",
+        text: "非エンジニアがAIと作ったゲーム・3D・動画を並べたラボです。\nのぞいていってもらえたら嬉しいです。",
+      },
     ];
   }
 
   if (subject.kind === "play") {
     return [
-      `【ブラウザで遊べます】${title}${summary ? `\n\n${summary}` : ""}`,
-      `${title}\nAIと一緒に作りました。よかったら遊んでみてください。`,
-      `そういえばこんなの作ってました。\n${title}`,
+      { label: "フック", text: `AIと一緒に作ったゲーム、ブラウザで遊べるところまで来ました。\n${title}` },
+      { label: "フック", text: `インストール不要、開いたらすぐ遊べます。\n${title}${body}` },
+      { label: "質問", text: `${title}\n遊べる形にはなったんですが、次に何を足すと面白くなりますか？` },
+      { label: "報告", text: `${title}\nAIと一緒に作りました。よかったら遊んでみてください。` },
     ];
   }
 
   if (topic === "random") {
     return [
-      `【発掘】${title}${summary ? `\n\n${summary}` : ""}`,
-      `そういえば、こんな実験もしてました。\n${title}`,
-      `過去の実験ログを掘り返してみました。\n${title}${summary ? `\n\n${summary}` : ""}`,
+      { label: "フック", text: `昔の実験を掘り返したら、こんなものが出てきました。\n${title}${body}` },
+      { label: "フック", text: `当時これで力尽きた実験です。今のAIならもっといけた気がします。\n${title}` },
+      { label: "質問", text: `${title}\nここで止まったままなんですが、続きをやるなら何から手をつけますか？` },
+      { label: "報告", text: `そういえば、こんな実験もしてました。\n${title}${body}` },
     ];
   }
 
   return [
-    `【新記事】${title}${summary ? `\n\n${summary}` : ""}`,
-    `${title}${summary ? `\n\n${summary}` : ""}\n\n途中でつまずいたところも、そのまま書いてます。`,
-    `新しい実験ログを書きました。\n${title}`,
+    { label: "フック", text: `AIにやらせてみたら、こうなりました。\n${title}${body}` },
+    { label: "フック", text: `${title}${body}\n\nうまくいったところも、詰まったところも全部書いています。` },
+    { label: "質問", text: `${title}${body}\n\n同じことを試している人いますか？やり方の意見ももらえると嬉しいです。` },
+    { label: "報告", text: `【新記事】${title}${body}` },
   ];
 }
 

@@ -287,6 +287,14 @@
   white-space: pre-wrap;
 }
 
+.promoTemplateLabel {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--pr-ink-soft);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+}
+
 .promoTemplate[aria-pressed="true"] {
   border: 1px solid var(--pr-line-strong);
   background: rgba(79, 209, 232, 0.14);
