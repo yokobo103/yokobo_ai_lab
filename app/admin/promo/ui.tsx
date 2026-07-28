@@ -759,7 +759,8 @@ export default function PromoRoom({ siteUrl, initialPostId = "" }: { siteUrl: st
                   onClick={() => toggleVideo(video.key)}
                 >
                   {video.poster ? (
-                    <img src={`${videoBase}/${video.poster}`} alt="" loading="lazy" />
+                    // 本数が少ないので遅延読み込みはしない（出ないより出た方がよい）。
+                    <img src={`${videoBase}/${video.poster}`} alt="" />
                   ) : (
                     <span className="promoVideoNoPoster">動画</span>
                   )}

@@ -1,4 +1,12 @@
 {
   "base": "https://pub-b41150828c6b4ba281393f859abc6865.r2.dev",
-  "videos": []
+  "videos": [
+    {
+      "key": "promo/korokoro-nyabitto_20260728-200354.mp4",
+      "poster": "promo/korokoro-nyabitto_20260728-200354.jpg",
+      "title": "コロコロニャビット 15秒CM",
+      "seconds": 15,
+      "sizeMB": 7
+    }
+  ]
 }
