@@ -2,6 +2,20 @@
   "base": "https://pub-b41150828c6b4ba281393f859abc6865.r2.dev",
   "videos": [
     {
+      "key": "promo/yokobo-kart3d_20260723-163038.mp4",
+      "poster": "promo/yokobo-kart3d_20260723-163038.jpg",
+      "title": "よこぼカート3D 15秒CM",
+      "seconds": 15,
+      "sizeMB": 5
+    },
+    {
+      "key": "promo/lab-fighters_20260703-060610.mp4",
+      "poster": "promo/lab-fighters_20260703-060610.jpg",
+      "title": "よこぼのラボファイターズ 15秒CM",
+      "seconds": 15,
+      "sizeMB": 8.1
+    },
+    {
       "key": "promo/korokoro-nyabitto_20260728-200354.mp4",
       "poster": "promo/korokoro-nyabitto_20260728-200354.jpg",
       "title": "コロコロニャビット 15秒CM",
