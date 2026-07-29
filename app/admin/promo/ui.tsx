@@ -77,12 +77,17 @@ type Topic = "site" | "latest" | "random" | "pick";
 
 type Template = { label: string; text: string };
 
+// リンクは1本とは限らない。ゲームなら「遊ぶ」と「作った話」の2本になる。
+// url は本文に入れるとき用の代表リンク（リプに回すときは links を並べる）。
+type SubjectLink = { label: string; url: string };
+
 type Subject = {
   kind: "site" | "article" | "play";
   label: string;
   title: string;
   summary: string;
   url: string;
+  links: SubjectLink[];
   pool: string[];
 };
 
@@ -139,6 +144,9 @@ export default function PromoRoom({ siteUrl, initialPostId = "" }: { siteUrl: st
   const [selected, setSelected] = useState<string[]>([]);
   const [files, setFiles] = useState<File[]>([]);
   const [filesReady, setFilesReady] = useState(true);
+
+  // 外したリンク（URLで覚える）。ネタを変えたら消える。
+  const [droppedLinks, setDroppedLinks] = useState<string[]>([]);
 
   const [log, setLog] = useState<LogEntry[]>([]);
   const [replyDraft, setReplyDraft] = useState("");
@@ -308,18 +316,19 @@ export default function PromoRoom({ siteUrl, initialPostId = "" }: { siteUrl: st
         title: "よこぼのAIラボ",
         summary: "AIと遊んだ記録を置いているラボ",
         url: siteUrl,
+        links: [{ label: "見る", url: siteUrl }],
         pool: siteImagePool,
       };
     }
 
     if (topic === "latest") {
       const latest = sortedPosts[0];
-      return latest ? postSubject(latest, siteUrl, "最新記事") : null;
+      return latest ? postSubject(latest, siteUrl, "最新記事", experiences) : null;
     }
 
     if (topic === "pick") {
       const picked = sortedPosts.find((post) => post.id === pickedPostId);
-      return picked ? postSubject(picked, siteUrl, "選んだ記事") : null;
+      return picked ? postSubject(picked, siteUrl, "選んだ記事", experiences) : null;
     }
 
     return discovered;
@@ -351,6 +360,7 @@ export default function PromoRoom({ siteUrl, initialPostId = "" }: { siteUrl: st
       return;
     }
     setSelected([]);
+    setDroppedLinks([]);
     setTemplateIndex(0);
     setText(buildTemplates(subject, topic, templateStats)[0]?.text || "");
     setRawFallback("");
@@ -501,7 +511,7 @@ export default function PromoRoom({ siteUrl, initialPostId = "" }: { siteUrl: st
 
   function discover() {
     const candidatesForDiscovery: Subject[] = [
-      ...sortedPosts.map((post) => postSubject(post, siteUrl, "発掘した記事")),
+      ...sortedPosts.map((post) => postSubject(post, siteUrl, "発掘した記事", experiences)),
       ...experiences.map((item) => playSubject(item, siteUrl, posts)),
     ];
     const next = pickRandom(candidatesForDiscovery);
@@ -543,19 +553,27 @@ export default function PromoRoom({ siteUrl, initialPostId = "" }: { siteUrl: st
 
   const tags = useHashtags ? hashtagsFor(subject).join(" ") : "";
 
+  // 使うリンク。既定は全部on。ゲームなら「遊ぶ」と「作った話」の2本になる。
+  const activeLinks = useMemo(
+    () => (subject ? subject.links.filter((link) => !droppedLinks.includes(link.url)) : []),
+    [subject, droppedLinks]
+  );
+
   // リプに回すときは本文にURLを入れない。投稿後に②でコピーして自分の投稿へ返信する。
-  const shareBody = [text.trim(), subject && !linkInReply ? subject.url : "", tags]
-    .filter(Boolean)
-    .join("\n\n");
+  // 本文に入れる場合は1本だけ（複数入れるとリーチがさらに落ちると言われている）。
+  const bodyLink = !linkInReply ? (activeLinks[0]?.url ?? subject?.url ?? "") : "";
+  const shareBody = [text.trim(), bodyLink, tags].filter(Boolean).join("\n\n");
   const used = tweetWeight(shareBody);
 
-  // ②で貼る文章。詳細を入れる設定なら、要約を添えてスレッドの2枚目にする。
+  // ②で貼る文章。リンクが2本あるときは行頭に何のリンクかを書く。
   const replyText = useMemo(() => {
     if (!subject) return "";
-    if (!replyDetail) return subject.url;
-    const detail = subject.summary?.trim();
-    return detail ? `${detail}\n\n${subject.url}` : subject.url;
-  }, [subject, replyDetail]);
+    const lines = activeLinks.map((link) =>
+      activeLinks.length > 1 ? `${link.label}▶ ${link.url}` : link.url
+    );
+    const detail = replyDetail ? subject.summary?.trim() : "";
+    return [detail, lines.join("\n")].filter(Boolean).join("\n\n");
+  }, [subject, replyDetail, activeLinks]);
 
   function toggleLinkInReply(next: boolean) {
     setLinkInReply(next);
@@ -838,7 +856,12 @@ export default function PromoRoom({ siteUrl, initialPostId = "" }: { siteUrl: st
             <div className="promoSubject">
               <span className="promoSubjectLabel">{subject.label}</span>
               <span className="promoSubjectTitle">{subject.title}</span>
-              <span className="promoSubjectUrl">{subject.url}</span>
+              {subject.links.map((link) => (
+                <span key={link.url} className="promoSubjectUrl">
+                  {subject.links.length > 1 ? `${link.label}: ` : ""}
+                  {link.url}
+                </span>
+              ))}
             </div>
           ) : (
             <p className="promoStepNote">宣伝できるものが見つかりませんでした。</p>
@@ -1039,6 +1062,31 @@ export default function PromoRoom({ siteUrl, initialPostId = "" }: { siteUrl: st
             <span className="promoStepNo">STEP 4</span>
             <h2 className="promoStepTitle">Xに渡す</h2>
           </div>
+          {subject && subject.links.length > 1 ? (
+            <>
+              <p className="promoStepNote">
+                この宣伝で使うリンク。遊べるものは「遊ぶ」を先に置いています。
+              </p>
+              <div className="promoTagRow">
+                {subject.links.map((link) => (
+                  <button
+                    key={link.url}
+                    type="button"
+                    className="promoTag"
+                    aria-pressed={!droppedLinks.includes(link.url)}
+                    onClick={() =>
+                      setDroppedLinks((prev) =>
+                        prev.includes(link.url) ? prev.filter((url) => url !== link.url) : [...prev, link.url]
+                      )
+                    }
+                  >
+                    {link.label}
+                  </button>
+                ))}
+              </div>
+            </>
+          ) : null}
+
           <div className="promoTagRow">
             <button
               type="button"
@@ -1227,14 +1275,21 @@ function dateValue(post: Post) {
   return Date.parse(post.updatedAt || post.createdAt || "") || 0;
 }
 
-function postSubject(post: Post, siteUrl: string, label: string): Subject {
+function postSubject(post: Post, siteUrl: string, label: string, experiences: Experience[]): Subject {
   const pool = [post.thumbnail, ...(post.images || [])].filter((path): path is string => Boolean(path));
+  const readUrl = `${siteUrl}/read/${post.id}`;
+  // 記事に対応する遊べるものがあれば、「遊ぶ」リンクも一緒に出せるようにする。
+  const play = experiences.find((item) => item.relatedPostId === post.id && item.playUrl);
+  const links: SubjectLink[] = [{ label: "読む", url: readUrl }];
+  if (play?.playUrl) links.unshift({ label: "遊ぶ", url: play.playUrl });
+
   return {
     kind: "article",
     label,
     title: post.title,
     summary: truncate(post.summary || "", 70),
-    url: `${siteUrl}/read/${post.id}`,
+    url: readUrl,
+    links,
     pool: unique(pool),
   };
 }
@@ -1244,12 +1299,20 @@ function playSubject(experience: Experience, siteUrl: string, posts: Post[]): Su
   const pool = [experience.thumbnail, related?.thumbnail, ...(related?.images || [])].filter(
     (path): path is string => Boolean(path)
   );
+
+  // 遊べるものは、まず遊んでもらうのが先。代表リンクも遊ぶページにする。
+  const links: SubjectLink[] = [];
+  if (experience.playUrl) links.push({ label: "遊ぶ", url: experience.playUrl });
+  if (related) links.push({ label: "作った話", url: `${siteUrl}/read/${related.id}` });
+  if (links.length === 0) links.push({ label: "見る", url: `${siteUrl}/experiments` });
+
   return {
     kind: "play",
     label: "遊べるもの",
     title: experience.title,
     summary: truncate(experience.summary || "", 70),
-    url: related ? `${siteUrl}/read/${related.id}` : `${siteUrl}/experiments`,
+    url: links[0]?.url ?? `${siteUrl}/experiments`,
+    links,
     pool: unique(pool),
   };
 }
