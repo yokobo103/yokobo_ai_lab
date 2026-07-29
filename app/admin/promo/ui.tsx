@@ -21,6 +21,8 @@ type Post = {
   status?: string;
   thumbnail?: string;
   images?: string[];
+  // 記事の関連リンク。遊べるものへのリンクが混ざっていることがある。
+  links?: { label?: string; url?: string }[];
   createdAt?: string;
   updatedAt?: string;
 };
@@ -1278,10 +1280,28 @@ function dateValue(post: Post) {
 function postSubject(post: Post, siteUrl: string, label: string, experiences: Experience[]): Subject {
   const pool = [post.thumbnail, ...(post.images || [])].filter((path): path is string => Boolean(path));
   const readUrl = `${siteUrl}/read/${post.id}`;
-  // 記事に対応する遊べるものがあれば、「遊ぶ」リンクも一緒に出せるようにする。
-  const play = experiences.find((item) => item.relatedPostId === post.id && item.playUrl);
-  const links: SubjectLink[] = [{ label: "読む", url: readUrl }];
-  if (play?.playUrl) links.unshift({ label: "遊ぶ", url: play.playUrl });
+
+  // 遊べるものへの結び付きは2通りある。体験格納庫側の relatedPostId と、
+  // 記事側の関連リンク。片方しか埋まっていない組み合わせがあるので両方から拾う。
+  // 記事の関連リンクは他人のXポストなども混ざるため、体験格納庫にあるURLだけを通す。
+  const linkedUrls = (post.links || [])
+    .map((link) => sameUrlKey(link.url))
+    .filter((key): key is string => Boolean(key));
+
+  const plays = experiences.filter((item) => {
+    if (!item.playUrl) return false;
+    if (item.relatedPostId === post.id) return true;
+    const key = sameUrlKey(item.playUrl);
+    return Boolean(key && linkedUrls.includes(key));
+  });
+
+  const links: SubjectLink[] = [];
+  for (const play of plays) {
+    if (!play.playUrl) continue;
+    // 遊べるものが2つ以上ぶら下がっている記事もあるので、そのときはどれか分かるようにする。
+    links.push({ label: plays.length > 1 ? `遊ぶ:${truncate(play.title, 8)}` : "遊ぶ", url: play.playUrl });
+  }
+  links.push({ label: "読む", url: readUrl });
 
   return {
     kind: "article",
@@ -1289,9 +1309,25 @@ function postSubject(post: Post, siteUrl: string, label: string, experiences: Ex
     title: post.title,
     summary: truncate(post.summary || "", 70),
     url: readUrl,
-    links,
+    links: dedupeLinks(links),
     pool: unique(pool),
   };
+}
+
+// 末尾のスラッシュや大文字小文字だけが違うURLは同じものとして扱う。
+function sameUrlKey(url?: string): string {
+  if (!url) return "";
+  return url.trim().toLowerCase().replace(/\/+$/, "");
+}
+
+function dedupeLinks(links: SubjectLink[]): SubjectLink[] {
+  const seen = new Set<string>();
+  return links.filter((link) => {
+    const key = sameUrlKey(link.url);
+    if (!key || seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
 }
 
 function playSubject(experience: Experience, siteUrl: string, posts: Post[]): Subject {
@@ -1306,13 +1342,15 @@ function playSubject(experience: Experience, siteUrl: string, posts: Post[]): Su
   if (related) links.push({ label: "作った話", url: `${siteUrl}/read/${related.id}` });
   if (links.length === 0) links.push({ label: "見る", url: `${siteUrl}/experiments` });
 
+  const deduped = dedupeLinks(links);
+
   return {
     kind: "play",
     label: "遊べるもの",
     title: experience.title,
     summary: truncate(experience.summary || "", 70),
-    url: links[0]?.url ?? `${siteUrl}/experiments`,
-    links,
+    url: deduped[0]?.url ?? `${siteUrl}/experiments`,
+    links: deduped,
     pool: unique(pool),
   };
 }
