@@ -1,6 +1,7 @@
 [
   {
     "id": "20260717-walkable-lab",
+    "logNumber": 31,
     "title": "イケハヤさんの「Fableでメタバース」に刺激されて、AIラボを歩ける3D世界にした",
     "summary": "イケハヤさんのFableメタバース投稿を見て、「過去の実験を3D空間に展示すればいい」と気づいた。",
     "author": "dr-yokobo",
@@ -11,10 +12,9 @@
       "3D・空間あそび",
       "Webあそび"
     ],
-    "status": "draft",
+    "status": "public",
     "pinned": false,
-    "weeklyPickup": false,
-    "archivePickup": false,
+    "logCategory": "開発ログ",
     "tags": [
       "歩けるAIラボ",
       "Fable",
@@ -59,7 +59,8 @@
       }
     ],
     "createdAt": "2026-07-17T00:00:00.000+09:00",
-    "updatedAt": "2026-08-03T07:36:13.7487126+09:00"
+    "publishedAt": "2026-08-02T22:50:03.205Z",
+    "updatedAt": "2026-08-02T22:50:03.205Z"
   },
   {
     "id": "20260710-nyabitto-unreal-engine-failure",
