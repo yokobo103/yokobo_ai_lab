@@ -1,6 +1,18 @@
 [
   {
     "kind": "share",
+    "id": "share-1786250253358",
+    "at": "2026-08-09T04:37:33.358Z",
+    "topic": "pick",
+    "title": "ラボで激しいバトルをしようじゃないか！",
+    "textType": "フック",
+    "media": "images",
+    "imageCount": 2,
+    "linkInReply": true,
+    "hashtags": true
+  },
+  {
+    "kind": "share",
     "id": "share-1786055057126",
     "at": "2026-08-06T22:24:17.126Z",
     "topic": "random",
