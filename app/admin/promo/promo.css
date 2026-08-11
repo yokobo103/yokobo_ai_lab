@@ -399,11 +399,18 @@
 }
 
 .promoTemplateLabel {
-  display: block;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
   margin-bottom: 4px;
   color: var(--pr-ink-soft);
   font-size: 10px;
   letter-spacing: 0.08em;
+}
+
+.promoTemplateRecent {
+  font-style: normal;
+  opacity: 0.75;
 }
 
 .promoTemplate[aria-pressed="true"] {
