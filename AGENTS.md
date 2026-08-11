@@ -39,6 +39,9 @@
 - 記事の `status: draft` とGitHubのDraft PRは別物として扱う。下書き記事をmainへmergeしても、`status` を `public` に変更しない限り公開指示とはみなさない。
 - 「公開して」「`status` を `public` にして」などの明示がない限り、下書き記事を公開状態へ変更しない。
 - merge前に利用可能なCI・Vercel等のチェックを確認する。失敗、競合、保護ルール、判断が必要な差分がある場合は、無理に回避せず停止して報告する。
+- **作業ブランチで `data/` 配下を編集・commitしない。** `data/posts.json`、`data/promo-log.json`、`data/experiences.json` などは公開中のサイト自身がGitHubへ書き込むため、mainが常に新しい。ブランチ側で触るとmerge時に必ず衝突する（2026-08-11に `data/posts.json` で発生）。記事の公開状態を変えたい場合も、ブランチではなく管理画面から行う。
+- ブランチが古くmainのデータと食い違って見えても、**二点間の `git diff main <branch>` を「マージ結果」と読まない。** 実際のmergeは共通祖先を見るので、ブランチが触っていないファイルはmain側が残る。判断するなら `git merge-tree --write-tree main <branch>` で試算する。
+- 長く放置した作業ブランチをmainへ入れる場合は、ブランチをそのままmergeせず、**最新のmainから新しいブランチを作ってコード差分だけを載せ直す**。
 - 「常にforce push」は使用しない。rebaseやamend後など通常pushできない場合に限り、Codex自身が作成した共有されていない作業ブランチへ `--force-with-lease` を使用できる。mainや共有ブランチにはforce pushしない。
 
 ## Project concept
