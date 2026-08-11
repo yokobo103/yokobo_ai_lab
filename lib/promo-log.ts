@@ -17,6 +17,8 @@ export type PromoShare = {
   imageCount: number;
   linkInReply: boolean;
   hashtags: boolean;
+  // 締めに問いかけを足したか。返信が付いた投稿だけが伸びているので、ここは残して見比べる。
+  question: boolean;
 };
 
 // その日の運用の自己申告（リプライ何件したか等）。日付ごとに1件だけ持つ。
@@ -73,6 +75,7 @@ export function normalizeEntry(input: unknown): PromoLogEntry | { message: strin
     imageCount: Number.isFinite(imageCount) ? Math.max(0, Math.min(4, Math.round(imageCount))) : 0,
     linkInReply: value.linkInReply !== false,
     hashtags: value.hashtags === true,
+    question: value.question === true,
   };
 }
 

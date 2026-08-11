@@ -13,6 +13,11 @@ const HASHTAGS_KEY = "promo-hashtags";
 const REPLY_DETAIL_KEY = "promo-reply-detail";
 const MAX_IMAGES = 4;
 const TWEET_LIMIT = 280;
+// 型のかたよりを見る窓。直近これだけの共有をさかのぼって、同じ型が続いていないか数える。
+const RECENT_TYPE_WINDOW = 5;
+// ローテーションに入れない型。避けたいのは同じ型が続くことで、弱い型を掘り起こすことではない。
+// 報告型（「【新記事】〜」）は、これだけ伸びが悪いと分かっているので常に最後に置く。
+const LAST_LABELS = ["報告"];
 
 type Post = {
   id: string;
@@ -28,6 +33,8 @@ type Post = {
 };
 
 type Experience = {
+  // 実験室の並び番号。実験にはIDが無いので、これを選択の目印に使う。
+  archiveNo?: number;
   title: string;
   summary?: string;
   thumbnail?: string;
@@ -54,6 +61,7 @@ type LogEntry = {
   textType?: string;
   media?: "video" | "images" | "none";
   imageCount?: number;
+  question?: boolean;
   replies?: number;
 };
 
@@ -75,9 +83,11 @@ type Preset = {
   savedAt: string;
 };
 
-type Topic = "site" | "latest" | "random" | "pick";
+type Topic = "site" | "latest" | "random" | "pick" | "play";
 
 type Template = { label: string; text: string };
+// 画面に出すときの型。recent = 直近の共有で同じ型を何回使ったか。
+type TemplateCard = Template & { order: number; recent: number };
 
 // リンクは1本とは限らない。ゲームなら「遊ぶ」と「作った話」の2本になる。
 // url は本文に入れるとき用の代表リンク（リプに回すときは links を並べる）。
@@ -98,7 +108,14 @@ const TOPICS: { key: Topic; label: string; note: string }[] = [
   { key: "latest", label: "最新記事", note: "いちばん新しい記事" },
   { key: "random", label: "発掘", note: "過去の記事や遊べるものから1つ" },
   { key: "pick", label: "記事を選ぶ", note: "一覧から自分で選ぶ" },
+  // 実験そのものの宣伝。記事が無い実験もあるので、記事を経由せず主役にできるようにしてある。
+  { key: "play", label: "実験を選ぶ", note: "遊べるものを1つ" },
 ];
+
+// 実験にはIDが無いので、並び番号を選択の目印にする（無ければタイトル）。
+function playKeyOf(experience: Experience): string {
+  return experience.archiveNo != null ? String(experience.archiveNo) : experience.title;
+}
 
 // 候補に出す画像は data/promo-curation.json で選んである（tagが付いているものだけ）。
 // フォルダ名から機械的に決めていた頃は、開発中のスクショや日付入りの古い素材が混ざっていた。
@@ -132,6 +149,7 @@ export default function PromoRoom({ siteUrl, initialPostId = "" }: { siteUrl: st
   const [topic, setTopic] = useState<Topic>("site");
   const [imageTag, setImageTag] = useState("all");
   const [pickedPostId, setPickedPostId] = useState("");
+  const [pickedPlayKey, setPickedPlayKey] = useState("");
   const [discovered, setDiscovered] = useState<Subject | null>(null);
 
   // Xは動画と画像を同じ投稿に入れられないので、どちらか一方だけを選ぶ。
@@ -157,8 +175,13 @@ export default function PromoRoom({ siteUrl, initialPostId = "" }: { siteUrl: st
   // リプに回す文章に、リンクだけでなく詳細も入れる（フック→スレッドの形）。
   const [replyDetail, setReplyDetail] = useState(false);
 
-  const [templateIndex, setTemplateIndex] = useState(0);
+  // どの型から作った文章かを覚えておく。記録に残すのはこの名前（並びは変わるので番号では持てない）。
+  const [templateLabel, setTemplateLabel] = useState("");
   const [text, setText] = useState("");
+  // 締めの問いかけ。伸びた投稿はどれも軽い問いで終わっているので、既定でon。
+  // 本文とは別に持って、共有するときに足す（ハッシュタグと同じ扱い）。
+  const [askQuestion, setAskQuestion] = useState(true);
+  const [questionIndex, setQuestionIndex] = useState(0);
   // 本文にリンクを入れると初速のリーチが落ちると言われているので、既定ではリプに回す。
   const [linkInReply, setLinkInReply] = useState(true);
   const [sharedOnce, setSharedOnce] = useState(false);
@@ -270,6 +293,12 @@ export default function PromoRoom({ siteUrl, initialPostId = "" }: { siteUrl: st
     [posts]
   );
 
+  // 宣伝できる実験。遊べないものと公開前のものは、主役に選べても行き先が無いので外す。
+  const playableExperiences = useMemo(
+    () => experiences.filter((item) => Boolean(item.playUrl) && item.status !== "draft"),
+    [experiences]
+  );
+
   // 管理画面から ?post=<記事ID> で来たときは、その記事を選んだ状態にしておく。
   // 記事が読み込まれるのはログインのあとなので、揃うのを待ってから1回だけ効かせる。
   useEffect(() => {
@@ -333,18 +362,55 @@ export default function PromoRoom({ siteUrl, initialPostId = "" }: { siteUrl: st
       return picked ? postSubject(picked, siteUrl, "選んだ記事", experiences) : null;
     }
 
+    if (topic === "play") {
+      const picked = playableExperiences.find((item) => playKeyOf(item) === pickedPlayKey);
+      return picked ? playSubject(picked, siteUrl, posts) : null;
+    }
+
     return discovered;
-  }, [topic, siteUrl, siteImagePool, sortedPosts, pickedPostId, discovered]);
+  }, [
+    topic,
+    siteUrl,
+    siteImagePool,
+    sortedPosts,
+    pickedPostId,
+    playableExperiences,
+    pickedPlayKey,
+    posts,
+    experiences,
+    discovered,
+  ]);
 
   const templateStats = useMemo(
-    () => ({ posts: posts.length, plays: experiences.length }),
-    [posts.length, experiences.length]
+    // 「遊べるものが◯個」は本文に数字として出るので、実際に遊べるものだけを数える。
+    () => ({ posts: posts.length, plays: playableExperiences.length }),
+    [posts.length, playableExperiences.length]
   );
 
-  const templates = useMemo(
-    () => (subject ? buildTemplates(subject, topic, templateStats) : []),
-    [subject, topic, templateStats]
+  const shareLog = useMemo(() => log.filter((entry) => entry.kind === "share"), [log]);
+
+  // 直近で使った型。ネタを変えても同じ型が続くと、並べたときに同じ投稿に見える。
+  const recentTypes = useMemo(
+    () => shareLog.slice(0, RECENT_TYPE_WINDOW).map((entry) => entry.textType || ""),
+    [shareLog]
   );
+
+  // 直近で使っていない型を上に出す。並べ替えるだけで、消しはしない。
+  const templates = useMemo<TemplateCard[]>(() => {
+    const base = subject ? buildTemplates(subject, topic, templateStats) : [];
+    return base
+      .map((template, order) => ({
+        ...template,
+        order,
+        recent: recentTypes.filter((type) => type === template.label).length,
+      }))
+      .sort(
+        (a, b) =>
+          Number(LAST_LABELS.includes(a.label)) - Number(LAST_LABELS.includes(b.label)) ||
+          a.recent - b.recent ||
+          a.order - b.order
+      );
+  }, [subject, topic, templateStats, recentTypes]);
 
   const rollCandidates = useCallback((pool: string[], keep: string[]) => {
     const rest = pool.filter((path) => !keep.includes(path));
@@ -363,8 +429,8 @@ export default function PromoRoom({ siteUrl, initialPostId = "" }: { siteUrl: st
     }
     setSelected([]);
     setDroppedLinks([]);
-    setTemplateIndex(0);
-    setText(buildTemplates(subject, topic, templateStats)[0]?.text || "");
+    setTemplateLabel(templates[0]?.label || "");
+    setText(templates[0]?.text || "");
     setRawFallback("");
     // subjectKeyが変わったときだけ走らせたいので、subject本体は依存に入れない。
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -464,7 +530,14 @@ export default function PromoRoom({ siteUrl, initialPostId = "" }: { siteUrl: st
       const response = await fetch("/api/promo-presets", {
         method: "POST",
         headers: { "content-type": "application/json", "x-admin-password": authPassword },
-        body: JSON.stringify({ name, topic, postId: topic === "pick" ? pickedPostId : "", images: selected, text }),
+        // postId は「選んだ主役の目印」として使い回す。実験のときは実験の目印が入る。
+        body: JSON.stringify({
+          name,
+          topic,
+          postId: topic === "pick" ? pickedPostId : topic === "play" ? pickedPlayKey : "",
+          images: selected,
+          text,
+        }),
       });
       const body = await response.json();
       if (!response.ok) {
@@ -483,12 +556,15 @@ export default function PromoRoom({ siteUrl, initialPostId = "" }: { siteUrl: st
 
   function loadPreset(preset: Preset) {
     setTopic(preset.topic as Topic);
-    if (preset.postId) setPickedPostId(preset.postId);
+    if (preset.postId) {
+      if (preset.topic === "play") setPickedPlayKey(preset.postId);
+      else setPickedPostId(preset.postId);
+    }
     // ネタを戻すと組み直しの処理が走るので、そのあとに保存内容を上書きする。
     window.setTimeout(() => {
       setSelected(preset.images);
       setText(preset.text);
-      setTemplateIndex(-1);
+      setTemplateLabel("");
     }, 0);
     notify("ok", `「${preset.name}」を読み込みました。`);
   }
@@ -514,7 +590,7 @@ export default function PromoRoom({ siteUrl, initialPostId = "" }: { siteUrl: st
   function discover() {
     const candidatesForDiscovery: Subject[] = [
       ...sortedPosts.map((post) => postSubject(post, siteUrl, "発掘した記事", experiences)),
-      ...experiences.map((item) => playSubject(item, siteUrl, posts)),
+      ...playableExperiences.map((item) => playSubject(item, siteUrl, posts)),
     ];
     const next = pickRandom(candidatesForDiscovery);
     if (next) setDiscovered(next);
@@ -525,6 +601,9 @@ export default function PromoRoom({ siteUrl, initialPostId = "" }: { siteUrl: st
     setMessage("");
     if (next === "random") discover();
     if (next === "pick" && !pickedPostId && sortedPosts[0]) setPickedPostId(sortedPosts[0].id);
+    if (next === "play" && !pickedPlayKey && playableExperiences[0]) {
+      setPickedPlayKey(playKeyOf(playableExperiences[0]));
+    }
   }
 
   function toggleImage(path: string) {
@@ -538,22 +617,26 @@ export default function PromoRoom({ siteUrl, initialPostId = "" }: { siteUrl: st
     });
   }
 
-  function applyTemplate(index: number) {
-    setTemplateIndex(index);
-    setText(templates[index]?.text || "");
+  function applyTemplate(template: TemplateCard) {
+    setTemplateLabel(template.label);
+    setText(template.text);
   }
 
   // 共有に載せるのは、動画モードなら動画1本、そうでなければ選んだ画像。
   const shareFiles = mediaMode === "video" ? (videoFile ? [videoFile] : []) : files;
   const mediaReady = mediaMode === "video" ? videoReady : filesReady;
 
-  const shareLog = useMemo(() => log.filter((entry) => entry.kind === "share"), [log]);
   const todayReplies = useMemo(() => {
     const found = log.find((entry) => entry.kind === "day" && entry.date === today());
     return found?.replies ?? null;
   }, [log]);
 
   const tags = useHashtags ? hashtagsFor(subject).join(" ") : "";
+
+  const questions = useMemo(() => questionsFor(subject, topic), [subject, topic]);
+  const questionLine = questions[questionIndex % (questions.length || 1)] || "";
+  // 「質問」型は文章そのものが問いで終わるので、足すぶんは外す（同じ投稿に問いが2つ並ぶのを防ぐ）。
+  const question = askQuestion && templateLabel !== "質問" ? questionLine : "";
 
   // 使うリンク。既定は全部on。ゲームなら「遊ぶ」と「作った話」の2本になる。
   const activeLinks = useMemo(
@@ -564,7 +647,7 @@ export default function PromoRoom({ siteUrl, initialPostId = "" }: { siteUrl: st
   // リプに回すときは本文にURLを入れない。投稿後に②でコピーして自分の投稿へ返信する。
   // 本文に入れる場合は1本だけ（複数入れるとリーチがさらに落ちると言われている）。
   const bodyLink = !linkInReply ? (activeLinks[0]?.url ?? subject?.url ?? "") : "";
-  const shareBody = [text.trim(), bodyLink, tags].filter(Boolean).join("\n\n");
+  const shareBody = [text.trim(), question, bodyLink, tags].filter(Boolean).join("\n\n");
   const used = tweetWeight(shareBody);
 
   // ②で貼る文章。リンクが2本あるときは行頭に何のリンクかを書く。
@@ -615,11 +698,12 @@ export default function PromoRoom({ siteUrl, initialPostId = "" }: { siteUrl: st
           kind: "share",
           topic,
           title: subject.title,
-          textType: templates[templateIndex]?.label ?? "自作",
+          textType: templateLabel || "自作",
           media: mediaMode === "video" ? (videoFile ? "video" : "none") : selected.length ? "images" : "none",
           imageCount: mediaMode === "video" ? 0 : selected.length,
           linkInReply,
           hashtags: useHashtags,
+          question: Boolean(question),
         }),
       });
       if (response.ok) setLog(await response.json());
@@ -846,6 +930,20 @@ export default function PromoRoom({ siteUrl, initialPostId = "" }: { siteUrl: st
             </select>
           ) : null}
 
+          {topic === "play" ? (
+            <select
+              className="promoSelect"
+              value={pickedPlayKey}
+              onChange={(event) => setPickedPlayKey(event.target.value)}
+            >
+              {playableExperiences.map((item) => (
+                <option key={playKeyOf(item)} value={playKeyOf(item)}>
+                  {item.title}
+                </option>
+              ))}
+            </select>
+          ) : null}
+
           {topic === "random" ? (
             <div className="promoRowActions">
               <button type="button" className="promoGhostButton" onClick={discover}>
@@ -1018,19 +1116,24 @@ export default function PromoRoom({ siteUrl, initialPostId = "" }: { siteUrl: st
             <h2 className="promoStepTitle">文章を決める</h2>
           </div>
           <p className="promoStepNote">
-            1行目で結果を言う「フック」と、意見を求めて終わる「質問」が伸びやすいと言われています。
-            そのまま使っても、直してもかまいません。
+            伸びた投稿はどれも「1行目で言い切る」＋「軽い問いかけで締める」の組み合わせでした。
+            直近{RECENT_TYPE_WINDOW}回で使った型は下に送ってあります。そのまま使っても、直してもかまいません。
           </p>
           <div className="promoTemplates">
-            {templates.map((template, index) => (
+            {templates.map((template) => (
               <button
                 key={template.text}
                 type="button"
                 className="promoTemplate"
-                aria-pressed={templateIndex === index && text === template.text}
-                onClick={() => applyTemplate(index)}
+                aria-pressed={text === template.text}
+                onClick={() => applyTemplate(template)}
               >
-                <span className="promoTemplateLabel">{template.label}</span>
+                <span className="promoTemplateLabel">
+                  {template.label}
+                  {template.recent > 0 ? (
+                    <em className="promoTemplateRecent">直近{template.recent}回使用</em>
+                  ) : null}
+                </span>
                 {template.text}
               </button>
             ))}
@@ -1041,6 +1144,29 @@ export default function PromoRoom({ siteUrl, initialPostId = "" }: { siteUrl: st
             onChange={(event) => setText(event.target.value)}
             placeholder="ここを直せば自由に書けます"
           />
+          <div className="promoTagRow">
+            <button
+              type="button"
+              className="promoTag"
+              aria-pressed={askQuestion}
+              onClick={() => setAskQuestion(!askQuestion)}
+            >
+              問いかけで締める
+            </button>
+            {question ? <span className="promoTagPreview">{question}</span> : null}
+            {question && questions.length > 1 ? (
+              <button
+                type="button"
+                className="promoTag"
+                onClick={() => setQuestionIndex((index) => (index + 1) % questions.length)}
+              >
+                別の問い
+              </button>
+            ) : null}
+            {askQuestion && templateLabel === "質問" ? (
+              <span className="promoTagPreview">この型は文章の中に問いがあるので足しません。</span>
+            ) : null}
+          </div>
           <div className="promoTagRow">
             <button
               type="button"
@@ -1244,7 +1370,10 @@ export default function PromoRoom({ siteUrl, initialPostId = "" }: { siteUrl: st
               {shareLog.slice(0, 8).map((entry) => (
                 <li key={entry.id}>
                   <span className="promoHistoryDate">{formatLogDate(entry.at)}</span>
-                  <span className="promoHistoryType">{entry.textType}</span>
+                  <span className="promoHistoryType">
+                    {entry.textType}
+                    {entry.question ? "＋問い" : ""}
+                  </span>
                   <span className="promoHistoryTitle">{entry.title}</span>
                   <span className="promoHistoryMedia">
                     {entry.media === "video" ? "動画" : entry.media === "images" ? `画像${entry.imageCount}` : "文章のみ"}
@@ -1331,15 +1460,34 @@ function dedupeLinks(links: SubjectLink[]): SubjectLink[] {
 }
 
 function playSubject(experience: Experience, siteUrl: string, posts: Post[]): Subject {
-  const related = posts.find((post) => post.id === experience.relatedPostId && post.status === "public");
-  const pool = [experience.thumbnail, related?.thumbnail, ...(related?.images || [])].filter(
-    (path): path is string => Boolean(path)
-  );
+  // 記事との結び付きは2通りある。実験室側の relatedPostId と、記事側の関連リンク。
+  // postSubject と同じく両方から拾う。片方しか埋まっていない組み合わせがあり、
+  // relatedPostId だけを見ていると「記事が無い実験」に見えてしまう（例: よこぼカート3Dは記事3本）。
+  const playKey = sameUrlKey(experience.playUrl);
+  const related = posts
+    .filter((post) => {
+      if (post.status !== "public") return false;
+      if (experience.relatedPostId && post.id === experience.relatedPostId) return true;
+      if (!playKey) return false;
+      return (post.links || []).some((link) => sameUrlKey(link.url) === playKey);
+    })
+    .sort((a, b) => dateValue(b) - dateValue(a));
+
+  const pool = [
+    experience.thumbnail,
+    ...related.flatMap((post) => [post.thumbnail, ...(post.images || [])]),
+  ].filter((path): path is string => Boolean(path));
 
   // 遊べるものは、まず遊んでもらうのが先。代表リンクも遊ぶページにする。
   const links: SubjectLink[] = [];
   if (experience.playUrl) links.push({ label: "遊ぶ", url: experience.playUrl });
-  if (related) links.push({ label: "作った話", url: `${siteUrl}/read/${related.id}` });
+  for (const post of related) {
+    // 1つの遊べるものに記事が何本もぶら下がることがあるので、そのときはどれか分かるようにする。
+    links.push({
+      label: related.length > 1 ? `作った話:${truncate(post.title, 8)}` : "作った話",
+      url: `${siteUrl}/read/${post.id}`,
+    });
+  }
   if (links.length === 0) links.push({ label: "見る", url: `${siteUrl}/experiments` });
 
   const deduped = dedupeLinks(links);
@@ -1390,15 +1538,9 @@ function buildTemplates(subject: Subject, topic: Topic, stats: { posts: number; 
     ];
   }
 
-  if (subject.kind === "play") {
-    return [
-      { label: "フック", text: `コードを書かずにAIと作ったゲームが、ブラウザでそのまま遊べます。\n${title}` },
-      { label: "フック", text: `インストールなし、開いた瞬間に遊べます。スマホでもどうぞ。\n${title}${body}` },
-      { label: "質問", text: `${title}\n遊べる形にはなったんですが、次に何を足すと面白くなりますか？` },
-      { label: "報告", text: `${title}\nAIと一緒に作りました。よかったら遊んでみてください。` },
-    ];
-  }
-
+  // 発掘は「掘り返した」という切り口が主役なので、遊べるものが当たったときも掘り返しの型を出す。
+  // 順番を逆にすると、発掘で遊べるものを引いたときに「実験を選ぶ」と同じ4本になり、
+  // ネタを変えたのに同じ投稿に見える（掘り返しの型はどこからも出なくなる）。
   if (topic === "random") {
     return [
       { label: "フック", text: `昔の実験を掘り返したら、力尽きた跡が出てきました。\n${title}${body}` },
@@ -1408,12 +1550,49 @@ function buildTemplates(subject: Subject, topic: Topic, stats: { posts: number; 
     ];
   }
 
+  if (subject.kind === "play") {
+    return [
+      { label: "フック", text: `コードを書かずにAIと作ったゲームが、ブラウザでそのまま遊べます。\n${title}` },
+      { label: "フック", text: `インストールなし、開いた瞬間に遊べます。スマホでもどうぞ。\n${title}${body}` },
+      { label: "質問", text: `${title}\n遊べる形にはなったんですが、次に何を足すと面白くなりますか？` },
+      { label: "報告", text: `${title}\nAIと一緒に作りました。よかったら遊んでみてください。` },
+    ];
+  }
+
+  // 記事の要約は、型ごとに扱いを変える。
+  // 全部の型に同じ要約を同じ位置で差し込んでいた頃は、型を分けても
+  // 「同じ話を言い方だけ変えたもの」が4つ並んでいた（要約の1行目が毎回そのまま出だしになる）。
+  //   要約なし = タイトルと自分の言葉だけで立たせる
+  //   要約を後ろ = フックや問いのあとに、説明として置く
+  //   要約が先頭 = 要約が短くて強い記事のときだけ速い
+  // あわせて、1行目がタイトルで始まる型は1つまでにしてある。
   return [
-    { label: "フック", text: `非エンジニアがAIに丸投げしたら、ここまで来ました。\n${title}${body}` },
-    { label: "フック", text: `${title}${body}\n\nうまくいった話より、詰まって直した話のほうが長くなりました。` },
-    { label: "質問", text: `${title}${body}\n\n同じことを試している人いますか？やり方の意見ももらえると嬉しいです。` },
+    { label: "フック", text: `非エンジニアがAIに丸投げしたら、ここまで来ました。\n${title}` },
+    { label: "フック", text: `うまくいった話より、詰まって直した話のほうが長くなりました。\n${title}` },
+    // 対比の型。「高いAIを使わずに手元のPCで」と言い切った回がいちばん伸びた。
+    // サービス名は入れない（すぐ古くなるし、名前を出すと主役がそっちに移る）。
+    { label: "フック", text: `高いAIには頼っていません。手元のPCだけで、ここまで作れるようになりました。\n${title}` },
+    {
+      label: "フック",
+      text: summary ? `${summary}\n\n${title}` : `${title}\n\nAIに任せてみた記録です。`,
+    },
+    // 問いは最後に置く型なので、ここだけタイトル始まりのまま。そのかわり要約は入れない。
+    { label: "質問", text: `${title}\n\n同じことを試している人いますか？やり方の意見ももらえると嬉しいです。` },
     { label: "報告", text: `【新記事】${title}${body}` },
   ];
+}
+
+// 締めに足す問いかけ。返信が付いた投稿だけが伸びているのに、返信はほとんど発生していない。
+// 型のほうを「質問」に切り替えると出だしまで変わってしまうので、締めだけを差し替えられるようにしてある。
+// 先頭はネタに合わせたもの、後ろは何にでも足せるもの。
+function questionsFor(subject: Subject | null, topic: Topic): string[] {
+  const generic = ["すごくないですか？？", "ここ、どう直すともっと良くなると思いますか？"];
+
+  if (!subject) return generic;
+  if (subject.kind === "site") return ["次は何を作らせたら面白いと思いますか？", ...generic];
+  if (topic === "random") return ["続きをやるなら、何から手をつけますか？", ...generic];
+  if (subject.kind === "play") return ["次に何を足すと面白くなりますか？", ...generic];
+  return ["同じことを試している人いますか？", ...generic];
 }
 
 // ネタごとの固定タグ。詰め込むと逆効果と言われているので2〜3個まで。
