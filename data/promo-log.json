@@ -1,6 +1,18 @@
 [
   {
     "kind": "share",
+    "id": "share-1786420214897",
+    "at": "2026-08-11T03:50:14.897Z",
+    "topic": "random",
+    "title": "コロコロニャビット",
+    "textType": "フック",
+    "media": "video",
+    "imageCount": 0,
+    "linkInReply": true,
+    "hashtags": true
+  },
+  {
+    "kind": "share",
     "id": "share-1786250253358",
     "at": "2026-08-09T04:37:33.358Z",
     "topic": "pick",
