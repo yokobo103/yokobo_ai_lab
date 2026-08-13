@@ -1,6 +1,7 @@
 [
   {
     "id": "20260711-sound-pipeline",
+    "logNumber": 33,
     "title": "効果音を20個作って聴き比べる作業がしんどかったので、音を作る装置をこしらえた",
     "summary": "手で注文を書いて20個作り、ひとつずつ聴いて選んでいた。そこを装置にしたら、効果音から環境音、BGMまで広がった。",
     "author": "dr-yokobo",
@@ -11,7 +12,7 @@
       "AIしくみあそび",
       "ゲームあそび"
     ],
-    "status": "draft",
+    "status": "public",
     "pinned": false,
     "logCategory": "開発ログ",
     "tags": [
@@ -45,7 +46,8 @@
       }
     ],
     "createdAt": "2026-07-11T00:00:00.000+09:00",
-    "updatedAt": "2026-08-13T22:46:22.909Z"
+    "publishedAt": "2026-08-13T22:52:48.421Z",
+    "updatedAt": "2026-08-13T22:52:48.421Z"
   },
   {
     "id": "20260720-lazy-chief-support-plan",
