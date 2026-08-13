@@ -63,9 +63,37 @@ function youtubeEmbed(value: string) {
   }
 }
 
+const AUDIO_EXTENSION = /\.(ogg|oga|mp3|wav|m4a|aac|flac)$/i;
+
+function audioEmbedHtml(value: string, label: string) {
+  const safe = safeUrl(value);
+  if (!safe) return "";
+  if (!AUDIO_EXTENSION.test(safe.split(/[?#]/)[0])) return "";
+
+  const caption = label.trim() ? `<figcaption>${escapeHtml(label.trim())}</figcaption>` : "";
+  return [
+    '<figure class="archive-embed archive-embed--audio">',
+    `<audio controls preload="metadata" src="${escapeAttribute(safe)}"></audio>`,
+    caption,
+    "</figure>",
+  ].join("");
+}
+
 function embeddedMediaHtml(line: string) {
   const url = line.trim();
-  if (url !== line || !/^https?:\/\/\S+$/.test(url)) return "";
+  if (url !== line) return "";
+
+  // 単独行の `[ラベル](音声ファイル)` は、キャプション付きプレーヤーにする。
+  const labelled = url.match(/^\[([^\]]*)\]\(([^)\s]+)\)$/);
+  if (labelled) return audioEmbedHtml(labelled[2], labelled[1]);
+
+  // 単独行の音声ファイルは、ラベルなしのプレーヤーにする（/uploads/... のような相対パスも可）。
+  if (url.startsWith("/") || /^https?:\/\/\S+$/.test(url)) {
+    const audio = audioEmbedHtml(url, "");
+    if (audio) return audio;
+  }
+
+  if (!/^https?:\/\/\S+$/.test(url)) return "";
 
   const xUrl = xPostEmbedUrl(url);
   if (xUrl) {
