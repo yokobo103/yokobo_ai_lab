@@ -1,6 +1,19 @@
 [
   {
     "kind": "share",
+    "id": "share-1786668268105",
+    "at": "2026-08-14T00:44:28.105Z",
+    "topic": "pick",
+    "title": "効果音を20個作って聴き比べる作業がしんどかったので、音を作る装置をこしらえた",
+    "textType": "質問",
+    "media": "images",
+    "imageCount": 1,
+    "linkInReply": true,
+    "hashtags": true,
+    "question": false
+  },
+  {
+    "kind": "share",
     "id": "share-1786618968123",
     "at": "2026-08-13T11:02:48.123Z",
     "topic": "site",
