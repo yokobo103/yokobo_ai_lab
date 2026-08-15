@@ -1,6 +1,19 @@
 [
   {
     "kind": "share",
+    "id": "share-1786798111714",
+    "at": "2026-08-15T12:48:31.713Z",
+    "topic": "pick",
+    "title": "ローカルですごい動画生成AIを動かしたら、気づきが山ほど出てきた",
+    "textType": "フック",
+    "media": "images",
+    "imageCount": 3,
+    "linkInReply": true,
+    "hashtags": true,
+    "question": false
+  },
+  {
+    "kind": "share",
     "id": "share-1786695752728",
     "at": "2026-08-14T08:22:32.728Z",
     "topic": "play",
