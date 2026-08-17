@@ -205,6 +205,15 @@
   color: var(--pr-ink);
 }
 
+/* 絵文字そのものを選ぶボタン。字が1つしかないので、指で押せる幅を確保する。 */
+.promoEmojiTag {
+  min-width: 40px;
+  padding: 6px 8px;
+  font-size: 16px;
+  line-height: 1.2;
+  text-align: center;
+}
+
 .promoSelected {
   display: flex;
   flex-wrap: wrap;

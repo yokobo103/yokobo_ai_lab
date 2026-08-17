@@ -19,6 +19,10 @@ export type PromoShare = {
   hashtags: boolean;
   // 締めに問いかけを足したか。返信が付いた投稿だけが伸びているので、ここは残して見比べる。
   question: boolean;
+  // 足した問いそのもの。同じ問いが続かないよう、次に出す順番をここから決める。
+  questionText?: string;
+  // 付けた絵文字。付けなかったときは空。どれを付けた回が伸びたかを後で見比べる。
+  emoji?: string;
 };
 
 // その日の運用の自己申告（リプライ何件したか等）。日付ごとに1件だけ持つ。
@@ -76,6 +80,8 @@ export function normalizeEntry(input: unknown): PromoLogEntry | { message: strin
     linkInReply: value.linkInReply !== false,
     hashtags: value.hashtags === true,
     question: value.question === true,
+    questionText: text(value.questionText, 60),
+    emoji: text(value.emoji, 8),
   };
 }
 

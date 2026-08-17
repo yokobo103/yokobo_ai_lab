@@ -11,10 +11,14 @@ const STORAGE_KEY = "admin-password";
 const LINK_IN_REPLY_KEY = "promo-link-in-reply";
 const HASHTAGS_KEY = "promo-hashtags";
 const REPLY_DETAIL_KEY = "promo-reply-detail";
+const EMOJI_KEY = "promo-emoji";
+const LINK_NOTE_KEY = "promo-link-note";
 const MAX_IMAGES = 4;
 const TWEET_LIMIT = 280;
 // 型のかたよりを見る窓。直近これだけの共有をさかのぼって、同じ型が続いていないか数える。
 const RECENT_TYPE_WINDOW = 5;
+// 問いの窓。型は5種類だが問いはネタごとに9つあるので、同じだけさかのぼっても足りない。
+const RECENT_QUESTION_WINDOW = 12;
 // ローテーションに入れない型。避けたいのは同じ型が続くことで、弱い型を掘り起こすことではない。
 // 報告型（「【新記事】〜」）は、これだけ伸びが悪いと分かっているので常に最後に置く。
 const LAST_LABELS = ["報告"];
@@ -62,6 +66,8 @@ type LogEntry = {
   media?: "video" | "images" | "none";
   imageCount?: number;
   question?: boolean;
+  questionText?: string;
+  emoji?: string;
   replies?: number;
 };
 
@@ -182,6 +188,12 @@ export default function PromoRoom({ siteUrl, initialPostId = "" }: { siteUrl: st
   // 本文とは別に持って、共有するときに足す（ハッシュタグと同じ扱い）。
   const [askQuestion, setAskQuestion] = useState(true);
   const [questionIndex, setQuestionIndex] = useState(0);
+  // 絵文字。実際の投稿でずっと付けているので既定でon。
+  // どれを付けるかはネタに合わせて選ぶが、中身は本文にしか書いていないので手で替えられるようにしてある。
+  const [useEmoji, setUseEmoji] = useState(true);
+  const [emojiPick, setEmojiPick] = useState("");
+  // 「リンクはリプ欄へ⬇️」の1行。リプに回すときだけ意味がある。
+  const [useLinkNote, setUseLinkNote] = useState(true);
   // 本文にリンクを入れると初速のリーチが落ちると言われているので、既定ではリプに回す。
   const [linkInReply, setLinkInReply] = useState(true);
   const [sharedOnce, setSharedOnce] = useState(false);
@@ -277,6 +289,8 @@ export default function PromoRoom({ siteUrl, initialPostId = "" }: { siteUrl: st
     setLinkInReply(window.localStorage.getItem(LINK_IN_REPLY_KEY) !== "off");
     setUseHashtags(window.localStorage.getItem(HASHTAGS_KEY) === "on");
     setReplyDetail(window.localStorage.getItem(REPLY_DETAIL_KEY) === "on");
+    setUseEmoji(window.localStorage.getItem(EMOJI_KEY) !== "off");
+    setUseLinkNote(window.localStorage.getItem(LINK_NOTE_KEY) !== "off");
 
     const stored = window.localStorage.getItem(STORAGE_KEY) || "";
     if (!stored) {
@@ -392,6 +406,12 @@ export default function PromoRoom({ siteUrl, initialPostId = "" }: { siteUrl: st
   // 直近で使った型。ネタを変えても同じ型が続くと、並べたときに同じ投稿に見える。
   const recentTypes = useMemo(
     () => shareLog.slice(0, RECENT_TYPE_WINDOW).map((entry) => entry.textType || ""),
+    [shareLog]
+  );
+
+  // 直近で使った問い。型より数が多いので、さかのぼる窓も広く取る。
+  const recentQuestions = useMemo(
+    () => shareLog.slice(0, RECENT_QUESTION_WINDOW).map((entry) => entry.questionText || ""),
     [shareLog]
   );
 
@@ -633,7 +653,19 @@ export default function PromoRoom({ siteUrl, initialPostId = "" }: { siteUrl: st
 
   const tags = useHashtags ? hashtagsFor(subject).join(" ") : "";
 
-  const questions = useMemo(() => questionsFor(subject, topic), [subject, topic]);
+  // 問いも型と同じで、数を増やしただけでは毎回いちばん上のものが出る。
+  // 直近で使ったものを後ろへ送る（消しはしない。並べ替えるだけ）。
+  const questions = useMemo(() => {
+    const base = questionsFor(subject, topic);
+    return base
+      .map((line, order) => ({
+        line,
+        order,
+        recent: recentQuestions.filter((used) => used === line).length,
+      }))
+      .sort((a, b) => a.recent - b.recent || a.order - b.order)
+      .map((item) => item.line);
+  }, [subject, topic, recentQuestions]);
   const questionLine = questions[questionIndex % (questions.length || 1)] || "";
   // 「質問」型は文章そのものが問いで終わるので、足すぶんは外す（同じ投稿に問いが2つ並ぶのを防ぐ）。
   const question = askQuestion && templateLabel !== "質問" ? questionLine : "";
@@ -647,7 +679,21 @@ export default function PromoRoom({ siteUrl, initialPostId = "" }: { siteUrl: st
   // リプに回すときは本文にURLを入れない。投稿後に②でコピーして自分の投稿へ返信する。
   // 本文に入れる場合は1本だけ（複数入れるとリーチがさらに落ちると言われている）。
   const bodyLink = !linkInReply ? (activeLinks[0]?.url ?? subject?.url ?? "") : "";
-  const shareBody = [text.trim(), question, bodyLink, tags].filter(Boolean).join("\n\n");
+
+  // 絵文字は本文の最後の行の末尾に足す（詳しくは emojiFor / withEmoji のところ）。
+  const emoji = useEmoji ? emojiPick || emojiFor(subject) : "";
+  const bodyText = withEmoji(text.trim(), emoji);
+  // どこに付いたかは本文の枠には出ない（枠の中身は自分で書いたものだけにしてある）ので、
+  // 付いた行をそのまま見せる。開いて確かめなくても分かるようにするため。
+  const emojiLine = emoji
+    ? bodyText.split("\n").reverse().find((line) => line.trimEnd().endsWith(emoji)) || ""
+    : "";
+  // 長い行は頭を落とす。見たいのは末尾（絵文字が付いたところ）なので、truncateとは向きが逆。
+  const emojiPreview = emojiLine.length > 18 ? `…${emojiLine.slice(-18)}` : emojiLine;
+  // リプにリンクを回すときは、本文だけ見た人に行き先が分からない。実際の投稿でも1行取って案内している。
+  const linkNote = linkInReply && useLinkNote ? `リンクはリプ欄へ${emoji ? "⬇️" : ""}` : "";
+
+  const shareBody = [bodyText, question, linkNote, bodyLink, tags].filter(Boolean).join("\n\n");
   const used = tweetWeight(shareBody);
 
   // ②で貼る文章。リンクが2本あるときは行頭に何のリンクかを書く。
@@ -669,6 +715,16 @@ export default function PromoRoom({ siteUrl, initialPostId = "" }: { siteUrl: st
   function toggleHashtags(next: boolean) {
     setUseHashtags(next);
     window.localStorage.setItem(HASHTAGS_KEY, next ? "on" : "off");
+  }
+
+  function toggleEmoji(next: boolean) {
+    setUseEmoji(next);
+    window.localStorage.setItem(EMOJI_KEY, next ? "on" : "off");
+  }
+
+  function toggleLinkNote(next: boolean) {
+    setUseLinkNote(next);
+    window.localStorage.setItem(LINK_NOTE_KEY, next ? "on" : "off");
   }
 
   function toggleReplyDetail(next: boolean) {
@@ -704,6 +760,8 @@ export default function PromoRoom({ siteUrl, initialPostId = "" }: { siteUrl: st
           linkInReply,
           hashtags: useHashtags,
           question: Boolean(question),
+          questionText: question,
+          emoji,
         }),
       });
       if (response.ok) setLog(await response.json());
@@ -1117,7 +1175,7 @@ export default function PromoRoom({ siteUrl, initialPostId = "" }: { siteUrl: st
           </div>
           <p className="promoStepNote">
             伸びた投稿はどれも「1行目で言い切る」＋「軽い問いかけで締める」の組み合わせでした。
-            直近{RECENT_TYPE_WINDOW}回で使った型は下に送ってあります。そのまま使っても、直してもかまいません。
+            直近で使った型と問いは、どちらも後ろに送ってあります。そのまま使っても、直してもかまいません。
           </p>
           <div className="promoTemplates">
             {templates.map((template) => (
@@ -1167,6 +1225,56 @@ export default function PromoRoom({ siteUrl, initialPostId = "" }: { siteUrl: st
               <span className="promoTagPreview">この型は文章の中に問いがあるので足しません。</span>
             ) : null}
           </div>
+          <div className="promoTagRow">
+            <button
+              type="button"
+              className="promoTag"
+              aria-pressed={useEmoji}
+              onClick={() => toggleEmoji(!useEmoji)}
+            >
+              絵文字を付ける
+            </button>
+            {useEmoji ? (
+              <>
+                <button
+                  type="button"
+                  className="promoTag"
+                  aria-pressed={emojiPick === ""}
+                  onClick={() => setEmojiPick("")}
+                >
+                  おまかせ
+                </button>
+                {EMOJI_CHOICES.map((choice) => (
+                  <button
+                    key={choice}
+                    type="button"
+                    className="promoTag promoEmojiTag"
+                    aria-pressed={emojiPick === choice}
+                    aria-label={`絵文字 ${choice}`}
+                    onClick={() => setEmojiPick(choice)}
+                  >
+                    {choice}
+                  </button>
+                ))}
+                <span className="promoTagPreview">
+                  {emojiPreview || "文章を選ぶと、どこに付くか出ます"}
+                </span>
+              </>
+            ) : null}
+          </div>
+          {linkInReply ? (
+            <div className="promoTagRow">
+              <button
+                type="button"
+                className="promoTag"
+                aria-pressed={useLinkNote}
+                onClick={() => toggleLinkNote(!useLinkNote)}
+              >
+                リンクの案内を入れる
+              </button>
+              {useLinkNote ? <span className="promoTagPreview">{linkNote}</span> : null}
+            </div>
+          ) : null}
           <div className="promoTagRow">
             <button
               type="button"
@@ -1585,22 +1693,113 @@ function buildTemplates(subject: Subject, topic: Topic, stats: { posts: number; 
 // 締めに足す問いかけ。返信が付いた投稿だけが伸びているのに、返信はほとんど発生していない。
 // 型のほうを「質問」に切り替えると出だしまで変わってしまうので、締めだけを差し替えられるようにしてある。
 // 先頭はネタに合わせたもの、後ろは何にでも足せるもの。
+//
+// 数を増やしたのは、ネタごとに1つしかなくて毎回同じ問いが出ていたから（2026-08-16）。
+// 考えないと答えられない問いは返ってこないので、どれかに寄せてある。
+//   一言で答えられる  「何秒くらい遊べました？」
+//   二択にする        「難しすぎました？ それともちょうどいいですか？」
+//   相手の話をさせる  「作りかけで止まってるもの、ありませんか？」
 function questionsFor(subject: Subject | null, topic: Topic): string[] {
-  const generic = ["すごくないですか？？", "ここ、どう直すともっと良くなると思いますか？"];
+  const generic = [
+    "すごくないですか？？",
+    "ここ、どう直すともっと良くなると思いますか？",
+    "これ、どう見えますか？",
+    "気になったところ、ありますか？",
+    "AIでこういうの作ってる人、他にいますか？",
+  ];
 
   if (!subject) return generic;
-  if (subject.kind === "site") return ["次は何を作らせたら面白いと思いますか？", ...generic];
-  if (topic === "random") return ["続きをやるなら、何から手をつけますか？", ...generic];
-  if (subject.kind === "play") return ["次に何を足すと面白くなりますか？", ...generic];
-  return ["同じことを試している人いますか？", ...generic];
+
+  if (subject.kind === "site") {
+    return [
+      "次は何を作らせたら面白いと思いますか？",
+      "AIにこれ試して、って注文ありますか？",
+      "どれから見ます？",
+      "AIで何か作ってる人、いま何を作ってますか？",
+      ...generic,
+    ];
+  }
+
+  // 発掘は「止まったまま」が主役なので、続きの話と、相手の作りかけを聞く問いにする。
+  if (topic === "random") {
+    return [
+      "続きをやるなら、何から手をつけますか？",
+      "今のAIなら、どこまでいけると思いますか？",
+      "作りかけで止まってるもの、ありませんか？",
+      "これ、続けるか捨てるか、どっちだと思います？",
+      ...generic,
+    ];
+  }
+
+  if (subject.kind === "play") {
+    return [
+      "次に何を足すと面白くなりますか？",
+      "何秒くらい遊べました？",
+      "難しすぎました？ それともちょうどいいですか？",
+      "スマホだとちゃんと動きましたか？",
+      "タイトルだけで、どんなゲームか伝わりますか？",
+      ...generic,
+    ];
+  }
+
+  return [
+    "同じことを試している人いますか？",
+    "同じところで詰まった人、いませんか？",
+    "もっといいやり方、ありますか？",
+    "この手の話、もっと細かく書いたほうがいいですか？",
+    ...generic,
+  ];
 }
 
-// ネタごとの固定タグ。詰め込むと逆効果と言われているので2〜3個まで。
+// 記事に「遊ぶ」リンクがぶら下がっているなら、その記事はゲームの話。
+// 記事か遊べるものかという入口の違いだけで、読み手から見れば同じネタなのでタグも揃える。
+function isGameSubject(subject: Subject): boolean {
+  if (subject.kind === "play") return true;
+  return subject.links.some((link) => link.label === "遊ぶ" || link.label.startsWith("遊ぶ:"));
+}
+
+// ネタごとの固定タグ。詰め込むと逆効果と言われているので3〜4個まで。
+// #gamedev だけ英語なのは、日本語タグでは届かない海外のゲーム制作クラスタに乗せるため。
 function hashtagsFor(subject: Subject | null): string[] {
   if (!subject) return [];
-  if (subject.kind === "play") return ["#個人開発", "#ゲーム制作", "#AI"];
+  if (subject.kind === "play") return ["#個人開発", "#ゲーム制作", "#gamedev", "#AI"];
   if (subject.kind === "site") return ["#AI", "#個人開発", "#非エンジニア"];
+  if (isGameSubject(subject)) return ["#AI", "#AI開発日誌", "#ゲーム制作", "#gamedev"];
   return ["#AI", "#AI開発日誌"];
+}
+
+// 絵文字の置き方は、実際に投稿しているもの（@yokobo_ai、2026-08-16時点）に合わせてある。
+//   「よこぼのラボファイターズ🔥」「ひとまず結晶の形はこんな感じで落ち着きました💎」
+//   「ようこそ、よこぼのAIラボへ🔬」「楽しさと失敗が詰まったAI実験ログです🐈」
+// 共通しているのは、行頭ではなく行末に置くこと、1投稿に1〜2個までなこと、
+// ハッシュタグの行には付けないこと。導線は「リンクはリプ欄へ⬇️」で1行取っている。
+const EMOJI_CHOICES = ["🔬", "🔥", "💎", "🐈"];
+
+function emojiFor(subject: Subject | null): string {
+  if (!subject) return "🔬";
+  if (subject.kind === "play") return "🔥";
+  if (subject.kind === "site") return "🐈";
+  return "🔬";
+}
+
+const ENDS_WITH_EMOJI = /[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{2B00}-\u{2BFF}\u{FE0F}]$/u;
+
+// 本文の下の行から順に見て、絵文字を足せる行の末尾に付ける。
+// 作品名や言い切りが下の行に来る型ばかりなので、実際の投稿と同じ「題材の直後に1つ」になる。
+// 問いで終わる行は飛ばす（「〜ますか？🔥」は実際の投稿に無い形）。
+// 自分で絵文字を書いたときは重ねない。
+function withEmoji(body: string, emoji: string) {
+  if (!emoji) return body;
+  const lines = body.split("\n");
+  for (let index = lines.length - 1; index >= 0; index -= 1) {
+    const line = lines[index].trimEnd();
+    if (!line) continue;
+    if (ENDS_WITH_EMOJI.test(line)) return body;
+    if (/[？?]$/.test(line)) continue;
+    lines[index] = `${line}${emoji}`;
+    return lines.join("\n");
+  }
+  return body;
 }
 
 function unique(values: string[]) {
@@ -1643,7 +1842,16 @@ function tweetWeight(text: string) {
   const withoutUrls = text.replace(/https?:\/\/\S+/g, "");
   let weight = urls.length * 23;
   for (const character of withoutUrls) {
-    weight += WIDE_CHARACTER.test(character) ? 2 : 1;
+    weight += characterWeight(character);
   }
   return weight;
+}
+
+function characterWeight(character: string) {
+  const code = character.codePointAt(0) ?? 0;
+  // 異体字セレクタとZWJは、それ自体では文字数に効かない（⬇️ は2文字ぶんで1個）。
+  if (code === 0xfe0f || code === 0x200d) return 0;
+  // 絵文字と記号は全角と同じ2で数える。
+  if (code >= 0x1f000 || (code >= 0x2190 && code <= 0x2bff)) return 2;
+  return WIDE_CHARACTER.test(character) ? 2 : 1;
 }
