@@ -1,6 +1,21 @@
 [
   {
     "kind": "share",
+    "id": "share-1787001556944",
+    "at": "2026-08-17T21:19:16.944Z",
+    "topic": "pick",
+    "title": "ローカルですごい動画生成AIを動かしたら、気づきが山ほど出てきた",
+    "textType": "質問",
+    "media": "images",
+    "imageCount": 3,
+    "linkInReply": true,
+    "hashtags": true,
+    "question": false,
+    "questionText": "",
+    "emoji": ""
+  },
+  {
+    "kind": "share",
     "id": "share-1786965285056",
     "at": "2026-08-17T11:14:45.055Z",
     "topic": "latest",
