@@ -1,6 +1,19 @@
 [
   {
     "kind": "share",
+    "id": "share-1786965285056",
+    "at": "2026-08-17T11:14:45.055Z",
+    "topic": "latest",
+    "title": "所長を働かせるのを諦めて装置を作ったら、3週間後に半分死んでいた",
+    "textType": "報告",
+    "media": "images",
+    "imageCount": 1,
+    "linkInReply": true,
+    "hashtags": true,
+    "question": false
+  },
+  {
+    "kind": "share",
     "id": "share-1786866511712",
     "at": "2026-08-16T07:48:31.712Z",
     "topic": "site",
