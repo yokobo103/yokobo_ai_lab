@@ -1,6 +1,21 @@
 [
   {
     "kind": "share",
+    "id": "share-1787354746906",
+    "at": "2026-08-21T23:25:46.905Z",
+    "topic": "latest",
+    "title": "公開4日目のAI作曲モデルを、8GBのノートに載せてBGM製造機を強化した",
+    "textType": "フック",
+    "media": "images",
+    "imageCount": 1,
+    "linkInReply": true,
+    "hashtags": true,
+    "question": true,
+    "questionText": "もっといいやり方、ありますか？",
+    "emoji": ""
+  },
+  {
+    "kind": "share",
     "id": "share-1787091719504",
     "at": "2026-08-18T22:21:59.504Z",
     "topic": "site",
