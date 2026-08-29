@@ -190,5 +190,24 @@
     "addedAt": "2026-05-17",
     "visualVariant": "default",
     "visualDensity": "medium"
+  },
+  {
+    "archiveNo": 10,
+    "title": "よこぼピタゴラ",
+    "category": "game",
+    "summary": "板やドミノを置いて、玉をゴールのカゴまで運ぶ物理パズル。全20コース。",
+    "thumbnail": "/uploads/20260809-pitagoran-prototype/thumbnail.webp",
+    "tags": [
+      "パズル",
+      "物理エンジン",
+      "matter-js",
+      "スマホ対応"
+    ],
+    "playUrl": "https://yokobo103.github.io/yokobo-pitagora/",
+    "localSource": "20260809_ピタゴラン試作",
+    "status": "live",
+    "addedAt": "2026-08-29",
+    "visualVariant": "default",
+    "visualDensity": "medium"
   }
 ]
