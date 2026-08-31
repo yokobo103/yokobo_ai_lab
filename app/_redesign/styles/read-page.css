@@ -566,11 +566,32 @@ body:has(.read-page)::after {
   white-space: nowrap;
 }
 
+.filter-groups {
+  display: grid;
+  gap: 8px;
+  padding: 12px 0 6px;
+}
+
+.filter-group {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.filter-group__label {
+  flex: 0 0 4em;
+  padding-top: 5px;
+  color: var(--ink-soft);
+  font-family: var(--read-mono);
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
 .filter-chips {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  padding: 12px 0 6px;
+  flex: 1;
 }
 
 .filter-chips button {
@@ -1619,10 +1640,23 @@ body:has(.read-page)::after {
     display: block;
   }
 
+  .filter-groups {
+    gap: 10px;
+  }
+
+  .filter-group {
+    display: block;
+  }
+
+  .filter-group__label {
+    display: block;
+    padding-top: 0;
+    padding-bottom: 4px;
+  }
+
   .filter-chips {
     flex-wrap: wrap;
     overflow: visible;
-    padding-bottom: 10px;
   }
 
   .filter-chips button {

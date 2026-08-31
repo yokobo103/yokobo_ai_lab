@@ -6,6 +6,7 @@ export type ResearchLog = {
   date: string;
   status: LogStatus;
   category: LogCategory;
+  author: string;
   title: string;
   excerpt: string;
   tags: string[];

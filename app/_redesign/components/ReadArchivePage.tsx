@@ -2,6 +2,7 @@
 
 import { useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
+import { authorProfiles } from "@/lib/authors";
 import { archiveArticles } from "../data/archiveArticles";
 import type { ArchiveArticle } from "../data/archiveArticles";
 import { getExperimentLaunchHref, getRelatedExperiment, getRelatedExperimentId } from "../data/experimentRelations";
@@ -24,6 +25,7 @@ function articleToResearchLog(article: ArchiveArticle): ResearchLog {
     date: formatLogDate(article.publishedAt || article.createdAt || article.updatedAt),
     status,
     category: article.logCategory ?? "開発ログ",
+    author: article.author,
     title: article.title,
     excerpt: article.summary,
     tags: article.tags.slice(0, 4),
@@ -241,15 +243,21 @@ function LogState({ kind }: LogStateProps) {
 
 function ResearchLogSection() {
   const [activeFilter, setActiveFilter] = useState<LogFilter>("すべて");
+  const [activeAuthorFilter, setActiveAuthorFilter] = useState("すべて");
   const searchParams = useSearchParams();
   const experimentFilter = searchParams.get("experiment");
   const isLoading = false;
   const visibleLogs = useMemo(
-    () => allResearchLogs.filter((log) => activeFilter === "すべて" || log.category === activeFilter),
-    [activeFilter],
+    () =>
+      allResearchLogs.filter(
+        (log) =>
+          (activeFilter === "すべて" || log.category === activeFilter) &&
+          (activeAuthorFilter === "すべて" || log.author === activeAuthorFilter),
+      ),
+    [activeAuthorFilter, activeFilter],
   );
   const displayLogs = experimentFilter
-    ? allResearchLogs.filter((log) => getRelatedExperimentId(log) === experimentFilter)
+    ? visibleLogs.filter((log) => getRelatedExperimentId(log) === experimentFilter)
     : visibleLogs;
 
   return (
@@ -259,18 +267,47 @@ function ResearchLogSection() {
           <h2 id="research-title">研究記録</h2>
           <span>LOG-001 〜 LOG-{String(latestLogNumber).padStart(3, "0")}</span>
         </header>
-        <div className="filter-chips" aria-label="研究記録フィルタ">
-          {logCategories.map((category) => (
-            <button
-              key={category}
-              type="button"
-              className={category === activeFilter ? "is-active" : ""}
-              aria-pressed={category === activeFilter}
-              onClick={() => setActiveFilter(category)}
-            >
-              {category}
-            </button>
-          ))}
+        <div className="filter-groups" aria-label="研究記録フィルタ">
+          <div className="filter-group">
+            <span className="filter-group__label">分類</span>
+            <div className="filter-chips">
+              {logCategories.map((category) => (
+                <button
+                  key={category}
+                  type="button"
+                  className={category === activeFilter ? "is-active" : ""}
+                  aria-pressed={category === activeFilter}
+                  onClick={() => setActiveFilter(category)}
+                >
+                  {category}
+                </button>
+              ))}
+            </div>
+          </div>
+          <div className="filter-group">
+            <span className="filter-group__label">作成者</span>
+            <div className="filter-chips">
+              <button
+                type="button"
+                className={activeAuthorFilter === "すべて" ? "is-active" : ""}
+                aria-pressed={activeAuthorFilter === "すべて"}
+                onClick={() => setActiveAuthorFilter("すべて")}
+              >
+                すべて
+              </button>
+              {authorProfiles.map((profile) => (
+                <button
+                  key={profile.id}
+                  type="button"
+                  className={profile.id === activeAuthorFilter ? "is-active" : ""}
+                  aria-pressed={profile.id === activeAuthorFilter}
+                  onClick={() => setActiveAuthorFilter(profile.id)}
+                >
+                  {profile.name}
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
         <div className="timeline-wrap">
           <img
