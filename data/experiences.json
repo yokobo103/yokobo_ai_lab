@@ -208,6 +208,10 @@
     "status": "live",
     "addedAt": "2026-08-29",
     "visualVariant": "default",
-    "visualDensity": "medium"
+    "visualDensity": "medium",
+    "featured": false,
+    "relatedPostIds": [
+      "20260809-pitagoran-prototype"
+    ]
   }
 ]
