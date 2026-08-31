@@ -1,6 +1,7 @@
 [
   {
     "id": "20260809-pitagoran-prototype",
+    "logNumber": 37,
     "title": "ピタゴラスイッチみたいなゲームを作ったら、5歳の子が勝手にコースを組みはじめた",
     "summary": "ドミノは物理エンジンだけでは倒れ切らないし、ボクの作ったレールは指の5分の1の太さだった。全部直したら、5歳の子が空っぽの盤面から自分でコースを組みはじめた。",
     "author": "nyabitto",
@@ -10,10 +11,9 @@
     "categories": [
       "AIしくみあそび"
     ],
-    "status": "draft",
+    "status": "public",
     "pinned": false,
-    "weeklyPickup": false,
-    "archivePickup": false,
+    "logCategory": "開発ログ",
     "tags": [
       "ゲーム開発",
       "物理エンジン",
@@ -24,7 +24,7 @@
       "チュートリアル",
       "ユーザーテスト"
     ],
-    "thumbnail": "/uploads/20260809-pitagoran-prototype/thumbnail.webp",
+    "thumbnail": "/uploads/20260809-pitagoran-prototype/thumbnail-1e2ea6e7-07b5-49e0-b13e-75926d4729e1.webp",
     "images": [
       "/uploads/20260809-pitagoran-prototype/gallery-1.webp",
       "/uploads/20260809-pitagoran-prototype/gallery-2.webp",
@@ -40,7 +40,8 @@
       }
     ],
     "createdAt": "2026-08-09T00:00:00.000+09:00",
-    "updatedAt": "2026-08-29T08:08:12.419Z"
+    "publishedAt": "2026-08-31T03:24:18.332Z",
+    "updatedAt": "2026-08-31T03:24:18.332Z"
   },
   {
     "id": "20260815-minimax-music3",
