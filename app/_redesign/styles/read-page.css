@@ -1338,6 +1338,30 @@ body:has(.read-page)::after {
   text-align: center;
 }
 
+.archive-embed--video {
+  width: min(100%, 880px);
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(169, 116, 46, 0.07);
+  box-shadow: 0 14px 34px -24px rgba(39, 34, 24, 0.7);
+}
+
+.archive-embed--video video {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  background: #0b0b0b;
+}
+
+.archive-embed--video figcaption {
+  margin-top: 10px;
+  color: var(--ink-soft);
+  font-size: 0.86rem;
+  text-align: center;
+}
+
 .archive-embed--x .twitter-tweet {
   margin-right: auto;
   margin-left: auto;

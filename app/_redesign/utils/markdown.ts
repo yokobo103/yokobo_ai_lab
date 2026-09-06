@@ -79,18 +79,37 @@ function audioEmbedHtml(value: string, label: string) {
   ].join("");
 }
 
+const VIDEO_EXTENSION = /\.(mp4|webm|mov)$/i;
+
+function videoEmbedHtml(value: string, label: string) {
+  const safe = safeUrl(value);
+  if (!safe) return "";
+  if (!VIDEO_EXTENSION.test(safe.split(/[?#]/)[0])) return "";
+
+  const caption = label.trim() ? `<figcaption>${escapeHtml(label.trim())}</figcaption>` : "";
+  return [
+    '<figure class="archive-embed archive-embed--video">',
+    // playsinline が無いと iOS が勝手に全画面へ切り替える。autoplay と muted は付けない。
+    `<video controls playsinline preload="metadata" src="${escapeAttribute(safe)}"></video>`,
+    caption,
+    "</figure>",
+  ].join("");
+}
+
 function embeddedMediaHtml(line: string) {
   const url = line.trim();
   if (url !== line) return "";
 
-  // 単独行の `[ラベル](音声ファイル)` は、キャプション付きプレーヤーにする。
+  // 単独行の `[ラベル](音声・動画ファイル)` は、キャプション付きプレーヤーにする。
   const labelled = url.match(/^\[([^\]]*)\]\(([^)\s]+)\)$/);
-  if (labelled) return audioEmbedHtml(labelled[2], labelled[1]);
+  if (labelled) return audioEmbedHtml(labelled[2], labelled[1]) || videoEmbedHtml(labelled[2], labelled[1]);
 
-  // 単独行の音声ファイルは、ラベルなしのプレーヤーにする（/uploads/... のような相対パスも可）。
+  // 単独行の音声・動画ファイルは、ラベルなしのプレーヤーにする（/uploads/... のような相対パスも可）。
   if (url.startsWith("/") || /^https?:\/\/\S+$/.test(url)) {
     const audio = audioEmbedHtml(url, "");
     if (audio) return audio;
+    const video = videoEmbedHtml(url, "");
+    if (video) return video;
   }
 
   if (!/^https?:\/\/\S+$/.test(url)) return "";
