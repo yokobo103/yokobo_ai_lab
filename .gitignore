@@ -7,3 +7,6 @@ node_modules
 public/design-reference/
 log_gen_agent
 inbox/pic
+
+# TypeScript のインクリメンタルビルドキャッシュ（生成物）
+tsconfig.tsbuildinfo
