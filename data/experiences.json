@@ -18,7 +18,10 @@
     "featured": true,
     "addedAt": "2026-09-02",
     "visualVariant": "earth",
-    "visualDensity": "medium"
+    "visualDensity": "medium",
+    "relatedPostIds": [
+      "20260907-earth-lens"
+    ]
   },
   {
     "archiveNo": 10,
