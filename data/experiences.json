@@ -1,5 +1,26 @@
 [
   {
+    "archiveNo": 12,
+    "title": "DEEP LENS",
+    "category": "prototype",
+    "summary": "地球を回し、地質年代を越えて、生命のいた世界へ旅するインタラクティブ地球儀。",
+    "labThumbnail": "https://yokobo103.github.io/deep_lens/ogp.jpg",
+    "tags": [
+      "Deep Lens",
+      "3D地球儀",
+      "地球生命史",
+      "探索",
+      "GitHub Pages"
+    ],
+    "playUrl": "https://yokobo103.github.io/deep_lens/",
+    "localSource": "20260904_DEEP_LENS",
+    "status": "live",
+    "featured": false,
+    "addedAt": "2026-09-10",
+    "visualVariant": "deep-lens",
+    "visualDensity": "medium"
+  },
+  {
     "archiveNo": 11,
     "title": "EARTH LENS",
     "category": "prototype",
