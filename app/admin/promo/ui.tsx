@@ -42,6 +42,8 @@ type Experience = {
   title: string;
   summary?: string;
   thumbnail?: string;
+  // 実験室で個別に指定したサムネイル。公開カードもこちらを優先する。
+  labThumbnail?: string;
   playUrl?: string;
   relatedPostId?: string;
   status?: string;
@@ -1582,6 +1584,7 @@ function playSubject(experience: Experience, siteUrl: string, posts: Post[]): Su
     .sort((a, b) => dateValue(b) - dateValue(a));
 
   const pool = [
+    experience.labThumbnail,
     experience.thumbnail,
     ...related.flatMap((post) => [post.thumbnail, ...(post.images || [])]),
   ].filter((path): path is string => Boolean(path));
