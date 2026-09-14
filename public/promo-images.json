@@ -190,6 +190,15 @@
       "tag": "character"
     },
     {
+      "path": "/assets/cta-sprites/dr-yokobo-walk-sprite.webp",
+      "group": "assets",
+      "subgroup": "cta-sprites",
+      "width": 512,
+      "height": 128,
+      "bytes": 45772,
+      "tag": ""
+    },
+    {
       "path": "/assets/cta-sprites/play-flask-hover-sprite.webp",
       "group": "assets",
       "subgroup": "cta-sprites",
