@@ -1,6 +1,7 @@
 [
   {
     "id": "20260928-3d-printer-first-weeks",
+    "logNumber": 41,
     "title": "初めての3Dプリンター、初っ端から大変で、ものすごく楽しかった",
     "summary": "66%まで刷ったティラノを、ロード失敗の無限ループで諦めた。冷やして再起動して刷り直したら、手の中で背骨がしなった。",
     "author": "dr-yokobo",
@@ -10,10 +11,9 @@
     "categories": [
       "3D・空間あそび"
     ],
-    "status": "draft",
+    "status": "public",
     "pinned": false,
-    "weeklyPickup": false,
-    "archivePickup": false,
+    "logCategory": "開発ログ",
     "tags": [
       "3Dプリンター",
       "Bambu Lab",
@@ -48,7 +48,8 @@
       }
     ],
     "createdAt": "2026-09-28T00:00:00.000+09:00",
-    "updatedAt": "2026-09-28T03:42:22.302Z"
+    "publishedAt": "2026-09-28T22:10:49.791Z",
+    "updatedAt": "2026-09-28T22:10:49.791Z"
   },
   {
     "id": "20260904-deep-lens",
