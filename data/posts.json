@@ -1,5 +1,56 @@
 [
   {
+    "id": "20260928-3d-printer-first-weeks",
+    "title": "初めての3Dプリンター、初っ端から大変で、ものすごく楽しかった",
+    "summary": "66%まで刷ったティラノを、ロード失敗の無限ループで諦めた。冷やして再起動して刷り直したら、手の中で背骨がしなった。",
+    "author": "dr-yokobo",
+    "experimentResult": "ロード失敗で66%のティラノを一度諦めたが、冷却と再起動で復帰し、関節の動くティラノと組み立て不要の遊星歯車スピナーを刷れた。",
+    "resultStatus": "success",
+    "category": "3D・空間あそび",
+    "categories": [
+      "3D・空間あそび"
+    ],
+    "status": "draft",
+    "pinned": false,
+    "weeklyPickup": false,
+    "archivePickup": false,
+    "tags": [
+      "3Dプリンター",
+      "Bambu Lab",
+      "A1 mini",
+      "MakerWorld",
+      "フィラメント",
+      "ティラノサウルス",
+      "遊星歯車"
+    ],
+    "thumbnail": "/uploads/20260928-3d-printer-first-weeks/thumbnail.webp",
+    "images": [
+      "/uploads/20260928-3d-printer-first-weeks/gallery-1.webp",
+      "/uploads/20260928-3d-printer-first-weeks/gallery-2.webp",
+      "/uploads/20260928-3d-printer-first-weeks/gallery-3.webp",
+      "/uploads/20260928-3d-printer-first-weeks/gallery-4.webp",
+      "/uploads/20260928-3d-printer-first-weeks/gallery-5.webp",
+      "/uploads/20260928-3d-printer-first-weeks/gallery-6.webp",
+      "/uploads/20260928-3d-printer-first-weeks/gallery-7.webp",
+      "/uploads/20260928-3d-printer-first-weeks/gallery-8.webp",
+      "/uploads/20260928-3d-printer-first-weeks/gallery-9.webp",
+      "/uploads/20260928-3d-printer-first-weeks/gallery-10.webp"
+    ],
+    "body": "# 初めての3Dプリンター、初っ端から大変で、ものすごく楽しかった\n\n前回、恐竜にハマった所長のために太古の地球に入れる地球儀を作った（[所長が恐竜にハマったので、太古の地球に入れる地球儀を作った](/read/20260904-deep-lens)）。\n\nその所長が、今度は3Dプリンターを買ってきた。最初に刷ったのは、やはり恐竜だった。\n\n![](/uploads/20260928-3d-printer-first-weeks/gallery-2.webp)\n\nこの1体が立つまでに、一度は完全に止まっている。本稿はその記録である。\n\n---\n\n## 3Dプリンターは、材料を溶かして積む機械\n\n当ラボに来たのは Bambu Lab の A1 mini。約3万円の家庭用3Dプリンターである。\n\n![フィラメント（材料）をチューブで送り込み、先端で溶かして押し出す](/uploads/20260928-3d-printer-first-weeks/gallery-4.webp)\n\n材料は**フィラメント**と呼ばれる樹脂のひもで、糸巻きのように巻いてある。これをチューブで先端まで送り、溶かしながら薄い層として積み重ねていく。\n\nプリンターがフィラメントを先端まで送り届ける作業を**ロード**、抜き取る作業を**アンロード**という。本稿の事件は、ほぼすべてこのロードで起きた。\n\nそして困ったことに、付属の説明書にはロードもアンロードも詳しく書かれていなかった。\n\n---\n\n## 3層目まで進んだのに、何も出ていない\n\n実験を開始した。……と言いたいところだが、所長はまずフィラメントの入れ方が分からなかった。\n\n![](/uploads/20260928-3d-printer-first-weeks/gallery-3.webp)\n\n答えは「最初だけ手で押し込む」。言われた通りにセットし、テスト印刷を開始した。\n\n![](/uploads/20260928-3d-printer-first-weeks/gallery-5.webp)\n\n画面の上では3層目まで進んでいる。プレートの上には何もない。フィラメントがノズルまで届いておらず、プリンターは何も積まずに積んだつもりで進んでいたらしい。\n\nロードボタンを押したら終わり、ではない。先端から樹脂が出てくるのを目で見るまでがロードである、と判明した。\n\n---\n\n## 66%、残り36分で力尽きる\n\n作法を覚え、いよいよティラノサウルスに挑んだ。モデルは PinkyWings さんの「フレキシブルスケルトンティラノサウルス」。関節がつながった状態で刷り上がる。\n\n[フレキシブルスケルトンティラノサウルス（MakerWorld）](https://makerworld.com/models/1634871)\n\n順調だった。66%までは。\n\n![](/uploads/20260928-3d-printer-first-weeks/gallery-6.webp)\n\n付属のお試しフィラメントを使い切った。手持ちの白いフィラメントに差し替えて再開しようとしたが、ロードに失敗する。再試行する。また失敗する。\n\n![](/uploads/20260928-3d-printer-first-weeks/gallery-7.webp)\n\nAIの返答は「今のティラノを救うのは一旦やめよう」。所長は66%のティラノを諦めた。\n\n---\n\n## 冷やして再起動したら、直った\n\nノズルを冷まし、プリンターを再起動した。それだけで復帰した。\n\n![救えなかった66%](/uploads/20260928-3d-printer-first-weeks/gallery-8.webp)\n\n最後まで刷れば全部つながるはずだった骨が、ばらばらのまま残った。なぜ再起動で直ったのかは、いまも分かっていない。\n\n改めて刷り直した。\n\n[刷っている途中の動画（8秒）](/uploads/20260928-3d-printer-first-weeks/09-trex-printing.mp4)\n\n![](/uploads/20260928-3d-printer-first-weeks/gallery-9.webp)\n\nプレートから剥がして持ち上げると、背骨がしなり、脚が動いた。\n\n所長の喜びようは、記録に残すのがためらわれるほどだった。さっきまで「もうどうしようもない」と言っていた人物と同一とは思えない。画面の中のデータが、手の中で動いている。途中で一度諦めたぶん、喜びも大きかったようだ。\n\n---\n\n## 刷ったまま、回る\n\n一度つながると、所長は止まらなかった。次は G-Man Projects さんの「遊星歯車フィンガーフィジェットスピナー」。これも組み立て不要で、刷り上がったらそのまま回る。\n\n[遊星歯車フィンガーフィジェットスピナー（MakerWorld）](https://makerworld.com/models/654785)\n\n![](/uploads/20260928-3d-printer-first-weeks/gallery-10.webp)\n\n所長の報告は「バッチリ回る」。\n\n---\n\n## まだ研究は続く\n\nMakerWorld には刷れるモデルが無数にある。刷るだけでも当分は遊べる。\n\nそれでも所長は、もう次のことを言い始めている。\n\n👨‍⚕️「Dr.よこぼ、これ、自分で作ったモデルも刷れるんだよね」\n\n😺「刷れますね」\n\n👨‍⚕️「……作ってみたいなー」\n\n当ラボには、刷られるのを待っているキャラクターが何体かいる。引き続き研究を継続する。（Dr.よこぼ）\n",
+    "links": [
+      {
+        "label": "フレキシブルスケルトンティラノサウルス（MakerWorld）",
+        "url": "https://makerworld.com/models/1634871"
+      },
+      {
+        "label": "遊星歯車フィンガーフィジェットスピナー（MakerWorld）",
+        "url": "https://makerworld.com/models/654785"
+      }
+    ],
+    "createdAt": "2026-09-28T00:00:00.000+09:00",
+    "updatedAt": "2026-09-28T03:42:22.302Z"
+  },
+  {
     "id": "20260904-deep-lens",
     "logNumber": 40,
     "title": "所長が恐竜にハマったので、太古の地球に入れる地球儀を作った",
