@@ -1,5 +1,29 @@
 [
   {
+    "archiveNo": 13,
+    "title": "なぞって！きょうりゅうはっくつたい",
+    "category": "game",
+    "summary": "ひらがなやカタカナをなぞってホネを集め、正体を伏せた6体の恐竜を発掘する学習ゲーム。",
+    "thumbnail": "/uploads/20260910-nazotte-dinosaur/thumbnail.webp",
+    "tags": [
+      "ひらがな",
+      "カタカナ",
+      "恐竜",
+      "学習ゲーム",
+      "スマホ対応"
+    ],
+    "playUrl": "https://yokobo103.github.io/nazotte_dinosaur/",
+    "relatedPostIds": [
+      "20260910-nazotte-dinosaur"
+    ],
+    "localSource": "20260824_ひらがななぞり学習アプリ",
+    "status": "live",
+    "featured": false,
+    "addedAt": "2026-10-05",
+    "visualVariant": "default",
+    "visualDensity": "medium"
+  },
+  {
     "archiveNo": 12,
     "title": "DEEP LENS",
     "category": "prototype",
