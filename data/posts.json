@@ -1,6 +1,7 @@
 [
   {
     "id": "20260910-nazotte-dinosaur",
+    "logNumber": 43,
     "title": "ひらがなをなぞるアプリを作ったら、5歳の子に「これ、す じゃないよ」と言われた",
     "summary": "「す」を「ナ」みたいに書いても「じょうず！」。5歳の子が、文字を見ていなかった判定を見つけた。",
     "author": "nyabitto",
@@ -10,10 +11,11 @@
     "categories": [
       "AIしくみあそび"
     ],
-    "status": "draft",
+    "status": "public",
     "pinned": false,
     "weeklyPickup": false,
     "archivePickup": false,
+    "logCategory": "開発ログ",
     "tags": [
       "ひらがな",
       "学習アプリ",
@@ -37,7 +39,8 @@
       }
     ],
     "createdAt": "2026-09-10T00:00:00.000+09:00",
-    "updatedAt": "2026-10-04T23:33:05.925Z"
+    "publishedAt": "2026-10-05T00:26:38.662Z",
+    "updatedAt": "2026-10-05T00:26:38.662Z"
   },
   {
     "id": "20261004-3d-printer-nyabitto-propeller",
