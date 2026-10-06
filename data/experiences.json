@@ -1,5 +1,29 @@
 [
   {
+    "archiveNo": 14,
+    "title": "翼竜グライダー",
+    "category": "game",
+    "summary": "左右だけで操る翼竜の滑空ゲーム。上昇気流に乗って、恐竜の歩く平原をどこまで飛べるか。",
+    "labThumbnail": "/uploads/20261006-pterosaur-glider/experiment-ogp.webp",
+    "tags": [
+      "翼竜",
+      "恐竜",
+      "滑空",
+      "ずかん",
+      "スマホ対応"
+    ],
+    "playUrl": "https://yokobo103.github.io/yokobo-pterosaur-glide/",
+    "relatedPostIds": [
+      "20261006-pterosaur-glider"
+    ],
+    "localSource": "20260916_翼竜滑空試作",
+    "status": "live",
+    "featured": false,
+    "addedAt": "2026-10-06",
+    "visualVariant": "default",
+    "visualDensity": "medium"
+  },
+  {
     "archiveNo": 13,
     "title": "なぞって！きょうりゅうはっくつたい",
     "category": "game",
