@@ -18,7 +18,10 @@
     "featured": false,
     "addedAt": "2026-10-06",
     "visualVariant": "default",
-    "visualDensity": "medium"
+    "visualDensity": "medium",
+    "relatedPostIds": [
+      "20261006-pterosaur-glider"
+    ]
   },
   {
     "archiveNo": 13,
