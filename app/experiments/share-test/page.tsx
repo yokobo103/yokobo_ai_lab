@@ -1,12 +1,12 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import { defaultOgpImagePath as IMAGE_PATH } from "@/lib/ogp";
 
 // 宣伝室フェーズ0: スマホのシェア機能でX投稿に画像と文章が渡るかを確かめる試作ページ。
 // docs/2026-07-26_promo-room-plan.md のフェーズ0にあたる。本番の宣伝室では
 // ここで動いた方式をそのまま採用する。
 
-const IMAGE_PATH = "/ogp-default.webp";
 // 動画はGitHubに置かない方針なので、外（R2など）のURLを入れて試す。
 // 一度入れたURLは端末に覚えさせて、次に開いたときは入力しなくていいようにする。
 const VIDEO_URL_KEY = "share-test-video-url";

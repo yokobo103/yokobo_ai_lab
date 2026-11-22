@@ -962,6 +962,15 @@
       "height": 630,
       "bytes": 345160,
       "tag": "sign"
+    },
+    {
+      "path": "/ogp-night-lab-logo.webp",
+      "group": "root",
+      "subgroup": "",
+      "width": 1200,
+      "height": 630,
+      "bytes": 167690,
+      "tag": ""
     }
   ]
 }

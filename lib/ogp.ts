@@ -1,6 +1,6 @@
 import type { Post } from "./schema";
 
-export const defaultOgpImagePath = "/ogp-default.webp";
+export const defaultOgpImagePath = "/ogp-night-lab-logo.webp";
 export const defaultSiteUrl = "https://yokobo-ai-lab.vercel.app";
 
 export function getSiteUrl() {
