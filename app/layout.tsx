@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
+import { defaultOgpImagePath, getAbsoluteUrl, getSiteUrl } from "@/lib/ogp";
 import { GoogleAnalytics, GoogleAnalyticsScripts } from "./google-analytics";
 import "./_redesign/styles/tokens.css";
 import "./_redesign/styles/globals.css";
@@ -10,8 +11,29 @@ import "./_redesign/styles/about-booklet.css";
 import "./_redesign/styles/history-page.css";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(getSiteUrl()),
   title: "よこぼのAIラボ",
   description: "AIと遊び、気づけば自分が変わっていた。画像生成、ゲーム制作、3D、AIツールの実験を気軽に残すラボです。",
+  openGraph: {
+    type: "website",
+    locale: "ja_JP",
+    url: getSiteUrl(),
+    siteName: "よこぼのAIラボ",
+    title: "よこぼのAIラボ",
+    description: "AIと遊び、気づけば自分が変わっていた。画像生成、ゲーム制作、3D、AIツールの実験を気軽に残すラボです。",
+    images: [
+      {
+        url: getAbsoluteUrl(defaultOgpImagePath),
+        alt: "よこぼのAIラボ",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "よこぼのAIラボ",
+    description: "AIと遊び、気づけば自分が変わっていた。画像生成、ゲーム制作、3D、AIツールの実験を気軽に残すラボです。",
+    images: [getAbsoluteUrl(defaultOgpImagePath)],
+  },
   verification: {
     google: "iWUdScaP42kiN-NXU9D-BezDyX3k7MCbVT85Zuws0uM",
   },

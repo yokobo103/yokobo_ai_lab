@@ -1,5 +1,24 @@
 [
   {
+    "archiveNo": 15,
+    "title": "楽しい錠剤づくりゲーム",
+    "category": "game",
+    "summary": "予備混合から最終QCまで全工程を遊んで学ぶ製剤ゲーム。粉のパスポートとトラブル図鑑で失敗の理由がたどれる。",
+    "tags": [
+      "錠剤",
+      "製剤",
+      "教育ゲーム",
+      "ニャビット",
+      "全工程"
+    ],
+    "playUrl": "https://enjoytabletmaking.vercel.app",
+    "status": "live",
+    "featured": false,
+    "addedAt": "2026-11-16",
+    "visualVariant": "default",
+    "visualDensity": "medium"
+  },
+  {
     "archiveNo": 14,
     "title": "翼竜グライダー",
     "category": "game",
