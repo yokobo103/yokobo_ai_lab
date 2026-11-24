@@ -189,8 +189,8 @@ function inlineMarkdown(value: string) {
 }
 
 const dialogueSpeakers = [
-  { name: "ニャビット", image: "/assets/characters/nyabbit-profile.webp" },
-  { name: "Dr.よこぼ", image: "/assets/characters/dr-yokobo-face.webp" },
+  { name: "ニャビット", image: "/assets/characters/nyabbit-dialogue.webp" },
+  { name: "Dr.よこぼ", image: "/assets/characters/dr-yokobo-dialogue.webp" },
 ];
 
 function dialogueHtml(line: string) {
