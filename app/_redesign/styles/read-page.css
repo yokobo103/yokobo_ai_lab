@@ -1202,6 +1202,15 @@ body:has(.read-page)::after {
   padding: 18px;
 }
 
+.archive-author-cards {
+  display: grid;
+  gap: 12px;
+}
+
+.archive-author-cards + .archive-result-card {
+  align-self: start;
+}
+
 .archive-author-card img {
   width: 98px;
   height: 98px;
@@ -1284,6 +1293,39 @@ body:has(.read-page)::after {
 
 .archive-markdown p {
   margin: 0.9em 0;
+}
+
+.archive-dialogue {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin: 1em 0;
+}
+
+.archive-dialogue__avatar {
+  flex: none;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.archive-dialogue__content {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.archive-dialogue__speaker {
+  color: var(--ink, var(--ad-paper-ink));
+  font-size: 0.875rem;
+}
+
+.archive-markdown .archive-dialogue__bubble {
+  margin: 4px 0 0;
+  padding: 8px 14px;
+  border: 1px solid var(--line, var(--ad-line));
+  border-radius: 4px 14px 14px;
+  background: var(--card, rgb(255 255 255 / 55%));
 }
 
 .archive-embed {

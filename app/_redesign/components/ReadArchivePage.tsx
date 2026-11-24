@@ -26,6 +26,7 @@ function articleToResearchLog(article: ArchiveArticle): ResearchLog {
     status,
     category: article.logCategory ?? "開発ログ",
     author: article.author,
+    coAuthor: article.coAuthor,
     title: article.title,
     excerpt: article.summary,
     tags: article.tags.slice(0, 4),
@@ -252,7 +253,7 @@ function ResearchLogSection() {
       allResearchLogs.filter(
         (log) =>
           (activeFilter === "すべて" || log.category === activeFilter) &&
-          (activeAuthorFilter === "すべて" || log.author === activeAuthorFilter),
+          (activeAuthorFilter === "すべて" || log.author === activeAuthorFilter || log.coAuthor === activeAuthorFilter),
       ),
     [activeAuthorFilter, activeFilter],
   );

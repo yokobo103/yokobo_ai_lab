@@ -188,8 +188,35 @@ function inlineMarkdown(value: string) {
   }, html);
 }
 
+const dialogueSpeakers = [
+  { name: "ニャビット", image: "/assets/characters/nyabbit-dialogue.webp" },
+  { name: "Dr.よこぼ", image: "/assets/characters/dr-yokobo-dialogue.webp" },
+];
+
+function dialogueHtml(line: string) {
+  const speaker = dialogueSpeakers.find(({ name }) => line.startsWith(`${name}：`));
+  if (!speaker) return "";
+
+  const message = line.slice(speaker.name.length + 1).trim();
+  if (!message) return "";
+
+  return [
+    '<div class="archive-dialogue">',
+    `<img class="archive-dialogue__avatar" src="${speaker.image}" alt="" width="48" height="48" loading="lazy" />`,
+    '<div class="archive-dialogue__content">',
+    `<strong class="archive-dialogue__speaker">${speaker.name}</strong>`,
+    `<p class="archive-dialogue__bubble">${inlineMarkdown(message)}</p>`,
+    "</div>",
+    "</div>",
+  ].join("");
+}
+
 export function markdownToHtml(markdown: string) {
-  const lines = markdown.trim().split(/\r?\n/);
+  const trimmedStart = markdown.trimStart();
+  const lines = trimmedStart.trimEnd().split(/\r?\n/);
+  const firstLineOffset = markdown.length - trimmedStart.length;
+  // Keep the existing Markdown trim without treating an indented first line as dialogue.
+  const firstLineIndented = firstLineOffset > 0 && markdown[firstLineOffset - 1] !== "\n";
   const html: string[] = [];
   let inList = false;
   let inQuote = false;
@@ -218,7 +245,7 @@ export function markdownToHtml(markdown: string) {
     noteLines = [];
   };
 
-  for (const line of lines) {
+  for (const [index, line] of lines.entries()) {
     if (inNote) {
       if (line.trim() === ":::") {
         closeNote();
@@ -274,6 +301,13 @@ export function markdownToHtml(markdown: string) {
     }
 
     closeQuote();
+
+    const dialogue = index === 0 && firstLineIndented ? "" : dialogueHtml(line);
+    if (dialogue) {
+      closeList();
+      html.push(dialogue);
+      continue;
+    }
 
     const embeddedMedia = embeddedMediaHtml(line);
     if (embeddedMedia) {
