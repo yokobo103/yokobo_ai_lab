@@ -22,6 +22,7 @@ export type Post = {
   title: string;
   summary: string;
   author: AuthorId;
+  coAuthor?: AuthorId | null;
   experimentResult: string;
   resultStatus: ResultStatusId;
   category: Category;

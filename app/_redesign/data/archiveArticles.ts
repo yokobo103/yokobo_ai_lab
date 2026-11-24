@@ -1,4 +1,5 @@
 import posts from "@/data/posts.json";
+import { defaultAuthorId, normalizeCoAuthor, type AuthorId } from "@/lib/authors";
 
 export type ArchiveArticle = {
   id: string;
@@ -6,6 +7,7 @@ export type ArchiveArticle = {
   title: string;
   summary: string;
   author: string;
+  coAuthor?: AuthorId;
   experimentResult: string;
   resultStatus: string;
   category: string;
@@ -30,12 +32,14 @@ type SourcePost = Partial<ArchiveArticle> & {
 };
 
 function normalizeArticle(post: SourcePost): ArchiveArticle {
+  const author = post.author ?? defaultAuthorId;
   return {
     id: post.id ?? "",
     logNumber: post.logNumber ?? 0,
     title: post.title ?? "",
     summary: post.summary ?? "",
-    author: post.author ?? "dr-yokobo",
+    author,
+    coAuthor: normalizeCoAuthor(post.coAuthor, author),
     experimentResult: post.experimentResult ?? "",
     resultStatus: post.resultStatus ?? "researching",
     category: post.category ?? "",

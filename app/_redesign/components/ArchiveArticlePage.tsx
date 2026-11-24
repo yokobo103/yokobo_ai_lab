@@ -1,3 +1,4 @@
+import { getAuthorProfile } from "@/lib/authors";
 import { archiveArticles, getArchiveArticle } from "../data/archiveArticles";
 import type { ArchiveArticle } from "../data/archiveArticles";
 import { routes } from "../data/routes";
@@ -8,7 +9,9 @@ type ArchiveArticlePageProps = {
   slug: string;
 };
 
-const authorProfiles: Record<string, { name: string; role: string; image: string; description: string }> = {
+type ArchiveAuthor = { name: string; role: string; image: string; description: string };
+
+const authorProfiles: Record<string, ArchiveAuthor> = {
   "dr-yokobo": {
     name: "Dr.よこぼ",
     role: "研究ログ担当",
@@ -22,6 +25,11 @@ const authorProfiles: Record<string, { name: string; role: string; image: string
     description: "遊べるもの、気になるもの、転送したくなるものを見つけてきます。",
   },
 };
+
+function getArchiveAuthor(authorId: string): ArchiveAuthor {
+  const profile = getAuthorProfile(authorId);
+  return authorProfiles[authorId] ?? { ...profile, role: profile.title };
+}
 
 function formatDate(value?: string) {
   if (!value) return "";
@@ -92,11 +100,27 @@ function RelatedLinks({ article }: { article: ArchiveArticle }) {
   );
 }
 
+function ArchiveAuthorCard({ author, label }: { author: ArchiveAuthor; label: string }) {
+  return (
+    <aside className="archive-author-card">
+      <img src={author.image} alt="" />
+      <div>
+        <small>{label}</small>
+        <strong>{author.name}</strong>
+        <span>{author.role}</span>
+        <p>{author.description}</p>
+      </div>
+    </aside>
+  );
+}
+
 export function ArchiveArticlePage({ slug }: ArchiveArticlePageProps) {
   const article = getArchiveArticle(slug);
   if (!article) return <ArticleNotFound />;
 
-  const author = authorProfiles[article.author] ?? authorProfiles["dr-yokobo"];
+  const coAuthor = article.coAuthor ? getArchiveAuthor(article.coAuthor) : null;
+  const author = coAuthor ? getArchiveAuthor(article.author) : authorProfiles[article.author] ?? authorProfiles["dr-yokobo"];
+  const authorCard = <ArchiveAuthorCard author={author} label="この記事の担当" />;
   const dateValue = article.publishedAt || article.createdAt || article.updatedAt;
   const formattedDate = formatDate(dateValue);
 
@@ -133,15 +157,12 @@ export function ArchiveArticlePage({ slug }: ArchiveArticlePageProps) {
         ) : null}
 
         <section className="archive-article__info-grid" aria-label="記事情報">
-          <aside className="archive-author-card">
-            <img src={author.image} alt="" />
-            <div>
-              <small>この記事の担当</small>
-              <strong>{author.name}</strong>
-              <span>{author.role}</span>
-              <p>{author.description}</p>
+          {coAuthor ? (
+            <div className="archive-author-cards">
+              {authorCard}
+              <ArchiveAuthorCard author={coAuthor} label="共同担当" />
             </div>
-          </aside>
+          ) : authorCard}
           <aside className="archive-result-card">
             <small>実験結果</small>
             <strong>{statusText(article.resultStatus)}</strong>

@@ -1,6 +1,6 @@
 import { promises as fs } from "fs";
 import path from "path";
-import { defaultAuthorId, inferAuthorIdFromText, normalizeAuthorId } from "./authors";
+import { defaultAuthorId, inferAuthorIdFromText, normalizeAuthorId, normalizeCoAuthor } from "./authors";
 import { isGitHubStorageEnabled, readTextFromGitHub, writeTextToGitHub } from "./github-storage";
 import { inferResultStatusId, normalizeResultStatusId } from "./result-statuses";
 import { categories, researchLogCategories, type Category, type Post, type ResearchLogCategory } from "./schema";
@@ -145,6 +145,9 @@ export function normalizePost(input: Partial<Post>, previous?: Post, nextLogNumb
   const primaryCategory = postCategories[0] ?? "気づき・ログ";
   const body = input.body ?? previous?.body ?? "";
   const author = normalizeAuthorId(input.author) ?? normalizeAuthorId(previous?.author) ?? inferAuthorIdFromText(body) ?? defaultAuthorId;
+  const coAuthor = input.coAuthor === null
+    ? undefined
+    : normalizeCoAuthor(normalizeAuthorId(input.coAuthor) ?? previous?.coAuthor, author);
   const experimentResult =
     input.experimentResult?.trim() ||
     previous?.experimentResult?.trim() ||
@@ -169,6 +172,7 @@ export function normalizePost(input: Partial<Post>, previous?: Post, nextLogNumb
     title: input.title?.trim() || previous?.title || "",
     summary: input.summary?.trim() || "",
     author,
+    ...(coAuthor ? { coAuthor } : {}),
     experimentResult,
     resultStatus,
     category: primaryCategory,

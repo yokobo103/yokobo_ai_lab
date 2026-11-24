@@ -1202,6 +1202,15 @@ body:has(.read-page)::after {
   padding: 18px;
 }
 
+.archive-author-cards {
+  display: grid;
+  gap: 12px;
+}
+
+.archive-author-cards + .archive-result-card {
+  align-self: start;
+}
+
 .archive-author-card img {
   width: 98px;
   height: 98px;

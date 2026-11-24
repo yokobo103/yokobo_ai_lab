@@ -34,6 +34,11 @@ export function normalizeAuthorId(value: unknown): AuthorId | null {
   return authorProfiles.some((profile) => profile.id === value) ? (value as AuthorId) : null;
 }
 
+export function normalizeCoAuthor(value: unknown, author: string): AuthorId | undefined {
+  const coAuthor = normalizeAuthorId(value);
+  return coAuthor && coAuthor !== author ? coAuthor : undefined;
+}
+
 export function getAuthorProfile(authorId: unknown): AuthorProfile {
   return authorProfiles.find((profile) => profile.id === authorId) ?? authorProfiles.find((profile) => profile.id === defaultAuthorId)!;
 }

@@ -2,7 +2,7 @@
 
 /* eslint-disable @next/next/no-img-element */
 import { type MouseEvent, useEffect, useMemo, useRef, useState } from "react";
-import { authorProfiles, defaultAuthorId, getAuthorProfile, type AuthorId } from "@/lib/authors";
+import { authorProfiles, defaultAuthorId, getAuthorProfile, normalizeAuthorId, type AuthorId } from "@/lib/authors";
 import { defaultResultStatusId, getResultStatus, resultStatuses, type ResultStatusId } from "@/lib/result-statuses";
 import { categories, researchLogCategories, type Post, type ResearchLogCategory } from "@/lib/schema";
 import { EmbeddedMarkdown } from "../_redesign/components/EmbeddedMarkdown";
@@ -85,8 +85,9 @@ function postSummary(post: Post) {
   return post.summary || post.body.split("\n").find(Boolean) || "ひとこと未入力";
 }
 
-function postAuthor(post: Post) {
-  return getAuthorProfile(post.author);
+function postAuthorNames(post: Post) {
+  const name = getAuthorProfile(post.author).name;
+  return post.coAuthor ? `${name}・${getAuthorProfile(post.coAuthor).name}` : name;
 }
 
 function postExperimentResult(post: Post) {
@@ -222,7 +223,7 @@ export default function AdminApp({ initialView = "home", initialPostId }: AdminA
     const normalizedQuery = query.trim().toLowerCase();
     return posts
       .filter((post) => {
-        const haystack = [post.title, post.summary, post.body, post.experimentResult, postAuthor(post).name, post.id, ...(post.tags ?? [])].join(" ").toLowerCase();
+        const haystack = [post.title, post.summary, post.body, post.experimentResult, postAuthorNames(post), post.id, ...(post.tags ?? [])].join(" ").toLowerCase();
         const matchesQuery = !normalizedQuery || haystack.includes(normalizedQuery);
         const matchesStatus = statusFilter === "all" || post.status === statusFilter;
         const matchesCategory = categoryFilter === "all" || postCategories(post).includes(categoryFilter as Post["category"]);
@@ -360,6 +361,14 @@ export default function AdminApp({ initialView = "home", initialPostId }: AdminA
 
   function update<K extends keyof Post>(key: K, value: Post[K]) {
     setCurrent((post) => ({ ...post, [key]: value }));
+  }
+
+  function updateAuthor(author: AuthorId) {
+    setCurrent((post) =>
+      author === post.coAuthor
+        ? { ...post, author, coAuthor: post.author }
+        : { ...post, author }
+    );
   }
 
   function startNewPost() {
@@ -915,7 +924,7 @@ export default function AdminApp({ initialView = "home", initialPostId }: AdminA
             <small>{postSummary(post)}</small>
             <span className="metaRow">
               <span className={post.status === "public" ? "miniStatus public" : "miniStatus draft"}>{post.status === "public" ? "公開" : "下書き"}</span>
-              <span>{postAuthor(post).name}</span>
+              <span>{postAuthorNames(post)}</span>
               <span>{postCategories(post).join(" / ") || "未分類"}</span>
               <span>更新: {formatRelative(post.updatedAt)}</span>
             </span>
@@ -1226,7 +1235,7 @@ export default function AdminApp({ initialView = "home", initialPostId }: AdminA
         <p className="archive-article__eyebrow">{postCategories(current).join(" / ")}</p>
         <h2>{postTitle(current)}</h2>
         <div className="previewMeta">
-          <span>担当：{postAuthor(current).name}</span>
+          <span>担当：{postAuthorNames(current)}</span>
           <span>資料室分類：{current.logCategory ?? "開発ログ"}</span>
           <span>Status：{status.label}</span>
         </div>
@@ -1316,8 +1325,14 @@ export default function AdminApp({ initialView = "home", initialPostId }: AdminA
                   <option value="draft">下書き</option>
                   <option value="public">公開済み</option>
                 </select></label>
-                <label>担当<select value={current.author} onChange={(event) => update("author", event.target.value as AuthorId)}>
+                <label>担当<select value={current.author} onChange={(event) => updateAuthor(event.target.value as AuthorId)}>
                   {authorProfiles.map((profile) => (
+                    <option key={profile.id} value={profile.id}>{profile.name}</option>
+                  ))}
+                </select></label>
+                <label>共同担当<select value={current.coAuthor ?? ""} onChange={(event) => update("coAuthor", normalizeAuthorId(event.target.value))}>
+                  <option value="">なし</option>
+                  {authorProfiles.filter((profile) => profile.id !== current.author).map((profile) => (
                     <option key={profile.id} value={profile.id}>{profile.name}</option>
                   ))}
                 </select></label>

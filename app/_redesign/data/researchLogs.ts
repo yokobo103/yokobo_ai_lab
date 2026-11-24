@@ -7,6 +7,7 @@ export type ResearchLog = {
   status: LogStatus;
   category: LogCategory;
   author: string;
+  coAuthor?: string;
   title: string;
   excerpt: string;
   tags: string[];
