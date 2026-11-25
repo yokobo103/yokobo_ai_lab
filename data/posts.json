@@ -1,6 +1,7 @@
 [
   {
     "id": "20261115-nyabit-car",
+    "logNumber": 47,
     "title": "ニャビットカーが人を見て動くまでの15日",
     "summary": "ジャンパ線が何かも知らなかった所長が、15日で実物のロボットカーを組み、画面に映った人の位置に合わせてタイヤが動くところまで確かめた。",
     "author": "dr-yokobo",
@@ -11,10 +12,9 @@
     "categories": [
       "AIしくみあそび"
     ],
-    "status": "draft",
+    "status": "public",
     "pinned": false,
-    "weeklyPickup": false,
-    "archivePickup": false,
+    "logCategory": "開発ログ",
     "tags": [
       "ニャビットカー",
       "ロボットカー",
@@ -23,7 +23,7 @@
       "iPhone 8",
       "Physical AI"
     ],
-    "thumbnail": "/uploads/20261115-nyabit-car/thumbnail.webp",
+    "thumbnail": "/uploads/20261115-nyabit-car/thumbnail-2cb7c68f-bb82-4e5b-921e-f81f5b95fb9a.webp",
     "images": [
       "/uploads/20261115-nyabit-car/gallery-1.webp",
       "/uploads/20261115-nyabit-car/gallery-2.webp",
@@ -37,7 +37,8 @@
       }
     ],
     "createdAt": "2026-11-15T00:00:00.000+09:00",
-    "updatedAt": "2026-11-24T23:02:29.120Z"
+    "publishedAt": "2026-11-25T04:12:48.286Z",
+    "updatedAt": "2026-11-25T04:12:48.286Z"
   },
   {
     "id": "20261006-pterosaur-glider",
